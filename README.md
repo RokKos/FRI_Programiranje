@@ -119,14 +119,14 @@ You can fork this repository. All instructions are [here](https://help.github.co
 3. I will look at the test cases and approve or propose to fix to your test case.
 4. I will pull your pull request to this repository
 
-The other option is to send me e-mail with zipped test cases on e-mail: rokkos@student.uni-lj.si with subject: Test cases for DNxx.
+The other option is to send me e-mail with zipped test cases on e-mail: rk7344@student.uni-lj.si with subject: Test cases for DNxx.
 And I will manualy include them into this repository.
 
 ##<a name="reporting"></a> Reporting bad test cases
 If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. Or you can send me an e-mail with subject DNxx Test case yy.
 
 ##<a name="information"></a> Additional information
-Any addiotional information about git, test cases, running program on test cases etc., you can contact me over Skype: Rok Kos or e-mail: rokkos@student.uni-lj.si.
+Any addiotional information about git, test cases, running program on test cases etc., you can contact me over Skype: Rok Kos or e-mail: rk7344@student.uni-lj.si.
 
 ##<a name="authors"></a> Authors
 
