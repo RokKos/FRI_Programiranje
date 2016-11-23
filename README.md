@@ -2,19 +2,19 @@
 Repository for test cases for programs from homework and sharing programs after homework due date.
 
 ### Table of Contents
-**[Structure of test cases](#structure of test cases)**
-**[Getting test cases](#getting test cases)**  
-**[Installing Git](#installing git)**  
+**[Structure of test cases](#structure)**
+**[Getting test cases](#get)**  
+**[Installing Git](#installing)**  
 **[Testing](#testing)**    
 **[Authors](#authors)**  
 **[License](#license)** 
 
-#Structure of test cases
+##<a name="structure"></a> Structure of test cases
 First 10 test cases are public test cases from task and then follows N custom test.
 They are usually corner cases and huge test that test lower bounds and upper bound of program.
 And in between there are some normal cases so that we can check results by hand.
 
-##Getting test cases
+##<a name="get"></a> Getting test cases
 
 ###Non-git way
 
@@ -30,33 +30,33 @@ If you have some previus folders with test cases and want to download only one(c
 
 ###Using git
 
-If you don't have git installed first look at the section [Installing Git](#installing git).
+If you don't have git installed first look at the section [Installing Git](#installing).
 When you set up your git you can clone this repository to your local computer with this command:
-'''bash
+```bash
 git clone https://github.com/RokKos/FRI_Programiranje.git
-'''
+```
 Then you can go in repository by:
-'''bash
+```bash
 cd FRI_Programiranje/
-'''
+```
 To get new test cases from server run this comand:
-'''bash
+```bash
 git pull origin master
-'''
+```
 And now you can run commands from section  [Testing](#testing).
 
-##Installing Git
+##<a name="installing"></a> Installing Git
 
 ###On Linux
 
 If you’re on Fedora for example, you can use yum:
-'''bash
+```bash
 sudo yum install git-all
-'''
+```
 If you’re on a Debian-based distribution like Ubuntu, try apt-get:
-'''bash
+```bash
 sudo apt-get install git-all
-'''
+```
 
 ###On Windows or Mac
 There is special GUI Tool for this two OS on this link [GitHub Desktop](https://desktop.github.com/ "GitHub Desktop's Homepage").
@@ -65,38 +65,38 @@ There is also documentation for this GUI on this link [GitHub Desktop documentat
 Here are [official instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git "Installing Git") for installing git on each OS 
 
 
-##Testing
+##<a name="testing"></a> Testing
 You can test on all test cases by runnig this comand:
 *On Linux
-'''bash
+```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-'''
+```
 *On Windows
-'''bash
+```bash
 tj DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-'''
+```
 *On Mac
-'''bash
+```bash
 mono tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-'''
+```
 Where xx is number of task and yyyyyyyy your Vpisna number. 
 
 There are also other options like:
 *run only one test case
-'''bash
+```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15
-'''
+```
 *run one range of test cases
-'''bash
+```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15-20
-'''
+```
 This command also work on Windows and Mac.
 
-## Authors
+##<a name="authors"></a> Authors
 
 * **RokKos** - [RokKos](https://github.com/RokKos)
 
-## License
+##<a name="license"></a> License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
