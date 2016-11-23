@@ -3,10 +3,12 @@ Repository for test cases for programs from homework and sharing programs after 
 
 ### Table of Contents
 
-**[Structure of test cases](#structure)**
+**[Structure of test cases](#structure)**  
 **[Getting test cases](#get)**  
 **[Installing Git](#installing)**  
 **[Testing](#testing)**    
+**[Contributing test cases](#contribution)**    
+**[Reporting bad test cases](#reporting)** 
 **[Authors](#authors)**  
 **[License](#license)** 
 
@@ -70,6 +72,7 @@ Here are [official instructions](https://git-scm.com/book/en/v2/Getting-Started-
 
 
 ##<a name="testing"></a> Testing
+(Remark - you don't need git to run your program on test cases)
 You can test on all test cases by runnig this comand:
 
 * On Linux
@@ -97,6 +100,27 @@ There are also other options like:
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15-20
 ```
 This command also work on Windows and Mac.
+
+##<a name="contribution"></a> Contributing test cases
+I will be very glad if someone contributes test cases. They can be even most simple ones, because more test more mistakes can be found.
+Just please try to verify your every test case if this is possible (on big test cases is this almost imposible).
+
+### Format of test case
+Test case should consist from vhodXX.txt and izhodXX.txt, where XX is number of test case. Please check that number of test case doesn't exist.
+
+### Sending test cases
+You can fork this repository all instructions are [here](https://help.github.com/articles/fork-a-repo/ "Fork A Repo"). Then: 
+
+1. Create and commit your test cases to your forked repository
+2. Create pull request to this repository
+3. I will look at the test cases and approve or propose fix to your test case.
+4. I will pull your pull request to this repository
+
+Other options is to send me e-mail with ziped test cases on e-mail: rokkos@student.uni-lj.si with subject: Test cases for DNxx.
+And then I will manualy include them into this repository.
+
+##<a name="reporting"></a> Reporting bad test cases
+If you found test case that has wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of problem. Or you can also send me e-mail with with subject DNxx Test case yy.
 
 ##<a name="authors"></a> Authors
 
