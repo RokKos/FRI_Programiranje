@@ -2,6 +2,7 @@
 Repository for test cases for programs from homework and sharing programs after homework due date.
 
 ### Table of Contents
+
 **[Structure of test cases](#structure)**
 **[Getting test cases](#get)**  
 **[Installing Git](#installing)**  
@@ -21,9 +22,12 @@ And in between there are some normal cases so that we can check results by hand.
 If you are not using git you can get whole repository by clicking clone or download button and then download zip.
 See picture below for explanation.
 ![alt text][downloadZIP]
+
 If you have some previus folders with test cases and want to download only one(current) directory from repository you must:
+
 1. Copy link from current directory
 ![alt text][copyLink]
+
 2. Go to this page [DownGit](https://minhaskamal.github.io/DownGit/#/home "DownGit's Homepage")
 3. Copy link in field
 4. Click download
@@ -67,26 +71,28 @@ Here are [official instructions](https://git-scm.com/book/en/v2/Getting-Started-
 
 ##<a name="testing"></a> Testing
 You can test on all test cases by runnig this comand:
-*On Linux
+
+* On Linux
 ```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
 ```
-*On Windows
+* On Windows
 ```bash
 tj DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
 ```
-*On Mac
+* On Mac
 ```bash
 mono tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
 ```
 Where xx is number of task and yyyyyyyy your Vpisna number. 
 
 There are also other options like:
-*run only one test case
+
+* Run only one test case
 ```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15
 ```
-*run one range of test cases
+* Run one range of test cases
 ```bash
 ./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15-20
 ```
@@ -98,7 +104,7 @@ This command also work on Windows and Mac.
 
 ##<a name="license"></a> License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/RokKos/FRI_Programiranje/blob/master/LICENSE) file for details
 
 
 [downloadZIP]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
