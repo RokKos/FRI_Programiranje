@@ -8,7 +8,8 @@ Repository for test cases for programs from homework and sharing programs after 
 **[Installing Git](#installing)**  
 **[Testing](#testing)**    
 **[Contributing test cases](#contribution)**    
-**[Reporting bad test cases](#reporting)** 
+**[Reporting bad test cases](#reporting)**  
+**[Addition information](#information)**  
 **[Authors](#authors)**  
 **[License](#license)** 
 
@@ -121,6 +122,9 @@ And then I will manualy include them into this repository.
 
 ##<a name="reporting"></a> Reporting bad test cases
 If you found test case that has wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of problem. Or you can also send me e-mail with with subject DNxx Test case yy.
+
+##<a name="information"></a> Addition information
+Any addiotional information about git, test cases, running program on test cases etc. you can contact me over skype: Rok Kos or e-mail: rokkos@student.uni-lj.si 
 
 ##<a name="authors"></a> Authors
 
