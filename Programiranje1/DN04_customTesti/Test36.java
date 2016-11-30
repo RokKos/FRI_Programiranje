@@ -2,7 +2,7 @@
 public class Test36 {
 
     public static void main(String[] args) {
-        preveri(96);
+        preveri(97);
     }
 
     private static void preveri(int modul) {
