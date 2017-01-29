@@ -9,6 +9,9 @@
 \usepackage{amssymb,amsthm}
 \usepackage{enumerate}
 \usepackage{array}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \usepackage[colorlinks=true,
   linkcolor=black, anchorcolor=black, citecolor=black, filecolor=black,
   menucolor=black, runcolor=black, urlcolor=black, pdfencoding=unicode,
@@ -82,6 +85,7 @@
 \newpage
 
 \tableofcontents
+\listoffigures
 
 \newpage
 
@@ -100,6 +104,37 @@
 \section{Delo z besedili}
 	\subsection{String class}
 		\javasource{Besedila/String.java}
+
+\section{Delo z grafiko}
+	\subsection{Pravokotniki}
+		Glej sliko \ref{fig:prav}\\
+		\javasource{Grafika/Pravokotniki.java}
+		\begin{figure}[h]
+	        \includegraphics[width=200pt, keepaspectratio=true]{Pravokotniki.png}
+	        \caption{Pravokotniki}
+	        \label{fig:prav}
+	    \end{figure}
+
+	\subsection{Crte}
+		Glej sliko \ref{fig:crte}\\
+		\javasource{Grafika/Crte.java}
+		\begin{figure}[h]
+	        \includegraphics[width=200pt, keepaspectratio=true]{Crte.png}
+	        \caption{Crte}
+	        \label{fig:crte}
+	    \end{figure}
+
+		\subsection{Ovalne oblke}
+			Glej sliko \ref{fig:oval}\\
+			\javasource{Grafika/Krogi.java}
+			\begin{figure}[h]
+				\includegraphics[width=200pt, keepaspectratio=true]{Krogi.png}
+				\caption{Ovalne oblike}
+				\label{fig:oval}
+			\end{figure}
+		\subsection{Ostalo}
+			\javasource{Grafika/Ostalo.java}
+
 \section{Razredi}
 	\subsection{Primer}
 		\javasource{Razredi/Primer.java}
