@@ -100,3 +100,5 @@ private static class PrimerjajObj implements Comparator<Obj> {
 		return 0;
 	}
 }
+
+boolean jeTegaTipa = obj instanceof Primer;
