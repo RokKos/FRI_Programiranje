@@ -14,7 +14,7 @@ double h = sinh(val);  // cosh, tanh
 // Zaokrozevanje
 double navzgor = Math.ceil(decimalka);
 double navzdol = Math.flor(decimalka);
-long navzdol = Math.round(decimalka);  // vrne celo stevilo(lahko tudi int)
+long zaokrozi = Math.round(decimalka);  // vrne celo stevilo(lahko tudi int)
 
 // Korenjenje
 double kvadratni = Math.sqrt(koren);

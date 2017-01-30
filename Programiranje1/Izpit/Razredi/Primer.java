@@ -20,7 +20,7 @@ public class Primer {
 
 }
 
-public class PodPrimer extends Primer {  // Lahko bi exendali si en class takole : Primer, SeEnPrimer
+public class PodPrimer extends Primer {
 	private int samoOdTega;
 
 	public PodPrimer(int _skrito, int _polaPola, int _samoOdTega) {
@@ -53,7 +53,7 @@ public interface interfacePrimer {
 	public void Metoda();
 }
 
-public class interfacePodPrimer implements interfacePrimer {
+public class interfacePodPrimer implements interfacePrimer { // Lahko bi implementira si en class takole : Primer, SeEnPrimer
 	public void Metoda() {
 		return 0;
 	}

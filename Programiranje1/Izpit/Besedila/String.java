@@ -4,7 +4,7 @@ String s = str1.concat(str2);  // Doda str2 nakoncu str1
 
 // Primerjanje
 boolean enaka = string1.equals(string2);  // NUJNO UPORABLJAJ TO ZA PRIMERJANJE
-int pred = string1.compareTo(string2);  // Vrne -1 ce je str1 pred str2 in 1 obratno, 0 ce sta enaka
+int pred = string1.compareTo(string2);  // Vrne neg. st ce je str1 pred str2 in poz. st. obratno, 0 ce sta enaka
 // compareToIgnoreCase in equalsIgnoreCase je tudi na voljo
 
 // Manipulacija stringov

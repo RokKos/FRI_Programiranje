@@ -22,3 +22,19 @@ Arrays.binarySearch(seznam, kajIscemo);  // Ki nam vrne mesto elementa
 boolean enaka = Arrays.equals(seznam1, seznam2);  // primerja
 // za primerjavo gnezdenih seznamov
 boolean enaka = Arrays.deepEquals(new int[][], new int[][]);
+
+
+// Dinamicni array
+import java.util.ArrayList;
+
+ArrayList<Integer> seznam = new ArrayList<Integer>();
+
+seznam.add(4);
+seznam.add(1,3);  // Da na index 1 integer 3
+seznam.remove(4);  // Odstrani specificen element
+seznam.remove(0);  // Odstrani na specificnem indeksu
+int pos = seznam.indexOf(3);  // Dobi pozicijo
+seznam.set(0, 1);  // Nastavi element na poziciji 0 na 1
+int dobi = seznam.get(2);  // Dobi elemnt na 2 poziciji
+int s = seznam.size();
+boolean vsebuje = seznam.contains(3);
