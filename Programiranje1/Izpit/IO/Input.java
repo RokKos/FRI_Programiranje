@@ -12,7 +12,7 @@ while(in.hasNextInt()){
 	int a = in.nextInt();
 }
 // Namesto hasNextInt bi lahko bilo tudi:
-// -hasNext()
+// -hasNext(), ne dela vedno, mislim da bere tudi \n new line znake, raje ne uporabljati
 // -hasNextDouble()
 // -hasNextLong
 // -hasNextLine
