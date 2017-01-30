@@ -58,7 +58,8 @@ public interface interfacePrimer {
 	public void Metoda();
 }
 
-public class interfacePodPrimer implements interfacePrimer { // Lahko bi implementira si en class takole : Primer, SeEnPrimer
+public class interfacePodPrimer implements interfacePrimer { 	// Lahko bi implementiral se en interface takole : Primer, SeEnPrimer
+								// JAVA NE podpira extendanja 2 classov; npr. Ovca extends Zival, Organizem
 	public void Metoda() {
 		return 0;
 	}
