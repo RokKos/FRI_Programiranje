@@ -1,7 +1,7 @@
 double pi = Math.PI;  // Math.E
 double a = abs(a);  // Tudi za int, long in float
-double naj = Math.max(int, int)  // lahko tudi double, float in long
-double naj = Math.min(int, int)  // lahko tudi double, float in long
+double max = Math.max(int, int)  // lahko tudi double, float in long
+double min = Math.min(int, int)  // lahko tudi double, float in long
 
 // Trigonometricne funkcije
 double kot = asin(val) / Math.PI * 180;  // acos, atan vrne vrednost v PI radianih
@@ -14,7 +14,7 @@ double h = sinh(val);  // cosh, tanh
 // Zaokrozevanje
 double navzgor = Math.ceil(decimalka);
 double navzdol = Math.flor(decimalka);
-long zaokrozi = Math.round(decimalka);  // vrne celo stevilo(lahko tudi int)
+long zaokrozi = Math.round(decimalka);  // vrne celo stevilo(lahko tudi int), 2.5 bo 3, 2.4 bo 2
 
 // Korenjenje
 double kvadratni = Math.sqrt(koren);
@@ -26,4 +26,4 @@ double eNaEks = Math.exp(naDecimalko);
 double obratno = Math.log(naravni);  // lahko tudi z desetisko osnovo (log10(a))
 
 // Random
-double r = Math.random()  // vrne od 0.0 do 1.0
+double r = Math.random();  // vrne od 0.0 do 1.0
