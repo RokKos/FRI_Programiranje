@@ -13,9 +13,10 @@ public class Primer {
 		this.skrito = _skrito;
 		this.polaPola = _polaPola;
 	}
-
-	private int Metoda () {
-		return 0;
+	
+	protected int Metoda(){		// da lahko funkcijo Metoda klicemo  iz podrazredov mora biti VSAJ protected
+		return 0;		// po stopnjah dostopnosti private<default<protected<public
+					// vec info na https://www.tutorialspoint.com/java/java_access_modifiers.htm
 	}
 
 }
