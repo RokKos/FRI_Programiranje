@@ -44,6 +44,10 @@ public abstract class AbstraktenPrimer {
 	// Ce imamo abstrakno metodo hocemo, da imajo vsi, ki se dedujejo iz tega to metodo
 	// ampak jo vsak po svoje implementira
 	public abstract int Metoda();
+	
+	public int get1(){	// abstrakten class ima lahko tudi navadne metode in spremenljivke, razlika med abstract class in interface
+		return 1;
+	}
 }
 
 public interface interfacePrimer {
@@ -103,3 +107,4 @@ private static class PrimerjajObj implements Comparator<Obj> {
 }
 
 boolean jeTegaTipa = obj instanceof Primer;
+//pomembno pri dedovanju je, da ce imamo class Macek extends Animal, potem: Macek a = new Macek(); a instanceof Animal == true
