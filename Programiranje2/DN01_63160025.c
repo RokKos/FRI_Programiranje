@@ -1,6 +1,15 @@
 # include <stdio.h>
 # include <math.h>
 
+int vrniDolzino (long long st) {
+	int d = 0;
+	while (st > 0) {
+		st /= 10;
+		d++;
+	}
+	return d;
+}
+
 long long potenca (long long p, long long k) {
 	long long rezultat = 1;
 	while (k > 0){
@@ -26,7 +35,7 @@ long long potenca (long long p, long long k) {
 
 long long dobiPrvihNMest (long long stevilka, int mesta, int kje) {
 	
-	int dolzina = log10(stevilka) + 1;
+	int dolzina = vrniDolzino(stevilka);
 	// Koliko mest
 	long long desetMesta = potenca(10, dolzina - mesta - kje);
 	// Od kje zacnemo
@@ -41,8 +50,7 @@ int main () {
 	int kjeMesta = 0, kjeOsnova = 0;
 	
 	scanf("%lld%lld", &osnova, &mesta);
-	// Trik pri log10(mesta + 1), ker je rezultat za 1 enak 0
-	while (kjeMesta < log10(mesta+1)) {
+	while (kjeMesta < vrniDolzino(mesta)) {
 		int kolikoIzpisi = dobiPrvihNMest(mesta, 1, kjeMesta);
 	
 		printf("%lld\n", dobiPrvihNMest(osnova, kolikoIzpisi, kjeOsnova)); 
