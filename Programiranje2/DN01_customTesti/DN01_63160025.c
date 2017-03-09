@@ -24,29 +24,30 @@ long long potenca (long long p, long long k) {
 	return rezultat;
 }
 
-long long dobiPrvihNMest (long long *stevilka, int mesta) {
+long long dobiPrvihNMest (long long stevilka, int mesta, int kje) {
 	
-	int dolzina = log10(*stevilka) + 1;
-	//printf("%d dol\n", dolzina);
-	long long desetMesta = potenca(10, dolzina - mesta);
-	long long ostanek = *stevilka % desetMesta;
-	long long vrni = *stevilka / desetMesta;
-	//printf("Mesta: %lld ostanek: %lld vrni: %lld\n", desetMesta, ostanek, vrni);
-	*stevilka = ostanek;
+	int dolzina = log10(stevilka) + 1;
+	// Koliko mest
+	long long desetMesta = potenca(10, dolzina - mesta - kje);
+	// Od kje zacnemo
+	long long desetKje = potenca(10, dolzina - kje);
+	// Najprej poreze do prave velikosti v desno potem pa se v levo
+	long long vrni = (stevilka % desetKje) / desetMesta;
 	return vrni;
 }
 
 int main () {
 	long long osnova, mesta;
-	//printf("%lld\n", potenca(10, 2));
+	int kjeMesta = 0, kjeOsnova = 0;
+	
 	scanf("%lld%lld", &osnova, &mesta);
-	//printf("%lld | %lld\n", osnova, mesta);
-
-	while (mesta > 0) {
-		int kolikoIzpisi = dobiPrvihNMest(&mesta, 1);
-		printf("%lld %d m\n", mesta, kolikoIzpisi);
-		printf("%lld\n", dobiPrvihNMest(&osnova, kolikoIzpisi)); 
-		
+	// Trik pri log10(mesta + 1), ker je rezultat za 1 enak 0
+	while (kjeMesta < log10(mesta+1)) {
+		int kolikoIzpisi = dobiPrvihNMest(mesta, 1, kjeMesta);
+	
+		printf("%lld\n", dobiPrvihNMest(osnova, kolikoIzpisi, kjeOsnova)); 
+		kjeOsnova += kolikoIzpisi;
+		kjeMesta++;
 	}
 
 	return 0;
