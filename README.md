@@ -20,7 +20,7 @@ And in between there are some normal cases to check results by hand.
 
 ## <a name="get"></a> Getting test cases
 
-###Non-git way
+### Non-git way
 
 If you are not using git you can get whole repository by clicking clone or download button and then download zip.
 See picture below for explanation.
@@ -37,7 +37,7 @@ If you have some previuos folders with test cases and want to download only one 
 3. Copy link in the field
 4. Click download
 
-###Using git
+### Using git
 
 If you don't have git installed first look at the section [Installing Git](#installing).
 When you set up your git you can clone this repository to your local computer with this command:
@@ -56,7 +56,7 @@ And now you can run commands from section  [Testing](#testing).
 
 ## <a name="installing"></a> Installing Git
 
-###On Linux
+### On Linux
 
 If you’re on Fedora for example, you can use yum:
 ```bash
@@ -80,34 +80,9 @@ There is also a documentation for this GUI on this link [GitHub Desktop document
 
 
 ## <a name="testing"></a> Testing
-(Remark - you don't need git to run your programs on test cases)
-You can test on all test cases by running this comand:
-
-* On Linux
-```bash
-./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-```
-* On Windows
-```bash
-tj DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-```
-* On Mac
-```bash
-mono tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/
-```
-Where xx is number of task and yyyyyyyy your registration number (vpisna številka). 
-
-There are also other options like:
-
-* Run only one test case
-```bash
-./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15
-```
-* Run one range of test cases
-```bash
-./tj.exe DNxx_yyyyyyyy.java DNxx_customTesti/ rezultati/ -p 15-20
-```
-This commands also work on Windows and Mac.
+You can found all instruction for:
+* `Java` testing (Programiranje1): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje1/README.md "Java testing").
+* `C` testing (Programiranje2): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje2/README.md "C testing").
 
 ## <a name="contribution"></a> Contributing test cases
 I will be very glad if someone contributed test cases. They can even be the most simple ones, because with more tests more mistakes can be found.
