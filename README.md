@@ -13,12 +13,12 @@ Repository for test cases for homework programming tasks.
 **[Authors](#authors)**  
 **[License](#license)** 
 
-##<a name="structure"></a> Structure of test cases
+## <a name="structure"></a> Structure of test cases
 First 10 test cases are public and taken from a task and then N custom tests.
 Usually they are corner cases and huge tests that test lower and upper bound of program.
 And in between there are some normal cases to check results by hand.
 
-##<a name="get"></a> Getting test cases
+## <a name="get"></a> Getting test cases
 
 ###Non-git way
 
@@ -54,7 +54,7 @@ git pull origin master
 ```
 And now you can run commands from section  [Testing](#testing).
 
-##<a name="installing"></a> Installing Git
+## <a name="installing"></a> Installing Git
 
 ###On Linux
 
@@ -67,14 +67,19 @@ If you’re on a Debian-based distribution like Ubuntu, try apt-get:
 sudo apt-get install git-all
 ```
 
+If you’re on a Arch-based distribution like Manjaro, try pacman:
+```bash
+sudo pacman -S git
+```
+
 ###On Windows or Mac
 There is special GUI Tool for these two on this link [GitHub Desktop](https://desktop.github.com/ "GitHub Desktop's Homepage").
 There is also a documentation for this GUI on this link [GitHub Desktop documentation](https://help.github.com/desktop/ "GitHub Desktop's Documentation")
 
-[official instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git "Installing Git") for installing git on each OS 
+[Official instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git "Installing Git") for installing git on each OS 
 
 
-##<a name="testing"></a> Testing
+## <a name="testing"></a> Testing
 (Remark - you don't need git to run your programs on test cases)
 You can test on all test cases by running this comand:
 
@@ -104,7 +109,7 @@ There are also other options like:
 ```
 This commands also work on Windows and Mac.
 
-##<a name="contribution"></a> Contributing test cases
+## <a name="contribution"></a> Contributing test cases
 I will be very glad if someone contributed test cases. They can even be the most simple ones, because with more tests more mistakes can be found.
 Please try to verify your every test case if that's a possibility (on big test cases this is almost impossible).
 
@@ -122,17 +127,17 @@ You can fork this repository. All instructions are [here](https://help.github.co
 The other option is to send me e-mail with zipped test cases on e-mail: rk7344@student.uni-lj.si with subject: Test cases for DNxx.
 And I will manualy include them into this repository.
 
-##<a name="reporting"></a> Reporting bad test cases
+## <a name="reporting"></a> Reporting bad test cases
 If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. Or you can send me an e-mail with subject DNxx Test case yy.
 
-##<a name="information"></a> Additional information
+## <a name="information"></a> Additional information
 Any addiotional information about git, test cases, running program on test cases etc., you can contact me over Skype: Rok Kos or e-mail: rk7344@student.uni-lj.si.
 
-##<a name="authors"></a> Authors
+## <a name="authors"></a> Authors
 
 * **RokKos** - [RokKos](https://github.com/RokKos)
 
-##<a name="license"></a> License
+## <a name="license"></a> License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/RokKos/FRI_Programiranje/blob/master/LICENSE) file for details.
 
