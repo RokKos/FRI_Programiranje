@@ -11,7 +11,7 @@ branches:
   - master
 
 before_script:
-  - cd Programiraje2
+  - cd Programiranje2
 
 script: ./run_all_test.sh
 

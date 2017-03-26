@@ -48,10 +48,6 @@ void pohodiPolje() {
 
 		if (vsi[i].c.x == kaca[zacetek].x && vsi[i].c.y == kaca[zacetek].y) {
 			switch (vsi[i].id) {
-				case 1:
-					kacaDebela++;
-					break;
-
 				case 2:
 					obrni (1);
 					break;
@@ -60,6 +56,12 @@ void pohodiPolje() {
 					obrni (-1);
 					break;
 			} 
+
+		}
+
+		if (vsi[i].c.x == kaca[zacetek - 1].x && vsi[i].c.y == kaca[zacetek - 1].y &&
+			vsi[i].id == 1) {
+			kacaDebela++;
 
 		}
 
@@ -131,7 +133,7 @@ void preveri() {
 		//printf("%d %d\n", kaca[i].x, kaca[i].y);
 		if (kaca[i].x == kaca[zacetek].x && kaca[i].y == kaca[zacetek].y) {
 			koncaj = 1;
-			kacaDebela = -1; // Tako pise v navodilih da more to izpisat 
+			kacaDebela = 0; // Tako pise v navodilih da more to izpisat 
 		}
 
 	}
@@ -146,11 +148,11 @@ void premik(){
 	kaca[zacetek + 1].y = kaca[zacetek].y + smeri[gledanjeKace].y;
 	zacetek++;
 
-	preveri();
-
 	//printf("x: %d y: %d dx: %d dy: %d \n", kacaCord.x, kacaCord.y, smeri[gledanjeKace].x, smeri[gledanjeKace].y);
 
 	pohodiPolje();
+
+	preveri();
 	//izpisi(kacaDebela);
 	//premakniRep();
 
@@ -173,7 +175,7 @@ int main () {
 		vsi[i].c.y = y;
 		vsi[i].id = id;
 	}
-	//izirsi_polje(-25, 25, -25, 25);
+	//izirsi_polje(-10, 10, -10, 10);
 	scanf("%d", &koraki);
 
 	kaca[0].x = 0;	
