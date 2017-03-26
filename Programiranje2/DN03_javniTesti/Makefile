@@ -29,6 +29,7 @@ test : ${name}
 		result=$$?; \
 		if [[ $$result == ${TIMEOUT_SIGNAL} ]]; then \
 			echo -e "test$$i -- ${TIMEOUT_STRING}"; \
+			exit 2;\
 		else \
 			diff --ignore-trailing-space test$$i.res test$$i.out > test$$i.diff; \
 			result=$$?; \
@@ -37,10 +38,11 @@ test : ${name}
 				nOk=$$((nOk + 1)); \
 			else \
 				echo -e "test$$i -- ${FAILED_STRING}"; \
+				exit 1;\
 			fi \
 		fi \
 	done; \
-	echo "Result: $$nOk / $$nTests"
+	echo "Result: $$nOk / $$nTests";
 
 clean :
 	rm -fr ${name} test*.res test*.diff

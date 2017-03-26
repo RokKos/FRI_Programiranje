@@ -126,9 +126,9 @@ void izirsi_polje(int levo, int desno, int zgoraj, int spodaj) {
 }
 
 void preveri() {
-	printf("Zacetek: %d %d\n", kaca[zacetek].x, kaca[zacetek].y);
+	//printf("Zacetek: %d %d\n", kaca[zacetek].x, kaca[zacetek].y);
 	for (int i = zacetek - kacaDebela + 1; i < zacetek; ++i) {
-		printf("%d %d\n", kaca[i].x, kaca[i].y);
+		//printf("%d %d\n", kaca[i].x, kaca[i].y);
 		if (kaca[i].x == kaca[zacetek].x && kaca[i].y == kaca[zacetek].y) {
 			koncaj = 1;
 			kacaDebela = -1; // Tako pise v navodilih da more to izpisat 
@@ -173,7 +173,7 @@ int main () {
 		vsi[i].c.y = y;
 		vsi[i].id = id;
 	}
-	izirsi_polje(-25, 25, -25, 25);
+	//izirsi_polje(-25, 25, -25, 25);
 	scanf("%d", &koraki);
 
 	kaca[0].x = 0;	
