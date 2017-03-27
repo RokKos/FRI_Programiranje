@@ -1,4 +1,8 @@
 # FRI_Programiranje
+[![Travis CI logo][travis-image]][travis-link]
+
+[![Build Status][travis-badge]][travis-link]
+[![MIT License][license-badge]](LICENSE.md)
 Repository for test cases for homework programming tasks.
 
 ### Table of Contents
@@ -103,7 +107,7 @@ The other option is to send me e-mail with zipped test cases on e-mail: rk7344@s
 And I will manualy include them into this repository.
 
 ## <a name="reporting"></a> Reporting bad test cases
-If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. The [template](https://github.com/RokKos/FRI_Programiranje/blob/master/.github/ISSUE_TEMPLATE.md will tell you how the issue should be structured.
+If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. The [template](https://github.com/RokKos/FRI_Programiranje/blob/master/.github/ISSUE_TEMPLATE.md "Issue template") will tell you how the issue should be structured.
 Or you can send me an e-mail with subject DNxx Test case yy.
 
 ## <a name="information"></a> Additional information
@@ -118,6 +122,9 @@ Any addiotional information about git, test cases, running program on test cases
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/RokKos/FRI_Programiranje/blob/master/LICENSE) file for details.
 
 
-[downloadZIP]: https://github.com/RokKos/FRI_Programiranje/blob/master/images/CloneDownload.png "Clone/Download"
-[copyLink]: https://github.com/RokKos/FRI_Programiranje/blob/master/images/LinkDownload.png "Link"
+[downloadZIP]:	   https://github.com/RokKos/FRI_Programiranje/blob/master/images/CloneDownload.png "Clone/Download"
+[copyLink]:		   https://github.com/RokKos/FRI_Programiranje/blob/master/images/LinkDownload.png "Link"
+[travis-badge]:    https://travis-ci.org/RokKos/FRI_Programiranje/.svg?branch=master "travis-badge"
+[travis-link]:     https://travis-ci.org/RokKos/FRI_Programiranje/
+[travis-image]:    https://github.com/RokKos/classes-c-/blob/master/images/TravisCI.png "travis-image"
 
