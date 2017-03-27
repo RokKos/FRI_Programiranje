@@ -124,7 +124,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 [downloadZIP]:	   https://github.com/RokKos/FRI_Programiranje/blob/master/images/CloneDownload.png "Clone/Download"
 [copyLink]:		   https://github.com/RokKos/FRI_Programiranje/blob/master/images/LinkDownload.png "Link"
-[travis-badge]:    https://travis-ci.org/RokKos/FRI_Programiranje/.svg?branch=master "travis-badge"
+[travis-badge]:    https://travis-ci.org/RokKos/FRI_Programiranje.svg?branch=master "travis-badge"
 [travis-link]:     https://travis-ci.org/RokKos/FRI_Programiranje/
-[travis-image]:    https://github.com/RokKos/classes-c-/blob/master/images/TravisCI.png "travis-image"
-
+[travis-image]:    https://github.com/RokKos/FRI_Programiranje/blob/master/images/TravisCI.png "travis-image"
+[license-badge]:   https://img.shields.io/badge/license-MIT-007EC7.svg "MIT Lincense"
