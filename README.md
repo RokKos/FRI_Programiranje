@@ -103,7 +103,8 @@ The other option is to send me e-mail with zipped test cases on e-mail: rk7344@s
 And I will manualy include them into this repository.
 
 ## <a name="reporting"></a> Reporting bad test cases
-If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. Or you can send me an e-mail with subject DNxx Test case yy.
+If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. The [template](https://github.com/RokKos/FRI_Programiranje/blob/master/.github/ISSUE_TEMPLATE.md will tell you how the issue should be structured.
+Or you can send me an e-mail with subject DNxx Test case yy.
 
 ## <a name="information"></a> Additional information
 Any addiotional information about git, test cases, running program on test cases etc., you can contact me over Skype: Rok Kos or e-mail: rk7344@student.uni-lj.si.
