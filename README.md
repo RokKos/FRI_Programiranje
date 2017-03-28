@@ -3,6 +3,7 @@
 
 [![Build Status][travis-badge]][travis-link]
 [![MIT License][license-badge]](LICENSE.md)
+
 Repository for test cases for homework programming tasks.
 
 ### Table of Contents
