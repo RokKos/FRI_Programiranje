@@ -14,6 +14,6 @@ for i in range(predmeti):
 	porabljene_kordinate.add((x,y))
 
 	print ("{0} {1} {2}".format(x, y, ri(1,3)))
-print(porabljene_kordinate)
+#print(porabljene_kordinate)
 print (koraki)
 
