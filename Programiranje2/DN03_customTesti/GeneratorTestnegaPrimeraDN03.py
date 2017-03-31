@@ -7,7 +7,7 @@ print(predmeti)
 for i in range(predmeti):
 	x = ri(-100,100)
 	y = ri(-100,100)
-	while (x == 0 and y == 0 and (x,y) in porabljene_kordinate):
+	while ((x == 0 and y == 0) or ((x,y) in porabljene_kordinate)):
 
 		x = ri(0,200)
 		y = ri(0,200)
