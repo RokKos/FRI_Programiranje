@@ -3,20 +3,21 @@
 
 [![Build Status][travis-badge]][travis-link]
 [![MIT License][license-badge]](LICENSE.md)
+[![Contributors][contributors-badge]][contributors-link]
 
 Repository for test cases for homework programming tasks.
 
 ### Table of Contents
 
-**[Structure of test cases](#structure)**  
-**[Getting test cases](#get)**  
-**[Installing Git](#installing)**  
-**[Testing](#testing)**    
-**[Contributing test cases](#contribution)**    
-**[Reporting bad test cases](#reporting)**  
-**[Additional information](#information)**  
-**[Authors](#authors)**  
-**[License](#license)** 
+**[Structure of test cases](#structure)**
+**[Getting test cases](#get)**
+**[Installing Git](#installing)**
+**[Testing](#testing)**
+**[Contributing test cases](#contribution)**
+**[Reporting bad test cases](#reporting)**
+**[Additional information](#information)**
+**[Authors](#authors)**
+**[License](#license)**
 
 ## <a name="structure"></a> Structure of test cases
 First 10 test cases are public and taken from a task and then N custom tests.
@@ -81,7 +82,7 @@ sudo pacman -S git
 There is special GUI Tool for these two on this link [GitHub Desktop](https://desktop.github.com/ "GitHub Desktop's Homepage").
 There is also a documentation for this GUI on this link [GitHub Desktop documentation](https://help.github.com/desktop/ "GitHub Desktop's Documentation")
 
-[Official instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git "Installing Git") for installing git on each OS 
+[Official instructions](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git "Installing Git") for installing git on each OS
 
 
 ## <a name="testing"></a> Testing
@@ -97,7 +98,7 @@ Please try to verify your every test case if that's a possibility (on big test c
 Test case should consist of vhodXX.txt and izhodXX.txt, where XX is the number of test case. Please check that number of test case doesn't exist already.
 
 ### Sending test cases
-You can fork this repository. All instructions are [here](https://help.github.com/articles/fork-a-repo/ "Fork A Repo"). Then: 
+You can fork this repository. All instructions are [here](https://help.github.com/articles/fork-a-repo/ "Fork A Repo"). Then:
 
 1. Create and commit your test cases to your forked repository
 2. Create pull request to this repository
@@ -123,9 +124,11 @@ Any addiotional information about git, test cases, running program on test cases
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/RokKos/FRI_Programiranje/blob/master/LICENSE) file for details.
 
 
-[downloadZIP]:	   https://github.com/RokKos/FRI_Programiranje/blob/master/images/CloneDownload.png "Clone/Download"
-[copyLink]:		   https://github.com/RokKos/FRI_Programiranje/blob/master/images/LinkDownload.png "Link"
-[travis-badge]:    https://travis-ci.org/RokKos/FRI_Programiranje.svg?branch=master "travis-badge"
-[travis-link]:     https://travis-ci.org/RokKos/FRI_Programiranje/
-[travis-image]:    https://github.com/RokKos/FRI_Programiranje/blob/master/images/TravisCI.png "travis-image"
-[license-badge]:   https://img.shields.io/badge/license-MIT-007EC7.svg "MIT Lincense"
+[downloadZIP]:		https://github.com/RokKos/FRI_Programiranje/blob/master/images/CloneDownload.png "Clone/Download"
+[copyLink]:			https://github.com/RokKos/FRI_Programiranje/blob/master/images/LinkDownload.png "Link"
+[travis-badge]:		https://travis-ci.org/RokKos/FRI_Programiranje.svg?branch=master "travis-badge"
+[travis-link]:		https://travis-ci.org/RokKos/FRI_Programiranje/
+[travis-image]:		https://github.com/RokKos/FRI_Programiranje/blob/master/images/TravisCI.png "travis-image"
+[license-badge]:	https://img.shields.io/badge/license-MIT-007EC7.svg "MIT Lincense"
+[contributors-badge]:	https://img.shields.io/badge/contributors-4-ff69b4.svg
+[contributors-link]:	https://github.com/RokKos/FRI_Programiranje/graphs/contributors
