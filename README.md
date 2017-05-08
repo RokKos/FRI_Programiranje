@@ -9,15 +9,15 @@ Repository for test cases for homework programming tasks.
 
 ### Table of Contents
 
-**[Structure of test cases](#structure)**
-**[Getting test cases](#get)**
-**[Installing Git](#installing)**
-**[Testing](#testing)**
-**[Contributing test cases](#contribution)**
-**[Reporting bad test cases](#reporting)**
-**[Additional information](#information)**
-**[Authors](#authors)**
-**[License](#license)**
+* **[Structure of test cases](#structure)**
+* **[Getting test cases](#get)**
+* **[Installing Git](#installing)**
+* **[Testing](#testing)**
+* **[Contributing test cases](#contribution)**
+* **[Reporting bad test cases](#reporting)**
+* **[Additional information](#information)**
+* **[Authors](#authors)**
+* **[License](#license)**
 
 ## <a name="structure"></a> Structure of test cases
 First 10 test cases are public and taken from a task and then N custom tests.
