@@ -12,9 +12,9 @@ showinfo() { echo -e "${BG}$1${NC}"; }
 
 showinfo "Running tests ..."
 
-find $1 -mindepth 1 -maxdepth 1 -type d | while read -r dir
+find $1 -not -path "*dodatne_naloge*" -mindepth 1 -maxdepth 1 -type d | while read -r dir
 do
-  
+
   # Moving in directory
   cd "$dir"  # note the quotes, which encapsulate whitespace
   #ls
@@ -24,9 +24,9 @@ do
 
   # Copping program to run test on
   cp ../$program"_63160025.c" .
-  
+
   # Setting thingst to run tests
-  export name=$program"_63160025" 
+  export name=$program"_63160025"
   make test
 
   # Checking if test passed
@@ -38,7 +38,7 @@ do
 	# Terminate script and outputs 1
     exit 1
   fi
-  
+
   # Cleaning after test are done
   make clean
   rm $program"_63160025.c"
