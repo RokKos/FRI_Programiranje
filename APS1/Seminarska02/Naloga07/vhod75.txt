@@ -1,1 +1,1 @@
-c OR NOT b OR b OR a 
+e OR e AND c OR (e) AND b AND d AND b OR d AND d AND e OR a OR TRUE AND a OR e AND f AND FALSE 

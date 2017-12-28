@@ -1,1 +1,1 @@
-NOT FALSE OR d OR TRUE AND c OR (d) OR NOT TRUE AND FALSE AND a 
+q AND t AND v OR u AND i AND w OR p AND u OR l OR b OR m AND u OR NOT s AND e OR t OR NOT FALSE AND q OR o OR (TRUE AND k OR c) AND q OR r AND v OR a OR v AND d AND (t) OR NOT g OR n OR c AND n OR r AND h OR h OR x 

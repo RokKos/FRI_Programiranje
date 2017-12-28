@@ -1,1 +1,1 @@
-c AND a AND b OR (c) AND TRUE 
+(FALSE OR a) 
