@@ -1,2 +1,2 @@
-OR,OR,OR,OR,OR,OR,OR,OR,AND,AND,u,NOT,d,h,t,AND,AND,AND,AND,AND,i,b,j,j,y,o,AND,t,a,AND,AND,r,e,FALSE,f,AND,AND,AND,g,m,r,NOT,e,AND,o,FALSE,AND,AND,j,t,r
+OR,OR,OR,OR,OR,OR,OR,OR,OR,OR,OR,OR,e,g,c,AND,TRUE,d,AND,d,TRUE,AND,k,d,AND,AND,d,j,j,AND,AND,AND,f,e,g,l,f,AND,OR,OR,OR,k,TRUE,AND,m,l,AND,k,b,e,AND,AND,AND,FALSE,j,g,f,g,h
 13
