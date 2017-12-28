@@ -1,0 +1,1 @@
+NOT (a1 OR NOT (a2 OR a3) AND NOT (a4 OR NOT (NOT a5 AND (a6 OR (a7 AND NOT a8) OR (a9 OR NOT a10)))))

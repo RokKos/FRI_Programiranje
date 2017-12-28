@@ -1,0 +1,1 @@
+NOT (NOT (a OR b) AND NOT (NOT c OR d))
