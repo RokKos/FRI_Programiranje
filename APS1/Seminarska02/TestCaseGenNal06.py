@@ -77,6 +77,7 @@ if __name__ == "__main__":
 	pool_of_possibilities = possible_values + [OPERATOR_NOT] + [OPERATOR_L_BRACKET] + posible_const_values
 
 	output_string = ""
+	used_variables = set()
 
 	while (var_num > 0 and op_num > 0):
 		#print(pool_of_possibilities)
@@ -90,7 +91,10 @@ if __name__ == "__main__":
 
 		pool_of_possibilities = determine_pool(element, possible_values, l_bracket_count)
 		if (is_operator(element)): op_num -= 1
-		else: var_num -= 1
+		else:
+			if (element not in used_variables):
+				used_variables.add(element)
+				var_num -= 1
 
 
 	for i in range(l_bracket_count):
