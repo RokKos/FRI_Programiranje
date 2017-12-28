@@ -1,0 +1,1 @@
+(b OR (TRUE AND d OR NOT a)) AND (a OR NOT (b OR FALSE))

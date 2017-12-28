@@ -1,0 +1,1 @@
+a9 OR b8 AND d7 OR a6 AND NOT b5 AND c4 OR b3 OR b1 OR d3 AND g2 AND h1
