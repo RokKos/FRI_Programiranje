@@ -1,0 +1,2 @@
+AND,OR,a,b,OR,NOT,c,d
+4

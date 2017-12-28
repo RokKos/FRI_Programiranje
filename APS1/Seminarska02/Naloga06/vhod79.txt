@@ -1,0 +1,1 @@
+f AND d AND m OR q OR r AND m AND l OR e OR f AND s OR r AND e AND k OR b OR a AND q OR c AND a AND k AND e AND k AND t 

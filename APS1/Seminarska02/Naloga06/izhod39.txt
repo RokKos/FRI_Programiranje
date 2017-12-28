@@ -1,0 +1,2 @@
+OR,OR,OR,b,NOT,d,AND,d,a,AND,f,b
+5

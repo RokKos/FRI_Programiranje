@@ -1,0 +1,2 @@
+OR,a1,AND,OR,a2,a3,OR,a4,AND,NOT,a5,OR,OR,a6,AND,a7,a8,OR,a9,a10
+8

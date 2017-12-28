@@ -1,0 +1,2 @@
+OR,OR,OR,OR,OR,a9,AND,b8,d7,AND,AND,a6,NOT,b5,c4,b3,b1,AND,AND,d3,g2,h1
+8

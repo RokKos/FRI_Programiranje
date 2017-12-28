@@ -1,0 +1,1 @@
+b OR NOT d OR d AND a OR f AND b 
