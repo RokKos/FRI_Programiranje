@@ -1,0 +1,1 @@
+s AND d AND j OR z OR b AND z AND f OR j OR y AND NOT NOT p OR NOT FALSE OR o AND TRUE OR (m AND y AND p) AND y OR q OR m AND f OR z AND e OR d AND t AND m OR b OR q OR s AND j AND NOT r OR i OR d OR i OR c AND u AND m OR a AND FALSE OR NOT NOT q AND c AND x AND s AND w AND a AND y AND NOT g OR u OR p AND d AND f OR n AND f OR k AND k OR FALSE OR t AND l 

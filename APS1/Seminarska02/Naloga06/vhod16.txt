@@ -1,1 +1,1 @@
-TRUE OR b AND (TRUE) AND d OR NOT ((e AND FALSE)) 
+a 

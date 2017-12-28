@@ -1,1 +1,1 @@
-e OR g OR c OR TRUE AND d OR d AND TRUE OR k AND d OR d AND j AND j OR (f AND e) AND g AND l OR f OR (k OR TRUE OR m AND l OR k AND b) AND e OR FALSE AND j AND g AND f OR g OR h 
+NOT o AND e AND NOT c OR FALSE OR m OR (n OR NOT r AND e AND c AND k OR r OR q) OR c OR r AND (l OR NOT a AND q OR a OR b) OR q AND i OR FALSE OR r OR s AND (g AND (o OR a OR NOT o) AND b AND c) OR d AND k OR (a AND h) AND k AND (FALSE AND q) OR j OR b AND h OR r AND b OR s AND k OR a AND h OR a AND s OR s AND e AND n OR e OR p 

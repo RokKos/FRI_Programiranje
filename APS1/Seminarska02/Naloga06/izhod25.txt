@@ -1,2 +1,2 @@
-OR,AND,d,b,AND,AND,AND,AND,AND,AND,d,e,NOT,d,b,NOT,AND,NOT,a,NOT,d,a,TRUE
+OR,OR,OR,OR,OR,OR,f,b,AND,NOT,h,d,NOT,a,AND,g,g,TRUE,c
 8

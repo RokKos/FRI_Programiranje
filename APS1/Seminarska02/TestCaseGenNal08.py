@@ -1,10 +1,9 @@
 from string import ascii_lowercase
-from datetime import datetime
-from time import mktime
+from time import time
 from random import seed, randint
 
-current_secconds = int(mktime(datetime.now().timetuple()))
-seed(current_secconds)
+current_miliseconds = int(round(time() * 1000))
+seed(current_miliseconds)
 
 OPERATOR_AND = "AND";
 OPERATOR_OR = "OR";

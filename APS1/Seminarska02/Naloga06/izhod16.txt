@@ -1,2 +1,2 @@
-OR,OR,TRUE,AND,AND,b,TRUE,d,NOT,AND,e,FALSE
-5
+a
+1

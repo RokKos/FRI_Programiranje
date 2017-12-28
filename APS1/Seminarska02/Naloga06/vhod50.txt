@@ -1,1 +1,1 @@
-(NOT (FALSE AND FALSE) OR NOT b) 
+c AND a AND c OR c AND b OR NOT NOT (b AND (NOT b OR FALSE OR d)) 
