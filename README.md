@@ -17,6 +17,7 @@ Repository for test cases for homework programming tasks.
 * **[Reporting bad test cases](#reporting)**
 * **[Additional information](#information)**
 * **[Authors](#authors)**
+* **[Contributors](#contributors)**
 * **[License](#license)**
 
 ## <a name="structure"></a> Structure of test cases
@@ -64,9 +65,9 @@ And now you can run commands from section  [Testing](#testing).
 
 ### On Linux
 
-If you’re on Fedora for example, you can use yum:
+If you’re on Fedora for example, you can use dnf:
 ```bash
-sudo yum install git-all
+sudo dnf install git-all
 ```
 If you’re on a Debian-based distribution like Ubuntu, try apt-get:
 ```bash
@@ -87,8 +88,8 @@ There is also a documentation for this GUI on this link [GitHub Desktop document
 
 ## <a name="testing"></a> Testing
 You can found all instruction for:
-* `Java` testing (Programiranje1): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje1/README.md "Java testing").
-* `C` testing (Programiranje2): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje2/README.md "C testing").
+* `Java` testing ([Programiranje1](https://github.com/RokKos/FRI_Programiranje/tree/master/Programiranje1), [APS1](https://github.com/RokKos/FRI_Programiranje/tree/master/APS1)): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje1/README.md "Java testing").
+* `C` testing ([Programiranje2](https://github.com/RokKos/FRI_Programiranje/tree/master/Programiranje2)): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje2/README.md "C testing").
 
 ## <a name="contribution"></a> Contributing test cases
 I will be very glad if someone contributed test cases. They can even be the most simple ones, because with more tests more mistakes can be found.
@@ -117,7 +118,14 @@ Any addiotional information about git, test cases, running program on test cases
 
 ## <a name="authors"></a> Authors
 
-* **RokKos** - [RokKos](https://github.com/RokKos)
+* **Rok Kos** - [RokKos](https://github.com/RokKos)
+
+## <a name="contributors"></a> Contributors
+
+* **Rok Kos** - [RokKos](https://github.com/RokKos)
+* **Bor Brecelj** - [brecbor](https://github.com/brecbor)
+* **Klemen Kobau** - [KlemenKobau](https://github.com/KlemenKobau)
+* **Jon N.** - [dihur](https://github.com/dihur)
 
 ## <a name="license"></a> License
 
