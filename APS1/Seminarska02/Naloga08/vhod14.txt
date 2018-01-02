@@ -1,1 +1,1 @@
-NOT(NOT NOT NOT a AND b)
+NOT (NOT NOT NOT a AND b)
