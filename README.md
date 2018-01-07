@@ -14,7 +14,6 @@ Repository for test cases for homework programming tasks.
 * **[Installing Git](#installing)**
 * **[Testing](#testing)**
 * **[Contributing](#contribution)**
-* **[Reporting bad test cases](#reporting)**
 * **[Additional information](#information)**
 * **[Authors](#authors)**
 * **[Contributors](#contributors)**
