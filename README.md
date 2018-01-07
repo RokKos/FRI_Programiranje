@@ -13,7 +13,7 @@ Repository for test cases for homework programming tasks.
 * **[Getting test cases](#get)**
 * **[Installing Git](#installing)**
 * **[Testing](#testing)**
-* **[Contributing test cases](#contribution)**
+* **[Contributing](#contribution)**
 * **[Reporting bad test cases](#reporting)**
 * **[Additional information](#information)**
 * **[Authors](#authors)**
@@ -91,27 +91,9 @@ You can found all instruction for:
 * `Java` testing ([Programiranje1](https://github.com/RokKos/FRI_Programiranje/tree/master/Programiranje1), [APS1](https://github.com/RokKos/FRI_Programiranje/tree/master/APS1)): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje1/README.md "Java testing").
 * `C` testing ([Programiranje2](https://github.com/RokKos/FRI_Programiranje/tree/master/Programiranje2)): [here](https://github.com/RokKos/FRI_Programiranje/blob/master/Programiranje2/README.md "C testing").
 
-## <a name="contribution"></a> Contributing test cases
-I will be very glad if someone contributed test cases. They can even be the most simple ones, because with more tests more mistakes can be found.
-Please try to verify your every test case if that's a possibility (on big test cases this is almost impossible).
+## <a name="contribution"></a> Contributing
 
-### Format of test case
-Test case should consist of vhodXX.txt and izhodXX.txt, where XX is the number of test case. Please check that number of test case doesn't exist already.
-
-### Sending test cases
-You can fork this repository. All instructions are [here](https://help.github.com/articles/fork-a-repo/ "Fork A Repo"). Then:
-
-1. Create and commit your test cases to your forked repository
-2. Create pull request to this repository
-3. I will look at the test cases and approve or propose to fix to your test case.
-4. I will pull your pull request to this repository
-
-The other option is to send me e-mail with zipped test cases on e-mail: rk7344@student.uni-lj.si with subject: Test cases for DNxx.
-And I will manualy include them into this repository.
-
-## <a name="reporting"></a> Reporting bad test cases
-If you find a test case with wrong input data or wrong output data (result). Create issue with name DNxx Test case yy and then add description of the problem. The [template](https://github.com/RokKos/FRI_Programiranje/blob/master/.github/ISSUE_TEMPLATE.md "Issue template") will tell you how the issue should be structured.
-Or you can send me an e-mail with subject DNxx Test case yy.
+For all information on contributing please check [CONTRIBUTING.md](https://github.com/RokKos/FRI_Programiranje/blob/master/.github/CONTRIBUTING.md). And again thanks for your contributions and effort.
 
 ## <a name="information"></a> Additional information
 Any addiotional information about git, test cases, running program on test cases etc., you can contact me over Skype: Rok Kos or e-mail: rk7344@student.uni-lj.si.
