@@ -177,3 +177,48 @@ doc("narocilo.xml")/narocilo/*/@*
 
 ### Predikati
 
+#### Oblika
+
+```xquery
+doc("relativna/pot/dokument.xml")/pot/do/vozlisca[pogoj_1 or pogoj_2][pogoj_3]..[pogoj_n]
+```
+
+#### Možni pogoji
+
+* Obstoj argumenta : `@argumen`
+* Primerjava argumenta : `@argument = 'vrednost'` (>,<, !=)
+* Vrni n-ti element izmed trenutne selekcije : `[pogoj][n]` ali `/pot/do[n]`
+* Pozicija v rezultatu : `position()`
+* Zadnji element : `last()`
+* Vsebuje podniz v nizu : `contains (niz, podniz)`
+* Vse razen tega : `* except(arg_1, arg_2, ..., arg_n)`
+
+### Dodajanje elementov
+
+#### Vhodni dokument
+
+`return $var/ime`
+
+> Nic posebnega zelo omejeno
+
+#### Neposredni konstruktor
+```xquery
+return <tag> {$var/@attr} {$var/text()} {$var/elements} </tag>
+```
+
+> @attr bojo šli v atribute tag, text() bo šel v vsebino tag-a, elements bojo bili podznačke
+
+#### Dinamičen konstruktor
+
+Struktura:
+
+```xquery
+element ime_znacke {
+  (: Vsebina te znacke :)
+  attribut ime_atr {vrednost},
+  attribut {$dinamicni_atr} {"vrednost"},
+  element ime_pod_znacke {attribut ime {"vsebina"}} {"vsebina"}
+}
+```
+
+
