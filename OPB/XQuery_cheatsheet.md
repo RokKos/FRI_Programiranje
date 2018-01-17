@@ -48,19 +48,58 @@ let $ime_var := doc("relativna/pot/do/dokumenta.xml")/tag1/tag2[@argument = 'vre
 
 > Ločni pogoj je lahko v obliki `@argumen > vrednost` ali `@argument == 'vrednost'`
 
+**WARNING**
+Ko enkrat nastavimo spremeljivko jo nemoremo vec spremeniti. Npr. To ni dovoljeno:
+
+```xquery
+let $i := $i + 1
+```
+
 ### FOR
 
 Je sestavljen iz 5 delov (v tem vrstnem redu):
 * **For** stavka (obvezno)
+
 ```xquery
-for $loop_var in $array_var
+for $loop_var1 at $index1 in $array_var1, $loop_var2 at $index2 in $array_var2 (: Gnezden for loop :)
+for $i in (1 to n) (: Navaden for loop :)
+for $i in distinct-values($arr) (: Samo unikatne resitve :)
 ```
+
+PRIMER:
+```xquery
+for $beseda at $i in ("macka", "pes", "gos"), $ime at $j in ("Micka", "Poldi", "Jakob")
+return <zival>{$i}. {$beseda} {$j} - to ime: {$ime} </zival>
+```
+
 
 * Let (neobvezno)
 * Where (neobvezno)
 
 * Order by (neobvezno)
+
+```xquery
+order by $var_1/@arg_1, $var_2/@arg_2, ... , $var_n/@arg_n descending (:ascending:)
+```
+
+Če nimajo vsi elementi nekega argumenta ga lahko nadomestimo z default vrednostjo
+
+```xquery
+order by (if ($var_1/@arg_1) then $var_1/@arg_1 else default_vrednost)
+```
+
+Funkicja `reverse`:
+```xquery
+reverse((1,5,3)) -> (3,5,1)
+```
+
+
 * **Return** (obvezno)
+
+
+```xquery
+return (<tag_1>Vsebina</tag_1>, <tag_2>Vsebina</tag_2>, ... , <tag_n>Vsebina</tag_n>)
+```
 
 PRIMER:
 
@@ -222,3 +261,81 @@ element ime_znacke {
 ```
 
 
+## Združevanje rezultatov
+
+### Stik
+
+> V where stavku primerjamo enakost argumentov
+
+```xquery
+for $postavka in doc("narocilo.xml")//postavka, $izdelek in doc("katalog.xml")//izdelek
+where $postavka/@stevilka < $izdelek/stevilka
+return (<li>{$postavka}</li>, <li>{$izdelek}</li>)
+```
+
+> Ali pa v predikatu preverimo enakost
+
+```xquery
+for $izdelek in doc("katalog.xml")//izdelek, $postavka in doc("narocilo.xml")//postavka[@stevilka = $izdelek/stevilka]
+return (<li>{$postavka}</li>, <li>{$izdelek}</li>)
+```
+
+### Odprti stik
+
+> V return stavku vrnemo se dodatne stvari, ki niso nujno vsebovane. Podobno kot navaden stik
+
+### Grupiranje
+
+> 1. Vzamemo unikatne vrednosti
+
+```xquery
+for $var in distinct-values($arr/@arg)
+```
+
+> 2. Najdemo vse ki jim pripadajo
+
+```xquery
+let group := $arr/[@arg = $var]
+```
+
+> 3. Jih uredimo po unikatnih vrednostih
+
+```xquery
+order by $var
+```
+
+> 4. Vrnemo grupe (urejanje se bo zgodilo ravno pred vrnitvijo)
+
+```xquery
+return <tag> {$var} {$group} </tag>
+```
+
+### Agregacija
+
+> Enako kot pri grupiranjo samo, da v return stavku nad vsako grupo uporabimo funkcije
+
+## Funkcije
+
+### Vgrajene Funkcije
+
+Poglej power pointe iz ucilnice
+
+### Opredelitev funkcije
+
+Splosna sestava funkcije
+
+```xquery
+declare local:ime_funkcije (stevilka as xs:integer, niz as xs:string, ... , param as xs:some_type) as xs:integer (:some type:)
+{
+  (: jedro funkcije :)
+  return $stevilka
+};
+```
+
+Posebnosti pri definiciji argumentov
+
+```xquery
+declare local:ime_fun (param as xs:integer?) (: 0 ali 1 parameter :)
+declare local:ime_fun (param as xs:integer*) (: 0 ali vec parametrov :)
+declare local:ime_fun (param as xs:integer+) (: 1 ali vec parametrov:)
+```
