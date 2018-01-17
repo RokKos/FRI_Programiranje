@@ -207,6 +207,13 @@ doc("Freebase/martial_artist.xml")//martial_artist/node()
 doc("Freebase/martial_artist.xml")//martial_artist/name/text()
 
 ```
+
+ali pa z data():
+
+```xquery
+data(doc("Freebase/martial_artist.xml")//martial_artist/name)
+```
+
 * Poljubna stvar
 
 ```xquery
