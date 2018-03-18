@@ -1,0 +1,29 @@
+# Configuration for new-issue-welcome - https://github.com/behaviorbot/new-issue-welcome
+
+# Comment to be posted to on first time issues
+newIssueWelcomeComment: |
+  This is an automatic message from my personal servant J.A.R.V.I.S.
+  ![jarvis](https://github.com/RokKos/FRI_Programiranje/blob/master/images/J.A.R.V.I.S..png)
+  Thank you for opening your first issue :+1:
+  
+  My master will check this issue as soon as possible.
+  
+# Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
+
+# Comment to be posted to on PRs from first time contributors in your repository
+newPRWelcomeComment: |
+  This is an automatic message from my personal servant J.A.R.V.I.S.
+  ![jarvis](https://github.com/RokKos/FRI_Programiranje/blob/master/images/J.A.R.V.I.S..png)
+  :tada: Thanks for opening this pull request!  :tada:
+  
+  :+1: My master will be very pleased with your contribution. :+1:
+
+# Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
+
+# Comment to be posted to on pull requests merged by a first time user
+firstPRMergeComment: >
+  This is an automatic message from my personal servant J.A.R.V.I.S.
+  ![jarvis](https://github.com/RokKos/FRI_Programiranje/blob/master/images/J.A.R.V.I.S..png)
+  
+  You did it! :+1:
+  Congrats on merging your first pull request! :tada::tada::tada:
