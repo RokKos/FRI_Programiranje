@@ -12,7 +12,7 @@ showinfo() { echo -e "${BG}$1${NC}"; }
 
 showinfo "Running tests ..."
 
-find $1 -not -path "*dodatne_naloge*" -mindepth 1 -maxdepth 1 -type d | while read -r dir
+find $1 -not -path "*dodatne_naloge*" -not -path "*vaje*" -mindepth 1 -maxdepth 1 -type d | while read -r dir
 do
 
   # Moving in directory
