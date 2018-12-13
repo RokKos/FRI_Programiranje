@@ -6,25 +6,33 @@ function naloga_1
       r=sqrt(sum((x.^2)));
   end
   
+  function A = prepareA (size) 
+    b = (1:size);
+    d = 1 ./ (b .+ 1);
+    b = transpose(b);
+    A = fliplr(diag(d));
+  end
+  
+  g = @(x) prepareA(length(x))*x + (1:length(x))';
+  
   %function v = g(x)
   %  x2 = A*x;
   %  v = x2 + b;
   %end
     
-  function [sez_priblizki, itt] = navadna_splosna_iteracija(g, x_0, epsilon, max_iteration)
-      n = size(x_0)
-      sez_priblizki = zeros(max_iteration, n(1));
-      sez_priblizki(1, :) = x_0;
+  function [x, itt] = navadna_splosna_iteracija(g, x_0, rez, epsilon, max_iteration)
+      n = size(x_0);
+      x = x_0;
       for i = 2:max_iteration
-          sez_priblizki(i, :) = g(transpose(sez_priblizki(i-1, :)));
-          if (abs(norm_2(sez_priblizki(i,:)) - norm_2(sez_priblizki(i-1, :))) < epsilon )
-              sez_priblizki = sez_priblizki(1:i, :);
+          x = g(x);
+          if (abs(norm_2(x - rez)) < epsilon )
               itt = i;
               disp('Nasli smo dovolj dober priblizek')
               return
           end
       end
       disp('Dosegli smo max iteration.')
+      
       itt = max_iteration;
   end
   
@@ -35,16 +43,12 @@ function naloga_1
   
   for n = (1:10)
   
-    b = (1:n);
-    d = 1 ./ (b .+ 1);
-    b = transpose(b);
-    A = fliplr(diag(d))
-    x_0 = zeros(n,1);
-    g = @(x) (A*x) + b;
+    x_0 = zeros(n,1);  
+    rez = (eye(n) - prepareA(n))\b
     
-    [priblizki, itt] = navadna_splosna_iteracija(g, x_0, epsilon, 1000)
+    [priblizki, itt] = navadna_splosna_iteracija(g, x_0, rez, epsilon, 100)
     v_iteration(n) = itt;
-    rez = -A \ b
+    
   end
   
   close all
