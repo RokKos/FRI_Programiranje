@@ -6,7 +6,7 @@ function Naloga1
     for j = 1:n
       sum_vjk = 0;
       for k = 1:j-1
-        sum_vjk += V(j,k)^2;
+        sum_vjk = sum_vjk + V(j,k)^2;
       end
       
       V(j,j) = sqrt(A(j,j) - sum_vjk);  
@@ -16,7 +16,7 @@ function Naloga1
       for i = (j+1):n
         sum_v_ik_v_jk = 0; 
         for k = 1:j-1
-          sum_v_ik_v_jk += V(i,k)*V(j,k);
+          sum_v_ik_v_jk = sum_v_ik_v_jk + V(i,k)*V(j,k);
         end
         
         V(i,j) = inv_vjj * (A(i,j) - sum_v_ik_v_jk);
@@ -31,12 +31,12 @@ function Naloga1
           for i = 1:n
             sum_r_pp = 0;
             for j = 1:(i-1)
-              sum_r_pp += A(i,j) * x(j);              
+              sum_r_pp = sum_r_pp + A(i,j) * x(j);              
             end
             
             sum_r = 0;
             for j = (i+1):n
-              sum_r += A(i,j) * x_0(j);              
+              sum_r = sum_r + A(i,j) * x_0(j);              
             end
             
             x(i) = 1 / A(i,i) * (b(i) - sum_r_pp - sum_r);
