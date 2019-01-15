@@ -134,6 +134,14 @@ Log files are a source of information about what happened during the compilation
             \begin{markdown-block}
                 This is XeTeX, Version 3.1415926-2.3-0.9997.5 (Web2C 2011)  
             \end{markdown-block}
+
+    \item \textbf{Included packages} - For every package that you include in your document compiler will output line that tells the name of the package, version of the package you are using, date of this version, where this package is on your system and a short description of the package. 
+    Example:\\
+        \begin{markdown-block}
+            (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty\\
+            Package: amsmath 2016/06/28 v2.15d AMS math features
+        \end{markdown-block}
+
     \item \textbf{Warnings} - This will usually occur with cross-referencing. Some of the cases would be:
         \begin{itemize}
             \item undefined \verb|\ref| - This means that you have \verb|\ref| that is pointing to non existing \verb|\label|. The solution for this is that you add missing \verb|\label|. \\
