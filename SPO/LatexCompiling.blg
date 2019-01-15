@@ -1,0 +1,15 @@
+[0] Config.pm:354> INFO - This is Biber 2.6
+[0] Config.pm:357> INFO - Logfile is 'LatexCompiling.blg'
+[64] biber:302> INFO - === Tue Jan 15, 2019, 01:10:26
+[85] Biber.pm:359> INFO - Reading 'LatexCompiling.bcf'
+[226] Biber.pm:820> INFO - Using all citekeys in bib section 0
+[265] Biber.pm:3658> INFO - Processing section 0
+[293] Biber.pm:3828> INFO - Looking for bibtex format file 'bibliography.bib' for section 0
+[297] bibtex.pm:1425> INFO - Decoding LaTeX character macros into UTF-8
+[299] bibtex.pm:1282> INFO - Found BibTeX data source 'bibliography.bib'
+[455] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[456] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[456] Biber.pm:3487> INFO - Sorting list 'ynt/global/' of type 'entry' with scheme 'ynt' and locale 'en-US'
+[456] Biber.pm:3493> INFO - No sort tailoring available for locale 'en-US'
+[516] bbl.pm:597> INFO - Writing 'LatexCompiling.bbl' with encoding 'UTF-8'
+[523] bbl.pm:701> INFO - Output to LatexCompiling.bbl

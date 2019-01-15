@@ -1,0 +1,16 @@
+\documentclass[12pt]{article}
+\begin{document}
+
+\section{Primer01}
+Here is \verb|\label{sec:primer01}| \label{sec:primer01}  that in the first run won't be referencable.\\
+But in the second run this \verb|\ref{sec:primer01}|~\ref{sec:primer01} will work
+
+\subsection{Primer01a}
+
+\section{Primer02}
+
+\subsection{Primer02b}
+\label{sec:primer02sub}
+This is reference to subsetion within~\ref{sec:primer02sub}
+
+\end{document}

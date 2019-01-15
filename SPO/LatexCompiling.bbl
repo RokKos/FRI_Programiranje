@@ -1,0 +1,737 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{ynt/global/}
+    \entry{arara}{online}{}
+      \name{author}{1}{}{%
+        {{hash=d22bde620d0f1e4908399f261cecab0c}{%
+           family={arara},
+           familyi={a\bibinitperiod}}}%
+      }
+      \strng{namehash}{d22bde620d0f1e4908399f261cecab0c}
+      \strng{fullhash}{d22bde620d0f1e4908399f261cecab0c}
+      \strng{authornamehash}{d22bde620d0f1e4908399f261cecab0c}
+      \strng{authorfullhash}{d22bde620d0f1e4908399f261cecab0c}
+      \field{labelalpha}{ara}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{arara Github page}
+      \verb{url}
+      \verb https://github.com/cereda/arara
+      \endverb
+      \keyw{latex,build}
+    \endentry
+    \entry{latexbase}{online}{}
+      \name{author}{1}{}{%
+        {{hash=59d2b256e41ad32b9a55e193522f4225}{%
+           family={Base},
+           familyi={B\bibinitperiod},
+           given={LaTeX},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{59d2b256e41ad32b9a55e193522f4225}
+      \strng{fullhash}{59d2b256e41ad32b9a55e193522f4225}
+      \strng{authornamehash}{59d2b256e41ad32b9a55e193522f4225}
+      \strng{authorfullhash}{59d2b256e41ad32b9a55e193522f4225}
+      \field{labelalpha}{Bas}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{LaTeX Base Home page}
+      \verb{url}
+      \verb https://latexbase.com/
+      \endverb
+      \keyw{latex,online editor}
+    \endentry
+    \entry{tex_blog}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f9cc1f375a5a381154f85e64d35ee44f}{%
+           family={Blog},
+           familyi={B\bibinitperiod},
+           given={Tex},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f9cc1f375a5a381154f85e64d35ee44f}
+      \strng{fullhash}{f9cc1f375a5a381154f85e64d35ee44f}
+      \strng{authornamehash}{f9cc1f375a5a381154f85e64d35ee44f}
+      \strng{authorfullhash}{f9cc1f375a5a381154f85e64d35ee44f}
+      \field{labelalpha}{Blo}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Tex Blog - Tex Resources}
+      \verb{url}
+      \verb https://texblog.org/tex-resources/
+      \endverb
+      \keyw{latex}
+    \endentry
+    \entry{wikibook}{online}{}
+      \name{author}{1}{}{%
+        {{hash=81eba63dae8f5e1d9fe1a5cdbe4978dc}{%
+           family={book},
+           familyi={b\bibinitperiod},
+           given={Wiki},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{81eba63dae8f5e1d9fe1a5cdbe4978dc}
+      \strng{fullhash}{81eba63dae8f5e1d9fe1a5cdbe4978dc}
+      \strng{authornamehash}{81eba63dae8f5e1d9fe1a5cdbe4978dc}
+      \strng{authorfullhash}{81eba63dae8f5e1d9fe1a5cdbe4978dc}
+      \field{labelalpha}{boo}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Wiki book - Latex Home site}
+      \verb{url}
+      \verb https://en.wikibooks.org/wiki/LaTeX
+      \endverb
+      \keyw{latex}
+    \endentry
+    \entry{Dickimaw_Books}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e3cfde7181344988755092b456eb6b9d}{%
+           family={Books},
+           familyi={B\bibinitperiod},
+           given={Dickimaw},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{e3cfde7181344988755092b456eb6b9d}
+      \strng{fullhash}{e3cfde7181344988755092b456eb6b9d}
+      \strng{authornamehash}{e3cfde7181344988755092b456eb6b9d}
+      \strng{authorfullhash}{e3cfde7181344988755092b456eb6b9d}
+      \field{labelalpha}{Boo}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 13.01.2019)}
+      \field{title}{Auxiliary and Log Files}
+      \verb{url}
+      \verb https://www.dickimaw-books.com/latex/novices/html/auxiliary.html
+      \endverb
+      \keyw{latex,Auxiliary files,Log files,Toc Files}
+    \endentry
+    \entry{infinitely}{online}{}
+      \name{author}{1}{}{%
+        {{hash=3094f4812cc660f7320fd1ab3d3da906}{%
+           family={Carlisle},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{3094f4812cc660f7320fd1ab3d3da906}
+      \strng{fullhash}{3094f4812cc660f7320fd1ab3d3da906}
+      \strng{authornamehash}{3094f4812cc660f7320fd1ab3d3da906}
+      \strng{authorfullhash}{3094f4812cc660f7320fd1ab3d3da906}
+      \field{labelalpha}{Car}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - Document requiring infinitely many compiler passes?}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/30674/document-requiring-infinitely-many-compiler-passes
+      \endverb
+      \keyw{latex,compiler}
+    \endentry
+    \entry{Old_Distributions}{online}{}
+      \name{author}{1}{}{%
+        {{hash=3598f07bb2daf0429b8be8520f3061d9}{%
+           family={egreg},
+           familyi={e\bibinitperiod},
+           given={User:},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{3598f07bb2daf0429b8be8520f3061d9}
+      \strng{fullhash}{3598f07bb2daf0429b8be8520f3061d9}
+      \strng{authornamehash}{3598f07bb2daf0429b8be8520f3061d9}
+      \strng{authorfullhash}{3598f07bb2daf0429b8be8520f3061d9}
+      \field{labelalpha}{egr}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 13.01.2019)}
+      \field{title}{Stackexchange Tex - Latex distributions}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/239199/latex-distributions-what-are-their-main-differences
+      \endverb
+      \keyw{latex,distributions}
+    \endentry
+    \entry{awesome_resources}{online}{}
+      \name{author}{1}{}{%
+        {{hash=72d94b0bda49ed1eb48f77b2b23b21ce}{%
+           family={Geerardyn},
+           familyi={G\bibinitperiod},
+           given={Egon},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{72d94b0bda49ed1eb48f77b2b23b21ce}
+      \strng{fullhash}{72d94b0bda49ed1eb48f77b2b23b21ce}
+      \strng{authornamehash}{72d94b0bda49ed1eb48f77b2b23b21ce}
+      \strng{authorfullhash}{72d94b0bda49ed1eb48f77b2b23b21ce}
+      \field{labelalpha}{Gee}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Github Repo with Latex resources}
+      \verb{url}
+      \verb https://github.com/egeerardyn/awesome-LaTeX
+      \endverb
+      \keyw{latex,resources}
+    \endentry
+    \entry{latexmk}{online}{}
+      \name{author}{1}{}{%
+        {{hash=d329c13a0866b35bfe0fe54e147d0d11}{%
+           family={Latexmk},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{d329c13a0866b35bfe0fe54e147d0d11}
+      \strng{fullhash}{d329c13a0866b35bfe0fe54e147d0d11}
+      \strng{authornamehash}{d329c13a0866b35bfe0fe54e147d0d11}
+      \strng{authorfullhash}{d329c13a0866b35bfe0fe54e147d0d11}
+      \field{labelalpha}{Lat}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Latexmk home page}
+      \verb{url}
+      \verb https://mg.readthedocs.io/latexmk.html
+      \endverb
+      \keyw{latex,build}
+    \endentry
+    \entry{Overleaf_Compilers}{online}{}
+      \name{author}{1}{}{%
+        {{hash=80d685e90fa23d7996a66e45aa2d24ad}{%
+           family={Overleaf},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{fullhash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{authornamehash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{authorfullhash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \field{labelalpha}{Ove}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 12.01.2019)}
+      \field{title}{Choosing a LaTeX Compiler}
+      \verb{url}
+      \verb https://www.overleaf.com/learn/latex/Choosing_a_LaTeX_Compiler
+      \endverb
+      \keyw{latex,compilers,distributions}
+    \endentry
+    \entry{overleaf}{online}{}
+      \name{author}{1}{}{%
+        {{hash=80d685e90fa23d7996a66e45aa2d24ad}{%
+           family={Overleaf},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{fullhash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{authornamehash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \strng{authorfullhash}{80d685e90fa23d7996a66e45aa2d24ad}
+      \field{labelalpha}{Ove}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Overleaf Home page}
+      \verb{url}
+      \verb https://www.overleaf.com/
+      \endverb
+      \keyw{latex,online editor}
+    \endentry
+    \entry{papeeria}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c4bb584a37e1ea0c1f5b9355e9774f0a}{%
+           family={Papeeria},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4bb584a37e1ea0c1f5b9355e9774f0a}
+      \strng{fullhash}{c4bb584a37e1ea0c1f5b9355e9774f0a}
+      \strng{authornamehash}{c4bb584a37e1ea0c1f5b9355e9774f0a}
+      \strng{authorfullhash}{c4bb584a37e1ea0c1f5b9355e9774f0a}
+      \field{labelalpha}{Pap}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Papeeria Home page}
+      \verb{url}
+      \verb https://papeeria.com/
+      \endverb
+      \keyw{latex,online editor}
+    \endentry
+    \entry{latex_3}{online}{}
+      \name{author}{1}{}{%
+        {{hash=42f65e9a53b17a992d60e9ee30addb9e}{%
+           family={Project},
+           familyi={P\bibinitperiod},
+           given={Latex},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{fullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authornamehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authorfullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \field{labelalpha}{Pro}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Latex 3}
+      \verb{url}
+      \verb https://github.com/latex3/latex3
+      \endverb
+      \keyw{latex,compiler,kernel}
+    \endentry
+    \entry{latex_kernel}{online}{}
+      \name{author}{1}{}{%
+        {{hash=42f65e9a53b17a992d60e9ee30addb9e}{%
+           family={Project},
+           familyi={P\bibinitperiod},
+           given={Latex},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{fullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authornamehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authorfullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \field{labelalpha}{Pro}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Latex Kernel}
+      \verb{url}
+      \verb https://github.com/latex3/latex2e
+      \endverb
+      \keyw{latex,compiler,kernel}
+    \endentry
+    \entry{latex_official_documentation}{online}{}
+      \name{author}{1}{}{%
+        {{hash=42f65e9a53b17a992d60e9ee30addb9e}{%
+           family={Project},
+           familyi={P\bibinitperiod},
+           given={Latex},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{fullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authornamehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authorfullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \field{labelalpha}{Pro}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Latex Official Documentation}
+      \verb{url}
+      \verb https://www.latex-project.org/help/documentation/
+      \endverb
+      \keyw{latex,documentation}
+    \endentry
+    \entry{latex_project}{online}{}
+      \name{author}{1}{}{%
+        {{hash=42f65e9a53b17a992d60e9ee30addb9e}{%
+           family={Project},
+           familyi={P\bibinitperiod},
+           given={Latex},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{fullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authornamehash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \strng{authorfullhash}{42f65e9a53b17a992d60e9ee30addb9e}
+      \field{labelalpha}{Pro}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Latex Project Home site}
+      \verb{url}
+      \verb https://www.latex-project.org/
+      \endverb
+      \keyw{latex}
+    \endentry
+    \entry{Latex_project_distributions}{online}{}
+      \name{author}{1}{}{%
+        {{hash=1282d76188879886e705b1ce7da97bc0}{%
+           family={project},
+           familyi={p\bibinitperiod},
+           given={Latex},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{1282d76188879886e705b1ce7da97bc0}
+      \strng{fullhash}{1282d76188879886e705b1ce7da97bc0}
+      \strng{authornamehash}{1282d76188879886e705b1ce7da97bc0}
+      \strng{authorfullhash}{1282d76188879886e705b1ce7da97bc0}
+      \field{labelalpha}{pro}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 13.01.2019)}
+      \field{title}{Getting LaTeX}
+      \verb{url}
+      \verb https://www.latex-project.org/get/
+      \endverb
+      \keyw{latex,distributions,latex project}
+    \endentry
+    \entry{Rubber}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e418dbe413aa76acdea68767cbdb769a}{%
+           family={Rubber},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{e418dbe413aa76acdea68767cbdb769a}
+      \strng{fullhash}{e418dbe413aa76acdea68767cbdb769a}
+      \strng{authornamehash}{e418dbe413aa76acdea68767cbdb769a}
+      \strng{authorfullhash}{e418dbe413aa76acdea68767cbdb769a}
+      \field{labelalpha}{Rub}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Rubber home page}
+      \verb{url}
+      \verb https://launchpad.net/rubber/
+      \endverb
+      \keyw{latex,build}
+    \endentry
+    \entry{bibliography_citation}{online}{}
+      \name{author}{2}{}{%
+        {{hash=7f1f1be4fafdef1962ffc6485c127c39}{%
+           family={Stanley},
+           familyi={S\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=584d993886c4a99e39a766431022aabc}{%
+           family={T.},
+           familyi={T\bibinitperiod},
+           given={Torbjørn},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{e953330deec4517835dfb94534eba705}
+      \strng{fullhash}{e953330deec4517835dfb94534eba705}
+      \strng{authornamehash}{e953330deec4517835dfb94534eba705}
+      \strng{authorfullhash}{e953330deec4517835dfb94534eba705}
+      \field{labelalpha}{ST}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - Question mark or bold citation key instead of citation number}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/63852/question-mark-or-bold-citation-key-instead-of-citation-number
+      \endverb
+      \keyw{latex,compiler,references,bibliography}
+    \endentry
+    \entry{texmaker}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c1f316d573cb8023608a5213400e4c0f}{%
+           family={Texmaker},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{c1f316d573cb8023608a5213400e4c0f}
+      \strng{fullhash}{c1f316d573cb8023608a5213400e4c0f}
+      \strng{authornamehash}{c1f316d573cb8023608a5213400e4c0f}
+      \strng{authorfullhash}{c1f316d573cb8023608a5213400e4c0f}
+      \field{labelalpha}{Tex}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{Texmaker Home page}
+      \verb{url}
+      \verb http://www.xm1math.net/texmaker/
+      \endverb
+      \keyw{latex,editor}
+    \endentry
+    \entry{texniccenter}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a94412db22a644e6567cf4fcd20cb324}{%
+           family={TeXworks},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{fullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authornamehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authorfullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \field{labelalpha}{TeX}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{TeXnicCenter Home page}
+      \verb{url}
+      \verb http://www.texniccenter.org/
+      \endverb
+      \keyw{latex,editor}
+    \endentry
+    \entry{texshop}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a94412db22a644e6567cf4fcd20cb324}{%
+           family={TeXworks},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{fullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authornamehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authorfullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \field{labelalpha}{TeX}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{TeXShop Home page}
+      \verb{url}
+      \verb https://pages.uoregon.edu/koch/texshop/
+      \endverb
+      \keyw{latex,editor}
+    \endentry
+    \entry{texworks}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a94412db22a644e6567cf4fcd20cb324}{%
+           family={TeXworks},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{fullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authornamehash}{a94412db22a644e6567cf4fcd20cb324}
+      \strng{authorfullhash}{a94412db22a644e6567cf4fcd20cb324}
+      \field{labelalpha}{TeX}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{TeXworks Home page}
+      \verb{url}
+      \verb http://www.tug.org/texworks/
+      \endverb
+      \keyw{latex,editor}
+    \endentry
+    \entry{tug}{online}{}
+      \name{author}{1}{}{%
+        {{hash=61936df940e52a80760bfa072847c29d}{%
+           family={TUG},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{61936df940e52a80760bfa072847c29d}
+      \strng{fullhash}{61936df940e52a80760bfa072847c29d}
+      \strng{authornamehash}{61936df940e52a80760bfa072847c29d}
+      \strng{authorfullhash}{61936df940e52a80760bfa072847c29d}
+      \field{labelalpha}{TUG}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Tex User Group}
+      \verb{url}
+      \verb https://www.tug.org/
+      \endverb
+      \keyw{latex,user group}
+    \endentry
+    \entry{labels_refs_works}{online}{}
+      \name{author}{1}{}{%
+        {{hash=23bb133b153547613a191d4086f9cb58}{%
+           family={Werner},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{23bb133b153547613a191d4086f9cb58}
+      \strng{fullhash}{23bb133b153547613a191d4086f9cb58}
+      \strng{authornamehash}{23bb133b153547613a191d4086f9cb58}
+      \strng{authorfullhash}{23bb133b153547613a191d4086f9cb58}
+      \field{labelalpha}{Wer}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - Understanding how references and labels work}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/111280/understanding-how-references-and-labels-work
+      \endverb
+      \keyw{latex,compiler,references}
+    \endentry
+    \entry{understanding_the_log_file}{online}{}
+      \name{author}{1}{}{%
+        {{hash=70c9c6fd7ad47232a6e810d4ff2cb2f4}{%
+           family={Werner},
+           familyi={W\bibinitperiod},
+           given={User:},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{70c9c6fd7ad47232a6e810d4ff2cb2f4}
+      \strng{fullhash}{70c9c6fd7ad47232a6e810d4ff2cb2f4}
+      \strng{authornamehash}{70c9c6fd7ad47232a6e810d4ff2cb2f4}
+      \strng{authorfullhash}{70c9c6fd7ad47232a6e810d4ff2cb2f4}
+      \field{labelalpha}{Wer}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - Understanding the Log file}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/32213/understanding-the-log-file
+      \endverb
+      \keyw{latex,log files,compiling}
+    \endentry
+    \entry{Include_input}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5886004bd42dfe6ea957dc7e00167fcc}{%
+           family={Wikibooks},
+           familyi={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{5886004bd42dfe6ea957dc7e00167fcc}
+      \strng{fullhash}{5886004bd42dfe6ea957dc7e00167fcc}
+      \strng{authornamehash}{5886004bd42dfe6ea957dc7e00167fcc}
+      \strng{authorfullhash}{5886004bd42dfe6ea957dc7e00167fcc}
+      \field{labelalpha}{Wik}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Wikibooks/LaTeX - Modular Documents}
+      \verb{url}
+      \verb https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+      \endverb
+      \keyw{latex,include,input,auxiliary files,compiling}
+    \endentry
+    \entry{compiler_works}{online}{}
+      \name{author}{1}{}{%
+        {{hash=93c71fed62527d4c8c6ae13ee771fcdd}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{fullhash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{authornamehash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{authorfullhash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \field{labelalpha}{Wri}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - How does the LaTeX compile chain work exactly?}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/121383/how-does-the-latex-compile-chain-work-exactly
+      \endverb
+      \keyw{latex,compiler}
+    \endentry
+    \entry{latex_vs_tex}{online}{}
+      \name{author}{1}{}{%
+        {{hash=93c71fed62527d4c8c6ae13ee771fcdd}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{fullhash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{authornamehash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \strng{authorfullhash}{93c71fed62527d4c8c6ae13ee771fcdd}
+      \field{labelalpha}{Wri}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 14.01.2019)}
+      \field{title}{Stackexchange Tex - What is the difference between TeX and LaTeX?}
+      \verb{url}
+      \verb https://tex.stackexchange.com/questions/49/what-is-the-difference-between-tex-and-latex
+      \endverb
+      \keyw{latex,tex}
+    \endentry
+    \entry{latexonline}{online}{}
+      \name{author}{1}{}{%
+        {{hash=107e6198bee311df4b939c04ca5fdca5}{%
+           family={(XO)},
+           familyi={(\bibinitperiod},
+           given={LaTeX\bibnamedelimb Online\bibnamedelima Editor},
+           giveni={L\bibinitperiod\bibinitdelim O\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{107e6198bee311df4b939c04ca5fdca5}
+      \strng{fullhash}{107e6198bee311df4b939c04ca5fdca5}
+      \strng{authornamehash}{107e6198bee311df4b939c04ca5fdca5}
+      \strng{authorfullhash}{107e6198bee311df4b939c04ca5fdca5}
+      \field{labelalpha}{XO}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(accessed: 15.01.2019)}
+      \field{title}{LaTeX Online Editor (XO) Home page}
+      \verb{url}
+      \verb http://latexonlineeditor.net/
+      \endverb
+      \keyw{latex,online editor}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

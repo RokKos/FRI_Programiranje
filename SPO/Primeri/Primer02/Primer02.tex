@@ -1,0 +1,18 @@
+\documentclass[12pt]{article}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex} % for bibliography
+
+\addbibresource{Primer02.bib}
+
+\begin{document}
+
+Citation from \verb|\cite{John Doe}| \cite{John_Doe}\\
+Citation from \verb|\cite{Real John Doe}| \cite{Real_John_Doe}
+
+\printbibliography
+
+\end{document}

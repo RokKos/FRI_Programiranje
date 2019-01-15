@@ -1,0 +1,19 @@
+\documentclass{article}
+
+\pagenumbering{Roman}
+\begin{document}
+
+a\clearpage b\clearpage c\clearpage
+
+\begin{figure}[!t]
+\framebox(200,430){}
+\caption{a figure to take up space}
+\end{figure}
+
+
+Some interesting text about  something in Section \ref{x},
+which starts on page \pageref{x}.
+
+\section{zzz\label{x}}
+The text of an interesting section.
+\end{document}
