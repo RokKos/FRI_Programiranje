@@ -131,6 +131,12 @@ public class LexAn extends Phase {
 							return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column));
 						}
 						break;
+
+					case kStrConst:
+						if (c == kDoubleQuote){
+							return new Symbol(Term.STRCONST, lexeme, new Location(startLine, startColumn, line, column));
+						}
+						break;
 				
 					default:
 						System.out.println("Invalid state");	
