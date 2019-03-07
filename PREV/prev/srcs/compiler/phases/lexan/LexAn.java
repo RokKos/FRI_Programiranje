@@ -77,7 +77,64 @@ public class LexAn extends Phase {
 		kStart, kCharConst, kIntConst, kStrConst, kComment, kIdentifier, kSymbol, kLast
 	}
 
-	private Map<String, Term> kStringToSymbols = new HashMap<String, Term>(){{put("<", Term.LTH);}};
+	private Map<String, Term> kStringToSymbols = new HashMap<String, Term>(){{
+		/*
+		put("", Term.EOF),
+		put("", Term.IOR),
+		put("", Term.XOR),
+		put("", Term.AND),
+		put("", Term.EQU),
+		put("", Term.NEQ),
+		put("", Term.LTH),
+		put("", Term.GTH),
+		put("", Term.LEQ),
+		put("", Term.GEQ),
+		put("", Term.ADD),
+		put("", Term.SUB),
+		put("", Term.MUL),
+		put("", Term.DIV),
+		put("", Term.MOD),
+		put("", Term.NOT),
+		put("", Term.ADDR),
+		put("", Term.DATA),
+		put("", Term.ASSIGN),
+		put("", Term.COLON),
+		put("", Term.COMMA),
+		put("", Term.DOT),
+		put("", Term.SEMIC),
+		put("", Term.LBRACE),
+		put("", Term.RBRACE),
+		put("", Term.LBRACKET),
+		put("", Term.RBRACKET),
+		put("", Term.LPARENTHESIS),
+		put("", Term.RPARENTHESIS),
+		*/
+}};
+	private Map<String, Term> kStringToKeyWords = new HashMap<String, Term>(){{
+		put("new", Term.NEW);
+		put("del", Term.DEL);
+		put("none", Term.VOIDCONST);
+		put("true", Term.BOOLCONST);
+		put("false", Term.BOOLCONST);
+		put("null", Term.PTRCONST);
+		put("void", Term.VOID);
+		put("bool", Term.BOOL);
+		put("char", Term.CHAR);
+		put("int", Term.INT);
+		put("ptr", Term.PTR);
+		put("arr", Term.ARR);
+		put("rec", Term.REC);
+		put("do", Term.DO);
+		put("else", Term.ELSE);
+		put("end", Term.END);
+		put("fun", Term.FUN);
+		put("if", Term.IF);
+		put("then", Term.THEN);
+		put("typ", Term.TYP);
+		put("var", Term.VAR);
+		put("where", Term.WHERE);
+		put("while", Term.WHILE);
+	}};
 
 	/**
 	 * Performs the lexical analysis of the source file.
@@ -108,6 +165,11 @@ public class LexAn extends Phase {
 				switch (state) {
 					case kStart:
 						state = DecideStartingState(c);
+						// TODO: Make this reseting better
+						lexeme = "" + c;
+						startLine = line;
+						startColumn = column;
+
 						if (kDebugOn) {
 							System.out.println("State: " + state);
 						}
@@ -117,8 +179,11 @@ public class LexAn extends Phase {
 						char singleQuote = (char)srcFile.read();
 						if (singleQuote != kSingleQuote) {
 							// TODO: Throw error
-						}else {
-							System.out.println("here2");
+							if (kDebugOn) {
+								System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
+								return new Symbol(Term.EOF, lexeme, new Location(startLine, startColumn, line, column + 1));	
+							}	
+						} else {
 							lexeme += singleQuote;
 							return new Symbol(Term.CHARCONST, lexeme, new Location(startLine, startColumn, line, column + 1));
 						}
@@ -135,6 +200,21 @@ public class LexAn extends Phase {
 					case kStrConst:
 						if (c == kDoubleQuote){
 							return new Symbol(Term.STRCONST, lexeme, new Location(startLine, startColumn, line, column));
+						}
+						break;
+
+					case kComment:
+						if (c == kNewLine) {
+							state = LexerState.kStart;
+						}
+						break;
+					
+
+					case kIdentifier:
+						if (!(IsLetter(c) || IsNumber(c))){
+							lexeme = lexeme.substring(0, lexeme.length() - 1);
+							srcFile.reset();
+							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column));
 						}
 						break;
 				
@@ -179,7 +259,6 @@ public class LexAn extends Phase {
 
 	private LexerState DecideStartingState(char c) {
 		if (c == kSingleQuote) {
-			System.out.println("here");
 			return LexerState.kCharConst;
 		} else if (IsNumber(c)) {
 			return LexerState.kIntConst;
@@ -187,7 +266,7 @@ public class LexAn extends Phase {
 			return LexerState.kStrConst;
 		} else if (c == kHash) {
 			return LexerState.kComment;
-		} else if (c == kUnderScore || (c >= kBigA && c <= kBigZ) || (c >= kSmallA && c <= kSmallZ)) {
+		} else if (IsLetter(c)) {
 			return LexerState.kIdentifier;
 		} else if (c == kSpace || c == kTab || c == kNewLine || c == kCarrygaReturn) {
 			return LexerState.kStart;
@@ -204,10 +283,6 @@ public class LexAn extends Phase {
 		return LexerState.kStart;
 	}
 
-	private boolean IsNumber(char c){
-		return c >= kZeroChar && c <= kNineChar;
-	}
-
 	private final int kTabLenght = 8;
 
 	private void MoveLocation(char c) {
@@ -221,5 +296,23 @@ public class LexAn extends Phase {
 		} else {
 			column++;
 		}
+	}
+
+
+	// --- Helpers ---
+	private boolean IsNumber(char c){
+		return c >= kZeroChar && c <= kNineChar;
+	}
+
+	private boolean IsLetter(char c){
+		return c == kUnderScore || (c >= kBigA && c <= kBigZ) || (c >= kSmallA && c <= kSmallZ);
+	}
+
+	private Term ReturnKeywordIfPossible(String lexeme) {
+		if (kStringToKeyWords.containsKey(lexeme)){
+			return kStringToKeyWords.get(lexeme);
+		}
+
+		return Term.IDENTIFIER;
 	}
 }
