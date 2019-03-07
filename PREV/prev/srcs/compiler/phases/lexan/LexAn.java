@@ -78,37 +78,34 @@ public class LexAn extends Phase {
 	}
 
 	private Map<String, Term> kStringToSymbols = new HashMap<String, Term>(){{
-		/*
-		put("", Term.EOF),
-		put("", Term.IOR),
-		put("", Term.XOR),
-		put("", Term.AND),
-		put("", Term.EQU),
-		put("", Term.NEQ),
-		put("", Term.LTH),
-		put("", Term.GTH),
-		put("", Term.LEQ),
-		put("", Term.GEQ),
-		put("", Term.ADD),
-		put("", Term.SUB),
-		put("", Term.MUL),
-		put("", Term.DIV),
-		put("", Term.MOD),
-		put("", Term.NOT),
-		put("", Term.ADDR),
-		put("", Term.DATA),
-		put("", Term.ASSIGN),
-		put("", Term.COLON),
-		put("", Term.COMMA),
-		put("", Term.DOT),
-		put("", Term.SEMIC),
-		put("", Term.LBRACE),
-		put("", Term.RBRACE),
-		put("", Term.LBRACKET),
-		put("", Term.RBRACKET),
-		put("", Term.LPARENTHESIS),
-		put("", Term.RPARENTHESIS),
-		*/
+		put("|", Term.IOR);
+		put("^", Term.XOR);
+		put("&", Term.AND);
+		put("==", Term.EQU);
+		put("!=", Term.NEQ);
+		put("<", Term.LTH);
+		put(">", Term.GTH);
+		put("<=", Term.LEQ);
+		put(">=", Term.GEQ);
+		put("+", Term.ADD);
+		put("-", Term.SUB);
+		put("*", Term.MUL);
+		put("/", Term.DIV);
+		put("%", Term.MOD);
+		put("!", Term.NOT);
+		put("@", Term.ADDR);
+		put("$", Term.DATA);
+		put("=", Term.ASSIGN);
+		put(":", Term.COLON);
+		put(",", Term.COMMA);
+		put(".", Term.DOT);
+		put(";", Term.SEMIC);
+		put("{", Term.LBRACE);
+		put("}", Term.RBRACE);
+		put("[", Term.LBRACKET);
+		put("]", Term.RBRACKET);
+		put("(", Term.LPARENTHESIS);
+		put(")", Term.RPARENTHESIS);
 }};
 	private Map<String, Term> kStringToKeyWords = new HashMap<String, Term>(){{
 		put("new", Term.NEW);
@@ -217,7 +214,19 @@ public class LexAn extends Phase {
 							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column));
 						}
 						break;
-				
+
+					case kSymbol:
+						
+						Term possibleSymbol = ReturnSymbolIfPossible(lexeme);
+						if (possibleSymbol != Term.EOF) {
+							return new Symbol(possibleSymbol, lexeme, new Location(startLine, startColumn, line, column));
+						} else {
+							lexeme = lexeme.substring(0, lexeme.length() - 1);
+							srcFile.reset();
+							return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column));
+						}
+
+					case kLast:
 					default:
 						System.out.println("Invalid state");	
 						break;
@@ -273,10 +282,9 @@ public class LexAn extends Phase {
 		}
 
 		String sC = String.valueOf(c);
-		for (String key : kStringToSymbols.keySet()){
-			if (sC.equals(key)){
-				return LexerState.kSymbol;
-			}
+		Term possibleSymbol = ReturnSymbolIfPossible(sC);
+		if (possibleSymbol != Term.EOF) {
+			return LexerState.kSymbol;
 		}
 
 		System.out.println("Missing indetifier state");
@@ -314,5 +322,13 @@ public class LexAn extends Phase {
 		}
 
 		return Term.IDENTIFIER;
+	}
+
+	private Term ReturnSymbolIfPossible(String lexeme) {
+		if (kStringToSymbols.containsKey(lexeme)){
+			return kStringToSymbols.get(lexeme);
+		}
+
+		return Term.EOF;
 	}
 }
