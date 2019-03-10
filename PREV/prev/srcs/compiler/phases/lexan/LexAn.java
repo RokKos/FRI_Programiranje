@@ -93,8 +93,8 @@ public class LexAn extends Phase {
 		put("/", Term.DIV);
 		put("%", Term.MOD);
 		put("!", Term.NOT);
-		put("@", Term.ADDR);
-		put("$", Term.DATA);
+		put("$", Term.ADDR);
+		put("@", Term.DATA);
 		put("=", Term.ASSIGN);
 		put(":", Term.COLON);
 		put(",", Term.COMMA);
@@ -190,7 +190,7 @@ public class LexAn extends Phase {
 						if (!IsNumber(c)){
 							lexeme = lexeme.substring(0, lexeme.length() - 1);
 							srcFile.reset();
-							return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column));
+							return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
 						}
 						break;
 
@@ -211,7 +211,7 @@ public class LexAn extends Phase {
 						if (!(IsLetter(c) || IsNumber(c))){
 							lexeme = lexeme.substring(0, lexeme.length() - 1);
 							srcFile.reset();
-							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column));
+							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
 						}
 						break;
 
@@ -223,7 +223,7 @@ public class LexAn extends Phase {
 						} else {
 							lexeme = lexeme.substring(0, lexeme.length() - 1);
 							srcFile.reset();
-							return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column));
+							return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, startLine, startColumn));
 						}
 
 					case kLast:
