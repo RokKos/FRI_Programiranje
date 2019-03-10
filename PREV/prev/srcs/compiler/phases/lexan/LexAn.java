@@ -248,6 +248,31 @@ public class LexAn extends Phase {
 				// TODO: Check for keyword
 				//return new Symbol(Term.IDENTIFIER, lexeme, new Location(line, column));
 			}
+			
+			// Handle EOF with somethign in
+			switch (state) {
+				case kStart:
+					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
+				case kCharConst:
+					// Return Error
+				case kIntConst:
+					return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));		
+				case kStrConst:
+					// Return Error
+				case kComment:
+					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
+				case kIdentifier:
+					return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
+				case kSymbol:
+					return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
+				case kLast:
+					if (kDebugOn) {
+						System.out.println("Error wrong state");
+					}
+			}
+
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -291,8 +316,10 @@ public class LexAn extends Phase {
 		if (possibleSymbol != Term.EOF) {
 			return LexerState.kSymbol;
 		}
-
-		System.out.println("Missing indetifier state");
+		
+		if (kDebugOn) {
+			System.out.println("Missing indetifier state");
+		}
 		return LexerState.kStart;
 	}
 
