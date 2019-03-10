@@ -177,16 +177,15 @@ public class LexAn extends Phase {
 						// Because we read two characters and we don't go to MoveLocation
 						column += 2;
 						if (singleQuote != kSingleQuote) {
-							// TODO: Throw error
 							if (kDebugOn) {
 								System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
-								return new Symbol(Term.EOF, lexeme, new Location(startLine, startColumn, line, column - 1));	
-							}	
+							}
+							throw new Report.Error(new Location(startLine, startColumn, line, column), "Character constant is more than one character long. Are you missing ' ?");
 						} else {
 							lexeme += singleQuote;
 							return new Symbol(Term.CHARCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
 						}
-						break;
+						
 
 					case kIntConst:
 						if (!IsNumber(c)){
@@ -254,11 +253,11 @@ public class LexAn extends Phase {
 				case kStart:
 					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
 				case kCharConst:
-					// Return Error
+					throw new Report.Error(new Location(startLine, startColumn, line, column), "Character constant is not closed. Are you missing ' ?");
 				case kIntConst:
 					return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));		
 				case kStrConst:
-					// Return Error
+					throw new Report.Error(new Location(startLine, startColumn, line, column), "String constant is not closed. Are you missing \" ?");
 				case kComment:
 					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
 				case kIdentifier:
