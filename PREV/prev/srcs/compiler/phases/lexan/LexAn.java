@@ -156,6 +156,8 @@ public class LexAn extends Phase {
 			srcFile.mark(1);
 			while((value = srcFile.read()) != -1) {
 				
+				CheckAsciiValue(value, 0,127);
+
 				char c = (char)value;
 				lexeme += c;
 
@@ -173,6 +175,7 @@ public class LexAn extends Phase {
 						break;
 
 					case kCharConst:
+						CheckAsciiValue(value, 32,127);
 						char singleQuote = (char)srcFile.read();
 						// Because we read two characters and we don't go to MoveLocation
 						column += 2;
@@ -196,6 +199,7 @@ public class LexAn extends Phase {
 						break;
 
 					case kStrConst:
+						CheckAsciiValue(value, 32,127);
 						if (c == kDoubleQuote){
 							return new Symbol(Term.STRCONST, lexeme, new Location(startLine, startColumn, line, column));
 						}
@@ -361,5 +365,11 @@ public class LexAn extends Phase {
 		}
 
 		return Term.EOF;
+	}
+
+	private void  CheckAsciiValue(int value, int low, int high) {
+		if (value < low || value > high) {
+			throw new Report.Error(new Location(line, column, line, column), "Character in input file is not part of standart ASCII table. Are you using weird characters in your code?");
+		}
 	}
 }
