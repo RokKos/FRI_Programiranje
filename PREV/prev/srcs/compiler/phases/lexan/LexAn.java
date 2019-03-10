@@ -69,7 +69,7 @@ public class LexAn extends Phase {
 	}
 
 
-	private boolean kDebugOn = true;
+	private boolean kDebugOn = false;
 	private int line = 1;
 	private int column = 1;
 
@@ -174,15 +174,17 @@ public class LexAn extends Phase {
 
 					case kCharConst:
 						char singleQuote = (char)srcFile.read();
+						// Because we read two characters and we don't go to MoveLocation
+						column += 2;
 						if (singleQuote != kSingleQuote) {
 							// TODO: Throw error
 							if (kDebugOn) {
 								System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
-								return new Symbol(Term.EOF, lexeme, new Location(startLine, startColumn, line, column + 1));	
+								return new Symbol(Term.EOF, lexeme, new Location(startLine, startColumn, line, column - 1));	
 							}	
 						} else {
 							lexeme += singleQuote;
-							return new Symbol(Term.CHARCONST, lexeme, new Location(startLine, startColumn, line, column + 1));
+							return new Symbol(Term.CHARCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
 						}
 						break;
 
@@ -219,7 +221,8 @@ public class LexAn extends Phase {
 						
 						Term possibleSymbol = ReturnSymbolIfPossible(lexeme);
 						if (possibleSymbol != Term.EOF) {
-							return new Symbol(possibleSymbol, lexeme, new Location(startLine, startColumn, line, column));
+							column++;
+							return new Symbol(possibleSymbol, lexeme, new Location(startLine, startColumn, line, column - 1));
 						} else {
 							lexeme = lexeme.substring(0, lexeme.length() - 1);
 							srcFile.reset();
@@ -228,7 +231,9 @@ public class LexAn extends Phase {
 
 					case kLast:
 					default:
-						System.out.println("Invalid state");	
+						if (kDebugOn) {
+							System.out.println("Invalid state");	
+						}
 						break;
 				}
 
