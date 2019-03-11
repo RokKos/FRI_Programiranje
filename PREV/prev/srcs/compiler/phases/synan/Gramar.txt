@@ -37,3 +37,64 @@ type -> rec ( args ) .
 type -> ptr type .
 type -> identifier .
 type -> ( type ) .
+
+# Unary operator
+
+unop -> ! .
+unop -> + .
+unop -> - .
+unop -> $ .
+unop -> @ .
+
+# Bynary operator
+
+binop -> - .
+binop -> + .
+binop -> ior .
+binop -> ^ .
+binop -> & .
+binop -> == .
+binop -> != .
+binop -> <= .
+binop -> >= .
+binop -> < .
+binop -> > .
+binop -> * .
+binop -> / .
+binop -> % .
+binop -> = .
+binop -> dot .
+binop -> , .
+binop -> : .
+binop -> ; .
+binop -> [ .
+binop -> ] .
+binop -> ( .
+binop -> ) .
+binop -> { .
+binop -> } .
+
+
+# Expresion
+expr -> literal expr'' expr''' .
+# expr -> unop expr .
+# expr -> expr binop expr .
+
+# Covers identifier ( exprs )
+expr -> identifier expr' expr'' expr''' .
+expr' -> .
+expr' -> ( exprs ) .
+
+exprs -> .
+exprs -> expr exprs' .
+exprs' -> .
+exprs' -> , expr exprs' .
+
+# Covers expr [ expr ]
+expr'' -> [ expr ] expr'' .
+expr'' -> .
+
+# Covers expr.identifier
+expr''' -> dot identifier expr''' .
+expr''' -> .
+
