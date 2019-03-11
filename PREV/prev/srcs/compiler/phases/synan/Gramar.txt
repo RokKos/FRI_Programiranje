@@ -98,3 +98,21 @@ expr'' -> .
 expr''' -> dot identifier expr''' .
 expr''' -> .
 
+expr -> new ( type ) .
+expr -> del ( expr ) .
+
+# Compound Expresion
+expr -> { stmts : expr where_o } .
+
+stmts -> stmt stmts' .
+stmts' -> .
+stmts' -> stmt stmts' .
+
+where_o -> .
+where_o -> where decl decl' .
+
+
+# Covers (expr:type) and (expr)
+expr -> ( expr expr'''' .
+expr'''' -> : type ) .
+expr'''' -> ) .
