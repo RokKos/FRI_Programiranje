@@ -5,3 +5,23 @@
 Source -> decl decl' .
 decl' -> .
 decl' -> decl decl' .
+
+# Declaration
+
+decl -> typ arg ; .
+decl -> var arg ; .
+decl -> fun identifier ( args ) : type P_expr ; .
+
+# Arguments
+
+args -> .
+args -> arg args' .
+args' -> .
+args' -> , arg args' .
+
+arg -> identifier : type .
+
+# Proxy expresion
+
+P_expr -> .
+P_expr -> = expr .
