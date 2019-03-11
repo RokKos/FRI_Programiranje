@@ -1,0 +1,7 @@
+--- Gramar ---
+
+# Start source
+
+Source -> decl decl' .
+decl' -> .
+decl' -> decl decl' .
