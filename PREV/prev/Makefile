@@ -8,4 +8,4 @@ clean:
 	$(MAKE) -C prgs distclean
 
 distclean: clean
-	find . -name '.[a-z]*' -exec $(RM) {} \;
+	find . -name '.[A-Za-z]*' -exec $(RM) {} \;

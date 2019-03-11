@@ -6,6 +6,7 @@ package compiler;
 import java.util.*;
 import compiler.common.report.*;
 import compiler.phases.lexan.*;
+import compiler.phases.synan.*;
 
 /**
  * The compiler.
@@ -15,7 +16,7 @@ import compiler.phases.lexan.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan";
+	private static final String phases = "lexan|synan";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -100,6 +101,14 @@ public class Main {
 					}
 					break;
 				}
+
+				// Syntax analysis.
+				try (SynAn synan = new SynAn()) {
+					synan.parser();
+					SynAn.derTree.accept(new DerLogger(synan.logger), null);
+				}
+				if (cmdLine.get("--target-phase").equals("synan"))
+					break;
 
 				int endWarnings = Report.numOfWarnings();
 				if (begWarnings != endWarnings)
