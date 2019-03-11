@@ -25,3 +25,15 @@ arg -> identifier : type .
 
 P_expr -> .
 P_expr -> = expr .
+
+# Type
+
+type -> void .
+type -> bool .
+type -> char .
+type -> int .
+type -> arr[expr] type .
+type -> rec ( args ) .
+type -> ptr type .
+type -> identifier .
+type -> ( type ) .
