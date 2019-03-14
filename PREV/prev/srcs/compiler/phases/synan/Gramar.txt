@@ -38,81 +38,90 @@ type -> ptr type .
 type -> identifier .
 type -> ( type ) .
 
-# Unary operator
-
-unop -> ! .
-unop -> + .
-unop -> - .
-unop -> $ .
-unop -> @ .
-
-# Bynary operator
-
-binop -> - .
-binop -> + .
-binop -> ior .
-binop -> ^ .
-binop -> & .
-binop -> == .
-binop -> != .
-binop -> <= .
-binop -> >= .
-binop -> < .
-binop -> > .
-binop -> * .
-binop -> / .
-binop -> % .
-binop -> = .
-binop -> dot .
-binop -> , .
-binop -> : .
-binop -> ; .
-binop -> [ .
-binop -> ] .
-binop -> ( .
-binop -> ) .
-binop -> { .
-binop -> } .
-
-
 # Expresion
-expr -> literal expr'' expr''' .
-# expr -> unop expr .
-# expr -> expr binop expr .
+expr -> NEXT_expr_XOR exprOR .
+exprOR -> or NEXT_expr_XOR .
+exprOR -> .
 
-# Covers identifier ( exprs )
-expr -> identifier expr' expr'' expr''' .
-expr' -> .
-expr' -> ( exprs ) .
+NEXT_expr_XOR -> NEXT_expr_AND exprXOR .
+exprXOR -> ^ NEXT_expr_AND .
+exprXOR -> .
 
-exprs -> .
-exprs -> expr exprs' .
-exprs' -> .
-exprs' -> , expr exprs' .
+NEXT_expr_AND -> NEXT_expr_EQ exprAND .
+exprAND -> & NEXT_expr_EQ .
+exprAND -> .
 
-# Covers expr [ expr ]
-expr'' -> [ expr ] expr'' .
-expr'' -> .
+NEXT_expr_EQ -> NEXT_expr_NEQ exprEQ .
+exprEQ -> == NEXT_expr_NEQ .
+exprEQ -> .
 
-# Covers expr.identifier
-expr''' -> dot identifier expr''' .
-expr''' -> .
+NEXT_expr_NEQ -> NEXT_expr_LESS exprNEQ .
+exprNEQ -> != NEXT_expr_LESS .
+exprNEQ -> .
 
-expr -> new ( type ) .
-expr -> del ( expr ) .
+NEXT_expr_LESS -> NEXT_expr_GREAT exprLESS .
+exprLESS -> < exprLESS_EQ NEXT_expr_GREAT .
+exprLESS_EQ -> = .
+exprLESS_EQ -> .
 
-# Compound Expresion
-expr -> { stmts : expr where_o } .
+NEXT_expr_GREAT -> NEXT_expr_BIN_PLUS exprGREAT .
+exprGREAT -> > exprGREAT_EQ NEXT_expr_BIN_PLUS .
+exprGREAT_EQ -> = .
+exprGREAT_EQ -> .
 
-stmts -> stmt stmts' .
-stmts' -> .
-stmts' -> stmt stmts' .
+NEXT_expr_BIN_PLUS -> NEXT_expr_BIN_MINUS exprPLUS .
+exprPLUS -> + NEXT_expr_BIN_MINUS .
+exprPLUS -> .
 
-where_o -> .
-where_o -> where decl decl' .
+NEXT_expr_BIN_MINUS -> NEXT_expr_TIMES exprMINUS .
+exprMINUS -> - NEXT_expr_TIMES .
+exprMINUS -> .
+
+NEXT_expr_TIMES -> NEXT_expr_DIV exprTIMES .
+exprTIMES -> * NEXT_expr_DIV .
+exprTIMES -> .
+
+NEXT_expr_DIV -> NEXT_expr_MOD exprDIV .
+exprDIV -> / NEXT_expr_MOD .
+exprDIV -> .
+
+NEXT_expr_MOD -> NEXT_expr_UNARY_NOT exprMOD .
+exprMOD -> % NEXT_expr_UNARY_NOT .
+exprMOD -> .
+
+NEXT_expr_UNARY_NOT -> exprUNARY_NOT NEXT_expr_UNARY_PLUS  .
+exprUNARY_NOT -> ! .
+exprUNARY_NOT -> .
+
+NEXT_expr_UNARY_PLUS -> exprUNARY_PLUS NEXT_expr_UNARY_MINUS  .
+exprUNARY_PLUS -> + .
+exprUNARY_PLUS -> .
+
+NEXT_expr_UNARY_MINUS -> exprUNARY_MINUS NEXT_expr_ADDR  .
+exprUNARY_MINUS -> - .
+exprUNARY_MINUS -> .
+
+NEXT_expr_ADDR -> exprADDR NEXT_expr_DATA .
+exprADDR -> $ .
+exprADDR -> .
+
+NEXT_expr_DATA -> exprDATA NEXT_expr_NEW .
+exprDATA -> @ .
+exprDATA -> .
+
+NEXT_expr_NEW -> exprNEW NEXT_expr_DEL .
+exprNEW -> new ( type ) .
+exprNEW -> .
+
+NEXT_expr_DEL -> exprDEL NEXT_expr_TYPE_CAST .
+exprDEL -> del ( NEXT_expr_TYPE_CAST ) .
+exprDEL -> .
 
 
-# Covers (expr:type) and (expr)
-expr -> ( expr expr'''' .
-expr'''' -> : type ) .
-expr'''' -> ) .
+NEXT_expr_TYPE_CAST -> exprTYPE_CAST NEXT_expr_ARR_ACC .
+exprTYPE_CAST -> ( NEXT_expr_ARR_ACC : type ) .
+exprTYPE_CAST -> .
+
+
+
+
