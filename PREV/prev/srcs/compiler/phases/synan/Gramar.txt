@@ -139,3 +139,25 @@ exprs' -> .
 exprs' -> , expr exprs' .
 
 expr -> literal .
+
+# Compound Expresion
+expr -> { stmts : expr where_o } .
+
+stmts -> stmt stmts' .
+stmts' -> .
+stmts' -> stmt stmts' .
+
+where_o -> .
+where_o -> where decl decl' .
+
+# Statements
+
+stmt -> expr stmtASS ; .
+stmtASS -> = expr .
+stmtASS -> .
+
+stmt -> if expr then stmts stmtELSE end ; .
+stmtELSE -> .
+stmtELSE -> else stmts .
+
+stmt -> while expr do stmts end ; .
