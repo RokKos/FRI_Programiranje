@@ -119,7 +119,23 @@ exprDEL -> .
 
 
 NEXT_expr_TYPE_CAST -> exprTYPE_CAST NEXT_expr_ARR_ACC .
-exprTYPE_CAST -> ( expr : type ) .
+exprTYPE_CAST -> ( exprIDE exprENCLOSE_TYPE_CAST .
+exprENCLOSE_TYPE_CAST -> ) .
+exprENCLOSE_TYPE_CAST -> : type ) .
 exprTYPE_CAST -> .
+
+NEXT_expr_ARR_ACC -> exprIDE exprARR_COMP_ACC .
+exprARR_COMP_ACC -> [exprIDE] .
+exprARR_COMP_ACC -> dot identifier .
+exprARR_COMP_ACC -> .
+
+exprIDE -> identifier exprFUNCTION .
+exprFUNCTION -> ( exprs ) .
+exprFUNCTION -> .
+
+exprs -> .
+exprs -> expr exprs' .
+exprs' -> .
+exprs' -> , expr exprs' .
 
 expr -> literal .
