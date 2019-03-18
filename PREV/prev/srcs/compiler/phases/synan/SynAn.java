@@ -151,6 +151,7 @@ public class SynAn extends Phase {
 				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
 				node.add(parseType());
+				//System.out.println("proxy " + currSymb.token.toString());
 				node.add(parseProxyExpr());
 				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 				break;
@@ -300,7 +301,9 @@ public class SynAn extends Phase {
 				break;
 			case ASSIGN:
 				add(node, Symbol.Term.ASSIGN, EXPECTED_SYMBOLS_STR + "= got: " + currSymb.token.toString());
+				//System.out.println("before " + currSymb.token.toString());
 				node.add(parseExpr());
+				//System.out.println("here " + currSymb.token.toString());
 				break;
 			
 			default:
@@ -559,6 +562,7 @@ public class SynAn extends Phase {
 				break;
 
 			case EQU:
+				//System.out.println("tukaj");
 				add(node, Symbol.Term.EQU, EXPECTED_SYMBOLS_STR + "== got: " + currSymb.token.toString());
 				node.add(parseNEXT_expr_NEQ());
 				node.add(parse_exprEQ());
@@ -910,7 +914,7 @@ public class SynAn extends Phase {
 			case DATA:
 			case NEW:
 			case DEL:
-				node.add(parseNEXT_expr_DIV());
+				node.add(parseNEXT_expr_MOD());
 				node.add(parse_expr_DIV());
 				break;
 
@@ -1418,7 +1422,7 @@ public class SynAn extends Phase {
 				break;
 			
 			default:
-				throw new Report.Error(currSymb.location(), "Expected identifier. ExprFunction( stage");
+				throw new Report.Error(currSymb.location(), "Expected identifier. ExprFunction( stage " +  currSymb.token.toString());
 		}
 
 		return node;
@@ -1509,7 +1513,6 @@ public class SynAn extends Phase {
 	}
 
 
-	// TODO: Finish
 	private DerNode parseStatements() {
 		DerNode node = new DerNode(DerNode.Nont.Stmts);
 		switch (currSymb.token) {
