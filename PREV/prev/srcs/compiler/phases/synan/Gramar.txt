@@ -139,6 +139,12 @@ exprs' -> .
 exprs' -> , expr exprs' .
 
 expr -> literal .
+literal -> ptr_const .
+literal -> bool_const .
+literal -> void_const .
+literal -> char_const .
+literal -> str_const .
+literal -> int_const .
 
 # Compound Expresion
 expr -> { stmts : expr where_o } .
