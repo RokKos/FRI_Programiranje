@@ -32,7 +32,7 @@ type -> void .
 type -> bool .
 type -> char .
 type -> int .
-type -> arr[expr] type .
+type -> arr [ expr ] type .
 type -> rec ( args ) .
 type -> ptr type .
 type -> identifier .
@@ -125,7 +125,7 @@ exprENCLOSE_TYPE_CAST -> : type ) .
 exprTYPE_CAST -> .
 
 NEXT_expr_ARR_ACC -> exprIDE exprARR_COMP_ACC .
-exprARR_COMP_ACC -> [exprIDE] .
+exprARR_COMP_ACC -> [ exprIDE ] .
 exprARR_COMP_ACC -> dot identifier .
 exprARR_COMP_ACC -> .
 
