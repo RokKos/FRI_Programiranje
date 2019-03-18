@@ -43,3 +43,90 @@ DisjExpr -> ConjExpr ConjExprRest .
 DisjExprRest -> or DisjExpr DisjExprRest .
 DisjExprRest -> ^ DisjExpr DisjExprRest .
 DisjExprRest -> .
+
+# And Expresion
+ConjExpr -> RelExpr RelExprRest .
+ConjExprRest -> & ConjExpr ConjExprRest .
+ConjExprRest -> .
+
+# Relation expresions
+RelExpr -> AddExpr AddExprRest .
+RelExprRest -> == RelExpr RelExprRest .
+RelExprRest -> != RelExpr RelExprRest .
+RelExprRest -> <= RelExpr RelExprRest .
+RelExprRest -> >= RelExpr RelExprRest .
+RelExprRest -> < RelExpr RelExprRest .
+RelExprRest -> > RelExpr RelExprRest .
+RelExprRest -> .
+
+# Plus / Minus
+AddExpr -> MulExpr MulExprRest .
+AddExprRest -> + AddExpr AddExprRest .
+AddExprRest -> - AddExpr AddExprRest .
+AddExprRest -> .
+
+
+MulExpr -> PrefExpr .
+MulExprRest -> * MulExpr MulExprRest .
+MulExprRest -> / MulExpr MulExprRest .
+MulExprRest -> % MulExpr MulExprRest .
+MulExprRest -> .
+
+# Prefix expresions (All that negate, change sign etc.)
+PrefExpr -> PstfExpr PstfExprRest .
+PrefExpr -> ! PrefExpr .
+PrefExpr -> + PrefExpr .
+PrefExpr -> - PrefExpr .
+PrefExpr -> $ PrefExpr .
+PrefExpr -> @ PrefExpr .
+PrefExpr -> new ( Type ) .
+PrefExpr -> del ( Expr ) .
+PrefExpr -> ( Expr CastEps ) .
+
+# Type Casting
+CastEps -> : Type | .
+
+# Postfix expresions (Array access and component access)
+PstfExpr -> AtomExpr .
+PstfExprRest -> .
+PstfExprRest -> dot identifier PstfExprRest .
+PstfExprRest -> [ PstfExpr ] PstfExprRest .
+
+# Atomic expresions only literals and identifiers possible
+AtomExpr -> literal .
+
+literal -> ptr_const .
+literal -> bool_const .
+literal -> void_const .
+literal -> char_const .
+literal -> str_const .
+literal -> int_const .
+
+AtomExpr -> identifier CallEps .
+
+# Function calls with parameters
+CallEps -> ( Args ) .
+
+Args -> .
+Args -> ArgsEps .
+ArgsEps -> Expr ArgsRest .
+ArgsRest -> , Expr ArgsRest .
+ArgsRest -> .
+
+# Statements
+Stmts -> Stmt StmtsRest .
+StmtsRest -> .
+StmtsRest -> Stmt StmtsRest .
+
+Stmt -> Expr AssignEps ; .
+AssignEps -> = Expr .
+AssignEps -> .
+
+Stmt -> if Expr then Stmts ElseEps end ; .
+ElseEps -> else Stmts .
+ElseEps -> .
+
+Stmt -> while Expr do Stmts end ; .
+
+WhereEps -> .
+WhereEps -> where Decls .
