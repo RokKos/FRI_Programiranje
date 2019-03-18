@@ -20,7 +20,7 @@ public class DerNode extends DerTree {
 	 * @author sliva
 	 */
 	public enum Nont {
-		Source, Decls, DeclsRest, Decl, ParDeclsEps, ParDecls, ParDeclsRest, ParDecl, BodyEps, Type, CompDecls, CompDeclsRest, CompDecl, Expr,
+		Source, Decls, DeclsRest, Decl, ParDeclsEps, ParDecls, ParDeclsRest, ParDecl, BodyEps, Type, CompDecls, CompDeclsRest, CompDecl, Expr, P_expr, NEXT_expr_XOR, exprOR, NEXT_expr_AND, exprXOR,  Literal,Where_o,
 		DisjExpr, DisjExprRest, ConjExpr, ConjExprRest, RelExpr, RelExprRest, AddExpr, AddExprRest, MulExpr,
 		MulExprRest, PrefExpr, PstfExpr, PstfExprRest, AtomExpr, CallEps, ArgsEps, Args, Arg, ArgsRest, CastEps,
 		WhereEps, Stmts, StmtsRest, Stmt, AssignEps, ElseEps,
