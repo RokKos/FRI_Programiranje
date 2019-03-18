@@ -1,0 +1,45 @@
+# --- Gramar ---
+
+Source -> Decls .
+Decls -> Decl DeclRest .
+DeclRest -> Decl DeclRest .
+DeclRest -> .
+
+Decl -> typ ParDecl ; .
+Decl -> var ParDecl ; .
+Decl -> fun identifier ( ParDecls ) : Type BodyEps ; .
+
+# Parameters of function
+ParDecls -> .
+ParDecls -> ParDecl ParDeclsRest .
+ParDeclsRest -> .
+ParDeclsRest -> , ParDecl ParDeclsRest .
+
+ParDecl -> identifier : Type .
+
+BodyEps -> .
+BodyEps -> = Expr .
+
+Type -> void | bool | char | int .
+Type -> arr [ Expr ] Type .
+Type -> ptr Type .
+Type -> identifier .
+Type -> ( Type ) .
+
+Type -> rec ( CompDecls ) .
+
+# Declaration for record
+CompDecls -> ParDecl CompDeclsRest .
+CompDeclsRest -> , ParDecl CompDeclsRest .
+CompDeclsRest -> .
+
+# Expresions
+
+# Top level
+Expr -> { Stmts : Expr WhereEps } .
+Expr -> DisjExpr DisjExprRest .
+
+DisjExpr -> ConjExpr ConjExprRest .
+DisjExprRest -> or DisjExpr DisjExprRest .
+DisjExprRest -> ^ DisjExpr DisjExprRest .
+DisjExprRest -> .

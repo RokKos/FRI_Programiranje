@@ -20,9 +20,9 @@ public class DerNode extends DerTree {
 	 * @author sliva
 	 */
 	public enum Nont {
-		Source, Decls, DeclsRest, Decl, ParDeclsEps, ParDecls, ParDeclsRest, ParDecl, BodyEps, Type, CompDecls, CompDeclsRest, CompDecl, Expr, P_expr, NEXT_expr_XOR, exprOR, NEXT_expr_AND, NEXT_expr_EQ, exprXOR, NEXT_expr_NEQ, NEXT_expr_LESS, NEXT_expr_GREAT, NEXT_expr_BIN_PLUS, NEXT_expr_BIN_MINUS, NEXT_expr_TIMES, NEXT_expr_DIV, NEXT_expr_MOD, NEXT_expr_UNARY_NOT, exprAND, exprEQ, exprNEQ, exprLESS, exprLESS_EQ, exprGREAT, exprGREAT_EQ, exprPLUS, exprMINUS, exprTIMES, exprDIV, exprMOD, exprUNARY_NOT, NEXT_expr_UNARY_PLUS, exprUNARY_PLUS, NEXT_expr_UNARY_MINUS, exprUNARY_MINUS, NEXT_expr_ADDR, exprADDR, NEXT_expr_DATA, exprDATA, NEXT_expr_NEW, exprNEW, NEXT_expr_DEL, exprDEL, NEXT_expr_TYPE_CAST, exprTYPE_CAST, exprENCLOSE_TYPE_CAST, NEXT_expr_ARR_ACC, exprARR_COMP_ACC, exprIDE, exprFunction, exprs,exprsEps, StmtsEps, StmtASS, StmtELSE, Literal,Where_o,
+		Source, Decls, DeclsRest, Decl, ParDeclsEps, ParDecls, ParDeclsRest, ParDecl, BodyEps, Type, CompDecls, CompDeclsRest, CompDecl, Expr,
 		DisjExpr, DisjExprRest, ConjExpr, ConjExprRest, RelExpr, RelExprRest, AddExpr, AddExprRest, MulExpr,
-		MulExprRest, PrefExpr, PstfExpr, PstfExprRest, AtomExpr, CallEps, ArgsEps, Args, Arg, ArgsRest, CastEps,
+		MulExprRest, PrefExpr, PstfExpr, PstfExprRest, AtomExpr, CallEps, ArgsEps, Args, ArgsRest, CastEps,
 		WhereEps, Stmts, StmtsRest, Stmt, AssignEps, ElseEps,
 	};
 
