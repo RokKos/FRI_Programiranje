@@ -369,7 +369,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator");
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. XOR stage");
 		}
 
 		return node;
@@ -383,7 +383,7 @@ public class SynAn extends Phase {
 			case IDENTIFIER:
 			case LPARENTHESIS:
 			case RPARENTHESIS:
-			case COLON:
+			case COMMA:
 			case ASSIGN:
 			case RBRACKET:
 			case ADD:
@@ -399,13 +399,13 @@ public class SynAn extends Phase {
 				break;
 
 			case IOR:
-				CheckAndSkip(Symbol.Term.IOR, EXPECTED_SYMBOLS_STR + "| got: " + currSymb.token.toString());
+				add(node, Symbol.Term.IOR, EXPECTED_SYMBOLS_STR + "| got: " + currSymb.token.toString());
 				node.add(parseNEXT_expr_XOR());
 				node.add(parse_exprOR());
 				break;
 			
 			default:
-				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator");
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. OR stage");
 		}
 
 		return node;
@@ -414,15 +414,865 @@ public class SynAn extends Phase {
 
 	private DerNode parseNEXT_expr_AND() {
 		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_AND);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_EQ());
+				node.add(parse_exprAND());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. AND stage");
+		}
+
 		return node;
 	}
 	
 	private DerNode parse_exprXOR() {
 		DerNode node = new DerNode(DerNode.Nont.exprXOR);
+		switch (currSymb.token) {
+			case SEMIC:
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case RPARENTHESIS:
+			case COMMA:
+			case ASSIGN:
+			case RBRACKET:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+			case IOR:
+				break;
+
+			case XOR:
+				add(node, Symbol.Term.XOR, EXPECTED_SYMBOLS_STR + "^ got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_AND());
+				node.add(parse_exprXOR());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. XOR stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_EQ() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_EQ);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_NEQ());
+				node.add(parse_exprEQ());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. EQ stage");
+		}
+
 		return node;
 	}
 	
 
+	private DerNode parse_exprAND() {
+		DerNode node = new DerNode(DerNode.Nont.exprAND);
+		switch (currSymb.token) {
+			case SEMIC:
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case RPARENTHESIS:
+			case COMMA:
+			case ASSIGN:
+			case RBRACKET:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+			case IOR:
+			case XOR:
+				break;
+
+			case AND:
+				add(node, Symbol.Term.AND, EXPECTED_SYMBOLS_STR + "& got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_EQ());
+				node.add(parse_exprAND());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. AND stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_exprEQ() {
+		DerNode node = new DerNode(DerNode.Nont.exprEQ);
+		switch (currSymb.token) {
+			case SEMIC:
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case RPARENTHESIS:
+			case COMMA:
+			case ASSIGN:
+			case RBRACKET:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+			case IOR:
+			case XOR:
+			case AND:
+				break;
+
+			case EQU:
+				add(node, Symbol.Term.EQU, EXPECTED_SYMBOLS_STR + "== got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_NEQ());
+				node.add(parse_exprEQ());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. EQU stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_NEQ() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_NEQ);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_LESS());
+				node.add(parse_exprNEQ());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. NEQ stage");
+		}
+
+		return node;
+	}
+
+
+	private DerNode parse_exprNEQ() {
+		DerNode node = new DerNode(DerNode.Nont.exprNEQ);
+		switch (currSymb.token) {
+			case SEMIC:
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case RPARENTHESIS:
+			case COMMA:
+			case ASSIGN:
+			case RBRACKET:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+			case IOR:
+			case XOR:
+			case AND:
+			case EQU:
+				break;
+
+			case NEQ:
+				add(node, Symbol.Term.EQU, EXPECTED_SYMBOLS_STR + "!= got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_LESS());
+				node.add(parse_exprNEQ());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. NEQ stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_LESS() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_LESS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_GREAT());
+				node.add(parse_expr_LESS());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. LESS stage");
+		}
+
+		return node;
+	}
+
+
+	private DerNode parse_expr_LESS() {
+		DerNode node = new DerNode(DerNode.Nont.exprLESS);
+		switch (currSymb.token) {
+			
+			case LTH:
+				node.add(parse_expr_LESS_EQ());
+				node.add(parseNEXT_expr_GREAT());
+				node.add(parse_expr_LESS());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. LESSs stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_LESS_EQ() {
+		DerNode node = new DerNode(DerNode.Nont.exprLESS_EQ);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+				break;
+
+			case ASSIGN:
+				add(node, Symbol.Term.ASSIGN, EXPECTED_SYMBOLS_STR + "= got: " + currSymb.token.toString());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. LESS_EQ stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_GREAT() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_GREAT);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_BIN_PLUS());
+				node.add(parse_expr_GREAT());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. GREAT stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_GREAT() {
+		DerNode node = new DerNode(DerNode.Nont.exprGREAT);
+		switch (currSymb.token) {
+			
+			case GTH:
+				node.add(parse_expr_GREAT_EQ());
+				node.add(parseNEXT_expr_GREAT());
+				node.add(parse_expr_GREAT());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. GREAT stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_GREAT_EQ() {
+		DerNode node = new DerNode(DerNode.Nont.exprGREAT_EQ);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case RBRACE:
+			case WHERE:
+			case THEN:
+			case DO:
+				break;
+
+			case ASSIGN:
+				CheckAndSkip(Symbol.Term.ASSIGN, EXPECTED_SYMBOLS_STR + "= got: " + currSymb.token.toString());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. GREAT_EQ stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_BIN_PLUS() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_BIN_PLUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_BIN_MINUS());
+				node.add(parse_expr_PLUS());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. BIN_PLUS stage");
+		}
+
+		return node;
+	}
+
+
+	private DerNode parse_expr_PLUS() {
+		DerNode node = new DerNode(DerNode.Nont.exprPLUS);
+		switch (currSymb.token) {
+			case GTH:
+				break;
+			case ADD:
+				add(node, Symbol.Term.ADD, EXPECTED_SYMBOLS_STR + "+ got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_BIN_MINUS());
+				node.add(parse_expr_PLUS());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or +. PLUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_BIN_MINUS() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_BIN_MINUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_TIMES());
+				node.add(parse_expr_MINUS());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. BIN_MINUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_MINUS() {
+		DerNode node = new DerNode(DerNode.Nont.exprMINUS);
+		switch (currSymb.token) {
+			case GTH:
+			case ADD:
+				break;
+			case SUB:
+				add(node, Symbol.Term.SUB, EXPECTED_SYMBOLS_STR + "- got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_TIMES());
+				node.add(parse_expr_MINUS());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or +. MINUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_TIMES() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_TIMES);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_DIV());
+				node.add(parse_expr_TIMES());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. TIMES stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_TIMES() {
+		DerNode node = new DerNode(DerNode.Nont.exprTIMES);
+		switch (currSymb.token) {
+			case GTH:
+			case ADD:
+			case SUB:
+				break;
+			case MUL:
+				add(node, Symbol.Term.MUL, EXPECTED_SYMBOLS_STR + "* got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_DIV());
+				node.add(parse_expr_TIMES());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or -. TIMES stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_DIV() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_DIV);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_DIV());
+				node.add(parse_expr_DIV());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. DIV stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_DIV() {
+		DerNode node = new DerNode(DerNode.Nont.exprDIV);
+		switch (currSymb.token) {
+			case GTH:
+			case ADD:
+			case SUB:
+			case MUL:
+				break;
+			case DIV:
+				add(node, Symbol.Term.DIV, EXPECTED_SYMBOLS_STR + "/ got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_MOD());
+				node.add(parse_expr_DIV());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or *. DIV stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_MOD() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_MOD);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parseNEXT_expr_UNARY_NOT());
+				node.add(parse_expr_MOD());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. MOD stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_MOD() {
+		DerNode node = new DerNode(DerNode.Nont.exprMOD);
+		switch (currSymb.token) {
+			case GTH:
+			case ADD:
+			case SUB:
+			case MUL:
+			case DIV:
+				break;
+			case MOD:
+				add(node, Symbol.Term.MOD, EXPECTED_SYMBOLS_STR + "/ got: " + currSymb.token.toString());
+				node.add(parseNEXT_expr_UNARY_NOT());
+				node.add(parse_expr_MOD());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or * or /. MOD stage");
+		}
+
+		return node;
+	}
+	
+
+	private DerNode parseNEXT_expr_UNARY_NOT() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_UNARY_NOT);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case NOT:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_UNARY_NOT());
+				node.add(parseNEXT_expr_UNARY_PLUS());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. UNARY_NOT stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_UNARY_NOT() {
+		DerNode node = new DerNode(DerNode.Nont.exprUNARY_NOT);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				break;
+			case NOT:
+				add(node, Symbol.Term.NOT, EXPECTED_SYMBOLS_STR + "! got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or * or /. UNARY_NOT stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_UNARY_PLUS() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_UNARY_PLUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_UNARY_PLUS());
+				node.add(parseNEXT_expr_UNARY_MINUS());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. UNARY_PLUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_UNARY_PLUS() {
+		DerNode node = new DerNode(DerNode.Nont.exprUNARY_PLUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				break;
+			case ADD:
+				add(node, Symbol.Term.ADD, EXPECTED_SYMBOLS_STR + "+ got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or * or /. UNARY_PLUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_UNARY_MINUS() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_UNARY_MINUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_UNARY_MINUS());
+				node.add(parseNEXT_expr_ADDR());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. UNARY_MINUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_UNARY_MINUS() {
+		DerNode node = new DerNode(DerNode.Nont.exprUNARY_MINUS);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				break;
+			case SUB:
+				add(node, Symbol.Term.SUB, EXPECTED_SYMBOLS_STR + "- got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or * or /. UNARY_MINUS stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_ADDR() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_ADDR);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_ADDR());
+				node.add(parseNEXT_expr_DATA());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. ADDR stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_ADDR() {
+		DerNode node = new DerNode(DerNode.Nont.exprADDR);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case DATA:
+			case NEW:
+			case DEL:
+				break;
+			case ADDR:
+				add(node, Symbol.Term.ADDR, EXPECTED_SYMBOLS_STR + "$ got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected >  or + or - or * or /. ADDR stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_DATA() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_DATA);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case DATA:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_DATA());
+				node.add(parseNEXT_expr_NEW());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. DATA stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_DATA() {
+		DerNode node = new DerNode(DerNode.Nont.exprDATA);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case NEW:
+			case DEL:
+				break;
+			case DATA:
+				add(node, Symbol.Term.DATA, EXPECTED_SYMBOLS_STR + "$ got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected $ ( or identifier. DATA stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_NEW() {
+		DerNode node = new DerNode(DerNode.Nont.exprNEW);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case DEL:
+				break;
+			case NEW:
+				add(node, Symbol.Term.NEW, EXPECTED_SYMBOLS_STR + "new got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected $ ( or identifier. NEW stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_NEW() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_NEW);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case NEW:
+			case DEL:
+				node.add(parse_expr_NEW());
+				node.add(parseNEXT_expr_DEL());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. NEW stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_DEL() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_DEL);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case DEL:
+				node.add(parse_expr_DEL());
+				node.add(parseNEXT_expr_TYPE_CAST());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis or operator. DEL stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_DEL() {
+		DerNode node = new DerNode(DerNode.Nont.exprDEL);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+				break;
+			case DEL:
+				add(node, Symbol.Term.DEL, EXPECTED_SYMBOLS_STR + "DEL got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected $ ( or identifier. DEL stage");
+		}
+
+		return node;
+	}
 	
 	private DerNode parseLiteral() {
 		DerNode node = new DerNode(DerNode.Nont.Literal);
