@@ -126,6 +126,7 @@ public class SynAn extends Phase {
 	private final String RBRACE_ERR_STRING = EXPECTED_SYMBOLS_STR + "'}' got: ";
 	private final String SEMIC_ERR_STRING = EXPECTED_SYMBOLS_STR + "';' got: ";
 	private final String COLON_ERR_STRING = EXPECTED_SYMBOLS_STR + "':' got: ";
+	private final String COMMA_ERR_STRING = EXPECTED_SYMBOLS_STR + "',' got: ";
 	private final String IDENTIFIER_ERR_STRING = EXPECTED_SYMBOLS_STR + "IDENTIFIER got: ";
 
 
@@ -1211,7 +1212,9 @@ public class SynAn extends Phase {
 				break;
 			case NEW:
 				add(node, Symbol.Term.NEW, EXPECTED_SYMBOLS_STR + "new got: " + currSymb.token.toString());
-				node.add(parseExpr());
+				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				node.add(parseType());
+				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				break;
 			
 			default:
@@ -1264,7 +1267,9 @@ public class SynAn extends Phase {
 				break;
 			case DEL:
 				add(node, Symbol.Term.DEL, EXPECTED_SYMBOLS_STR + "DEL got: " + currSymb.token.toString());
+				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				node.add(parseExpr());
+				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				break;
 			
 			default:
@@ -1273,6 +1278,203 @@ public class SynAn extends Phase {
 
 		return node;
 	}
+
+	private DerNode parseNEXT_expr_TYPE_CAST() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_TYPE_CAST);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+				node.add(parse_expr_TYPE_CAST());
+				node.add(parseNEXT_expr_ARR_ACC());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected indentifier or left parenthesis. TYPE_CAST stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_TYPE_CAST() {
+		DerNode node = new DerNode(DerNode.Nont.exprTYPE_CAST);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+				break;
+			case LPARENTHESIS:
+				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				node.add(parseExprIDE());
+				node.add(parse_expr_ENCLOSE_TYPE_CAST());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected ( or identifier. TYPE_CAST stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_ENCLOSE_TYPE_CAST() {
+		DerNode node = new DerNode(DerNode.Nont.exprENCLOSE_TYPE_CAST);
+		switch (currSymb.token) {
+			
+			case RPARENTHESIS:
+				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				break;
+
+			case COLON:
+				CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
+				node.add(parseType());
+				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected ( or identifier. TYPE_CAST stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseNEXT_expr_ARR_ACC() {
+		DerNode node = new DerNode(DerNode.Nont.NEXT_expr_ARR_ACC);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+				node.add(parseExprIDE());
+				node.add(parse_expr_ARR_COMP_ACC());
+				break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected IDENTIFIER. ARR_ACC stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parse_expr_ARR_COMP_ACC() {
+		DerNode node = new DerNode(DerNode.Nont.exprARR_COMP_ACC);
+		switch (currSymb.token) {
+			
+			case LBRACKET:
+				CheckAndSkip(Symbol.Term.LBRACKET, LBRACKET_ERR_STRING + currSymb.token.toString());
+				node.add(parseExprIDE());
+				CheckAndSkip(Symbol.Term.RBRACKET, RBRACKET_ERR_STRING + currSymb.token.toString());
+				break;
+
+			case GTH:
+			case ADD:
+			case SUB:
+			case MUL:
+			case DIV:
+			case MOD:
+				break;
+
+			case DOT:
+				add(node, Symbol.Term.DOT, EXPECTED_SYMBOLS_STR + "DOT got: " + currSymb.token.toString());
+				add(node, Symbol.Term.IDENTIFIER, EXPECTED_SYMBOLS_STR + "IDENTIFIER got: " + currSymb.token.toString());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected ( or identifier. ARR_COMP_ACC stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseExprIDE() {
+		DerNode node = new DerNode(DerNode.Nont.exprIDE);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+				add(node, Symbol.Term.IDENTIFIER, EXPECTED_SYMBOLS_STR + "IDENTIFIER got: " + currSymb.token.toString());
+				node.add(parseExprFunction());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected identifier. exprIDE stage");
+		}
+
+		return node;
+	}
+
+
+	private DerNode parseExprFunction() {
+		DerNode node = new DerNode(DerNode.Nont.exprFunction);
+		switch (currSymb.token) {
+			case LPARENTHESIS:
+				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				node.add(parseExprs());
+				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
+				break;
+			
+			case RPARENTHESIS:
+			case COLON:
+			case LBRACKET:
+			case RBRACKET:
+			case GTH:
+			case ADD:
+			case SUB:
+			case MUL:
+			case DIV:
+			case MOD:
+			case DOT:
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected identifier. ExprFunction( stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseExprs() {
+		DerNode node = new DerNode(DerNode.Nont.exprs);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case NOT:
+			case PTRCONST:
+			case BOOLCONST:
+			case VOIDCONST:
+			case CHARCONST:
+			case STRCONST:
+			case INTCONST:
+				node.add(parseExpr());
+				node.add(parseExprsEps());
+				break;
+			
+			case RPARENTHESIS:
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected identifier. Exprs stage");
+		}
+
+		return node;
+	}
+
+	private DerNode parseExprsEps() {
+		DerNode node = new DerNode(DerNode.Nont.exprsEps);
+		switch (currSymb.token) {
+			case COMMA:
+				CheckAndSkip(Symbol.Term.COMMA, COMMA_ERR_STRING + currSymb.token.toString());
+				node.add(parseExpr());
+				node.add(parseExprsEps());
+				break;
+			
+			case RPARENTHESIS:
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected Comma or RPARENTHESIS. ExprsEps stage");
+		}
+
+		return node;
+	}
+
 	
 	private DerNode parseLiteral() {
 		DerNode node = new DerNode(DerNode.Nont.Literal);
@@ -1309,10 +1511,174 @@ public class SynAn extends Phase {
 
 	// TODO: Finish
 	private DerNode parseStatements() {
-		return new DerNode(DerNode.Nont.Stmts);
+		DerNode node = new DerNode(DerNode.Nont.Stmts);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case NOT:
+			case PTRCONST:
+			case BOOLCONST:
+			case VOIDCONST:
+			case CHARCONST:
+			case STRCONST:
+			case INTCONST:
+			case IF:
+			case WHILE:
+				node.add(parseStatement());
+				node.add(parseStatementsEps());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected statement got: " + currSymb.token.toString());
+		}
+
+		return node;
+
 	}
+
+	private DerNode parseStatementsEps() {
+		DerNode node = new DerNode(DerNode.Nont.StmtsEps);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case NOT:
+			case PTRCONST:
+			case BOOLCONST:
+			case VOIDCONST:
+			case CHARCONST:
+			case STRCONST:
+			case INTCONST:
+			case IF:
+			case WHILE:
+				node.add(parseStatement());
+				node.add(parseStatementsEps());
+				break;
+
+			case COLON:
+			case END:
+			case ELSE:
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected statement got: " + currSymb.token.toString());
+		}
+
+		return node;
+
+	}
+
+	private DerNode parseStatement() {
+		DerNode node = new DerNode(DerNode.Nont.Stmt);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+			case LPARENTHESIS:
+			case ADD:
+			case SUB:
+			case ADDR:
+			case DATA:
+			case NEW:
+			case DEL:
+			case NOT:
+			case PTRCONST:
+			case BOOLCONST:
+			case VOIDCONST:
+			case CHARCONST:
+			case STRCONST:
+			case INTCONST:
+				node.add(parseExpr());
+				node.add(parseStatementAssigment());
+				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
+				break;
+			
+			
+			case IF:
+				add(node, Symbol.Term.IF, EXPECTED_SYMBOLS_STR + "IF got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				add(node, Symbol.Term.THEN, EXPECTED_SYMBOLS_STR + "THEN got: " + currSymb.token.toString());
+				node.add(parseStatements());
+				node.add(parseStatementELSE());
+				add(node, Symbol.Term.END, EXPECTED_SYMBOLS_STR + "END got: " + currSymb.token.toString());
+				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
+				break;
+			case WHILE:
+				add(node, Symbol.Term.WHILE, EXPECTED_SYMBOLS_STR + "WHILE got: " + currSymb.token.toString());
+				node.add(parseExpr());
+				add(node, Symbol.Term.DO, EXPECTED_SYMBOLS_STR + "DO got: " + currSymb.token.toString());
+				node.add(parseStatements());
+				add(node, Symbol.Term.END, EXPECTED_SYMBOLS_STR + "END got: " + currSymb.token.toString());
+				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), "Expected statement got: " + currSymb.token.toString());
+		}
+
+		return node;
+
+	}
+
+	private DerNode parseStatementAssigment() {
+		DerNode node = new DerNode(DerNode.Nont.StmtASS);
+		switch (currSymb.token) {
+			case SEMIC:
+				break;
+
+			case ASSIGN:
+				add(node, Symbol.Term.ASSIGN, EXPECTED_SYMBOLS_STR + "ASSIGN got: " + currSymb.token.toString());
+				node.add(parseExpr());
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected statement got: " + currSymb.token.toString());
+		}
+
+		return node;
+	}
+
+	private DerNode parseStatementELSE() {
+		DerNode node = new DerNode(DerNode.Nont.StmtELSE);
+		switch (currSymb.token) {
+			case END:
+				break;
+
+			case ELSE:
+				add(node, Symbol.Term.ELSE, EXPECTED_SYMBOLS_STR + "ELSE got: " + currSymb.token.toString());
+				node.add(parseStatements());
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected statement got: " + currSymb.token.toString());
+		}
+
+		return node;
+	}
+
 	
 	private DerNode parseWhere_o() {
-		return new DerNode(DerNode.Nont.Where_o);
+		DerNode node = new DerNode(DerNode.Nont.Where_o);
+		switch (currSymb.token) {
+			case RBRACE:
+				break;
+		
+			case WHERE:
+				add(node, Symbol.Term.WHERE, EXPECTED_SYMBOLS_STR + "WHERE got: " + currSymb.token.toString());
+				node.add(parseDecl());
+				node.add(parseDeclEps());
+			break;
+
+			default:
+				throw new Report.Error(currSymb.location(), "Expected where got: " + currSymb.token.toString());
+		}
+		return node;
 	}
 }
