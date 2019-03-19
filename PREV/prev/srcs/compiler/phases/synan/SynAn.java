@@ -53,6 +53,9 @@ public class SynAn extends Phase {
 	/** The lookahead buffer (of length 1). */
 	private Symbol currSymb = null;
 
+
+	// --- Helper functions ---
+
 	/**
 	 * Appends the current symbol in the lookahead buffer to a derivation tree node
 	 * (typically the node of the derivation tree that is currently being expanded
@@ -99,70 +102,173 @@ public class SynAn extends Phase {
 		}
 	}
 
+	// --- String consts ---
+
+	private final String EXPECTED_SYMBOLS_STR = "Expected symbol ";
+	private final String GOT_STR = " got: ";
+	private final String SOURCE_ERR_STR = "Program doesn't start with declaration. Each declaration starts with 'typ', 'var' or 'fun'";
+	private final String LPARENTHESIS_ERR_STRING = EXPECTED_SYMBOLS_STR + "'('" + GOT_STR;
+	private final String RPARENTHESIS_ERR_STRING = EXPECTED_SYMBOLS_STR + "')'" + GOT_STR;
+	private final String LBRACKET_ERR_STRING = EXPECTED_SYMBOLS_STR + "'['" + GOT_STR;
+	private final String RBRACKET_ERR_STRING = EXPECTED_SYMBOLS_STR + "']'" + GOT_STR;
+	private final String LBRACE_ERR_STRING = EXPECTED_SYMBOLS_STR + "'{'" + GOT_STR;
+	private final String RBRACE_ERR_STRING = EXPECTED_SYMBOLS_STR + "'}'" + GOT_STR;
+	private final String SEMIC_ERR_STRING = EXPECTED_SYMBOLS_STR + "';'" + GOT_STR;
+	private final String COLON_ERR_STRING = EXPECTED_SYMBOLS_STR + "':'" + GOT_STR;
+	private final String COMMA_ERR_STRING = EXPECTED_SYMBOLS_STR + "','" + GOT_STR;
+	private final String IDENTIFIER_ERR_STRING = EXPECTED_SYMBOLS_STR + "IDENTIFIER" + GOT_STR;
+	private final String PARAMETER_DECLARATION_ERR_STR = "Expected IDENTIFIER or ) when parsing parameters";
+	private final String PARAMETER_DECLARATION_REST_ERR_STR = "Expected , or ) when parsing parameters";
+
+
+
+	// --- Parsing part ---
 	private DerNode parseSource() {
 		DerNode node = new DerNode(DerNode.Nont.Source);
 		switch (currSymb.token) {
 			case TYP:
 			case VAR:
 			case FUN:
-				node.add(parseDecl());
-				node.add(parseDeclEps());		
+				node.add(parseDecls());
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), "Program doesn't start with declaration. Each declaration starts with 'typ', 'var' or 'fun'");
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
 				
 		}
 		return node;
 	}
 
+	private DerNode parseDecls() {
+		DerNode node = new DerNode(DerNode.Nont.Decls);
+		switch (currSymb.token) {
+			case TYP:
+			case VAR:
+			case FUN:
+				node.add(parseDecl());
+				node.add(parseDeclsRest());
+				break;
+		
+			default:
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				
+		}
+		return node;
+	}
 
-	private final String EXPECTED_SYMBOLS_STR = "Expected symbol ";
-	private final String LPARENTHESIS_ERR_STRING = EXPECTED_SYMBOLS_STR + "'(' got: ";
-	private final String RPARENTHESIS_ERR_STRING = EXPECTED_SYMBOLS_STR + "')' got: ";
-	private final String LBRACKET_ERR_STRING = EXPECTED_SYMBOLS_STR + "'[' got: ";
-	private final String RBRACKET_ERR_STRING = EXPECTED_SYMBOLS_STR + "']' got: ";
-	private final String LBRACE_ERR_STRING = EXPECTED_SYMBOLS_STR + "'{' got: ";
-	private final String RBRACE_ERR_STRING = EXPECTED_SYMBOLS_STR + "'}' got: ";
-	private final String SEMIC_ERR_STRING = EXPECTED_SYMBOLS_STR + "';' got: ";
-	private final String COLON_ERR_STRING = EXPECTED_SYMBOLS_STR + "':' got: ";
-	private final String COMMA_ERR_STRING = EXPECTED_SYMBOLS_STR + "',' got: ";
-	private final String IDENTIFIER_ERR_STRING = EXPECTED_SYMBOLS_STR + "IDENTIFIER got: ";
+	private DerNode parseDeclsRest() {
+		DerNode node = new DerNode(DerNode.Nont.DeclsRest);
+		switch (currSymb.token) {
+			case TYP:
+			case VAR:
+			case FUN:
+				node.add(parseDecl());
+				node.add(parseDeclsRest());
+				break;
+
+			case RBRACE:
+			case EOF:
+				break;
+		
+			default:
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				
+		}
+		return node;
+	}
 
 
 	private DerNode parseDecl() {
 		DerNode node = new DerNode(DerNode.Nont.Decl);
 		switch (currSymb.token) {
 			case TYP:
-				add(node, Symbol.Term.TYP, EXPECTED_SYMBOLS_STR + "'typ' got: " + currSymb.token.toString());
-				node.add(parseArg());
+				add(node, Symbol.Term.TYP, EXPECTED_SYMBOLS_STR + "'typ'" + GOT_STR + currSymb.token.toString());
+				node.add(parseParDecl());
 				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 				break;
 			case VAR:
-				add(node, Symbol.Term.VAR, EXPECTED_SYMBOLS_STR + "'var' got: " + currSymb.token.toString());
-				node.add(parseArg());
+				add(node, Symbol.Term.VAR, EXPECTED_SYMBOLS_STR + "'var'" + GOT_STR  + currSymb.token.toString());
+				node.add(parseParDecl());
 				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 				break;
 			case FUN:
-				add(node, Symbol.Term.FUN, EXPECTED_SYMBOLS_STR + "'fun' got: " + currSymb.token.toString());
+				add(node, Symbol.Term.FUN, EXPECTED_SYMBOLS_STR + "'fun'" + GOT_STR + currSymb.token.toString());
 				add(node, Symbol.Term.IDENTIFIER, IDENTIFIER_ERR_STRING + currSymb.token.toString());
 				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
-				node.add(parseArgs());
+				node.add(parseParDecls());
 				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
 				node.add(parseType());
-				//System.out.println("proxy " + currSymb.token.toString());
-				node.add(parseProxyExpr());
+				node.add(parseBodyEps());
 				CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), "Program doesn't start with declaration. Each declaration starts with 'typ', 'var' or 'fun'");
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
 				
 		}
 		
 		return node;
 	}
+
+	private DerNode parseParDecls() {
+		DerNode node = new DerNode(DerNode.Nont.ParDecls);
+		switch (currSymb.token) {
+			case IDENTIFIER:		
+				node.add(parseParDecl());
+				node.add(parseParDeclsRest());
+				break;
+			case RPARENTHESIS:
+					break;
+			default:
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_ERR_STR);
+
+		}
+
+		return node;
+	}
+
+	private DerNode parseParDeclsRest() {
+		DerNode node = new DerNode(DerNode.Nont.ParDeclsRest);
+		switch (currSymb.token) {
+			case COMMA:
+				CheckAndSkip(Symbol.Term.COMMA, EXPECTED_SYMBOLS_STR + "','" + GOT_STR + currSymb.token.toString());	
+				node.add(parseParDecl());
+				node.add(parseParDeclsRest());
+				break;
+			case RPARENTHESIS:
+					break;
+			default:
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR);
+
+		}
+
+		return node;
+	}
+
+
+	private DerNode parseParDecl() {
+		DerNode node = new DerNode(DerNode.Nont.ParDecl);
+		switch (currSymb.token) {
+			case IDENTIFIER:
+				add(node, Symbol.Term.IDENTIFIER, IDENTIFIER_ERR_STRING + currSymb.token.toString());
+				CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
+				node.add(parseType());
+				break;
+			
+			default:
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR);
+
+		}
+
+		return node;
+	}
+
+
+
+
+
+	/*
 
 	private DerNode parseDeclEps() {
 		DerNode node = new DerNode(DerNode.Nont.DeclsRest);
@@ -1684,4 +1790,5 @@ public class SynAn extends Phase {
 		}
 		return node;
 	}
+	*/
 }
