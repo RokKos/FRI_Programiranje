@@ -446,6 +446,7 @@ public class SynAn extends Phase {
 					node.add(parseExpr());
 					node.add(parseWhereEps());
 					CheckAndSkip(Symbol.Term.RBRACE, RBRACE_ERR_STRING + currSymb.token.toString());
+					break;
 				default:
 					throw new Report.Error(currSymb.location(), EXPR_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
