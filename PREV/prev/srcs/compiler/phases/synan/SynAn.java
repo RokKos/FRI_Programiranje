@@ -151,6 +151,9 @@ public class SynAn extends Phase {
 	private final String EXPR_ATOM_ERR_STR = "Expected identifier or literal while parsing atom expresion.";
 	private final String EXPR_LITERAL_ERR_STR = "Expected PTRCONST, BOOOLCONST, VOIDCONST, CHARCONST, STRCONST, INTCONST while parsing literal.";
 	private final String EXPR_ARGS_ERR_STR = "Expected literal or identifier or parenthesis or unary operator while parsing arguments.";
+	private final String EXPR_ASS_ERR_STR = "Expected ; or == operator while parsing assigment expresion.";
+	private final String EXPR_ELSE_ERR_STR = "Expected ELSE or END operator while parsing else expresion.";
+	private final String EXPR_WHERE_ERR_STR = "Expected END or } operator while parsing where expresion.";
 	private final String EXPR_STMTS_ERR_STR = "Expected start of statements while parsing statements.";
 
 	// --- Parsing part ---
@@ -1074,7 +1077,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_ASS_ERR_STR);
 			
 		}
 		return node;
@@ -1091,7 +1094,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_ELSE_ERR_STR);
 			
 		}
 		return node;
@@ -1108,7 +1111,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_WHERE_ERR_STR);
 			
 		}
 		return node;
