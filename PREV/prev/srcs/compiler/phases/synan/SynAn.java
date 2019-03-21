@@ -848,7 +848,7 @@ public class SynAn extends Phase {
 			case DOT:
 				CheckAndSkip(Symbol.Term.DOT, DOT_ERR_STRING + currSymb.token.toString());
 				add(node, Symbol.Term.IDENTIFIER, IDENTIFIER_ERR_STRING + currSymb.token.toString());
-				node.add(parsePstfExpr());
+				node.add(parsePstfExprRest());
 				break;
 			default:
 				throw new Report.Error(currSymb.location(), EXPR_PSTF_REST_ERR_STR);
