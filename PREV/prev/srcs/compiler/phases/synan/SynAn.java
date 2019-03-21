@@ -167,7 +167,7 @@ public class SynAn extends Phase {
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR + GOT_STR + currSymb.token.toString());
 				
 		}
 		return node;
@@ -184,7 +184,7 @@ public class SynAn extends Phase {
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR + GOT_STR + currSymb.token.toString());
 				
 		}
 		return node;
@@ -205,7 +205,7 @@ public class SynAn extends Phase {
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR + GOT_STR + currSymb.token.toString());
 				
 		}
 		return node;
@@ -237,7 +237,7 @@ public class SynAn extends Phase {
 				break;
 		
 			default:
-				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR);
+				throw new Report.Error(currSymb.location(), SOURCE_ERR_STR + GOT_STR + currSymb.token.toString());
 				
 		}
 		
@@ -254,7 +254,7 @@ public class SynAn extends Phase {
 			case RPARENTHESIS:
 					break;
 			default:
-				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_ERR_STR);
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -272,7 +272,7 @@ public class SynAn extends Phase {
 			case RPARENTHESIS:
 					break;
 			default:
-				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR);
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -289,7 +289,7 @@ public class SynAn extends Phase {
 				break;
 			
 			default:
-				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR);
+				throw new Report.Error(currSymb.location(), PARAMETER_DECLARATION_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -346,7 +346,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), TYPE_ERR_STR);
+				throw new Report.Error(currSymb.location(), TYPE_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -365,7 +365,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), BODY_ERR_STR);
+				throw new Report.Error(currSymb.location(), BODY_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -381,7 +381,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR);
+				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -401,7 +401,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR);
+				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -447,7 +447,7 @@ public class SynAn extends Phase {
 					node.add(parseWhereEps());
 					CheckAndSkip(Symbol.Term.RBRACE, RBRACE_ERR_STRING + currSymb.token.toString());
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -460,7 +460,7 @@ public class SynAn extends Phase {
 			node.add(parseConjExpr());
 			node.add(parseConjExprRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_DISJ_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_DISJ_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -500,7 +500,7 @@ public class SynAn extends Phase {
 					break;
 
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_DISJ_REST_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_DISJ_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -513,7 +513,7 @@ public class SynAn extends Phase {
 			node.add(parseRelExpr());
 			node.add(parseRelExprRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_CONJ_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_CONJ_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -534,7 +534,7 @@ public class SynAn extends Phase {
 					break;
 
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_CONJ_REST_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_CONJ_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -547,7 +547,7 @@ public class SynAn extends Phase {
 			node.add(parseAddExpr());
 			node.add(parseAddExprRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_REL_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_REL_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -598,7 +598,7 @@ public class SynAn extends Phase {
 					break;
 
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_REL_REST_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_REL_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -611,7 +611,7 @@ public class SynAn extends Phase {
 			node.add(parseMulExpr());
 			node.add(parseMulExprRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_ADD_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_ADD_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -652,7 +652,7 @@ public class SynAn extends Phase {
 					break;
 
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_ADD_REST_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_ADD_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -664,7 +664,7 @@ public class SynAn extends Phase {
 		if (IsOperator()) {
 			node.add(parsePrefExpr());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_MUL_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_MUL_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -698,7 +698,7 @@ public class SynAn extends Phase {
 					break;
 
 				default:
-					throw new Report.Error(currSymb.location(), EXPR_MUL_REST_ERR_STR);
+					throw new Report.Error(currSymb.location(), EXPR_MUL_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 			}
 		}
 
@@ -762,7 +762,7 @@ public class SynAn extends Phase {
 				break;
 				
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_PREF_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_PREF_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -780,7 +780,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_CAST_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_CAST_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -805,7 +805,7 @@ public class SynAn extends Phase {
 		if (IsLiteral() || currSymb.token == Symbol.Term.IDENTIFIER){
 			node.add(parseAtomExpr());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_PSTF_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_PSTF_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -843,7 +843,7 @@ public class SynAn extends Phase {
 
 			case LBRACKET:
 				CheckAndSkip(Symbol.Term.LBRACKET, LBRACKET_ERR_STRING + currSymb.token.toString());
-				node.add(parsePstfExpr());
+				node.add(parseExpr());
 				CheckAndSkip(Symbol.Term.RBRACKET, RBRACKET_ERR_STRING + currSymb.token.toString());
 				node.add(parsePstfExprRest());
 				break;
@@ -854,7 +854,7 @@ public class SynAn extends Phase {
 				node.add(parsePstfExprRest());
 				break;
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_PSTF_REST_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_PSTF_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		
 
@@ -869,7 +869,7 @@ public class SynAn extends Phase {
 		} else if (IsLiteral()) {
 			node.add(parseLiteral());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_ATOM_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_ATOM_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -896,7 +896,7 @@ public class SynAn extends Phase {
 				add(node, Symbol.Term.INTCONST, EXPECTED_SYMBOLS_STR + "INTCONST" + GOT_STR + currSymb.token.toString());
 				break;
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_LITERAL_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_LITERAL_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -937,7 +937,7 @@ public class SynAn extends Phase {
 				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				break;
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_CALL_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_CALL_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -973,7 +973,7 @@ public class SynAn extends Phase {
 		}else if (currSymb.token == Symbol.Term.RPARENTHESIS) {
 			// Do nothing
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 				
 		return node;
@@ -985,7 +985,7 @@ public class SynAn extends Phase {
 				node.add(parseExpr());
 				node.add(parseArgsRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -1003,7 +1003,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_ARGS_ERR_STR + GOT_STR + currSymb.token.toString());
 			
 		}
 		return node;
@@ -1019,7 +1019,7 @@ public class SynAn extends Phase {
 				node.add(parseStmt());
 				node.add(parseStmtsRest());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -1033,7 +1033,7 @@ public class SynAn extends Phase {
 		else if (currSymb.token == Term.END || currSymb.token == Term.ELSE || currSymb.token == Term.COLON) {
 			// Do nothing
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -1061,7 +1061,7 @@ public class SynAn extends Phase {
 			CheckAndSkip(Symbol.Term.END, END_ERR_STRING + currSymb.token.toString());
 			CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 		} else {
-			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR);
+			throw new Report.Error(currSymb.location(), EXPR_STMTS_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 		return node;
 	}
@@ -1077,7 +1077,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ASS_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_ASS_ERR_STR + GOT_STR + currSymb.token.toString());
 			
 		}
 		return node;
@@ -1094,7 +1094,7 @@ public class SynAn extends Phase {
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_ELSE_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_ELSE_ERR_STR + GOT_STR + currSymb.token.toString());
 			
 		}
 		return node;
@@ -1105,13 +1105,13 @@ public class SynAn extends Phase {
 		switch (currSymb.token) {
 			case RBRACE:
 				break;
-			case ELSE:
+			case WHERE:
 				CheckAndSkip(Symbol.Term.WHERE, WHERE_ERR_STRING + currSymb.token.toString());
 				node.add(parseDecls());
 				break;
 
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_WHERE_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_WHERE_ERR_STR + GOT_STR + currSymb.token.toString());
 			
 		}
 		return node;
