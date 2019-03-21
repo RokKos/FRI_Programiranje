@@ -90,7 +90,7 @@ CastEps -> : Type | .
 PstfExpr -> AtomExpr .
 PstfExprRest -> .
 PstfExprRest -> dot identifier PstfExprRest .
-PstfExprRest -> [ PstfExpr ] PstfExprRest .
+PstfExprRest -> [ Expr ] PstfExprRest .
 
 # Atomic expresions only literals and identifiers possible
 AtomExpr -> literal .
