@@ -426,6 +426,7 @@ public class SynAn extends Phase {
 			case CHARCONST:
 			case STRCONST:
 			case INTCONST:
+			case LBRACE:
 				return true;
 			default:
 				return false;
@@ -438,18 +439,7 @@ public class SynAn extends Phase {
 			node.add(parseDisjExpr());
 			node.add(parseDisjExprRest());
 		} else {
-			switch (currSymb.token) {
-				case LBRACE:
-					CheckAndSkip(Symbol.Term.LBRACE, LBRACE_ERR_STRING + currSymb.token.toString());
-					node.add(parseStmts());
-					CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
-					node.add(parseExpr());
-					node.add(parseWhereEps());
-					CheckAndSkip(Symbol.Term.RBRACE, RBRACE_ERR_STRING + currSymb.token.toString());
-					break;
-				default:
-					throw new Report.Error(currSymb.location(), EXPR_ERR_STR + GOT_STR + currSymb.token.toString());
-			}
+			throw new Report.Error(currSymb.location(), EXPR_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
 
 		return node;
@@ -565,37 +555,31 @@ public class SynAn extends Phase {
 				case EQU:
 					add(node, Symbol.Term.EQU, EXPECTED_SYMBOLS_STR + "==" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 
 				case NEQ:
 					add(node, Symbol.Term.NEQ, EXPECTED_SYMBOLS_STR + "!=" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 
 				case LEQ:
 					add(node, Symbol.Term.LEQ, EXPECTED_SYMBOLS_STR + "<=" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 				
 				case GEQ:
 					add(node, Symbol.Term.GEQ, EXPECTED_SYMBOLS_STR + ">=" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 
 				case LTH:
 					add(node, Symbol.Term.LTH, EXPECTED_SYMBOLS_STR + "<" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 
 				case GTH:
 					add(node, Symbol.Term.GTH, EXPECTED_SYMBOLS_STR + ">" + GOT_STR + currSymb.token.toString());
 					node.add(parseRelExpr());
-					node.add(parseRelExprRest());
 					break;
 
 				default:
@@ -758,6 +742,7 @@ public class SynAn extends Phase {
 			case CHARCONST:
 			case STRCONST:
 			case INTCONST:
+			case LBRACE:
 				node.add(parsePstfExpr());
 				node.add(parsePstfExprRest());
 				break;
@@ -803,7 +788,7 @@ public class SynAn extends Phase {
 
 	private DerNode parsePstfExpr() {
 		DerNode node = new DerNode(DerNode.Nont.PstfExpr);
-		if (IsLiteral() || currSymb.token == Symbol.Term.IDENTIFIER){
+		if (IsLiteral() || currSymb.token == Symbol.Term.IDENTIFIER || currSymb.token == Symbol.Term.LBRACE){
 			node.add(parseAtomExpr());
 		} else {
 			throw new Report.Error(currSymb.location(), EXPR_PSTF_ERR_STR + GOT_STR + currSymb.token.toString());
@@ -869,6 +854,14 @@ public class SynAn extends Phase {
 			node.add(parseCallEps());
 		} else if (IsLiteral()) {
 			node.add(parseLiteral());
+		} else if (currSymb.token == Term.LBRACE) {	
+			CheckAndSkip(Symbol.Term.LBRACE, LBRACE_ERR_STRING + currSymb.token.toString());
+			node.add(parseStmts());
+			CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
+			node.add(parseExpr());
+			node.add(parseWhereEps());
+			CheckAndSkip(Symbol.Term.RBRACE, RBRACE_ERR_STRING + currSymb.token.toString());
+
 		} else {
 			throw new Report.Error(currSymb.location(), EXPR_ATOM_ERR_STR + GOT_STR + currSymb.token.toString());
 		}
