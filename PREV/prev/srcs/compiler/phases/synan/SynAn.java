@@ -147,6 +147,7 @@ public class SynAn extends Phase {
 	private final String EXPR_CAST_ERR_STR = "Expected : or ) while parsing cast expresion.";
 	private final String EXPR_PSTF_ERR_STR = "Expected identifier or literal while parsing postfix expresion.";
 	private final String EXPR_PSTF_REST_ERR_STR = "Expected [ or . while parsing postfix expresion.";
+	private final String EXPR_CALL_ERR_STR = "Expected ( while parsing call of function arguments.";
 	private final String EXPR_ATOM_ERR_STR = "Expected identifier or literal while parsing atom expresion.";
 	private final String EXPR_LITERAL_ERR_STR = "Expected PTRCONST, BOOOLCONST, VOIDCONST, CHARCONST, STRCONST, INTCONST while parsing literal.";
 	private final String EXPR_ARGS_ERR_STR = "Expected literal or identifier or parenthesis or unary operator while parsing arguments.";
@@ -900,13 +901,40 @@ public class SynAn extends Phase {
 	private DerNode parseCallEps() {
 		DerNode node = new DerNode(DerNode.Nont.CallEps);
 		switch (currSymb.token) {
+			case SEMIC:
+			case RPARENTHESIS:
+			case COLON:
+			case COMMA:
+			case ASSIGN:
+			case RBRACKET:
+			case RBRACE:
+			case IOR:
+			case XOR:
+			case AND:
+			case EQU:
+			case NEQ:
+			case GTH:
+			case LTH:
+			case LEQ:
+			case GEQ:
+			case ADD:
+			case SUB:
+			case MUL:
+			case DIV:
+			case MOD:
+			case THEN:
+			case DO:
+			case WHERE:
+			case DOT:
+			case LBRACKET:
+				break;
 			case LPARENTHESIS:
 				CheckAndSkip(Symbol.Term.LPARENTHESIS, LPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				node.add(parseArgs());
 				CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
 				break;
 			default:
-				throw new Report.Error(currSymb.location(), EXPR_PSTF_REST_ERR_STR);
+				throw new Report.Error(currSymb.location(), EXPR_CALL_ERR_STR);
 		}
 		return node;
 	}

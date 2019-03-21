@@ -106,6 +106,7 @@ AtomExpr -> identifier CallEps .
 
 # Function calls with parameters
 CallEps -> ( Args ) .
+CallEps -> .
 
 Args -> .
 Args -> ArgsEps .
