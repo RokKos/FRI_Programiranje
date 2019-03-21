@@ -50,8 +50,11 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			if (decls != null)
 				allDecls.addAll(decls.decls());
 			return new AbsDecls(new Location(decl, decls == null ? decl : decls), allDecls);
+			}
 		}
-
 		// TODO
+
+		return visArg;
+	}
 
 }

@@ -214,9 +214,16 @@ public class LexAn extends Phase {
 
 					case kIdentifier:
 						if (!(IsLetter(c) || IsNumber(c))){
-							lexeme = lexeme.substring(0, lexeme.length() - 1);
-							srcFile.reset();
-							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
+							// Hacky but only this simbols is not caught 
+							// Others are handled by others states
+							// If more symbols like this come up change this
+							if (c == '~'){
+								throw new Report.Error(new Location(startLine, startColumn, line, column), "Character ~ is prohibited in identiier");
+							} else {
+								lexeme = lexeme.substring(0, lexeme.length() - 1);
+								srcFile.reset();
+								return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
+							}
 						}
 						break;
 
