@@ -29,9 +29,10 @@ Type -> ( Type ) .
 Type -> rec ( CompDecls ) .
 
 # Declaration for record
-CompDecls -> ParDecl CompDeclsRest .
-CompDeclsRest -> , ParDecl CompDeclsRest .
+CompDecls -> CompDecl CompDeclsRest .
+CompDeclsRest -> , CompDecl CompDeclsRest .
 CompDeclsRest -> .
+CompDecl -> identifier : Type .
 
 # Expresions
 

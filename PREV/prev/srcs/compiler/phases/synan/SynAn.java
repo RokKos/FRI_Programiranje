@@ -129,6 +129,8 @@ public class SynAn extends Phase {
 	private final String IDENTIFIER_ERR_STRING = EXPECTED_SYMBOLS_STR + "IDENTIFIER" + GOT_STR;
 	private final String PARAMETER_DECLARATION_ERR_STR = "Expected IDENTIFIER or ) when parsing parameters";
 	private final String PARAMETER_DECLARATION_REST_ERR_STR = "Expected , or ) when parsing parameters";
+	private final String PARAMETER_DECLARATION_ONE_ERR_STR = "Expected IDENTIFIER when parsing function parameters";
+	private final String COMPONENT_DECLARATION_ONE_ERR_STR = "Expected IDENTIFIER when parsing component parameters";
 	private final String TYPE_ERR_STR = "Parsing type and expected IDENTIFIER, VOID, CHAR, ARR, INT, BOOL";
 	private final String BODY_ERR_STR = "Expected ; or EXPR when parsing function declaration";
 	private final String RECORD_DECL_ERR_STR = "Expected IDENTIFIER when parsing declarations of record";
@@ -366,6 +368,18 @@ public class SynAn extends Phase {
 
 			default:
 				throw new Report.Error(currSymb.location(), BODY_ERR_STR + GOT_STR + currSymb.token.toString());
+	private DerNode parseCompDecl() {
+		DerNode node = new DerNode(DerNode.Nont.CompDecl);
+		switch (currSymb.token) {
+		case IDENTIFIER:
+			add(node, Symbol.Term.IDENTIFIER, IDENTIFIER_ERR_STRING + currSymb.token.toString());
+			CheckAndSkip(Symbol.Term.COLON, COLON_ERR_STRING + currSymb.token.toString());
+			node.add(parseType());
+			break;
+
+		default:
+			throw new Report.Error(currSymb.location(),
+					COMPONENT_DECLARATION_ONE_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -375,13 +389,13 @@ public class SynAn extends Phase {
 	private DerNode parseCompDecls() {
 		DerNode node = new DerNode(DerNode.Nont.CompDecls);
 		switch (currSymb.token) {
-			case IDENTIFIER:
-				node.add(parseParDecl());
-				node.add(parseCompDeclsRest());
-				break;
+		case IDENTIFIER:
+			node.add(parseCompDecl());
+			node.add(parseCompDeclsRest());
+			break;
 
-			default:
-				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
+		default:
+			throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
@@ -391,17 +405,17 @@ public class SynAn extends Phase {
 	private DerNode parseCompDeclsRest() {
 		DerNode node = new DerNode(DerNode.Nont.CompDeclsRest);
 		switch (currSymb.token) {
-			case RPARENTHESIS:
-				break;
+		case RPARENTHESIS:
+			break;
 
-			case COMMA:
-				CheckAndSkip(Symbol.Term.COMMA, COMMA_ERR_STRING + currSymb.token.toString());
-				node.add(parseParDecl());
-				node.add(parseCompDeclsRest());
-				break;
+		case COMMA:
+			CheckAndSkip(Symbol.Term.COMMA, COMMA_ERR_STRING + currSymb.token.toString());
+			node.add(parseCompDecl());
+			node.add(parseCompDeclsRest());
+			break;
 
-			default:
-				throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
+		default:
+			throw new Report.Error(currSymb.location(), RECORD_DECL_ERR_STR + GOT_STR + currSymb.token.toString());
 
 		}
 
