@@ -107,5 +107,11 @@ public class Location implements Locatable, Loggable {
 	public String toString() {
 		return begLine + "." + begColumn + "--" + endLine + "." + endColumn;
 	}
+	
+	public boolean equals(Location other) {
+		return begColumn == other.begColumn && begLine == other.begLine && endColumn == other.endColumn
+				&& endLine == other.endLine;
+
+	}
 
 }
