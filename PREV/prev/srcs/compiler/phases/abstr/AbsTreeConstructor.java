@@ -21,6 +21,8 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 	private final String ARR_NODE = "Expected ARR node";
 	private final String GOT_STR = " got: ";
 	private final String TOO_MANY_NODES = "There are zore or more than 3 nodes";
+	private final String DECL_NODE = "Declaration node doesn't start with TYP, FUN or VAR";
+	private final Location kNULL_LOCATION = new Location(0,0);
 
 	@Override
 	public AbsTree visit(DerLeaf leaf, AbsTree visArg) {
@@ -73,9 +75,24 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 						return new AbsTypDecl(loc, parDecl.name, parDecl.type);
 					}
 
-					
+					case FUN: {
+						DerLeaf funName = (DerLeaf) node.subtree(1);
+						AbsParDecls parDecls = (AbsParDecls) node.subtree(2).accept(this, null);
+						AbsType type = (AbsType) node.subtree(3).accept(this, null);
+						AbsBlockExpr block = (AbsBlockExpr) node.subtree(4).accept(this, null);
+						
+						if (block.location() == kNULL_LOCATION) {
+							Location loc = new Location(typeOfDecleration, type);
+							return new AbsFunDecl(loc, funName.symb.lexeme, parDecls, type);
+						} else {
+							Location loc = new Location(typeOfDecleration, block);
+							return new AbsFunDef(loc, funName.symb.lexeme, parDecls, type, block);
+						}
+						
+					}
+
 					default:
-						// TODO: Error
+						throw new Report.Error(typeOfDecleration.location(), DECL_NODE + GOT_STR + ptr.symb.token.toString());
 						break;
 				}
 			}
@@ -146,8 +163,8 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 					// TODO: Error
 					throw new Report.Error(node.location(), TOO_MANY_NODES + GOT_STR + node.numSubtrees());
 				}
-
 			}
+
 
 
 		}
