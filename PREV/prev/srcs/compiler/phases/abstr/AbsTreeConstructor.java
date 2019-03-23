@@ -101,10 +101,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		}
 
 		case ParDecl: {
-			DerLeaf identifier = (DerLeaf) node.subtree(0);
-			AbsType type = (AbsType) node.subtree(1).accept(this, null);
-			Location loc = new Location(identifier, type);
-			return new AbsParDecl(loc, identifier.symb.lexeme, type);
+			return DeformParDecl(node);
 		}
 
 		case Type: {
@@ -188,6 +185,35 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		}
 
 		case CompDecls: {
+			Vector<AbsCompDecl> allCompDecls = new Vector<AbsCompDecl>();
+			AbsCompDecl compDecl = (AbsCompDecl) node.subtree(0).accept(this, null);
+			allCompDecls.add(compDecl);
+			AbsCompDecls compDecls = (AbsCompDecls) node.subtree(1).accept(this, null);
+			if (compDecls != null) {
+				allCompDecls.addAll(compDecls.compDecls());
+			}
+			Location loc = new Location(compDecl, compDecls == null ? compDecl : compDecls);
+			return new AbsCompDecls(loc, allCompDecls);
+		}
+
+		case CompDeclsRest: {
+			if (node.numSubtrees() == 0) {
+				return null;
+			}
+			Vector<AbsCompDecl> allCompDecls = new Vector<AbsCompDecl>();
+			AbsCompDecl compDecl = (AbsCompDecl) node.subtree(0).accept(this, null);
+			allCompDecls.add(compDecl);
+			AbsCompDecls compDecls = (AbsCompDecls) node.subtree(1).accept(this, null);
+			if (compDecls != null) {
+				allCompDecls.addAll(compDecls.compDecls());
+			}
+			Location loc = new Location(compDecl, compDecls == null ? compDecl : compDecls);
+			return new AbsCompDecls(loc, allCompDecls);
+		}
+
+		case CompDecl: {
+			return DeformCompDecl(node);
+		}
 
 		}
 
@@ -218,4 +244,18 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		return new AbsParDecls(loc, allParDecls);
 	}
 
+	private AbsTree DeformParDecl(DerNode node) {
+		DerLeaf identifier = (DerLeaf) node.subtree(0);
+		AbsType type = (AbsType) node.subtree(1).accept(this, null);
+		Location loc = new Location(identifier, type);
+		return new AbsParDecl(loc, identifier.symb.lexeme, type);
+	}
+
+	// Same function just other class
+	private AbsTree DeformCompDecl(DerNode node) {
+		DerLeaf identifier = (DerLeaf) node.subtree(0);
+		AbsType type = (AbsType) node.subtree(1).accept(this, null);
+		Location loc = new Location(identifier, type);
+		return new AbsCompDecl(loc, identifier.symb.lexeme, type);
+	}
 }
