@@ -6,6 +6,7 @@ package compiler.phases.abstr;
 import java.util.*;
 import compiler.common.report.*;
 import compiler.data.dertree.*;
+import compiler.data.dertree.DerNode.Nont;
 import compiler.data.dertree.visitor.*;
 import compiler.data.symbol.Symbol.Term;
 import compiler.data.abstree.*;
@@ -83,7 +84,6 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				AbsType type = (AbsType) node.subtree(3).accept(this, null);
 				AbsExpr expr = (AbsExpr) node.subtree(4).accept(this, null);
 
-				// System.out.println(expr.location());
 				if (expr.location().equals(kNULL_LOCATION)) {
 					Location loc = new Location(typeOfDecleration, type);
 					System.out.println("null");
@@ -237,23 +237,78 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			}
 
 			DerLeaf operatorNode = (DerLeaf) node.subtree(0);
-			AbsBinExpr.Oper oper = kTermToOper.get(operatorNode.symb.token);
+			AbsBinExpr.Oper oper = kTermToBinOper.get(operatorNode.symb.token);
 			if (oper == null) {
 				throw new Report.Error(node.location(), WRONG_BINARY_NODE + GOT_STR + node.numSubtrees());
 			}
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
 			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, leftOperand);
+			System.out.println(leftOperand.location() + " r: " + rightOperand.location());
 			Location loc = new Location(operatorNode, rightOperand);
 			return new AbsBinExpr(loc, oper, leftOperand, rightOperand);
 		}
 
-		// TODO:
-		case PrefExpr:
-		case PstfExpr:
-		case AtomExpr:
-		case Literal:
-		case CastEps:
+		case PrefExpr: {
+			if (node.subtree(0) instanceof DerLeaf) {
+				DerLeaf operatorNode = (DerLeaf) node.subtree(0);
+				AbsUnExpr.Oper oper = kTermToUnarOper.get(operatorNode.symb.token);
+
+				if (oper != null) {
+					AbsExpr subExpr = (AbsExpr) node.subtree(1).accept(this, null);
+					Location loc = new Location(operatorNode, subExpr);
+					return new AbsUnExpr(loc, oper, subExpr);
+				}
+
+				if (operatorNode.symb.token == Term.NEW) {
+					AbsType type = (AbsType) node.subtree(1).accept(this, null);
+					Location loc = new Location(operatorNode, type);
+					return new AbsNewExpr(loc, type);
+				}
+
+				if (operatorNode.symb.token == Term.DEL) {
+					AbsExpr expr = (AbsExpr) node.subtree(1).accept(this, null);
+					Location loc = new Location(operatorNode, expr);
+					return new AbsDelExpr(loc, expr);
+				}
+			} else {
+				DerNode exprNode = (DerNode) node.subtree(0);
+				AbsExpr expr = (AbsExpr) exprNode.accept(this, null);
+				if (exprNode.label == Nont.Expr) {
+					return node.subtree(1).accept(this, expr);
+				} else if (exprNode.label == Nont.PstfExpr) {
+					return node.subtree(1).accept(this, expr);
+				}
+			}
+
+		}
+
+		case PstfExpr: {
+			return node.subtree(0).accept(this, null);
+		}
+
+		case AtomExpr: {
+			if (node.numSubtrees() == 1) {
+				return node.subtree(0).accept(this, null);
+			}
+
+			// TODO
+		}
+		case Literal: {
+			DerLeaf literal = (DerLeaf) node.subtree(0);
+			return new AbsAtomExpr(literal, kTermToLitType.get(literal.symb.token), literal.symb.lexeme);
+		}
+
+		case CastEps: {
+			if (node.numSubtrees() == 0) {
+				return visArg;
+			}
+
+			AbsType type = (AbsType) node.subtree(0).accept(this, null);
+			// Double check this for location
+			Location loc = new Location(visArg, type);
+			return new AbsCastExpr(loc, (AbsExpr) visArg, type);
+		}
 		case CallEps:
 		case Args:
 		case ArgsEps:
@@ -273,6 +328,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		// TODO
 
 		return visArg;
+
 	}
 
 	// Helper function
@@ -325,22 +381,45 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		return node.subtree(1).accept(this, leftOperand);
 	}
 
-	private Map<Term, AbsBinExpr.Oper> kTermToOper = new HashMap<Term, AbsBinExpr.Oper>() {
+	private Map<Term, AbsBinExpr.Oper> kTermToBinOper = new HashMap<Term, AbsBinExpr.Oper>() {
 		{
-			put(Term.IOR, Oper.IOR);
-			put(Term.XOR, Oper.XOR);
-			put(Term.AND, Oper.AND);
-			put(Term.EQU, Oper.EQU);
-			put(Term.NEQ, Oper.NEQ);
-			put(Term.LTH, Oper.LTH);
-			put(Term.GTH, Oper.GTH);
-			put(Term.LEQ, Oper.LEQ);
-			put(Term.GEQ, Oper.GEQ);
-			put(Term.ADD, Oper.ADD);
-			put(Term.SUB, Oper.SUB);
-			put(Term.MUL, Oper.MUL);
-			put(Term.DIV, Oper.DIV);
-			put(Term.MOD, Oper.MOD);
+			put(Term.IOR, AbsBinExpr.Oper.IOR);
+			put(Term.XOR, AbsBinExpr.Oper.XOR);
+			put(Term.AND, AbsBinExpr.Oper.AND);
+			put(Term.EQU, AbsBinExpr.Oper.EQU);
+			put(Term.NEQ, AbsBinExpr.Oper.NEQ);
+			put(Term.LTH, AbsBinExpr.Oper.LTH);
+			put(Term.GTH, AbsBinExpr.Oper.GTH);
+			put(Term.LEQ, AbsBinExpr.Oper.LEQ);
+			put(Term.GEQ, AbsBinExpr.Oper.GEQ);
+			put(Term.ADD, AbsBinExpr.Oper.ADD);
+			put(Term.SUB, AbsBinExpr.Oper.SUB);
+			put(Term.MUL, AbsBinExpr.Oper.MUL);
+			put(Term.DIV, AbsBinExpr.Oper.DIV);
+			put(Term.MOD, AbsBinExpr.Oper.MOD);
+
+		}
+	};
+
+	private Map<Term, AbsUnExpr.Oper> kTermToUnarOper = new HashMap<Term, AbsUnExpr.Oper>() {
+		{
+			put(Term.NOT, AbsUnExpr.Oper.NOT);
+			put(Term.ADDR, AbsUnExpr.Oper.ADDR);
+			put(Term.DATA, AbsUnExpr.Oper.DATA);
+			put(Term.ADD, AbsUnExpr.Oper.ADD);
+			put(Term.SUB, AbsUnExpr.Oper.SUB);
+
+		}
+	};
+
+	private Map<Term, AbsAtomExpr.Type> kTermToLitType = new HashMap<Term, AbsAtomExpr.Type>() {
+		{
+			put(Term.VOIDCONST, AbsAtomExpr.Type.VOID);
+			put(Term.BOOLCONST, AbsAtomExpr.Type.BOOL);
+			put(Term.PTRCONST, AbsAtomExpr.Type.PTR);
+			put(Term.INTCONST, AbsAtomExpr.Type.INT);
+			put(Term.CHARCONST, AbsAtomExpr.Type.CHAR);
+			put(Term.STRCONST, AbsAtomExpr.Type.STR);
 
 		}
 	};
