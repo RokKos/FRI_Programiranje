@@ -9,6 +9,7 @@ import compiler.data.dertree.*;
 import compiler.data.dertree.visitor.*;
 import compiler.data.symbol.Symbol.Term;
 import compiler.data.abstree.*;
+import compiler.data.abstree.AbsBinExpr.Oper;
 
 /**
  * Transforms a derivation tree to an abstract syntax tree.
@@ -22,6 +23,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 	private final String GOT_STR = " got: ";
 	private final String TOO_MANY_NODES = "There are zore or more than 3 nodes";
 	private final String DECL_NODE = "Declaration node doesn't start with TYP, FUN or VAR";
+	private final String WRONG_BINARY_NODE = "This binary operator doesn't exist.";
 	private final Location kNULL_LOCATION = new Location(0, 0);
 
 	@Override
@@ -81,7 +83,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				AbsType type = (AbsType) node.subtree(3).accept(this, null);
 				AbsExpr expr = (AbsExpr) node.subtree(4).accept(this, null);
 
-				System.out.println(expr.location());
+				// System.out.println(expr.location());
 				if (expr.location().equals(kNULL_LOCATION)) {
 					Location loc = new Location(typeOfDecleration, type);
 					System.out.println("null");
@@ -181,7 +183,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
 			}
 
-			return node.subtree(0).accept(this, null);
+			return node.subtree(1).accept(this, null);
 		}
 
 		case CompDecls: {
@@ -215,9 +217,56 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			return DeformCompDecl(node);
 		}
 
+		case Expr:
+		case DisjExpr:
+		case ConjExpr:
+		case RelExpr:
+		case AddExpr:
+		case MulExpr: {
+			return ExpressionTransform(node, visArg);
 		}
 
-		// TODO: Record type
+		case DisjExprRest:
+		case ConjExprRest:
+		case RelExprRest:
+		case AddExprRest:
+		case MulExprRest: {
+			System.out.println(node.label + " :" + node.numSubtrees());
+			if (node.numSubtrees() == 0) {
+				return visArg;
+			}
+
+			DerLeaf operatorNode = (DerLeaf) node.subtree(0);
+			AbsBinExpr.Oper oper = kTermToOper.get(operatorNode.symb.token);
+			if (oper == null) {
+				throw new Report.Error(node.location(), WRONG_BINARY_NODE + GOT_STR + node.numSubtrees());
+			}
+
+			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
+			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, leftOperand);
+			Location loc = new Location(operatorNode, rightOperand);
+			return new AbsBinExpr(loc, oper, leftOperand, rightOperand);
+		}
+
+		// TODO:
+		case PrefExpr:
+		case PstfExpr:
+		case AtomExpr:
+		case Literal:
+		case CastEps:
+		case CallEps:
+		case Args:
+		case ArgsEps:
+		case ArgsRest:
+		case Stmts:
+		case StmtsRest:
+		case Stmt:
+		case AssignEps:
+		case ElseEps:
+		case WhereEps:
+			System.out.println("Ni se dokoncano");
+			return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
+
 		// TODO: Expr
 
 		}
@@ -258,4 +307,41 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		Location loc = new Location(identifier, type);
 		return new AbsCompDecl(loc, identifier.symb.lexeme, type);
 	}
+
+	private AbsTree ExpressionTransform(DerNode node, AbsTree visArg) {
+		System.out.println(node.label + " :" + node.numSubtrees());
+		if (node.numSubtrees() == 0) {
+			System.out.println("zero");
+			return visArg;
+		}
+
+		if (node.numSubtrees() == 1) {
+			System.out.println("one");
+			return node.subtree(0).accept(this, null);
+		}
+		System.out.println("two");
+		AbsExpr leftOperand = (AbsExpr) node.subtree(0).accept(this, null);
+		// System.out.println(node.subtree(0). .toString());
+		return node.subtree(1).accept(this, leftOperand);
+	}
+
+	private Map<Term, AbsBinExpr.Oper> kTermToOper = new HashMap<Term, AbsBinExpr.Oper>() {
+		{
+			put(Term.IOR, Oper.IOR);
+			put(Term.XOR, Oper.XOR);
+			put(Term.AND, Oper.AND);
+			put(Term.EQU, Oper.EQU);
+			put(Term.NEQ, Oper.NEQ);
+			put(Term.LTH, Oper.LTH);
+			put(Term.GTH, Oper.GTH);
+			put(Term.LEQ, Oper.LEQ);
+			put(Term.GEQ, Oper.GEQ);
+			put(Term.ADD, Oper.ADD);
+			put(Term.SUB, Oper.SUB);
+			put(Term.MUL, Oper.MUL);
+			put(Term.DIV, Oper.DIV);
+			put(Term.MOD, Oper.MOD);
+
+		}
+	};
 }
