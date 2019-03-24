@@ -1062,7 +1062,7 @@ public class SynAn extends Phase {
 			node.add(parseAssignEps());
 			CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 		} else if (currSymb.token == Term.IF) {
-			CheckAndSkip(Symbol.Term.IF, IF_ERR_STRING + currSymb.token.toString());
+			add(node, Symbol.Term.IF, IF_ERR_STRING + currSymb.token.toString());
 			node.add(parseExpr());
 			CheckAndSkip(Symbol.Term.THEN, THEN_ERR_STRING + currSymb.token.toString());
 			node.add(parseStmts());
@@ -1070,7 +1070,7 @@ public class SynAn extends Phase {
 			CheckAndSkip(Symbol.Term.END, END_ERR_STRING + currSymb.token.toString());
 			CheckAndSkip(Symbol.Term.SEMIC, SEMIC_ERR_STRING + currSymb.token.toString());
 		} else if (currSymb.token == Term.WHILE) {
-			CheckAndSkip(Symbol.Term.WHILE, WHILE_ERR_STRING + currSymb.token.toString());
+			add(node, Symbol.Term.WHILE, WHILE_ERR_STRING + currSymb.token.toString());
 			node.add(parseExpr());
 			CheckAndSkip(Symbol.Term.DO, DO_ERR_STRING + currSymb.token.toString());
 			node.add(parseStmts());

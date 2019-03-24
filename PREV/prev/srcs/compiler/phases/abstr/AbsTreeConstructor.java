@@ -329,8 +329,12 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				}
 			}
 
-			// TODO
 			if (node.numSubtrees() == 3) {
+				AbsStmts statements = (AbsStmts) node.subtree(0).accept(this, null);
+				AbsExpr expr = (AbsExpr) node.subtree(1).accept(this, null);
+				AbsDecls decls = (AbsDecls) node.subtree(2).accept(this, null);
+				Location loc = new Location(statements, decls);
+				return new AbsBlockExpr(loc, decls, statements, expr);
 			}
 		}
 		case Literal: {
@@ -358,17 +362,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			return node.subtree(0).accept(this, null);
 		}
 
-		case ArgsEps: {
-			Vector<AbsExpr> allExpr = new Vector<AbsExpr>();
-			AbsExpr expr = (AbsExpr) node.subtree(0).accept(this, null);
-			allExpr.add(expr);
-			AbsArgs args = (AbsArgs) node.subtree(1).accept(this, null);
-			if (args != null) {
-				allExpr.addAll(args.args());
-			}
-			Location loc = new Location(expr, args == null ? expr : args);
-			return new AbsArgs(loc, allExpr);
-		}
+		case ArgsEps:
 		case ArgsRest: {
 			if (node.numSubtrees() == 0) {
 				return null;
@@ -385,18 +379,64 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		}
 
 		case Stmts:
-		case StmtsRest:
-		case Stmt:
-		case AssignEps:
-		case ElseEps:
-		case WhereEps:
-			System.out.println("Ni se dokoncano");
-			return Epsilon();
-
-		// TODO: Expr
+		case StmtsRest: {
+			if (node.numSubtrees() == 0) {
+				return null;
+			}
+			Vector<AbsStmt> allStmts = new Vector<AbsStmt>();
+			AbsStmt stmt = (AbsStmt) node.subtree(0).accept(this, null);
+			allStmts.add(stmt);
+			AbsStmts stmts = (AbsStmts) node.subtree(1).accept(this, null);
+			if (stmts != null) {
+				allStmts.addAll(stmts.stmts());
+			}
+			Location loc = new Location(stmt, stmts == null ? stmt : stmts);
+			return new AbsStmts(loc, allStmts);
 
 		}
-		// TODO
+		case Stmt: {
+			if (node.numSubtrees() == 2) {
+				AbsExpr expr = (AbsExpr) node.subtree(0).accept(this, null);
+				return node.subtree(1).accept(this, expr);
+			}
+
+			if (node.numSubtrees() == 3) {
+				AbsExpr condition = (AbsExpr) node.subtree(1).accept(this, null);
+				AbsStmts doStatements = (AbsStmts) node.subtree(2).accept(this, null);
+				Location loc = new Location(node.subtree(0), doStatements);
+				return new AbsWhileStmt(loc, condition, doStatements);
+			}
+
+			if (node.numSubtrees() == 4) {
+				AbsExpr condition = (AbsExpr) node.subtree(1).accept(this, null);
+				AbsStmts thenStatements = (AbsStmts) node.subtree(2).accept(this, null);
+				AbsStmts elseStatements = (AbsStmts) node.subtree(3).accept(this, null);
+				Location loc = new Location(node.subtree(0), elseStatements);
+				return new AbsIfStmt(loc, condition, thenStatements, elseStatements);
+			}
+
+		}
+
+		case AssignEps: {
+			if (node.numSubtrees() == 0) {
+				return visArg;
+			}
+			AbsExpr rightSide = (AbsExpr) node.subtree(0).accept(this, null);
+
+			Location loc = new Location(visArg, rightSide);
+			return new AbsAssignStmt(loc, (AbsExpr) visArg, rightSide);
+		}
+
+		case ElseEps:
+		case WhereEps: {
+			if (node.numSubtrees() == 0) {
+				return null;
+			}
+
+			return node.subtree(0).accept(this, null);
+		}
+
+		} // End Swithv
 
 		return visArg;
 
