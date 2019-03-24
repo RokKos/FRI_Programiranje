@@ -41,16 +41,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			return new AbsSource(decls, decls);
 		}
 
-		case Decls: {
-			Vector<AbsDecl> allDecls = new Vector<AbsDecl>();
-			AbsDecl decl = (AbsDecl) node.subtree(0).accept(this, null);
-			allDecls.add(decl);
-			AbsDecls decls = (AbsDecls) node.subtree(1).accept(this, null);
-			if (decls != null)
-				allDecls.addAll(decls.decls());
-			return new AbsDecls(new Location(decl, decls == null ? decl : decls), allDecls);
-		}
-
+		case Decls:
 		case DeclsRest: {
 			if (node.numSubtrees() == 0)
 				return null;
@@ -186,18 +177,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			return node.subtree(1).accept(this, null);
 		}
 
-		case CompDecls: {
-			Vector<AbsCompDecl> allCompDecls = new Vector<AbsCompDecl>();
-			AbsCompDecl compDecl = (AbsCompDecl) node.subtree(0).accept(this, null);
-			allCompDecls.add(compDecl);
-			AbsCompDecls compDecls = (AbsCompDecls) node.subtree(1).accept(this, null);
-			if (compDecls != null) {
-				allCompDecls.addAll(compDecls.compDecls());
-			}
-			Location loc = new Location(compDecl, compDecls == null ? compDecl : compDecls);
-			return new AbsCompDecls(loc, allCompDecls);
-		}
-
+		case CompDecls:
 		case CompDeclsRest: {
 			if (node.numSubtrees() == 0) {
 				return null;
