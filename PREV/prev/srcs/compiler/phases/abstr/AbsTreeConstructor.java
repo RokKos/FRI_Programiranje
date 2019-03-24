@@ -77,10 +77,10 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 
 				if (expr.location().equals(kNULL_LOCATION)) {
 					Location loc = new Location(typeOfDecleration, type);
-					System.out.println("null");
+					// System.out.println("null");
 					return new AbsFunDecl(loc, funName.symb.lexeme, parDecls, type);
 				} else {
-					System.out.println("not");
+					// System.out.println("not");
 					Location loc = new Location(typeOfDecleration, expr);
 					return new AbsFunDef(loc, funName.symb.lexeme, parDecls, type, expr);
 				}
@@ -210,9 +210,9 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		case ConjExprRest:
 		case AddExprRest:
 		case MulExprRest: {
-			System.out.println("Rest:" + node.label + " :" + node.numSubtrees());
+			// System.out.println("Rest:" + node.label + " :" + node.numSubtrees());
 			if (node.numSubtrees() == 0) {
-				System.out.println("Rest:" + "visarg" + visArg.location());
+				// System.out.println("Rest:" + "visarg" + visArg.location());
 				return visArg;
 			}
 
@@ -223,20 +223,21 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			}
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
-			System.out.println("Rest: " + "l" + leftOperand.location());
+			// System.out.println("Rest: " + "l" + leftOperand.location());
 			Location loc = new Location(visArg, leftOperand);
 			AbsBinExpr binExpr = new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
 
 			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, binExpr);
-			System.out.println("Rest: " + leftOperand.location() + " r: " + rightOperand.location());
+			// System.out.println("Rest: " + leftOperand.location() + " r: " +
+			// rightOperand.location());
 			return rightOperand;
 
 		}
 
 		case RelExprRest: {
-			System.out.println("Rest R:" + node.label + " :" + node.numSubtrees());
+			// System.out.println("Rest R:" + node.label + " :" + node.numSubtrees());
 			if (node.numSubtrees() == 0) {
-				System.out.println("Rest R:" + "visarg" + visArg.location());
+				// System.out.println("Rest R:" + "visarg" + visArg.location());
 				return visArg;
 			}
 
@@ -247,7 +248,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			}
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
-			Location loc = new Location(operatorNode, visArg);
+			Location loc = new Location(visArg, leftOperand);
 			return new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
 		}
 
@@ -313,6 +314,12 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				AbsStmts statements = (AbsStmts) node.subtree(0).accept(this, null);
 				AbsExpr expr = (AbsExpr) node.subtree(1).accept(this, null);
 				AbsDecls decls = (AbsDecls) node.subtree(2).accept(this, null);
+
+				if (decls == null) {
+					Location loc = new Location(statements, expr);
+					return new AbsBlockExpr(loc, EpsilonDecls(), statements, expr);
+				}
+
 				Location loc = new Location(statements, decls);
 				return new AbsBlockExpr(loc, decls, statements, expr);
 			}
@@ -383,7 +390,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			if (node.numSubtrees() == 3) {
 				AbsExpr condition = (AbsExpr) node.subtree(1).accept(this, null);
 				AbsStmts doStatements = (AbsStmts) node.subtree(2).accept(this, null);
-				Location loc = new Location(node.subtree(0), doStatements);
+				Location loc = new Location((DerLeaf) node.subtree(0), doStatements);
 				return new AbsWhileStmt(loc, condition, doStatements);
 			}
 
@@ -391,7 +398,13 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				AbsExpr condition = (AbsExpr) node.subtree(1).accept(this, null);
 				AbsStmts thenStatements = (AbsStmts) node.subtree(2).accept(this, null);
 				AbsStmts elseStatements = (AbsStmts) node.subtree(3).accept(this, null);
-				Location loc = new Location(node.subtree(0), elseStatements);
+
+				if (elseStatements == null) {
+					Location loc = new Location((DerLeaf) node.subtree(0), thenStatements);
+					return new AbsIfStmt(loc, condition, thenStatements, EpsilonStmts());
+				}
+
+				Location loc = new Location((DerLeaf) node.subtree(0), elseStatements);
 				return new AbsIfStmt(loc, condition, thenStatements, elseStatements);
 			}
 
@@ -436,7 +449,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			allParDecls.addAll(parDecls.parDecls());
 		}
 
-		Location loc = new Location(parDecl, parDecls == null ? parDecl : parDecls);
+		Location loc = new Location(parDecl, parDecls.equals(kNULL_LOCATION) ? parDecl : parDecls);
 		return new AbsParDecls(loc, allParDecls);
 	}
 
@@ -456,27 +469,36 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 	}
 
 	private AbsTree ExpressionTransform(DerNode node, AbsTree visArg) {
-		System.out.println(node.label + " :" + node.numSubtrees());
+		// System.out.println(node.label + " :" + node.numSubtrees());
 		if (node.numSubtrees() == 0) {
-			System.out.println("zero");
+			// System.out.println("zero");
 			return visArg;
 		}
 
 		if (node.numSubtrees() == 1) {
-			System.out.println("one");
+			// System.out.println("one");
 			return node.subtree(0).accept(this, null);
 		}
-		System.out.println("two");
+		// System.out.println("two");
 		AbsExpr leftOperand = (AbsExpr) node.subtree(0).accept(this, null);
 		AbsExpr rightOperand = (AbsExpr) node.subtree(1).accept(this, leftOperand);
-		System.out.println("exprTran: " + node.label + " :" + node.numSubtrees() + " l " + leftOperand.location()
-				+ " r " + rightOperand.location());
+		// System.out.println("exprTran: " + node.label + " :" + node.numSubtrees() + "
+		// l " + leftOperand.location()
+		// + " r " + rightOperand.location());
 		return rightOperand;
 	}
 
 	private AbsTree Epsilon() {
 		// Hacky try to find other expr that is not abstrac and has less field
 		return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
+	}
+
+	private AbsDecls EpsilonDecls() {
+		return new AbsDecls(kNULL_LOCATION, new Vector<AbsDecl>());
+	}
+
+	private AbsStmts EpsilonStmts() {
+		return new AbsStmts(kNULL_LOCATION, new Vector<AbsStmt>());
 	}
 
 	private Map<Term, AbsBinExpr.Oper> kTermToBinOper = new HashMap<Term, AbsBinExpr.Oper>() {
