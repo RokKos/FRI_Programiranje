@@ -77,10 +77,8 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 
 				if (expr.location().equals(kNULL_LOCATION)) {
 					Location loc = new Location(typeOfDecleration, type);
-					// System.out.println("null");
 					return new AbsFunDecl(loc, funName.symb.lexeme, parDecls, type);
 				} else {
-					// System.out.println("not");
 					Location loc = new Location(typeOfDecleration, expr);
 					return new AbsFunDef(loc, funName.symb.lexeme, parDecls, type, expr);
 				}
@@ -210,9 +208,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		case ConjExprRest:
 		case AddExprRest:
 		case MulExprRest: {
-			// System.out.println("Rest:" + node.label + " :" + node.numSubtrees());
 			if (node.numSubtrees() == 0) {
-				// System.out.println("Rest:" + "visarg" + visArg.location());
 				return visArg;
 			}
 
@@ -223,21 +219,17 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			}
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
-			// System.out.println("Rest: " + "l" + leftOperand.location());
 			Location loc = new Location(visArg, leftOperand);
 			AbsBinExpr binExpr = new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
 
 			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, binExpr);
-			// System.out.println("Rest: " + leftOperand.location() + " r: " +
 			// rightOperand.location());
 			return rightOperand;
 
 		}
 
 		case RelExprRest: {
-			// System.out.println("Rest R:" + node.label + " :" + node.numSubtrees());
 			if (node.numSubtrees() == 0) {
-				// System.out.println("Rest R:" + "visarg" + visArg.location());
 				return visArg;
 			}
 
@@ -448,7 +440,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			return node.subtree(0).accept(this, null);
 		}
 
-		} // End Swithv
+		} // End Switch
 
 		return visArg;
 
@@ -488,22 +480,15 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 	}
 
 	private AbsTree ExpressionTransform(DerNode node, AbsTree visArg) {
-		// System.out.println(node.label + " :" + node.numSubtrees());
 		if (node.numSubtrees() == 0) {
-			// System.out.println("zero");
 			return visArg;
 		}
 
 		if (node.numSubtrees() == 1) {
-			// System.out.println("one");
 			return node.subtree(0).accept(this, null);
 		}
-		// System.out.println("two");
 		AbsExpr leftOperand = (AbsExpr) node.subtree(0).accept(this, null);
 		AbsExpr rightOperand = (AbsExpr) node.subtree(1).accept(this, leftOperand);
-		// System.out.println("exprTran: " + node.label + " :" + node.numSubtrees() + "
-		// l " + leftOperand.location()
-		// + " r " + rightOperand.location());
 		return rightOperand;
 	}
 
