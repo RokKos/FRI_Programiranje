@@ -180,7 +180,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		case BodyEps: {
 			if (node.numSubtrees() == 0) {
 				// Hacky try to find other expr that is not abstrac and has less field
-				return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
+				return Epsilon();
 			}
 
 			return node.subtree(1).accept(this, null);
@@ -314,7 +314,24 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				return node.subtree(0).accept(this, null);
 			}
 
+			if (node.numSubtrees() == 2) {
+				boolean isNull = node.subtree(1).accept(this, null) instanceof AbsAtomExpr
+						&& node.subtree(1).accept(this, null).location().equals(kNULL_LOCATION);
+				if (isNull) {
+					DerLeaf varName = (DerLeaf) node.subtree(0);
+					Location loc = new Location(varName, varName);
+					return new AbsVarName(loc, varName.symb.lexeme);
+				} else {
+					AbsArgs funArgs = (AbsArgs) node.subtree(1).accept(this, null);
+					DerLeaf funName = (DerLeaf) node.subtree(0);
+					Location loc = new Location(funName, funArgs);
+					return new AbsFunName(loc, funName.symb.lexeme, funArgs);
+				}
+			}
+
 			// TODO
+			if (node.numSubtrees() == 3) {
+			}
 		}
 		case Literal: {
 			DerLeaf literal = (DerLeaf) node.subtree(0);
@@ -331,10 +348,42 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			Location loc = new Location(visArg, type);
 			return new AbsCastExpr(loc, (AbsExpr) visArg, type);
 		}
+
 		case CallEps:
-		case Args:
-		case ArgsEps:
-		case ArgsRest:
+		case Args: {
+			if (node.numSubtrees() == 0) {
+				return Epsilon();
+			}
+
+			return node.subtree(0).accept(this, null);
+		}
+
+		case ArgsEps: {
+			Vector<AbsExpr> allExpr = new Vector<AbsExpr>();
+			AbsExpr expr = (AbsExpr) node.subtree(0).accept(this, null);
+			allExpr.add(expr);
+			AbsArgs args = (AbsArgs) node.subtree(1).accept(this, null);
+			if (args != null) {
+				allExpr.addAll(args.args());
+			}
+			Location loc = new Location(expr, args == null ? expr : args);
+			return new AbsArgs(loc, allExpr);
+		}
+		case ArgsRest: {
+			if (node.numSubtrees() == 0) {
+				return null;
+			}
+			Vector<AbsExpr> allExpr = new Vector<AbsExpr>();
+			AbsExpr expr = (AbsExpr) node.subtree(0).accept(this, null);
+			allExpr.add(expr);
+			AbsArgs args = (AbsArgs) node.subtree(1).accept(this, null);
+			if (args != null) {
+				allExpr.addAll(args.args());
+			}
+			Location loc = new Location(expr, args == null ? expr : args);
+			return new AbsArgs(loc, allExpr);
+		}
+
 		case Stmts:
 		case StmtsRest:
 		case Stmt:
@@ -342,7 +391,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		case ElseEps:
 		case WhereEps:
 			System.out.println("Ni se dokoncano");
-			return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
+			return Epsilon();
 
 		// TODO: Expr
 
@@ -403,6 +452,11 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		System.out.println("exprTran: " + node.label + " :" + node.numSubtrees() + " l " + leftOperand.location()
 				+ " r " + rightOperand.location());
 		return rightOperand;
+	}
+
+	private AbsTree Epsilon() {
+		// Hacky try to find other expr that is not abstrac and has less field
+		return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
 	}
 
 	private Map<Term, AbsBinExpr.Oper> kTermToBinOper = new HashMap<Term, AbsBinExpr.Oper>() {
