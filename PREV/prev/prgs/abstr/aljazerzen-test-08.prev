@@ -1,0 +1,7 @@
+fun a(): bool = {
+if a | 2 * !b >= @c[1|2]
+then (a:void) - !(b:int); end;
+: printf(pass)
+where typ v: bool;
+};
+
