@@ -268,7 +268,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
 			Location loc = new Location(operatorNode, visArg);
-			return new AbsBinExpr(loc, oper, leftOperand, (AbsExpr) visArg);
+			return new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
 		}
 
 		case PrefExpr: {
