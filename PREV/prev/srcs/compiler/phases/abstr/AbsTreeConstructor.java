@@ -295,11 +295,13 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				DerLeaf varNode = (DerLeaf) node.subtree(0);
 				AbsVarName varName = new AbsVarName(varNode, varNode.symb.lexeme);
 				Location loc = new Location(visArg, varName);
-				return new AbsRecExpr(loc, (AbsExpr) visArg, varName);
+				AbsRecExpr recordExpr = new AbsRecExpr(loc, (AbsExpr) visArg, varName);
+				return node.subtree(1).accept(this, recordExpr);
 			} else {
 				AbsExpr index = (AbsExpr) node.subtree(0).accept(this, null);
 				Location loc = new Location(visArg, index);
-				return new AbsArrExpr(loc, (AbsExpr) visArg, index);
+				AbsArrExpr arrExpr = new AbsArrExpr(loc, (AbsExpr) visArg, index);
+				return node.subtree(1).accept(this, arrExpr);
 			}
 		}
 
