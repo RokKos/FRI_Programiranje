@@ -412,7 +412,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 
 		case AssignEps: {
 			if (node.numSubtrees() == 0) {
-				return visArg;
+				return new AbsExprStmt(visArg, (AbsExpr) visArg);
 			}
 			AbsExpr rightSide = (AbsExpr) node.subtree(0).accept(this, null);
 
