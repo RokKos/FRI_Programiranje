@@ -228,11 +228,11 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 
 		case DisjExprRest:
 		case ConjExprRest:
-		case RelExprRest:
 		case AddExprRest:
 		case MulExprRest: {
-			System.out.println(node.label + " :" + node.numSubtrees());
+			System.out.println("Rest:" + node.label + " :" + node.numSubtrees());
 			if (node.numSubtrees() == 0) {
+				System.out.println("Rest:" + "visarg" + visArg.location());
 				return visArg;
 			}
 
@@ -243,10 +243,32 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			}
 
 			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
-			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, leftOperand);
-			System.out.println(leftOperand.location() + " r: " + rightOperand.location());
-			Location loc = new Location(operatorNode, rightOperand);
-			return new AbsBinExpr(loc, oper, leftOperand, rightOperand);
+			System.out.println("Rest: " + "l" + leftOperand.location());
+			Location loc = new Location(visArg, leftOperand);
+			AbsBinExpr binExpr = new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
+
+			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, binExpr);
+			System.out.println("Rest: " + leftOperand.location() + " r: " + rightOperand.location());
+			return rightOperand;
+
+		}
+
+		case RelExprRest: {
+			System.out.println("Rest R:" + node.label + " :" + node.numSubtrees());
+			if (node.numSubtrees() == 0) {
+				System.out.println("Rest R:" + "visarg" + visArg.location());
+				return visArg;
+			}
+
+			DerLeaf operatorNode = (DerLeaf) node.subtree(0);
+			AbsBinExpr.Oper oper = kTermToBinOper.get(operatorNode.symb.token);
+			if (oper == null) {
+				throw new Report.Error(node.location(), WRONG_BINARY_NODE + GOT_STR + node.numSubtrees());
+			}
+
+			AbsExpr leftOperand = (AbsExpr) node.subtree(1).accept(this, null);
+			Location loc = new Location(operatorNode, visArg);
+			return new AbsBinExpr(loc, oper, leftOperand, (AbsExpr) visArg);
 		}
 
 		case PrefExpr: {
@@ -377,8 +399,10 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		}
 		System.out.println("two");
 		AbsExpr leftOperand = (AbsExpr) node.subtree(0).accept(this, null);
-		// System.out.println(node.subtree(0). .toString());
-		return node.subtree(1).accept(this, leftOperand);
+		AbsExpr rightOperand = (AbsExpr) node.subtree(1).accept(this, leftOperand);
+		System.out.println("exprTran: " + node.label + " :" + node.numSubtrees() + " l " + leftOperand.location()
+				+ " r " + rightOperand.location());
+		return rightOperand;
 	}
 
 	private Map<Term, AbsBinExpr.Oper> kTermToBinOper = new HashMap<Term, AbsBinExpr.Oper>() {
