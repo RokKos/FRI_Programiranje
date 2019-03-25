@@ -8,6 +8,7 @@ import compiler.common.report.*;
 import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
+import compiler.phases.seman.*;
 
 /**
  * The compiler.
@@ -17,7 +18,7 @@ import compiler.phases.abstr.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr";
+	private static final String phases = "lexan|synan|abstr|seman";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -118,6 +119,24 @@ public class Main {
 					Abstr.absTree.accept(logger, null);
 				}
 				if (cmdLine.get("--target-phase").equals("abstr"))
+					break;
+
+				// Semantic analysis.
+				try (SemAn seman = new SemAn()) {
+					Abstr.absTree.accept(new NameResolver(), null);
+					//Abstr.absTree.accept(new TypeResolver(), null);
+					//Abstr.absTree.accept(new AddrResolver(), null);
+					SemAn.declaredAt.lock();
+					//SemAn.declaresType.lock();
+					//SemAn.isType.lock();
+					//SemAn.isOfType.lock();
+					//SemAn.isAddr.lock();
+
+					AbsLogger logger = new AbsLogger(seman.logger);
+					logger.addSubvisitor(new SemLogger(seman.logger));
+					Abstr.absTree.accept(logger, null);
+				}
+				if (cmdLine.get("--target-phase").equals("seman"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();
