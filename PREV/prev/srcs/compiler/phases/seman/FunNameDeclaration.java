@@ -17,7 +17,7 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsFunDecl funDecl, Arg visArg) {
         try {
-            System.out.println("FunDecl:" + funDecl.name);
+            // System.out.println("FunDecl:" + funDecl.name);
             symbTable.ins(funDecl.name, funDecl);
         } catch (Exception e) {
             throw new Report.Error(funDecl.location(), "Fun defined twice in same scope");
@@ -30,7 +30,7 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsFunDef funDef, Arg visArg) {
         try {
-            System.out.println("FunDef:" + funDef.name);
+            // System.out.println("FunDef:" + funDef.name);
             symbTable.ins(funDef.name, funDef);
 
             funDef.type.accept(this, visArg);
@@ -49,7 +49,7 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsParDecl parDecl, Arg visArg) {
         try {
-            System.out.println("ParDecl:" + parDecl.name);
+            // System.out.println("ParDecl:" + parDecl.name);
             symbTable.ins(parDecl.name, parDecl);
         } catch (Exception e) {
             throw new Report.Error(parDecl.location(), "Fun defined twice in same scope");
@@ -61,11 +61,11 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsVarName varName, Arg visArg) {
         try {
-            System.out.println("varName:" + varName.name);
+            // System.out.println("varName:" + varName.name);
             AbsDecl varDeclaration = symbTable.fnd(varName.name);
             SemAn.declaredAt.put(varName, varDeclaration);
         } catch (Exception e) {
-            throw new Report.Error(varName.location(), "This var: " + varName.name + " does not exist in this scope");
+            throw new Report.Error(varName.location(), "This function: " + varName.name + " does not exist in this scope");
         }
         super.visit(varName, visArg);
         return null;
@@ -73,7 +73,7 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
 
     @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
-        System.out.println("FunNameDeclaration new scope currDepth: " + symbTable.currDepth());
+        // System.out.println("FunNameDeclaration new scope currDepth: " + symbTable.currDepth());
         symbTable.newScope();
 
         blockExpr.decls.accept(new VarNameDeclaration(), null);
@@ -84,7 +84,7 @@ public class FunNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
         blockExpr.expr.accept(new FunNameResolution(), null);
 
         symbTable.oldScope();
-        System.out.println("FunNameDeclaration old scope currDepth: " + symbTable.currDepth());
+        // System.out.println("FunNameDeclaration old scope currDepth: " + symbTable.currDepth());
         return null;
     }
 

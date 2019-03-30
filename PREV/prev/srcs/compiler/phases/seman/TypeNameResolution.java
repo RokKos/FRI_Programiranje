@@ -17,7 +17,7 @@ public class TypeNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsTypName typName, Arg visArg) {
         try {
-            System.out.println("TypeName:" + typName.name);
+            // System.out.println("TypeName:" + typName.name);
             AbsDecl typeDeclaration = symbTable.fnd(typName.name);
 
             // Not the best way to do this.. enter can surpass this statement

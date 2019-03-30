@@ -17,7 +17,7 @@ public class FunNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsFunName funName, Arg visArg) {
         try {
-            System.out.println("TypeName:" + funName.name);
+            // System.out.println("TypeName:" + funName.name);
             AbsDecl typeDeclaration = symbTable.fnd(funName.name);
             SemAn.declaredAt.put(funName, typeDeclaration);
         } catch (Exception e) {

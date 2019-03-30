@@ -17,7 +17,7 @@ public class VarNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsVarDecl varDecl, Arg visArg) {
         try {
-            System.out.println("VarDecl:" + varDecl.name);
+            // System.out.println("VarDecl:" + varDecl.name);
             symbTable.ins(varDecl.name, varDecl);
         } catch (Exception e) {
             throw new Report.Error(varDecl.location(), "Type defined twice in same scope");

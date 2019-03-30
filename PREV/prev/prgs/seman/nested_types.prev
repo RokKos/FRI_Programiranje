@@ -1,6 +1,7 @@
 typ a : int;
 fun b() : d = {
     l = 0;
+    i(0,false, true);
     : 42
     where
         typ c : a;
