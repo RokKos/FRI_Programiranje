@@ -352,9 +352,14 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 		}
 
 		case CallEps:
-		case Args: {
 			if (node.numSubtrees() == 0) {
 				return Epsilon();
+			}
+
+			return node.subtree(0).accept(this, null);
+		case Args: {
+			if (node.numSubtrees() == 0) {
+				return EpsilonArgs();
 			}
 
 			return node.subtree(0).accept(this, null);
@@ -495,6 +500,10 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 	private AbsTree Epsilon() {
 		// Hacky try to find other expr that is not abstrac and has less field
 		return new AbsAtomExpr(kNULL_LOCATION, AbsAtomExpr.Type.VOID, "");
+	}
+
+	private AbsArgs EpsilonArgs() {
+		return new AbsArgs(kNULL_LOCATION, new Vector<AbsExpr>());
 	}
 
 	private AbsDecls EpsilonDecls() {
