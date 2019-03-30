@@ -316,7 +316,7 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				} else {
 					AbsArgs funArgs = (AbsArgs) node.subtree(1).accept(this, null);
 					DerLeaf funName = (DerLeaf) node.subtree(0);
-					Location loc = new Location(funName, funArgs);
+					Location loc = new Location(funName, funArgs.args().size() != 0 ? funArgs : funName);
 					return new AbsFunName(loc, funName.symb.lexeme, funArgs);
 				}
 			}
