@@ -12,10 +12,10 @@ import compiler.data.abstree.visitor.*;
  * 
  * @author sliva
  */
-public class NameResolver extends AbsFullVisitor<Object, Object> {
+public class NameResolver<Result, Arg> extends AbsFullVisitor<Result, Arg> {
 
 	/** Symbol table. */
-	private final SymbTable symbTable = new SymbTable();
+	protected static final SymbTable symbTable = new SymbTable();
 
 	// TODO
 

@@ -18,6 +18,10 @@ public class Location implements Locatable, Loggable {
 	 */
 	private final int begLine;
 
+	public int GetLine() {
+		return begLine;
+	}
+
 	/**
 	 * The column number of the first character of the specified part of the source
 	 * file.
