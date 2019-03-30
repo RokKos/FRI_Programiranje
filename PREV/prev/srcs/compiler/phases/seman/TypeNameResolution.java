@@ -36,7 +36,6 @@ public class TypeNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
 
     @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
-        // super.visit(blockExpr, visArg);
         return null;
     }
 }

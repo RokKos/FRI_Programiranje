@@ -125,8 +125,9 @@ public class Main {
 				try (SemAn seman = new SemAn()) {
 					Abstr.absTree.accept(new TypeNameDeclaration(), null);
 					Abstr.absTree.accept(new TypeNameResolution(), null);
-					
-					
+					Abstr.absTree.accept(new VarNameDeclaration(), null);
+					Abstr.absTree.accept(new FunNameDeclaration(), null);
+
 					// Abstr.absTree.accept(new TypeResolver(), null);
 					// Abstr.absTree.accept(new AddrResolver(), null);
 					SemAn.declaredAt.lock();
