@@ -21,7 +21,7 @@ public class FunNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
             AbsDecl typeDeclaration = symbTable.fnd(funName.name);
             SemAn.declaredAt.put(funName, typeDeclaration);
         } catch (Exception e) {
-            throw new Report.Error(funName.location(), "This type: " + funName.name + " does not exist in this scope");
+            throw new Report.Error(funName.location(), "This fun: " + funName.name + " does not exist in this scope");
         }
 
         super.visit(funName, visArg);
