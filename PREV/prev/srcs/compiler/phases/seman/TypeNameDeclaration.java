@@ -17,7 +17,7 @@ public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> 
     @Override
     public Result visit(AbsTypDecl typDecl, Arg visArg) {
         try {
-            System.out.println("TypeDecl:" + typDecl.name);
+            // System.out.println("TypeDecl:" + typDecl.name);
             symbTable.ins(typDecl.name, typDecl);
         } catch (Exception e) {
             throw new Report.Error(typDecl.location(), "Type defined twice in same scope");
@@ -29,12 +29,14 @@ public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> 
 
     @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
-        System.out.println("TypeNameDeclaration new scope currDepth: " + symbTable.currDepth());
+        // System.out.println("TypeNameDeclaration new scope currDepth: " + symbTable.currDepth());
         symbTable.newScope();
         super.visit(blockExpr, visArg);
         blockExpr.decls.accept(new TypeNameResolution(), null);
+        blockExpr.stmts.accept(new TypeNameResolution(), null);
+        blockExpr.expr.accept(new TypeNameResolution(), null);
         symbTable.oldScope();
-        System.out.println("TypeNameDeclaration old scope currDepth: " + symbTable.currDepth());
+        // System.out.println("TypeNameDeclaration old scope currDepth: " + symbTable.currDepth());
         return null;
     }
 
