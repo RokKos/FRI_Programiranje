@@ -29,6 +29,30 @@ public class FunNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     }
 
     @Override
+    public Result visit(AbsFunDef funDef, Arg visArg) {
+        System.out.println("FunDef res:" + funDef.name + " d: " + symbTable.currDepth());
+
+        symbTable.newScope();
+        funDef.value.accept(this, visArg);
+
+        symbTable.oldScope();
+        return null;
+    }
+
+    /*@Override
+    public Result visit(AbsVarName varName, Arg visArg) {
+        try {
+            System.out.println("varName:" + varName.name);
+            AbsDecl varDeclaration = symbTable.fnd(varName.name);
+            SemAn.declaredAt.put(varName, varDeclaration);
+        } catch (Exception e) {
+            throw new Report.Error(varName.location(), "This var: " + varName.name + " does not exist in this scope");
+        }
+        super.visit(varName, visArg);
+        return null;
+    }*/
+
+    @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
         return null;
     }
