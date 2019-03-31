@@ -29,14 +29,19 @@ public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> 
 
     @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
-        // System.out.println("TypeNameDeclaration new scope currDepth: " + symbTable.currDepth());
+        // System.out.println("TypeNameDeclaration new scope currDepth: " +
+        // symbTable.currDepth());
         symbTable.newScope();
         super.visit(blockExpr, visArg);
         blockExpr.decls.accept(new TypeNameResolution(), null);
+        blockExpr.decls.accept(new VarNameDeclaration(), null);
         blockExpr.stmts.accept(new TypeNameResolution(), null);
+        blockExpr.stmts.accept(new VarNameDeclaration(), null);
         blockExpr.expr.accept(new TypeNameResolution(), null);
+        blockExpr.expr.accept(new VarNameDeclaration(), null);
         symbTable.oldScope();
-        // System.out.println("TypeNameDeclaration old scope currDepth: " + symbTable.currDepth());
+        // System.out.println("TypeNameDeclaration old scope currDepth: " +
+        // symbTable.currDepth());
         return null;
     }
 

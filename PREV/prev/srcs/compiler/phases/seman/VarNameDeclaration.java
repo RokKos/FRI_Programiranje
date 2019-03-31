@@ -20,7 +20,7 @@ public class VarNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
             // System.out.println("VarDecl:" + varDecl.name);
             symbTable.ins(varDecl.name, varDecl);
         } catch (Exception e) {
-            throw new Report.Error(varDecl.location(), "Type defined twice in same scope");
+            throw new Report.Error(varDecl.location(), "Variable: " + varDecl.name + " defined twice in same scope");
         }
 
         super.visit(varDecl, visArg);
