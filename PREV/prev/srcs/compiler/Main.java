@@ -127,6 +127,7 @@ public class Main {
 					Abstr.absTree.accept(new TypeNameResolution(), null);
 					Abstr.absTree.accept(new VarNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameDeclaration(), null);
+					Abstr.absTree.accept(new FunNameResolution(), null);
 
 					// Abstr.absTree.accept(new TypeResolver(), null);
 					// Abstr.absTree.accept(new AddrResolver(), null);
