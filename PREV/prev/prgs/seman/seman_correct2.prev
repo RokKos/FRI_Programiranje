@@ -1,0 +1,30 @@
+fun a(): void = {
+    none; : f(1,2,3,i).asd + i
+
+    where
+
+        fun f(a: a, b: b, c: c, d: d): integer = {
+            a = c + b + d;
+            : a + i + f() + g()
+
+            where
+                #typ a: int; # to more crashat z location v 7.13
+                var i: int;
+                fun f(): int = {
+                    none; : f()
+
+                    where
+                        fun f(): int;
+                };
+        };
+
+        typ a: int;
+        typ b: a;
+        typ c: b;
+        typ d: c;
+        var i: int;
+        typ integer: int;
+
+        fun g(): int = 1;
+
+};
