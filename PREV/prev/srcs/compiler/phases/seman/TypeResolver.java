@@ -4,11 +4,8 @@
 package compiler.phases.seman;
 
 import java.util.*;
-import compiler.common.report.*;
-import compiler.data.abstree.*;
 import compiler.data.abstree.visitor.*;
 import compiler.data.type.*;
-import compiler.data.type.property.*;
 
 /**
  * Type resolving: the result is stored in {@link SemAn#declaresType},
@@ -16,11 +13,11 @@ import compiler.data.type.property.*;
  * 
  * @author sliva
  */
-public class TypeResolver extends AbsFullVisitor<SemType, TypeResolver.Phase> {
+public class TypeResolver<SemType, Arg> extends AbsFullVisitor<SemType, Arg> {
 
 	/** Symbol tables of individual record types. */
-	private final HashMap<SemRecType, SymbTable> symbTables = new HashMap<SemRecType, SymbTable>();
+	protected static final HashMap<SemRecType, SymbTable> symbTables = new HashMap<SemRecType, SymbTable>();
 
-    // TODO
+	// TODO
 
 }

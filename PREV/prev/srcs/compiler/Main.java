@@ -9,8 +9,6 @@ import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
 import compiler.phases.seman.*;
-import compiler.phases.frames.*;
-import compiler.phases.imcgen.*;
 
 /**
  * The compiler.
@@ -125,14 +123,16 @@ public class Main {
 
 				// Semantic analysis.
 				try (SemAn seman = new SemAn()) {
+					// Name resolution
 					Abstr.absTree.accept(new TypeNameDeclaration(), null);
 					Abstr.absTree.accept(new TypeNameResolution(), null);
 					Abstr.absTree.accept(new VarNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameResolution(), null);
-
-					Abstr.absTree.accept(new NameResolver(), null);
-					Abstr.absTree.accept(new TypeResolver(), null);
+					
+					// Type resolution
+					Abstr.absTree.accept(new TypeResolverDeclarationStage(), null);
+					//Abstr.absTree.accept(new TypeResolver(), null);
 					Abstr.absTree.accept(new AddrResolver(), null);
 					SemAn.declaredAt.lock();
 					SemAn.declaresType.lock();
@@ -146,33 +146,6 @@ public class Main {
 				}
 				if (cmdLine.get("--target-phase").equals("seman"))
 					break;
-
-				// Memory layout, i.e., frames and accesses.
-				try (Frames frames = new Frames()) {
-					Abstr.absTree.accept(new FrmEvaluator(), null);
-					Frames.frames.lock();
-					Frames.accesses.lock();
-
-					AbsLogger logger = new AbsLogger(frames.logger);
-					logger.addSubvisitor(new SemLogger(frames.logger));
-					logger.addSubvisitor(new FrmLogger(frames.logger));
-					Abstr.absTree.accept(logger, null);
-				}
-				if (cmdLine.get("--target-phase").equals("layout"))
-					break;
-
-				// Intermediate code generation.
-				try (ImcGen imcGen = new ImcGen()) {
-					Abstr.absTree.accept(new CodeGenerator(), new Stack<compiler.data.layout.Frame>());
-					ImcGen.stmtImCode.lock();
-					ImcGen.exprImCode.lock();
-
-					AbsLogger logger = new AbsLogger(imcGen.logger);
-					logger.addSubvisitor(new SemLogger(imcGen.logger));
-					logger.addSubvisitor(new FrmLogger(imcGen.logger));
-					logger.addSubvisitor(new ImcLogger(imcGen.logger));
-					Abstr.absTree.accept(logger, null);
-				}
 
 				int endWarnings = Report.numOfWarnings();
 				if (begWarnings != endWarnings)
