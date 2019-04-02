@@ -9,6 +9,8 @@ import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
 import compiler.phases.seman.*;
+import compiler.phases.frames.*;
+import compiler.phases.imcgen.*;
 
 /**
  * The compiler.
@@ -18,7 +20,7 @@ import compiler.phases.seman.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -129,13 +131,14 @@ public class Main {
 					Abstr.absTree.accept(new FunNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameResolution(), null);
 
-					// Abstr.absTree.accept(new TypeResolver(), null);
-					// Abstr.absTree.accept(new AddrResolver(), null);
+					Abstr.absTree.accept(new NameResolver(), null);
+					Abstr.absTree.accept(new TypeResolver(), null);
+					Abstr.absTree.accept(new AddrResolver(), null);
 					SemAn.declaredAt.lock();
-					// SemAn.declaresType.lock();
-					// SemAn.isType.lock();
-					// SemAn.isOfType.lock();
-					// SemAn.isAddr.lock();
+					SemAn.declaresType.lock();
+					SemAn.isType.lock();
+					SemAn.ofType.lock();
+					SemAn.isAddr.lock();
 
 					AbsLogger logger = new AbsLogger(seman.logger);
 					logger.addSubvisitor(new SemLogger(seman.logger));
@@ -143,6 +146,33 @@ public class Main {
 				}
 				if (cmdLine.get("--target-phase").equals("seman"))
 					break;
+
+				// Memory layout, i.e., frames and accesses.
+				try (Frames frames = new Frames()) {
+					Abstr.absTree.accept(new FrmEvaluator(), null);
+					Frames.frames.lock();
+					Frames.accesses.lock();
+
+					AbsLogger logger = new AbsLogger(frames.logger);
+					logger.addSubvisitor(new SemLogger(frames.logger));
+					logger.addSubvisitor(new FrmLogger(frames.logger));
+					Abstr.absTree.accept(logger, null);
+				}
+				if (cmdLine.get("--target-phase").equals("layout"))
+					break;
+
+				// Intermediate code generation.
+				try (ImcGen imcGen = new ImcGen()) {
+					Abstr.absTree.accept(new CodeGenerator(), new Stack<compiler.data.layout.Frame>());
+					ImcGen.stmtImCode.lock();
+					ImcGen.exprImCode.lock();
+
+					AbsLogger logger = new AbsLogger(imcGen.logger);
+					logger.addSubvisitor(new SemLogger(imcGen.logger));
+					logger.addSubvisitor(new FrmLogger(imcGen.logger));
+					logger.addSubvisitor(new ImcLogger(imcGen.logger));
+					Abstr.absTree.accept(logger, null);
+				}
 
 				int endWarnings = Report.numOfWarnings();
 				if (begWarnings != endWarnings)

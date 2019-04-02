@@ -37,7 +37,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsArrExpr arrExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(arrExpr);
+		SemType type = SemAn.ofType.get(arrExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(arrExpr);
@@ -58,7 +58,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsAtomExpr atomExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(atomExpr);
+		SemType type = SemAn.ofType.get(atomExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(atomExpr);
@@ -79,7 +79,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsBinExpr binExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(binExpr);
+		SemType type = SemAn.ofType.get(binExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(binExpr);
@@ -92,7 +92,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsBlockExpr blockExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(blockExpr);
+		SemType type = SemAn.ofType.get(blockExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(blockExpr);
@@ -105,7 +105,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsCastExpr castExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(castExpr);
+		SemType type = SemAn.ofType.get(castExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(castExpr);
@@ -118,7 +118,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsDelExpr delExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(delExpr);
+		SemType type = SemAn.ofType.get(delExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(delExpr);
@@ -137,7 +137,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 			logger.addAttribute("location", decl.toString());
 			logger.endElement();
 		}
-		SemType type = SemAn.isOfType.get(funName);
+		SemType type = SemAn.ofType.get(funName);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(funName);
@@ -150,7 +150,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsNewExpr newExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(newExpr);
+		SemType type = SemAn.ofType.get(newExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(newExpr);
@@ -171,7 +171,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsRecExpr recExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(recExpr);
+		SemType type = SemAn.ofType.get(recExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(recExpr);
@@ -214,7 +214,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 
 	@Override
 	public Object visit(AbsUnExpr unExpr, Object visArg) {
-		SemType type = SemAn.isOfType.get(unExpr);
+		SemType type = SemAn.ofType.get(unExpr);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(unExpr);
@@ -233,7 +233,7 @@ public class SemLogger extends AbsNullVisitor<Object, Object> {
 			logger.addAttribute("location", decl.toString());
 			logger.endElement();
 		}
-		SemType type = SemAn.isOfType.get(varName);
+		SemType type = SemAn.ofType.get(varName);
 		if (type != null)
 			type.log(logger);
 		Boolean hasAddr = SemAn.isAddr.get(varName);
