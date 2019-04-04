@@ -19,33 +19,50 @@ import compiler.data.type.property.*;
  */
 public class TypeResolverResolvingStage extends TypeResolver {
 
+    private SemType AtomTypeResolution(AbsAtomType atomType) {
+        switch (atomType.type) {
+        case VOID:
+            return new SemVoidType();
+
+        case INT:
+            return new SemIntType();
+
+        case CHAR:
+            return new SemCharType();
+
+        case BOOL:
+            return new SemBoolType();
+
+        default:
+            throw new Report.Error(atomType.location(), "This type is not supported atomic type");
+        }
+    }
+
+    private SemType AtomExpresionResolution(AbsAtomExpr atomExpr) {
+        switch (atomExpr.type) {
+        case VOID:
+            return new SemVoidType();
+
+        case INT:
+            return new SemIntType();
+
+        case CHAR:
+            return new SemCharType();
+
+        case BOOL:
+            return new SemBoolType();
+
+        default:
+            throw new Report.Error(atomExpr.location(), "This type is not supported atomic type");
+        }
+    }
+
     private SemType LinkTypes(AbsType type) {
         if (type instanceof AbsAtomType) {
             AbsAtomType atomType = (AbsAtomType) type;
-            switch (atomType.type) {
-            case VOID:
-                SemVoidType voidType = new SemVoidType();
-                SemAn.isType.put(type, voidType);
-                return voidType;
-
-            case INT:
-                SemIntType intType = new SemIntType();
-                SemAn.isType.put(type, intType);
-                return new SemIntType();
-
-            case CHAR:
-                SemCharType charType = new SemCharType();
-                SemAn.isType.put(type, charType);
-                return new SemCharType();
-
-            case BOOL:
-                SemBoolType boolType = new SemBoolType();
-                SemAn.isType.put(type, boolType);
-                return new SemBoolType();
-
-            default:
-                throw new Report.Error(atomType.location(), "This type is not supported atomic type");
-            }
+            SemType semAtomType = AtomTypeResolution(atomType);
+            SemAn.isType.put(type, semAtomType);
+            return semAtomType;
         } else if (type instanceof AbsTypName) {
             AbsTypName namedType = (AbsTypName) type;
             SemNamedType semNamedType = SemAn.declaresType.get((AbsTypDecl) SemAn.declaredAt.get(namedType));
@@ -113,6 +130,25 @@ public class TypeResolverResolvingStage extends TypeResolver {
         semType.define(LinkTypes(typDecl.type));
 
         super.visit(typDecl, visArg);
+        return null;
+    }
+
+    @Override
+    public SemType visit(AbsAtomExpr atomExpr, Object visArg) {
+
+        SemType atomType = AtomExpresionResolution(atomExpr);
+        SemAn.ofType.put(atomExpr, atomType);
+
+        super.visit(atomExpr, visArg);
+        return null;
+    }
+
+    @Override
+    public SemType visit(AbsAtomType atomType, Object visArg) {
+        SemType semAtomType = AtomTypeResolution(atomType);
+        SemAn.isType.put(atomType, semAtomType);
+
+        super.visit(atomType, visArg);
         return null;
     }
 }
