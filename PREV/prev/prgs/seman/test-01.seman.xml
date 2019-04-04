@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-stylesheet type="text/xsl" href="../../data/seman.xsl"?><seman><node label="Source"><node label="Decls"><node label="VarDecl" lexeme="i"><node label="AtomType" spec="INT"><location loc="1.7--1.9"/></node><location loc="1.1--1.9"/></node><location loc="1.1--1.9"/></node><location loc="1.1--1.9"/></node></seman>
