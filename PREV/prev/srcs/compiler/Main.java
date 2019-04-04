@@ -129,10 +129,12 @@ public class Main {
 					Abstr.absTree.accept(new VarNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameDeclaration(), null);
 					Abstr.absTree.accept(new FunNameResolution(), null);
-					
+
 					// Type resolution
 					Abstr.absTree.accept(new TypeResolverDeclarationStage(), null);
-					//Abstr.absTree.accept(new TypeResolver(), null);
+					Abstr.absTree.accept(new TypeResolverResolvingStage(), null);
+					Abstr.absTree.accept(new TypeResolverCheckingStage(), null);
+
 					Abstr.absTree.accept(new AddrResolver(), null);
 					SemAn.declaredAt.lock();
 					SemAn.declaresType.lock();
