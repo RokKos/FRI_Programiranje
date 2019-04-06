@@ -48,8 +48,38 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     @Override
     public SemType visit(AbsVarName varName, Object visArg) {
-        // TODO: Put in paramter declarations
-        return SemAn.ofType.get(varName);
+        AbsDecl varDeclaration = SemAn.declaredAt.get(varName);
+        if (varDeclaration.type instanceof AbsTypName) {
+            AbsTypName typeName = (AbsTypName) varDeclaration.type;
+            AbsTypDecl typeDecl = (AbsTypDecl) SemAn.declaredAt.get(typeName);
+            SemNamedType namedType = SemAn.declaresType.get(typeDecl);
+            return namedType.actualType();
+
+        }
+        return SemAn.isType.get(varDeclaration.type);
+    }
+
+    @Override
+    public SemType visit(AbsFunName funName, Object visArg) {
+        AbsDecl funDecl = SemAn.declaredAt.get(funName);
+        if (funDecl.type instanceof AbsTypName) {
+            AbsTypName typeName = (AbsTypName) funDecl.type;
+            AbsTypDecl typeDecl = (AbsTypDecl) SemAn.declaredAt.get(typeName);
+            SemNamedType namedType = SemAn.declaresType.get(typeDecl);
+            return namedType.actualType();
+
+        }
+
+        visit(funName.args, visArg);
+
+        return SemAn.isType.get(funDecl.type);
+    }
+
+    @Override
+    public SemType visit(AbsBlockExpr blockExpr, Object visArg) {
+        super.visit(blockExpr, visArg);
+
+        return (SemType) blockExpr.expr.accept(this, visArg);
     }
 
     // Binary
@@ -79,7 +109,9 @@ public class TypeResolverCheckingStage extends TypeResolver {
                     || (firstType instanceof SemCharType && secondType instanceof SemCharType)) {
                 return firstType;
             } else {
-                System.out.println(firstType.toString() + " s: " + secondType.toString());
+                System.out.println("oper: " + binExpr.oper.toString() + "loc: " + binExpr.location());
+                System.out.println("f:" + firstType.toString());
+                System.out.println(" s: " + secondType.toString());
                 throw new Report.Error(binExpr.location(),
                         "Binary operator +, -, *, /, %  is inbetween two expresions that are not of type INT or CHAR");
             }
