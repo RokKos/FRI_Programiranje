@@ -23,7 +23,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsUnExpr unExpr, Object visArg) {
         SemType semUnaryType;
-        if (unExpr.oper == Oper.ADD || unExpr.oper == Oper.SUB) {
+
+        switch (unExpr.oper) {
+        case ADD:
+        case SUB: {
             SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
             if (unaryType instanceof SemIntType) {
                 semUnaryType = unaryType;
@@ -31,16 +34,47 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 throw new Report.Error(unExpr.location(),
                         "Unary + or - are infront of expresion that is not of type INT");
             }
+        }
+            break;
 
-        } else if (unExpr.oper == Oper.NOT) {
+        case NOT: {
             SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
             if (unaryType instanceof SemBoolType) {
                 semUnaryType = unaryType;
             } else {
                 throw new Report.Error(unExpr.location(), "NOT is  infront of expresion that is not of type BOOL");
             }
-        } else {
-            throw new Report.Error(unExpr.location(), "TODO");
+        }
+            break;
+
+        case ADDR: {
+            SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
+            if (!(unaryType instanceof SemVoidType)) {
+                semUnaryType = new SemPtrType(unaryType);
+            } else {
+                throw new Report.Error(unExpr.location(), "Address cannot be reached with type VOID");
+            }
+        }
+            break;
+
+        case DATA: {
+            SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
+            if (unaryType instanceof SemPtrType) {
+                SemPtrType ptrType = (SemPtrType) unaryType;
+                if (!(ptrType.ptdType instanceof SemVoidType)) {
+                    semUnaryType = ptrType.ptdType;
+                } else {
+                    throw new Report.Error(unExpr.location(), "Trying to get to location of expresion that is of type VOID");
+                }
+            } else {
+                throw new Report.Error(unExpr.location(), "Trying to get to location of expresion that is not of type PTR");
+            }
+
+        }
+            break;
+
+        default:                
+            throw new Report.Error(unExpr.location(), "Unhandlet Unary operator");
         }
 
         SemAn.ofType.put(unExpr, semUnaryType);
@@ -126,9 +160,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 binType = firstType;
                 break;
             } else {
-                System.out.println("oper: " + binExpr.oper.toString() + "loc: " + binExpr.location());
-                System.out.println("f:" + firstType.toString());
-                System.out.println(" s: " + secondType.toString());
                 throw new Report.Error(binExpr.location(),
                         "Binary operator +, -, *, /, %  is inbetween two expresions that are not of type INT or CHAR");
             }
