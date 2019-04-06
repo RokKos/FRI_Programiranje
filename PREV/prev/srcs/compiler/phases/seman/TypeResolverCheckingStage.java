@@ -22,23 +22,30 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     @Override
     public SemType visit(AbsUnExpr unExpr, Object visArg) {
+        SemType semUnaryType;
         if (unExpr.oper == Oper.ADD || unExpr.oper == Oper.SUB) {
             SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
             if (unaryType instanceof SemIntType) {
-                return unaryType;
+                semUnaryType = unaryType;
+            } else {
+                throw new Report.Error(unExpr.location(),
+                        "Unary + or - are infront of expresion that is not of type INT");
             }
 
-            throw new Report.Error(unExpr.location(), "Unary + or - are infront of expresion that is not of type INT");
         } else if (unExpr.oper == Oper.NOT) {
             SemType unaryType = (SemType) unExpr.subExpr.accept(this, visArg);
             if (unaryType instanceof SemBoolType) {
-                return unaryType;
+                semUnaryType = unaryType;
+            } else {
+                throw new Report.Error(unExpr.location(), "NOT is  infront of expresion that is not of type BOOL");
             }
-
-            throw new Report.Error(unExpr.location(), "NOT is  infront of expresion that is not of type BOOL");
+        } else {
+            throw new Report.Error(unExpr.location(), "TODO");
         }
 
-        return visit(unExpr, visArg);
+        SemAn.ofType.put(unExpr, semUnaryType);
+
+        return semUnaryType;
     }
 
     @Override
@@ -56,7 +63,9 @@ public class TypeResolverCheckingStage extends TypeResolver {
             return namedType.actualType();
 
         }
-        return SemAn.isType.get(varDeclaration.type);
+        SemType varType = SemAn.isType.get(varDeclaration.type);
+        SemAn.ofType.put(varName, varType);
+        return varType;
     }
 
     @Override
@@ -71,15 +80,19 @@ public class TypeResolverCheckingStage extends TypeResolver {
         }
 
         visit(funName.args, visArg);
+        SemType funType = SemAn.isType.get(funDecl.type);
+        SemAn.ofType.put(funName, funType);
 
-        return SemAn.isType.get(funDecl.type);
+        return funType;
     }
 
     @Override
     public SemType visit(AbsBlockExpr blockExpr, Object visArg) {
         super.visit(blockExpr, visArg);
 
-        return (SemType) blockExpr.expr.accept(this, visArg);
+        SemType blockExprType = (SemType) blockExpr.expr.accept(this, visArg);
+        SemAn.ofType.put(blockExpr, blockExprType);
+        return blockExprType;
     }
 
     // Binary
@@ -89,12 +102,15 @@ public class TypeResolverCheckingStage extends TypeResolver {
         SemType firstType = (SemType) binExpr.fstExpr.accept(this, visArg);
         SemType secondType = (SemType) binExpr.sndExpr.accept(this, visArg);
 
+        SemType binType;
+
         switch (binExpr.oper) {
         case AND:
         case IOR:
         case XOR:
             if (firstType instanceof SemBoolType && secondType instanceof SemBoolType) {
-                return firstType;
+                binType = firstType;
+                break;
             } else {
                 throw new Report.Error(binExpr.location(),
                         "Binary operator &, |, ^  is inbetween two expresions that are not of type BOOL");
@@ -107,7 +123,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case MOD:
             if ((firstType instanceof SemIntType && secondType instanceof SemIntType)
                     || (firstType instanceof SemCharType && secondType instanceof SemCharType)) {
-                return firstType;
+                binType = firstType;
+                break;
             } else {
                 System.out.println("oper: " + binExpr.oper.toString() + "loc: " + binExpr.location());
                 System.out.println("f:" + firstType.toString());
@@ -120,7 +137,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case NEQ:
             if (firstType.getClass().equals(secondType.getClass()) && (firstType instanceof SemIntType
                     || firstType instanceof SemBoolType || firstType instanceof SemCharType)) {
-                return new SemBoolType();
+                binType = new SemBoolType();
+                break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
                 SemPtrType firstPtrType = (SemPtrType) firstType;
                 SemPtrType secondPtrType = (SemPtrType) secondType;
@@ -128,7 +146,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
                     throw new Report.Error(binExpr.location(),
                             "Binary operator ==, !=  is inbetween two expresions that don't have same PTD TYPE");
                 }
-                return new SemBoolType();
+                binType = new SemBoolType();
+                break;
             } else {
                 throw new Report.Error(binExpr.location(),
                         "Binary operator ==, !=  is inbetween two expresions that are not of type INT, CHAR, BOOL or PTR");
@@ -140,7 +159,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case GEQ:
             if (firstType.getClass().equals(secondType.getClass())
                     && (firstType instanceof SemIntType || firstType instanceof SemCharType)) {
-                return new SemBoolType();
+                binType = new SemBoolType();
+                break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
                 SemPtrType firstPtrType = (SemPtrType) firstType;
                 SemPtrType secondPtrType = (SemPtrType) secondType;
@@ -148,18 +168,20 @@ public class TypeResolverCheckingStage extends TypeResolver {
                     throw new Report.Error(binExpr.location(),
                             "Binary operator <=, >=, <, >  is inbetween two expresions that don't have same PTD TYPE");
                 }
-                return new SemBoolType();
+                binType = new SemBoolType();
+                break;
             } else {
                 throw new Report.Error(binExpr.location(),
                         "Binary operator <=, >=, <, >  is inbetween two expresions that are not of type INT, CHAR, BOOL or PTR");
             }
 
         default:
-
-            break;
+            throw new Report.Error(binExpr.location(), "Unhadelt binary operator");
         }
 
-        return null;
+        SemAn.ofType.put(binExpr, binType);
+
+        return binType;
     }
 
     @Override
