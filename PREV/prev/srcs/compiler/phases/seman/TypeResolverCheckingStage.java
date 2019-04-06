@@ -64,16 +64,18 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 if (!(ptrType.ptdType instanceof SemVoidType)) {
                     semUnaryType = ptrType.ptdType;
                 } else {
-                    throw new Report.Error(unExpr.location(), "Trying to get to location of expresion that is of type VOID");
+                    throw new Report.Error(unExpr.location(),
+                            "Trying to get to location of expresion that is of type VOID");
                 }
             } else {
-                throw new Report.Error(unExpr.location(), "Trying to get to location of expresion that is not of type PTR");
+                throw new Report.Error(unExpr.location(),
+                        "Trying to get to location of expresion that is not of type PTR");
             }
 
         }
             break;
 
-        default:                
+        default:
             throw new Report.Error(unExpr.location(), "Unhandlet Unary operator");
         }
 
@@ -128,8 +130,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
         SemAn.ofType.put(blockExpr, blockExprType);
         return blockExprType;
     }
-
-    // Binary
 
     @Override
     public SemType visit(AbsBinExpr binExpr, Object visArg) {
@@ -235,4 +235,81 @@ public class TypeResolverCheckingStage extends TypeResolver {
         super.visit(typDecl, visArg);
         return null;
     }
+
+    @Override
+    public SemType visit(AbsNewExpr newExpr, Object visArg) {
+        SemType type = (SemType) newExpr.type.accept(this, visArg);
+        if (!(type instanceof SemVoidType)) {
+            return new SemPtrType(type);
+        } else {
+            throw new Report.Error(newExpr.location(), "New type cannot be VOID");
+        }
+    }
+
+    @Override
+    public SemType visit(AbsDelExpr delExpr, Object visArg) {
+        SemType type = (SemType) delExpr.expr.accept(this, visArg);
+        if (type instanceof SemPtrType) {
+            SemPtrType ptrType = (SemPtrType) type;
+            if (!(ptrType.ptdType instanceof SemVoidType)) {
+                return ptrType.ptdType;
+            } else {
+                throw new Report.Error(delExpr.location(),
+                        "Trying to delete location of expresion that is of type VOID");
+            }
+        } else {
+            throw new Report.Error(delExpr.location(),
+                    "Trying to delete location of expresion that is not of type PTR");
+        }
+    }
+
+    @Override
+    public SemType visit(AbsArrExpr arrExpr, Object visArg) {
+        SemType arrType = (SemType) arrExpr.array.accept(this, visArg);
+        if (!(arrType instanceof SemArrType)) {
+            throw new Report.Error(arrExpr.location(), "Arr expresion is not of type SemArrType");
+        }
+        SemArrType semArrType = (SemArrType) arrType;
+
+        SemType indexType = (SemType) arrExpr.index.accept(this, visArg);
+        if (!(indexType instanceof SemIntType)) {
+            throw new Report.Error(arrExpr.location(), "Index expresion is not of type SemIntType");
+        }
+        SemIntType semIntType = (SemIntType) indexType;
+
+        SemType wholeArrType = semArrType.elemType;
+        SemAn.ofType.put(arrExpr, wholeArrType);
+
+        return wholeArrType;
+    }
+
+    @Override
+    public SemType visit(AbsRecExpr recExpr, Object visArg) {
+        AbsVarName recName = (AbsVarName) recExpr.record;
+        System.out.println("name: " + recName.name);
+        AbsVarDecl varDecl = (AbsVarDecl) SemAn.declaredAt.get(recName);
+        System.out.println("t name: " + varDecl.type);
+
+        // TODO resolve this
+
+        SemType varType = (SemType) SemAn.declaresType.get( (AbsTypDecl) varDecl.type);
+        System.out.println(varType == null);
+        if (!(varType instanceof SemRecType)) {
+            throw new Report.Error(recExpr.location(), "Record expresion is not of type SemRecType");
+        }
+        SemRecType record = (SemRecType) varType;
+
+        SymbTable symbTable = symbTables.get(record);
+        try {
+            AbsCompDecl recordComponentDeclaration = (AbsCompDecl) symbTable.fnd(recExpr.comp.name);
+            AbsType compType = recordComponentDeclaration.type;
+            SemType semCompType = SemAn.isType.get(compType);
+            SemAn.ofType.put(recExpr, semCompType);
+            return semCompType;
+
+        } catch (Exception e) {
+            throw new Report.Error(recExpr.location(), "Record has now componenet: " + recExpr.comp.name);
+        }
+    }
+
 }

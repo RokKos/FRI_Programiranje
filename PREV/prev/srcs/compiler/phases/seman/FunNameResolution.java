@@ -58,6 +58,12 @@ public class FunNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     }
 
     @Override
+    public Result visit(AbsRecExpr recExpr, Arg visArg) {
+        recExpr.record.accept(this, visArg);
+        return null;
+    }
+
+    @Override
     public Result visit(AbsParDecl parDecl, Arg visArg) {
         try {
             // System.out.println("ParDecl:" + parDecl.name);
