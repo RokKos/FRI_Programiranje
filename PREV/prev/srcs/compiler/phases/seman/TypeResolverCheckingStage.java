@@ -213,7 +213,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsTypDecl typDecl, Object visArg) {
         SemNamedType semType = SemAn.declaresType.get(typDecl);
-        System.out.println("Checking type:" + semType.name);
         if (semType.type instanceof SemArrType) {
             SemArrType arrType = (SemArrType) semType.type;
             if (arrType.elemType.actualType() instanceof SemVoidType) {
@@ -281,7 +280,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsRecExpr recExpr, Object visArg) {
         SemType varType = (SemType) recExpr.record.accept(this, visArg);
-        System.out.println(varType == null);
         if (!(varType instanceof SemRecType)) {
             throw new Report.Error(recExpr.location(), "Record expresion is not of type SemRecType");
         }
@@ -333,7 +331,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
     }
 
     private boolean IsChrIntPtr(SemType type) {
-        System.out.println("check here");
         return type instanceof SemCharType || type instanceof SemIntType || type instanceof SemPtrType;
     }
 
@@ -342,19 +339,13 @@ public class TypeResolverCheckingStage extends TypeResolver {
         SemType originalType = (SemType) castExpr.expr.accept(this, visArg);
         SemType castType = SemAn.isType.get(castExpr.type);
 
-        System.out.println("orig type: " + originalType == null);
-
         if (!IsChrIntPtr(originalType.actualType())) {
             throw new Report.Error(castExpr.location(),
                     "Original type is of type Char, Int or pointer so it cannot be casted");
         }
-        System.out.println("here");
-        System.out.println("cast type: ");
-        System.out.println(castType == null);
 
         SemType actType = castType.actualType();
 
-        System.out.println("act type: ");
         System.out.print(actType == null);
 
         if (!IsChrIntPtr(actType)) {
@@ -410,14 +401,28 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
         SemType thenType = (SemType) ifStmt.thenStmts.accept(this, visArg);
         if (!IsVoid(thenType)) {
-            throw new Report.Error(ifStmt.cond.location(), "Then statement of IF statement is not of type VOID");
+            throw new Report.Error(ifStmt.thenStmts.location(), "Then statement of IF statement is not of type VOID");
         }
 
         SemType elseType = (SemType) ifStmt.elseStmts.accept(this, visArg);
-        if (elseType != null && IsVoid(thenType)) {
-            throw new Report.Error(ifStmt.cond.location(), "Else statement of IF statement is not of type VOID");
+        if (elseType != null && IsVoid(elseType)) {
+            throw new Report.Error(ifStmt.elseStmts.location(), "Else statement of IF statement is not of type VOID");
         }
 
+        return new SemVoidType();
+    }
+
+    @Override
+    public SemType visit(AbsStmts stmts, Object visArg) {
+        // Not completly OK but everything is checked before so it's cool
+        super.visit(stmts, visArg);
+        if (stmts.stmts().size() > 0) {
+            return new SemVoidType();
+        }
+        return null;
+    }
+
+    public SemType visit(AbsStmt stmt, Object visArg) {
         return new SemVoidType();
     }
 
