@@ -8,13 +8,13 @@ fun a(): void = {
         var b: string;
         var s2: char;
 
-        fun strcmp(s1: string, s2: string): int = {
+        fun strcmp(s1: string, s2: string): void = {
             same = true;
             if i < 256 then
                 same = false & false;
             end;
 
-            : same
+            : none
 
             where
                 var i: int;

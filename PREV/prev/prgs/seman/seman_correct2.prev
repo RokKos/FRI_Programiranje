@@ -1,4 +1,4 @@
-fun a(): void = {
+fun a(): int = {
     none; : f(1,2,3,i) + i
 
     where

@@ -1,6 +1,6 @@
 typ a : int;
 fun b() : d = {
-    l = 0;
+    l = false;
     i(false,false, true);
     : 42
     where

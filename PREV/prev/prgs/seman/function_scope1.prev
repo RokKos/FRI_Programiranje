@@ -1,5 +1,5 @@
 
-typ outerType: int;
+typ outerType: char;
 typ myType: int;
 var variable1: int;
 
@@ -11,6 +11,6 @@ fun main(variable1: myType): outerType = {
   # variable1 should reference the parameter
   : (variable1: myType)
   where
-    typ myType: arr [10] int;
+    typ myType: char;
     var variable1: char;
 };
