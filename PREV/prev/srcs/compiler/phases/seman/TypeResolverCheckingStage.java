@@ -116,6 +116,18 @@ public class TypeResolverCheckingStage extends TypeResolver {
         return blockExprType;
     }
 
+    private boolean AreMatchingBoolTypes(SemType firstType, SemType secondType) {
+        return firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemBoolType;
+    }
+
+    private boolean AreMatchingCharTypes(SemType firstType, SemType secondType) {
+        return firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemBoolType;
+    }
+
+    private boolean AreMatchingIntTypes(SemType firstType, SemType secondType) {
+        return firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemIntType;
+    }
+
     @Override
     public SemType visit(AbsBinExpr binExpr, Object visArg) {
         SemType firstType = (SemType) binExpr.fstExpr.accept(this, visArg);
@@ -127,7 +139,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case AND:
         case IOR:
         case XOR:
-            if (firstType instanceof SemBoolType && secondType instanceof SemBoolType) {
+            if (AreMatchingBoolTypes(firstType, secondType)) {
                 binType = firstType;
                 break;
             } else {
@@ -140,8 +152,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case MUL:
         case DIV:
         case MOD:
-            if ((firstType instanceof SemIntType && secondType instanceof SemIntType)
-                    || (firstType instanceof SemCharType && secondType instanceof SemCharType)) {
+            if (AreMatchingCharTypes(firstType, secondType) || AreMatchingIntTypes(firstType, secondType)) {
                 binType = firstType;
                 break;
             } else {
@@ -151,8 +162,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
         case EQU:
         case NEQ:
-            if (firstType.getClass().equals(secondType.getClass()) && (firstType instanceof SemIntType
-                    || firstType instanceof SemBoolType || firstType instanceof SemCharType)) {
+            if (AreMatchingCharTypes(firstType, secondType) || AreMatchingIntTypes(firstType, secondType)
+                    || AreMatchingBoolTypes(firstType, secondType)) {
                 binType = new SemBoolType();
                 break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
@@ -173,8 +184,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
         case GTH:
         case LEQ:
         case GEQ:
-            if (firstType.getClass().equals(secondType.getClass())
-                    && (firstType instanceof SemIntType || firstType instanceof SemCharType)) {
+            if (AreMatchingCharTypes(firstType, secondType) || AreMatchingIntTypes(firstType, secondType)) {
                 binType = new SemBoolType();
                 break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
@@ -320,6 +330,95 @@ public class TypeResolverCheckingStage extends TypeResolver {
         }
 
         return null;
+    }
+
+    private boolean IsChrIntPtr(SemType type) {
+        System.out.println("check here");
+        return type instanceof SemCharType || type instanceof SemIntType || type instanceof SemPtrType;
+    }
+
+    @Override
+    public SemType visit(AbsCastExpr castExpr, Object visArg) {
+        SemType originalType = (SemType) castExpr.expr.accept(this, visArg);
+        SemType castType = SemAn.isType.get(castExpr.type);
+
+        System.out.println("orig type: " + originalType == null);
+
+        if (!IsChrIntPtr(originalType.actualType())) {
+            throw new Report.Error(castExpr.location(),
+                    "Original type is of type Char, Int or pointer so it cannot be casted");
+        }
+        System.out.println("here");
+        System.out.println("cast type: ");
+        System.out.println(castType == null);
+
+        SemType actType = castType.actualType();
+
+        System.out.println("act type: ");
+        System.out.print(actType == null);
+
+        if (!IsChrIntPtr(actType)) {
+            throw new Report.Error(castExpr.location(),
+                    "Casted type is of type Char, Int or pointer so it cannot be casted");
+        }
+
+        SemAn.ofType.put(castExpr, castType);
+        return castType;
+    }
+
+    @Override
+    public SemType visit(AbsAssignStmt assignStmt, Object visArg) {
+        SemType firstType = (SemType) assignStmt.dst.accept(this, visArg);
+        SemType secondType = (SemType) assignStmt.src.accept(this, visArg);
+
+        SemType assigmentType;
+
+        if (AreMatchingCharTypes(firstType, secondType) || AreMatchingIntTypes(firstType, secondType)
+                || AreMatchingBoolTypes(firstType, secondType)) {
+            assigmentType = new SemVoidType();
+        } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
+            SemPtrType firstPtrType = (SemPtrType) firstType;
+            SemPtrType secondPtrType = (SemPtrType) secondType;
+            if (!firstPtrType.ptdType.getClass().equals(secondPtrType.ptdType.getClass())) {
+                throw new Report.Error(assignStmt.location(),
+                        "Assigment between two expresions that don't have same PTD TYPE");
+            }
+            assigmentType = new SemVoidType();
+
+        } else {
+            throw new Report.Error(assignStmt.location(),
+                    "Assigment between two expresions that don't have same TYPE (possible same types are INT, CHAR, BOOL)");
+        }
+
+        return assigmentType;
+    }
+
+    private boolean IsBool(SemType type) {
+        return type instanceof SemBoolType;
+    }
+
+    private boolean IsVoid(SemType type) {
+        return type instanceof SemVoidType;
+    }
+
+    @Override
+    public SemType visit(AbsIfStmt ifStmt, Object visArg) {
+        SemType condType = (SemType) ifStmt.cond.accept(this, visArg);
+        if (!IsBool(condType)) {
+            throw new Report.Error(ifStmt.cond.location(), "Condition of IF statement is not of type BOOL");
+        }
+
+        SemType thenType = (SemType) ifStmt.thenStmts.accept(this, visArg);
+        if (!IsVoid(thenType)) {
+            throw new Report.Error(ifStmt.cond.location(), "Then statement of IF statement is not of type VOID");
+        }
+
+        SemType elseType = (SemType) ifStmt.elseStmts.accept(this, visArg);
+        if (elseType != null && IsVoid(thenType)) {
+            throw new Report.Error(ifStmt.cond.location(), "Else statement of IF statement is not of type VOID");
+        }
+
+        return new SemVoidType();
     }
 
 }
