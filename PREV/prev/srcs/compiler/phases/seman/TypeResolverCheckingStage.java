@@ -285,14 +285,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     @Override
     public SemType visit(AbsRecExpr recExpr, Object visArg) {
-        AbsVarName recName = (AbsVarName) recExpr.record;
-        System.out.println("name: " + recName.name);
-        AbsVarDecl varDecl = (AbsVarDecl) SemAn.declaredAt.get(recName);
-        System.out.println("t name: " + varDecl.type);
-
-        // TODO resolve this
-
-        SemType varType = (SemType) SemAn.declaresType.get( (AbsTypDecl) varDecl.type);
+        SemType varType = (SemType) recExpr.record.accept(this, visArg);
         System.out.println(varType == null);
         if (!(varType instanceof SemRecType)) {
             throw new Report.Error(recExpr.location(), "Record expresion is not of type SemRecType");
