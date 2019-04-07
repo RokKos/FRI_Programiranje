@@ -280,10 +280,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsRecExpr recExpr, Object visArg) {
         SemType varType = (SemType) recExpr.record.accept(this, visArg);
-        if (!(varType instanceof SemRecType)) {
+        if (!(varType.actualType() instanceof SemRecType)) {
             throw new Report.Error(recExpr.location(), "Record expresion is not of type SemRecType");
         }
-        SemRecType record = (SemRecType) varType;
+        SemRecType record = (SemRecType) varType.actualType();
 
         SymbTable symbTable = symbTables.get(record);
         try {
