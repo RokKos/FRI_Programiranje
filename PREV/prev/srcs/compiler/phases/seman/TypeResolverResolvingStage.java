@@ -161,4 +161,23 @@ public class TypeResolverResolvingStage extends TypeResolver {
         super.visit(typName, visArg);
         return null;
     }
+
+    @Override
+    public SemType visit(AbsArrType arrType, Object visArg) {
+        arrType.len.accept(this, visArg);
+        arrType.elemType.accept(this, visArg);
+        return LinkTypes(arrType);
+    }
+
+    @Override
+    public SemType visit(AbsPtrType ptrType, Object visArg) {
+        ptrType.ptdType.accept(this, visArg);
+        return LinkTypes(ptrType);
+    }
+
+    @Override
+    public SemType visit(AbsRecType recType, Object visArg) {
+        recType.compDecls.accept(this, visArg);
+        return LinkTypes(recType);
+    }
 }

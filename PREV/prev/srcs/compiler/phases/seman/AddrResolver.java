@@ -50,6 +50,7 @@ public class AddrResolver extends AbsFullVisitor<Boolean, Object> {
 
     @Override
     public Boolean visit(AbsUnExpr unExpr, Object visArg) {
+        unExpr.subExpr.accept(this, visArg);
         if (unExpr.oper == Oper.DATA) {
             SemType type = SemAn.ofType.get(unExpr.subExpr);
             if (type instanceof SemPtrType) {

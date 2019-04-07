@@ -441,9 +441,21 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     @Override
     public SemType visit(AbsVarDecl varDecl, Object visArg) {
-        SemType varType = SemAn.isType.get(varDecl.type);
+        SemType varType = (SemType) varDecl.type.accept(this, visArg);
         if (varType instanceof SemVoidType) {
             throw new Report.Error(varDecl.location(), "Variable type cannot be of type VOID");
+        } else if (varType instanceof SemArrType) {
+            SemArrType arrType = (SemArrType) varType;
+            if (arrType.elemType.actualType() instanceof SemVoidType) {
+                throw new Report.Error(varDecl.location(), "This array element type is void");
+            }
+        } else if (varType instanceof SemRecType) {
+            SemRecType recType = (SemRecType) varType;
+            for (SemType compType : recType.compTypes()) {
+                if (compType.actualType() instanceof SemVoidType) {
+                    throw new Report.Error(varDecl.location(), "This component type of record is void");
+                }
+            }
         }
 
         super.visit(varDecl, visArg);
@@ -464,4 +476,27 @@ public class TypeResolverCheckingStage extends TypeResolver {
         return funType;
     }
 
+    @Override
+    public SemType visit(AbsArrType arrType, Object visArg) {
+        arrType.len.accept(this, visArg);
+        arrType.elemType.accept(this, visArg);
+        return SemAn.isType.get(arrType);
+    }
+
+    @Override
+    public SemType visit(AbsPtrType ptrType, Object visArg) {
+        ptrType.ptdType.accept(this, visArg);
+        return SemAn.isType.get(ptrType);
+    }
+
+    @Override
+    public SemType visit(AbsRecType recType, Object visArg) {
+        recType.compDecls.accept(this, visArg);
+        return SemAn.isType.get(recType);
+    }
+
+    @Override
+    public SemType visit(AbsAtomType atomType, Object visArg) {
+        return SemAn.isType.get(atomType);
+    }
 }

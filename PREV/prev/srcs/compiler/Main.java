@@ -136,6 +136,8 @@ public class Main {
 					Abstr.absTree.accept(new TypeResolverCheckingStage(), null);
 
 					Abstr.absTree.accept(new AddrResolver(), null);
+					Abstr.absTree.accept(new LValueChecker(), null);
+
 					SemAn.declaredAt.lock();
 					SemAn.declaresType.lock();
 					SemAn.isType.lock();
