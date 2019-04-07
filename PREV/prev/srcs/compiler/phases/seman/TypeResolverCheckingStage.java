@@ -294,9 +294,11 @@ public class TypeResolverCheckingStage extends TypeResolver {
     public SemType visit(AbsFunName funName, Object visArg) {
         AbsFunDecl funDeclaration = (AbsFunDecl) SemAn.declaredAt.get(funName);
         Vector<SemType> expectedParametersType = new Vector<SemType>();
-        // for ()
+        for (AbsParDecl parameterDecl : funDeclaration.parDecls.parDecls()) {
+            expectedParametersType.add(SemAn.isType.get(parameterDecl.type).actualType());
+        }
 
-        visit(funName.args, visArg);
+        visit(funName.args, expectedParametersType);
         SemType funType = ResolveName(funName);
         SemAn.ofType.put(funName, funType);
         return funType;
@@ -304,9 +306,17 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     @Override
     public SemType visit(AbsArgs args, Object visArg) {
+        Vector<SemType> expectedParametersType = (Vector<SemType>) visArg;
+
+        int ind = 0;
         for (AbsExpr arg : args.args()) {
             SemType argType = (SemType) arg.accept(this, visArg);
-
+            SemType actType = argType.actualType();
+            if (!(expectedParametersType.get(ind).getClass().equals(actType.getClass()))) {
+                throw new Report.Error(arg.location(),
+                        "Arguments of function call doesn't match declared function arguments.");
+            }
+            ind++;
         }
 
         return null;
