@@ -1,5 +1,5 @@
 fun a(): void = {
-    none; : f(1,2,3,i).asd + i
+    none; : f(1,2,3,i) + i
 
     where
 

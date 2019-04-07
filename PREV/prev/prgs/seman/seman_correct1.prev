@@ -4,14 +4,14 @@ fun a(): void = {
     where
 
         typ string: arr [256] char;
-        var a: int;
-        var b: int;
+        var a: string;
+        var b: string;
         var s2: char;
 
         fun strcmp(s1: string, s2: string): int = {
             same = true;
             if i < 256 then
-                same = false + s2;
+                same = false & false;
             end;
 
             : same
@@ -22,6 +22,6 @@ fun a(): void = {
 
         };
 
-        fun fff(): int = ggg() + s2;
+        fun fff(): int = ggg() + 2;
         fun ggg(): int = fff();
 };

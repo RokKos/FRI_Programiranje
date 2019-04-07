@@ -1,0 +1,7 @@
+typ r : rec(c : int, b : bool);
+fun a () : int = {
+    none;
+    : b.c
+    where
+        var b : r;
+};

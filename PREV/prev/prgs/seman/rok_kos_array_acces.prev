@@ -1,0 +1,7 @@
+typ a: arr[10] int;
+fun b() : int = {
+    none;
+    : c[1]
+    where
+        var c : a;
+};
