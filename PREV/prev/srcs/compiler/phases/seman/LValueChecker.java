@@ -18,6 +18,9 @@ import compiler.data.type.SemType;
 public class LValueChecker extends AbsFullVisitor<Boolean, Object> {
     @Override
     public Boolean visit(AbsAssignStmt assignStmt, Object visArg) {
+        assignStmt.dst.accept(this, visArg);
+		assignStmt.src.accept(this, visArg);
+
         Boolean isLValue = SemAn.isAddr.get(assignStmt.dst);
         if (!(isLValue != null && isLValue)) {
             throw new Report.Error(assignStmt.location(), "Left side of assigment is not an address");

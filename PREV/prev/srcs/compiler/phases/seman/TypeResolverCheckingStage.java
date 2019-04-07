@@ -167,9 +167,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 binType = new SemBoolType();
                 break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
-                SemPtrType firstPtrType = (SemPtrType) firstType;
-                SemPtrType secondPtrType = (SemPtrType) secondType;
-                if (!firstPtrType.ptdType.getClass().equals(secondPtrType.ptdType.getClass())) {
+                SemPtrType firstPtrType = (SemPtrType) firstType.actualType();
+                SemPtrType secondPtrType = (SemPtrType) secondType.actualType();
+                if (!firstPtrType.ptdType.actualType().getClass()
+                        .equals(secondPtrType.ptdType.actualType().getClass())) {
                     throw new Report.Error(binExpr.location(),
                             "Binary operator ==, !=  is inbetween two expresions that don't have same PTD TYPE");
                 }
@@ -188,9 +189,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 binType = new SemBoolType();
                 break;
             } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
-                SemPtrType firstPtrType = (SemPtrType) firstType;
-                SemPtrType secondPtrType = (SemPtrType) secondType;
-                if (!firstPtrType.ptdType.getClass().equals(secondPtrType.ptdType.getClass())) {
+                SemPtrType firstPtrType = (SemPtrType) firstType.actualType();
+                SemPtrType secondPtrType = (SemPtrType) secondType.actualType();
+                if (!firstPtrType.ptdType.actualType().getClass()
+                        .equals(secondPtrType.ptdType.actualType().getClass())) {
                     throw new Report.Error(binExpr.location(),
                             "Binary operator <=, >=, <, >  is inbetween two expresions that don't have same PTD TYPE");
                 }
@@ -368,7 +370,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
         } else if (firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemPtrType) {
             SemPtrType firstPtrType = (SemPtrType) firstType;
             SemPtrType secondPtrType = (SemPtrType) secondType;
-            if (!firstPtrType.ptdType.getClass().equals(secondPtrType.ptdType.getClass())) {
+            if (!firstPtrType.ptdType.actualType().getClass().equals(secondPtrType.ptdType.actualType().getClass())) {
                 throw new Report.Error(assignStmt.location(),
                         "Assigment between two expresions that don't have same PTD TYPE");
             }
@@ -498,5 +500,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsAtomType atomType, Object visArg) {
         return SemAn.isType.get(atomType);
+    }
+
+    @Override
+    public SemType visit(AbsTypName typName, Object visArg) {
+        return SemAn.isType.get(typName);
     }
 }
