@@ -346,8 +346,6 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
         SemType actType = castType.actualType();
 
-        System.out.print(actType == null);
-
         if (!IsChrIntPtr(actType)) {
             throw new Report.Error(castExpr.location(),
                     "Casted type is of type Char, Int or pointer so it cannot be casted");
@@ -413,6 +411,21 @@ public class TypeResolverCheckingStage extends TypeResolver {
     }
 
     @Override
+    public SemType visit(AbsWhileStmt whileStmt, Object visArg) {
+        SemType condType = (SemType) whileStmt.cond.accept(this, visArg);
+        if (!IsBool(condType)) {
+            throw new Report.Error(whileStmt.cond.location(), "Condition of IF statement is not of type BOOL");
+        }
+
+        SemType stmtsType = (SemType) whileStmt.stmts.accept(this, visArg);
+        if (stmtsType != null && IsVoid(stmtsType)) {
+            throw new Report.Error(whileStmt.stmts.location(), "Else statement of IF statement is not of type VOID");
+        }
+
+        return null;
+    }
+
+    @Override
     public SemType visit(AbsStmts stmts, Object visArg) {
         // Not completly OK but everything is checked before so it's cool
         super.visit(stmts, visArg);
@@ -424,6 +437,31 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
     public SemType visit(AbsStmt stmt, Object visArg) {
         return new SemVoidType();
+    }
+
+    @Override
+    public SemType visit(AbsVarDecl varDecl, Object visArg) {
+        SemType varType = SemAn.isType.get(varDecl.type);
+        if (varType instanceof SemVoidType) {
+            throw new Report.Error(varDecl.location(), "Variable type cannot be of type VOID");
+        }
+
+        super.visit(varDecl, visArg);
+        return varType;
+    }
+
+    @Override
+    public SemType visit(AbsFunDef funDef, Object visArg) {
+        funDef.parDecls.accept(this, visArg);
+        SemType funType = (SemType) SemAn.isType.get(funDef.type).actualType();
+        SemType valType = (SemType) funDef.value.accept(this, visArg);
+        valType = valType.actualType();
+
+        if (!(funType.getClass().equals(valType.getClass()))) {
+            throw new Report.Error(funDef.location(), "Function type and return value types don't match");
+        }
+
+        return funType;
     }
 
 }
