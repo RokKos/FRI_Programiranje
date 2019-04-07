@@ -89,37 +89,22 @@ public class TypeResolverCheckingStage extends TypeResolver {
         return SemAn.ofType.get(atomExpr);
     }
 
-    @Override
-    public SemType visit(AbsVarName varName, Object visArg) {
-        AbsDecl varDeclaration = SemAn.declaredAt.get(varName);
+    private SemType ResolveName(AbsName name) {
+        AbsDecl varDeclaration = SemAn.declaredAt.get(name);
         if (varDeclaration.type instanceof AbsTypName) {
-            AbsTypName typeName = (AbsTypName) varDeclaration.type;
-            AbsTypDecl typeDecl = (AbsTypDecl) SemAn.declaredAt.get(typeName);
-            SemNamedType namedType = SemAn.declaresType.get(typeDecl);
+            SemNamedType namedType = (SemNamedType) SemAn.isType.get(varDeclaration.type);
             return namedType.actualType();
 
         }
         SemType varType = SemAn.isType.get(varDeclaration.type);
-        SemAn.ofType.put(varName, varType);
         return varType;
     }
 
     @Override
-    public SemType visit(AbsFunName funName, Object visArg) {
-        AbsDecl funDecl = SemAn.declaredAt.get(funName);
-        if (funDecl.type instanceof AbsTypName) {
-            AbsTypName typeName = (AbsTypName) funDecl.type;
-            AbsTypDecl typeDecl = (AbsTypDecl) SemAn.declaredAt.get(typeName);
-            SemNamedType namedType = SemAn.declaresType.get(typeDecl);
-            return namedType.actualType();
-
-        }
-
-        visit(funName.args, visArg);
-        SemType funType = SemAn.isType.get(funDecl.type);
-        SemAn.ofType.put(funName, funType);
-
-        return funType;
+    public SemType visit(AbsVarName varName, Object visArg) {
+        SemType varType = ResolveName(varName);
+        SemAn.ofType.put(varName, varType);
+        return varType;
     }
 
     @Override
@@ -303,6 +288,28 @@ public class TypeResolverCheckingStage extends TypeResolver {
         } catch (Exception e) {
             throw new Report.Error(recExpr.location(), "Record has now componenet: " + recExpr.comp.name);
         }
+    }
+
+    @Override
+    public SemType visit(AbsFunName funName, Object visArg) {
+        AbsFunDecl funDeclaration = (AbsFunDecl) SemAn.declaredAt.get(funName);
+        Vector<SemType> expectedParametersType = new Vector<SemType>();
+        // for ()
+
+        visit(funName.args, visArg);
+        SemType funType = ResolveName(funName);
+        SemAn.ofType.put(funName, funType);
+        return funType;
+    }
+
+    @Override
+    public SemType visit(AbsArgs args, Object visArg) {
+        for (AbsExpr arg : args.args()) {
+            SemType argType = (SemType) arg.accept(this, visArg);
+
+        }
+
+        return null;
     }
 
 }

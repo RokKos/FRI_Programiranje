@@ -151,4 +151,14 @@ public class TypeResolverResolvingStage extends TypeResolver {
         super.visit(atomType, visArg);
         return null;
     }
+
+    @Override
+    public SemType visit(AbsTypName typName, Object visArg) {
+        AbsTypDecl typeDeclaration = (AbsTypDecl) SemAn.declaredAt.get(typName);
+        SemNamedType namedType = (SemNamedType) SemAn.declaresType.get(typeDeclaration);
+        SemAn.isType.put(typName, namedType);
+
+        super.visit(typName, visArg);
+        return null;
+    }
 }
