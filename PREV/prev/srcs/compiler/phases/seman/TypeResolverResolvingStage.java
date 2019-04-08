@@ -52,6 +52,12 @@ public class TypeResolverResolvingStage extends TypeResolver {
         case BOOL:
             return new SemBoolType();
 
+        case STR:
+            return new SemPtrType(new SemCharType());
+
+        case PTR:
+            return new SemPtrType(new SemVoidType());
+
         default:
             throw new Report.Error(atomExpr.location(), "This type is not supported atomic type");
         }
