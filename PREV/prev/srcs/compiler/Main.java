@@ -9,6 +9,7 @@ import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
 import compiler.phases.seman.*;
+import compiler.phases.frames.*;
 
 /**
  * The compiler.
@@ -18,7 +19,7 @@ import compiler.phases.seman.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen";
+	private static final String phases = "lexan|synan|abstr|seman|frames";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -149,6 +150,20 @@ public class Main {
 					Abstr.absTree.accept(logger, null);
 				}
 				if (cmdLine.get("--target-phase").equals("seman"))
+					break;
+
+				// Memory layout, i.e., frames and accesses.
+				try (Frames frames = new Frames()) {
+					Abstr.absTree.accept(new FrmEvaluator(), null);
+					Frames.frames.lock();
+					Frames.accesses.lock();
+
+					AbsLogger logger = new AbsLogger(frames.logger);
+					logger.addSubvisitor(new SemLogger(frames.logger));
+					logger.addSubvisitor(new FrmLogger(frames.logger));
+					Abstr.absTree.accept(logger, null);
+				}
+				if (cmdLine.get("--target-phase").equals("frames"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();
