@@ -121,7 +121,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
     }
 
     private boolean AreMatchingCharTypes(SemType firstType, SemType secondType) {
-        return firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemBoolType;
+        return firstType.getClass().equals(secondType.getClass()) && firstType instanceof SemCharType;
     }
 
     private boolean AreMatchingIntTypes(SemType firstType, SemType secondType) {
