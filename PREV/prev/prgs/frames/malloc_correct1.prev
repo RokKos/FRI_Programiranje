@@ -1,0 +1,1 @@
+fun wrapper(): ptr int = new (int);

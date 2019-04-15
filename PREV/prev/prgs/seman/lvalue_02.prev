@@ -1,0 +1,9 @@
+fun wrapper(): void = {
+  
+  b[2][3].comp[3] = 5;
+  
+  : none
+  where
+    typ record: rec(comp: arr [3] int);
+    var b: arr[4] arr[4] record;
+};

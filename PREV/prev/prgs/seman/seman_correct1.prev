@@ -1,20 +1,30 @@
-fun a(): void = {
-    none; : strcmp(a, b)
+fun wrapper(): int = {
+    instance.a = 3;
+    instance.b = new (arr [256] char);
+    instance.c = new (string);
+
+    c = ('c': int);
+
+    : strcmp(instance.b, instance.c)
 
     where
+
+        typ myrecord: rec(a: int, b: ptr string, c: ptr string);
+        var instance: myrecord;
 
         typ string: arr [256] char;
         var a: string;
         var b: string;
-        var s2: char;
 
-        fun strcmp(s1: string, s2: string): void = {
+        var c: int;
+
+        fun strcmp(s1: ptr string, s2: ptr string): int = {
             same = true;
             if i < 256 then
-                same = false & false;
+                same = false;
             end;
 
-            : none
+            : i
 
             where
                 var i: int;
@@ -22,6 +32,6 @@ fun a(): void = {
 
         };
 
-        fun fff(): int = ggg() + 2;
-        fun ggg(): int = fff();
+        fun fff(): char = (ggg() + 4 : char);
+        fun ggg(): int = (fff() : int) + 2;
 };

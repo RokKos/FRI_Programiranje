@@ -1,0 +1,39 @@
+fun wrapper(): int = {
+    none; : 0
+    where
+
+        # locsSize = 1000 + 800 + 200 = 2000
+        # argsSize = 32 (3 ints for calling function g(...) + static link)
+        fun f() : char = (
+            {
+                none; : 1
+                where
+                    # 1000 bytes
+                    var b: arr[125] int;
+            
+            } + 
+            {
+                none; : g(123, 123, 123)
+                where
+                    # 800 bytes
+                    var a: arr[100] int;
+                    # 200 bytes
+                    var b: arr[25] int; 
+
+                    fun g(a: int, b: int, c: int): int = {
+
+                        (g(): char); : m + n
+
+                        where
+                            
+                            var m: int;
+                            var n: int;
+
+                            fun g(): int = {
+                                f(); : 1
+                            };
+                    };
+
+            }
+        : char);
+};

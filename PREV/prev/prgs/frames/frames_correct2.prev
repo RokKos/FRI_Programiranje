@@ -1,0 +1,36 @@
+fun wrapper(): int = {
+    none; : f(1,2,3,i) + 5
+
+    where
+
+        fun f(a: a, b: b, c: c, d: d): int = {
+
+            a = c + b + d;
+            
+            : (a + i + f() + g())
+
+            where
+                var i: int;
+                fun f(): int = {
+                    none; : 6
+
+                    where
+                        fun f(): int;
+                };
+        };
+
+        typ a: int;
+        typ b: a;
+        typ c: b;
+        typ d: c;
+
+        var i: int;
+        typ integer: int;
+
+        fun g(): int = 1;
+
+
+        # does not fail: function not used
+
+        fun declaration(): bool;
+};

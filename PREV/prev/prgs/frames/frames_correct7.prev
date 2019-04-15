@@ -1,0 +1,36 @@
+fun wrapper(): int = {
+    none;
+    : 0
+    where
+        fun f(): int = {
+            # Variables first, second, third, fourth are all local variables of f.
+            # They should therefore have matching depth and decreasing offsets (-8, -16, -24, -32), order is undefined.
+            # Function g can be named twice, it has different scopes... It would be a problem on global level however... I think.
+            none;
+            : {
+                none;
+                : 0
+                where
+                    var third: int;
+                    fun a(): int = {
+                        none;
+                        : 0
+                        where var other: int; # Offset should be -8
+                    };
+                    var fourth: int;
+            }
+            where
+                var first: int;
+                fun b(): int = {
+                    none;
+                    : 0
+                    where var other: int; # Offset should be -8
+                };
+                var second: int;
+        };
+        fun c(): int = {
+            none;
+            : 0
+            where var secondGlobalFun: int; # Offset should be -8
+        };
+};
