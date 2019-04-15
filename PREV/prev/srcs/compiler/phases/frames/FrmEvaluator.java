@@ -33,9 +33,10 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	 */
 	private class FunContext extends Context {
 		public int depth = 0;
-		public long locsSize = 0;
+		public long locsSize = 0; // Size already alocated for local vars
 		public long argsSize = 0;
 		public long parsSize = new SemPtrType(new SemVoidType()).size();
+		public AbsFunDef funDef;
 	}
 
 	/**
@@ -46,8 +47,136 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	 */
 	private class RecContext extends Context {
 		public long compsSize = 0;
+		public int depth = 0;
 	}
 
-        //TODO
+	@Override
+	public Object visit(AbsFunDef funDef, FrmEvaluator.Context visArg) {
+		FunContext funContext = new FunContext();
+		funContext.funDef = funDef;
+		FunContext outherFunContext = (FunContext) visArg;
+
+		funContext.depth = 1;
+		if (outherFunContext != null) {
+			funContext.depth = outherFunContext.depth + 1;
+		}
+
+		System.out.println("funDef: " + funDef.name + " depth:" + funContext.depth);
+
+		// Calculate acceses for paramters declarations
+		funDef.parDecls.accept(this, funContext);
+
+		// Parse Local variables and function calls
+		funDef.value.accept(this, funContext);
+
+		Label funLabel = new Label(funDef.name);
+		if (outherFunContext != null && (funDef.name.equals(outherFunContext.funDef.name))) {
+			funLabel = new Label();
+		}
+
+		Frame funFrame = new Frame(funLabel, funContext.depth, funContext.locsSize, funContext.argsSize);
+		Frames.frames.put(funDef, funFrame);
+
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsParDecl parDecl, Context visArg) {
+		FunContext funContext = (FunContext) visArg;
+		long parameterSize = TypeSize(SemAn.isType.get(parDecl.type));
+		Frames.accesses.put(parDecl, new RelAccess(parameterSize, funContext.parsSize, funContext.depth));
+		funContext.parsSize += parameterSize;
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsVarDecl varDecl, Context visArg) {
+		FunContext funContext = (FunContext) visArg;
+		long varSize = TypeSize(SemAn.isType.get(varDecl.type));
+		if (funContext != null) {
+			funContext.locsSize += varSize;
+			Frames.accesses.put(varDecl, new RelAccess(varSize, -funContext.locsSize, funContext.depth));
+			System.out.println("Rel access:" + varDecl.name);
+		} else {
+			System.out.println("Abs access:" + varDecl.name);
+			Frames.accesses.put(varDecl, new AbsAccess(varSize, new Label(varDecl.name), null));
+		}
+
+		varDecl.type.accept(this, null);
+		return null;
+	}
+
+	private long TypeSize(SemType type) {
+		if (type instanceof SemVoidType) {
+			return 0;
+		}
+		return type.size();
+	}
+
+	@Override
+	public Object visit(AbsFunName funName, Context visArg) {
+		AbsFunDecl funDecl = (AbsFunDecl) SemAn.declaredAt.get(funName);
+		// Frame frame = Frames.frames.get(funDecl);
+		// if (frame != null) {
+		// System.out.println("here: " + funName.name + " size: " + frame.argsSize);
+		// return frame.argsSize;
+		// }
+
+		long argsSize = new SemPtrType(new SemVoidType()).size();
+
+		SemType returnType = SemAn.isType.get(funDecl.type);
+		long returnSize = TypeSize(returnType);
+
+		for (AbsParDecl parDecl : funDecl.parDecls.parDecls()) {
+			argsSize += TypeSize(SemAn.isType.get(parDecl.type));
+		}
+
+		long calledFunArgsSize = Math.max(argsSize, returnSize);
+
+		FunContext funContext = (FunContext) visArg;
+		funContext.argsSize = Math.max(funContext.argsSize, calledFunArgsSize);
+		System.out.println("f: " + funName.name + " ret s: " + returnSize + " argsSize: " + argsSize + " call s: "
+				+ calledFunArgsSize + " funCon s: " + funContext.argsSize);
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsBlockExpr blockExpr, Context visArg) {
+		FunContext funContext = (FunContext) visArg;
+		System.out.println("START block depth: " + funContext.depth);
+		blockExpr.decls.accept(this, visArg);
+		blockExpr.stmts.accept(this, visArg);
+		blockExpr.expr.accept(this, visArg);
+		System.out.println("END block depth: " + funContext.depth);
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsRecType recType, Context visArg) {
+		RecContext recContext = new RecContext();
+		recContext.depth = 1;
+
+		if (visArg instanceof RecContext) {
+			RecContext outherRecContext = (RecContext) visArg;
+			if (outherRecContext != null) {
+				recContext.depth = outherRecContext.depth + 1;
+			}
+		}
+
+		recType.compDecls.accept(this, recContext);
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsCompDecl compDecl, Context visArg) {
+		RecContext recContext = (RecContext) visArg;
+
+		long recSize = TypeSize(SemAn.isType.get(compDecl.type));
+		Frames.accesses.put(compDecl, new RelAccess(recSize, recContext.compsSize, recContext.depth));
+		recContext.compsSize += recSize;
+
+		compDecl.type.accept(this, visArg);
+		return null;
+	}
 
 }
