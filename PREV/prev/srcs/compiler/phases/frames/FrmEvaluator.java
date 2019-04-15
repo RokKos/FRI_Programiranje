@@ -61,8 +61,6 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 			funContext.depth = outherFunContext.depth + 1;
 		}
 
-		System.out.println("funDef: " + funDef.name + " depth:" + funContext.depth);
-
 		// Calculate acceses for paramters declarations
 		funDef.parDecls.accept(this, funContext);
 
@@ -96,9 +94,9 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 		if (funContext != null) {
 			funContext.locsSize += varSize;
 			Frames.accesses.put(varDecl, new RelAccess(varSize, -funContext.locsSize, funContext.depth));
-			System.out.println("Rel access:" + varDecl.name);
+
 		} else {
-			System.out.println("Abs access:" + varDecl.name);
+
 			Frames.accesses.put(varDecl, new AbsAccess(varSize, new Label(varDecl.name), null));
 		}
 
@@ -116,11 +114,6 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	@Override
 	public Object visit(AbsFunName funName, Context visArg) {
 		AbsFunDecl funDecl = (AbsFunDecl) SemAn.declaredAt.get(funName);
-		// Frame frame = Frames.frames.get(funDecl);
-		// if (frame != null) {
-		// System.out.println("here: " + funName.name + " size: " + frame.argsSize);
-		// return frame.argsSize;
-		// }
 
 		long argsSize = new SemPtrType(new SemVoidType()).size();
 
@@ -135,19 +128,17 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 
 		FunContext funContext = (FunContext) visArg;
 		funContext.argsSize = Math.max(funContext.argsSize, calledFunArgsSize);
-		System.out.println("f: " + funName.name + " ret s: " + returnSize + " argsSize: " + argsSize + " call s: "
-				+ calledFunArgsSize + " funCon s: " + funContext.argsSize);
 		return null;
 	}
 
 	@Override
 	public Object visit(AbsBlockExpr blockExpr, Context visArg) {
 		FunContext funContext = (FunContext) visArg;
-		System.out.println("START block depth: " + funContext.depth);
+
 		blockExpr.decls.accept(this, visArg);
 		blockExpr.stmts.accept(this, visArg);
 		blockExpr.expr.accept(this, visArg);
-		System.out.println("END block depth: " + funContext.depth);
+
 		return null;
 	}
 
