@@ -405,7 +405,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
         }
 
         SemType elseType = (SemType) ifStmt.elseStmts.accept(this, visArg);
-        if (elseType != null && IsVoid(elseType)) {
+        if (elseType != null && !IsVoid(elseType)) {
             throw new Report.Error(ifStmt.elseStmts.location(), "Else statement of IF statement is not of type VOID");
         }
 
@@ -420,8 +420,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
         }
 
         SemType stmtsType = (SemType) whileStmt.stmts.accept(this, visArg);
-        if (stmtsType != null && IsVoid(stmtsType)) {
-            throw new Report.Error(whileStmt.stmts.location(), "Else statement of IF statement is not of type VOID");
+        if (stmtsType != null && !IsVoid(stmtsType)) {
+            throw new Report.Error(whileStmt.stmts.location(), "While statements are not of type VOID");
         }
 
         return null;
