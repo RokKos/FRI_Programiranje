@@ -23,12 +23,24 @@ public class AbsAccess extends Access {
 	 * 
 	 * @param size  The size of a variable.
 	 * @param label Offset of a variable at an absolute address.
-	 * @param initi Initial value (or {@code null}).
+	 * @param init  Initial value (or {@code null}).
 	 */
 	public AbsAccess(long size, Label label, String init) {
 		super(size);
 		this.label = label;
 		this.init = init;
+	}
+
+	/**
+	 * Constructs a new absolute access.
+	 * 
+	 * @param size  The size of a variable.
+	 * @param label Offset of a variable at an absolute address.
+	 */
+	public AbsAccess(long size, Label label) {
+		super(size);
+		this.label = label;
+		this.init = null;
 	}
 
 	@Override

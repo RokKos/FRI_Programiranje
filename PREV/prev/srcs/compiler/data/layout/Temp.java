@@ -22,4 +22,9 @@ public class Temp {
 		count++;
 	}
 
+	@Override
+	public String toString() {
+		return "T" + temp;
+	}
+
 }

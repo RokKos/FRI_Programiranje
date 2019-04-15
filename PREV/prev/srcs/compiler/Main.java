@@ -10,6 +10,7 @@ import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
 import compiler.phases.seman.*;
 import compiler.phases.frames.*;
+import compiler.phases.imcgen.*;
 
 /**
  * The compiler.
@@ -19,7 +20,7 @@ import compiler.phases.frames.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -138,7 +139,6 @@ public class Main {
 
 					Abstr.absTree.accept(new AddrResolver(), null);
 					Abstr.absTree.accept(new LValueChecker(), null);
-
 					SemAn.declaredAt.lock();
 					SemAn.declaresType.lock();
 					SemAn.isType.lock();
@@ -157,6 +157,7 @@ public class Main {
 					Abstr.absTree.accept(new FrmEvaluator(), null);
 					Frames.frames.lock();
 					Frames.accesses.lock();
+					Frames.strings.lock();
 
 					AbsLogger logger = new AbsLogger(frames.logger);
 					logger.addSubvisitor(new SemLogger(frames.logger));
@@ -165,6 +166,19 @@ public class Main {
 				}
 				if (cmdLine.get("--target-phase").equals("frames"))
 					break;
+
+				// Intermediate code generation.
+				try (ImcGen imcGen = new ImcGen()) {
+					Abstr.absTree.accept(new CodeGenerator(), new Stack<compiler.data.layout.Frame>());
+					ImcGen.stmtImCode.lock();
+					ImcGen.exprImCode.lock();
+
+					AbsLogger logger = new AbsLogger(imcGen.logger);
+					logger.addSubvisitor(new SemLogger(imcGen.logger));
+					logger.addSubvisitor(new FrmLogger(imcGen.logger));
+					logger.addSubvisitor(new ImcLogger(imcGen.logger));
+					Abstr.absTree.accept(logger, null);
+				}
 
 				int endWarnings = Report.numOfWarnings();
 				if (begWarnings != endWarnings)

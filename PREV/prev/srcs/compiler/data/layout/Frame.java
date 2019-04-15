@@ -29,6 +29,12 @@ public class Frame implements Loggable {
 	/** The size of the block of arguments within a frame. */
 	public final long argsSize;
 
+	/** The register to hold the frame pointer. */
+	public final Temp FP;
+
+	/** The register to hold the return value. */
+	public final Temp RV;
+
 	/**
 	 * Constructs a new frame with no temporary variables and no saved registers.
 	 * 
@@ -43,6 +49,8 @@ public class Frame implements Loggable {
 		this.locsSize = locsSize;
 		this.argsSize = argsSize;
 		this.size = this.locsSize + 2 * (new SemPtrType(new SemVoidType())).size() + this.argsSize;
+		this.FP = new Temp();
+		this.RV = new Temp();
 	}
 
 	@Override
@@ -55,6 +63,8 @@ public class Frame implements Loggable {
 		logger.addAttribute("locssize", Long.toString(locsSize));
 		logger.addAttribute("argssize", Long.toString(argsSize));
 		logger.addAttribute("size", Long.toString(size));
+		logger.addAttribute("FP", FP.toString());
+		logger.addAttribute("RV", RV.toString());
 		logger.endElement();
 	}
 
