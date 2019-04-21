@@ -8,7 +8,7 @@ import compiler.data.abstree.*;
  * @author sliva
  *
  * @param <Result> The result the visitor produces.
- * @param <Arg> The argument the visitor carries around.
+ * @param <Arg>    The argument the visitor carries around.
  */
 public class AbsFullVisitor<Result, Arg> implements AbsVisitor<Result, Arg> {
 

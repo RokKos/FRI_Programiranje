@@ -4,6 +4,7 @@
 package compiler.phases.frames;
 
 import compiler.data.abstree.*;
+import compiler.data.abstree.AbsAtomExpr.Type;
 import compiler.data.abstree.visitor.*;
 import compiler.data.type.*;
 import compiler.data.layout.*;
@@ -48,6 +49,15 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	private class RecContext extends Context {
 		public long compsSize = 0;
 		public int depth = 0;
+	}
+
+	@Override
+	public Object visit(AbsFunDecl funDecl, FrmEvaluator.Context visArg) {
+		FunContext funContext = new FunContext();
+		// To prevernt crash in ParDecls
+		funDecl.parDecls.accept(this, funContext);
+		funDecl.type.accept(this, funContext);
+		return null;
 	}
 
 	@Override
