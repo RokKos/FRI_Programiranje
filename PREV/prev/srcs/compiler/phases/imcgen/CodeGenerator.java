@@ -11,6 +11,7 @@ import compiler.data.abstree.AbsAtomExpr.Type;
 import compiler.data.abstree.visitor.*;
 import compiler.data.imcode.ImcBINOP;
 import compiler.data.imcode.ImcCALL;
+import compiler.data.imcode.ImcCJUMP;
 import compiler.data.imcode.ImcCONST;
 import compiler.data.imcode.ImcESTMT;
 import compiler.data.imcode.ImcExpr;
@@ -338,16 +339,54 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
     @Override
     public Object visit(AbsWhileStmt whileStmt, Stack<Frame> visArg) {
-        whileStmt.cond.accept(this, visArg);
-        whileStmt.stmts.accept(this, visArg);
-        return null;
+        Vector<ImcStmt> vStmts = new Vector<ImcStmt>();
+        ImcExpr cond = (ImcExpr) whileStmt.cond.accept(this, visArg);
+
+        Label trueLabel = new Label();
+        ImcLABEL imcTrueLabel = new ImcLABEL(trueLabel);
+        vStmts.add(imcTrueLabel);
+
+        ImcStmt whileStmts = (ImcStmt) whileStmt.stmts.accept(this, visArg);
+        vStmts.add(whileStmts);
+
+        Label falseLabel = new Label();
+        ImcLABEL imcFalseLabel = new ImcLABEL(falseLabel);
+        vStmts.add(imcFalseLabel);
+
+        ImcCJUMP cJump = new ImcCJUMP(cond, trueLabel, falseLabel);
+        vStmts.add(0, cJump);
+
+        ImcSTMTS stmts = new ImcSTMTS(vStmts);
+        ImcGen.stmtImCode.put(whileStmt, stmts);
+        return stmts;
     }
 
     @Override
     public Object visit(AbsIfStmt ifStmt, Stack<Frame> visArg) {
-        ifStmt.cond.accept(this, visArg);
-        ifStmt.thenStmts.accept(this, visArg);
-        ifStmt.elseStmts.accept(this, visArg);
-        return null;
+        Vector<ImcStmt> vStmts = new Vector<ImcStmt>();
+        ImcExpr cond = (ImcExpr) ifStmt.cond.accept(this, visArg);
+
+        Label trueLabel = new Label();
+        ImcLABEL imcTrueLabel = new ImcLABEL(trueLabel);
+        vStmts.add(imcTrueLabel);
+
+        ImcStmt thenStmts = (ImcStmt) ifStmt.thenStmts.accept(this, visArg);
+        vStmts.add(thenStmts);
+
+        Label falseLabel = new Label();
+        ImcSTMTS elseStmts = (ImcSTMTS) ifStmt.elseStmts.accept(this, visArg);
+        if (elseStmts.stmts().size() > 0) {
+            ImcLABEL imcFalseLabel = new ImcLABEL(falseLabel);
+            vStmts.add(imcFalseLabel);
+
+            vStmts.add(elseStmts);
+        }
+
+        ImcCJUMP cJump = new ImcCJUMP(cond, trueLabel, falseLabel);
+        vStmts.add(0, cJump);
+
+        ImcSTMTS stmts = new ImcSTMTS(vStmts);
+        ImcGen.stmtImCode.put(ifStmt, stmts);
+        return stmts;
     }
 }
