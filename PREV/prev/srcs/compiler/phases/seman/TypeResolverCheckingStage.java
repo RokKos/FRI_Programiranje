@@ -343,14 +343,14 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
         if (!IsChrIntPtr(originalType.actualType())) {
             throw new Report.Error(castExpr.location(),
-                    "Original type is of type Char, Int or pointer so it cannot be casted");
+                    "Original type is not of type Char, Int or pointer so it cannot be casted");
         }
 
         SemType actType = castType.actualType();
 
         if (!IsChrIntPtr(actType)) {
             throw new Report.Error(castExpr.location(),
-                    "Casted type is of type Char, Int or pointer so it cannot be casted");
+                    "Casted type is not of type Char, Int or pointer so it cannot be casted");
         }
 
         SemAn.ofType.put(castExpr, castType);

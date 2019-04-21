@@ -22,6 +22,7 @@ import compiler.data.imcode.ImcUNOP;
 import compiler.data.imcode.ImcBINOP.Oper;
 import compiler.data.layout.*;
 import compiler.data.type.SemArrType;
+import compiler.data.type.SemCharType;
 import compiler.data.type.SemRecType;
 import compiler.data.type.SemType;
 import compiler.phases.frames.*;
@@ -275,6 +276,21 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcCALL funCall = new ImcCALL(funLabel, args);
         ImcGen.exprImCode.put(funName, funCall);
         return funCall;
+    }
 
+    @Override
+    public Object visit(AbsCastExpr castExpr, Stack<Frame> visArg) {
+        ImcExpr expr = (ImcExpr) castExpr.expr.accept(this, visArg);
+
+        SemType castType = SemAn.isType.get(castExpr.type);
+
+        if (castType instanceof SemCharType) {
+            ImcBINOP mod256 = new ImcBINOP(Oper.MOD, expr, new ImcCONST(256));
+            ImcGen.exprImCode.put(castExpr, mod256);
+            return mod256;
+        }
+
+        ImcGen.exprImCode.put(castExpr, expr);
+        return expr;
     }
 }
