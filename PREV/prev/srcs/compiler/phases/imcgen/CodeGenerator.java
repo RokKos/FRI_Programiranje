@@ -4,6 +4,8 @@
 package compiler.phases.imcgen;
 
 import java.util.*;
+
+import compiler.common.report.Report;
 import compiler.data.abstree.*;
 import compiler.data.abstree.AbsAtomExpr.Type;
 import compiler.data.abstree.visitor.*;
@@ -17,9 +19,12 @@ import compiler.data.imcode.ImcTEMP;
 import compiler.data.imcode.ImcBINOP.Oper;
 import compiler.data.layout.*;
 import compiler.data.type.SemArrType;
+import compiler.data.type.SemRecType;
 import compiler.data.type.SemType;
 import compiler.phases.frames.*;
 import compiler.phases.seman.SemAn;
+import compiler.phases.seman.SymbTable;
+import compiler.phases.seman.TypeResolver;
 
 /**
  * Intermediate code generator.
@@ -30,11 +35,11 @@ import compiler.phases.seman.SemAn;
  */
 public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
-    private ImcMEM AccesToMemory(Access acc) {
+    private ImcMEM AccesToMemory(Access acc, Temp FP) {
         if (acc instanceof RelAccess) {
             RelAccess rAcc = (RelAccess) acc;
             ImcCONST offset = new ImcCONST(rAcc.offset);
-            ImcTEMP fpTemp = new ImcTEMP(new Temp());
+            ImcTEMP fpTemp = new ImcTEMP(FP);
             ImcBINOP binop = new ImcBINOP(Oper.ADD, fpTemp, offset);
             return new ImcMEM(binop);
         } else {
@@ -50,7 +55,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         switch (atomExpr.type) {
 
         case STR:
-            ImcMEM memAcces = AccesToMemory(Frames.strings.get(atomExpr));
+            ImcMEM memAcces = AccesToMemory(Frames.strings.get(atomExpr), visArg.peek().FP);
             ImcGen.exprImCode.put(atomExpr, memAcces);
             return memAcces;
 
@@ -68,7 +73,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
     @Override
     public Object visit(AbsVarName varName, Stack<Frame> visArg) {
         AbsVarDecl varDecl = (AbsVarDecl) SemAn.declaredAt.get(varName);
-        ImcMEM memAcces = AccesToMemory(Frames.accesses.get(varDecl));
+        ImcMEM memAcces = AccesToMemory(Frames.accesses.get(varDecl), visArg.peek().FP);
         ImcGen.exprImCode.put(varName, memAcces);
         return memAcces;
     }
@@ -90,6 +95,48 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcMEM memAcces = new ImcMEM(binop);
         ImcGen.exprImCode.put(arrExpr, memAcces);
 
+        return memAcces;
+    }
+
+    @Override
+    public Object visit(AbsSource source, Stack<Frame> visArg) {
+        Stack<Frame> frames = new Stack<Frame>();
+        source.decls.accept(this, frames);
+        return null;
+    }
+
+    @Override
+    public Object visit(AbsFunDef funDef, Stack<Frame> visArg) {
+        visArg.add(Frames.frames.get(funDef));
+
+        funDef.parDecls.accept(this, visArg);
+        funDef.type.accept(this, visArg);
+        funDef.value.accept(this, visArg);
+
+        visArg.pop();
+        return null;
+    }
+
+    @Override
+    public Object visit(AbsRecExpr recExpr, Stack<Frame> visArg) {
+        AbsVarName recordName = (AbsVarName) recExpr.record;
+        AbsVarName recordComponent = (AbsVarName) recExpr.comp;
+
+        AbsVarDecl recordDeclaration = (AbsVarDecl) SemAn.declaredAt.get(recordName);
+        SemRecType recordType = (SemRecType) SemAn.isType.get(recordDeclaration.type);
+        SymbTable recTable = TypeResolver.symbTables.get(recordType);
+        
+        AbsCompDecl recComponentDeclaration;
+        try {
+            recComponentDeclaration= (AbsCompDecl) recTable.fnd(recordComponent.name);
+        } catch (Exception e) {
+            throw new Report.Error(recExpr.location(), "Record name: " + recordName.name + " was not found.");
+        }
+
+        RelAccess recordAcces = (RelAccess) Frames.accesses.get(recComponentDeclaration);
+
+        ImcMEM memAcces = AccesToMemory(recordAcces, visArg.peek().FP);
+        ImcGen.exprImCode.put(recExpr, memAcces);
         return memAcces;
     }
 

@@ -16,7 +16,7 @@ import compiler.data.type.*;
 public class TypeResolver<SemType, Arg> extends AbsFullVisitor<SemType, Arg> {
 
 	/** Symbol tables of individual record types. */
-	protected static final HashMap<SemRecType, SymbTable> symbTables = new HashMap<SemRecType, SymbTable>();
+	public static final HashMap<SemRecType, SymbTable> symbTables = new HashMap<SemRecType, SymbTable>();
 
 	// TODO
 
