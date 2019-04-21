@@ -16,7 +16,10 @@ import compiler.data.imcode.ImcESTMT;
 import compiler.data.imcode.ImcExpr;
 import compiler.data.imcode.ImcLABEL;
 import compiler.data.imcode.ImcMEM;
+import compiler.data.imcode.ImcMOVE;
 import compiler.data.imcode.ImcNAME;
+import compiler.data.imcode.ImcSTMTS;
+import compiler.data.imcode.ImcStmt;
 import compiler.data.imcode.ImcTEMP;
 import compiler.data.imcode.ImcUNOP;
 import compiler.data.imcode.ImcBINOP.Oper;
@@ -259,7 +262,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
         ImcCALL stdDelCall = new ImcCALL(new Label("del"), args);
         ImcGen.exprImCode.put(delExpr, stdDelCall);
-        return null;
+        return stdDelCall;
     }
 
     @Override
@@ -292,5 +295,59 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
         ImcGen.exprImCode.put(castExpr, expr);
         return expr;
+    }
+
+    @Override
+    public Object visit(AbsBlockExpr blockExpr, Stack<Frame> visArg) {
+        blockExpr.decls.accept(this, visArg);
+        blockExpr.stmts.accept(this, visArg);
+
+        ImcExpr expr = (ImcExpr) blockExpr.expr.accept(this, visArg);
+        ImcGen.exprImCode.put(blockExpr, expr);
+        return expr;
+    }
+
+    @Override
+    public Object visit(AbsAssignStmt assignStmt, Stack<Frame> visArg) {
+        ImcExpr destination = (ImcExpr) assignStmt.dst.accept(this, visArg);
+        ImcExpr source = (ImcExpr) assignStmt.src.accept(this, visArg);
+
+        ImcMOVE move = new ImcMOVE(destination, source);
+        ImcGen.stmtImCode.put(assignStmt, move);
+        return move;
+    }
+
+    @Override
+    public Object visit(AbsExprStmt exprStmt, Stack<Frame> visArg) {
+        ImcExpr expr = (ImcExpr) exprStmt.expr.accept(this, visArg);
+        ImcESTMT estmt = new ImcESTMT(expr);
+        ImcGen.stmtImCode.put(exprStmt, estmt);
+        return estmt;
+    }
+
+    @Override
+    public Object visit(AbsStmts stmts, Stack<Frame> visArg) {
+        Vector<ImcStmt> vStmts = new Vector<ImcStmt>();
+        for (AbsStmt stmt : stmts.stmts()) {
+            vStmts.add((ImcStmt) stmt.accept(this, visArg));
+        }
+
+        ImcSTMTS imcStmts = new ImcSTMTS(vStmts);
+        return imcStmts;
+    }
+
+    @Override
+    public Object visit(AbsWhileStmt whileStmt, Stack<Frame> visArg) {
+        whileStmt.cond.accept(this, visArg);
+        whileStmt.stmts.accept(this, visArg);
+        return null;
+    }
+
+    @Override
+    public Object visit(AbsIfStmt ifStmt, Stack<Frame> visArg) {
+        ifStmt.cond.accept(this, visArg);
+        ifStmt.thenStmts.accept(this, visArg);
+        ifStmt.elseStmts.accept(this, visArg);
+        return null;
     }
 }
