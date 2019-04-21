@@ -10,6 +10,7 @@ import compiler.data.abstree.*;
 import compiler.data.abstree.AbsAtomExpr.Type;
 import compiler.data.abstree.visitor.*;
 import compiler.data.imcode.ImcBINOP;
+import compiler.data.imcode.ImcCALL;
 import compiler.data.imcode.ImcCONST;
 import compiler.data.imcode.ImcESTMT;
 import compiler.data.imcode.ImcExpr;
@@ -70,6 +71,21 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
             ImcCONST boolConst = new ImcCONST(Boolean.parseBoolean(atomExpr.expr) ? 1 : 0);
             ImcGen.exprImCode.put(atomExpr, boolConst);
             return boolConst;
+
+        case CHAR:
+            ImcCONST charConst = new ImcCONST((long) atomExpr.expr.charAt(1));
+            ImcGen.exprImCode.put(atomExpr, charConst);
+            return charConst;
+
+        case VOID:
+            ImcCONST voidConst = new ImcCONST(0);
+            ImcGen.exprImCode.put(atomExpr, voidConst);
+            return voidConst;
+
+        case PTR:
+            ImcCONST ptrConst = new ImcCONST(0);
+            ImcGen.exprImCode.put(atomExpr, ptrConst);
+            return ptrConst;
 
         default:
             break;
@@ -193,5 +209,55 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
             throw new Report.Error(unExpr.location(), "Not supported unary operator");
 
         }
+    }
+
+    private Map<AbsBinExpr.Oper, ImcBINOP.Oper> kAbsOperToImcOper = new HashMap<AbsBinExpr.Oper, ImcBINOP.Oper>() {
+        {
+            put(AbsBinExpr.Oper.IOR, ImcBINOP.Oper.IOR);
+            put(AbsBinExpr.Oper.XOR, ImcBINOP.Oper.XOR);
+            put(AbsBinExpr.Oper.AND, ImcBINOP.Oper.AND);
+            put(AbsBinExpr.Oper.EQU, ImcBINOP.Oper.EQU);
+            put(AbsBinExpr.Oper.NEQ, ImcBINOP.Oper.NEQ);
+            put(AbsBinExpr.Oper.LTH, ImcBINOP.Oper.LTH);
+            put(AbsBinExpr.Oper.GTH, ImcBINOP.Oper.GTH);
+            put(AbsBinExpr.Oper.LEQ, ImcBINOP.Oper.LEQ);
+            put(AbsBinExpr.Oper.GEQ, ImcBINOP.Oper.GEQ);
+            put(AbsBinExpr.Oper.ADD, ImcBINOP.Oper.ADD);
+            put(AbsBinExpr.Oper.SUB, ImcBINOP.Oper.SUB);
+            put(AbsBinExpr.Oper.MUL, ImcBINOP.Oper.MUL);
+            put(AbsBinExpr.Oper.DIV, ImcBINOP.Oper.DIV);
+            put(AbsBinExpr.Oper.MOD, ImcBINOP.Oper.MOD);
+        }
+    };
+
+    @Override
+    public Object visit(AbsBinExpr binExpr, Stack<Frame> visArg) {
+        ImcExpr leftExpr = (ImcExpr) binExpr.fstExpr.accept(this, visArg);
+        ImcExpr rightExpr = (ImcExpr) binExpr.sndExpr.accept(this, visArg);
+
+        ImcBINOP binopExpr = new ImcBINOP(kAbsOperToImcOper.get(binExpr.oper), leftExpr, rightExpr);
+        ImcGen.exprImCode.put(binExpr, binopExpr);
+        return binopExpr;
+    }
+
+    @Override
+    public Object visit(AbsNewExpr newExpr, Stack<Frame> visArg) {
+        Vector<ImcExpr> args = new Vector<ImcExpr>();
+        SemType newType = SemAn.isType.get(newExpr.type);
+        args.add(new ImcCONST(newType.size()));
+        ImcCALL stdNewCall = new ImcCALL(new Label("new"), args);
+        ImcGen.exprImCode.put(newExpr, stdNewCall);
+        return stdNewCall;
+    }
+
+    @Override
+    public Object visit(AbsDelExpr delExpr, Stack<Frame> visArg) {
+        Vector<ImcExpr> args = new Vector<ImcExpr>();
+        ImcExpr expr = (ImcExpr) delExpr.expr.accept(this, visArg);
+        args.add(expr);
+
+        ImcCALL stdDelCall = new ImcCALL(new Label("del"), args);
+        ImcGen.exprImCode.put(delExpr, stdDelCall);
+        return null;
     }
 }

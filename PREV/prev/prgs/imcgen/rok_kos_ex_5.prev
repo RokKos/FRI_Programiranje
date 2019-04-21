@@ -1,0 +1,23 @@
+fun r() : int = {
+    a + b[0];
+    b[1] = a - b[0];
+    b[2] = a * b[2];
+    b[3] = a / b[3];
+    b[4] = a % b[4];
+    c = true;
+    c | true;
+    c ^ false;
+    c & true;
+    c == false;
+    c != true;
+    a <= b[10];
+    a == b[10];
+    a >= b[11];
+    a > b[11];
+    a < b[12];
+    : 42
+    where
+        var a : int;
+        var b : arr[42] int;
+        var c : bool;
+};

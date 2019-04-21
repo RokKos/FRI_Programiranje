@@ -1,0 +1,16 @@
+fun r() : int = {
+    b = new(arr[42] int);
+    c = new(int);
+    n = new(r);
+
+    del (b);
+    del (c);
+    del (n);
+    : 42
+    where
+        var a : int;
+        var b : ptr arr[42] int;
+        var c : ptr int;
+        typ r : rec (a: int, tab : arr[1024] ptr int, str : arr[256] char);
+        var n : ptr r;
+};
