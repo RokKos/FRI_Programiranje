@@ -260,4 +260,21 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcGen.exprImCode.put(delExpr, stdDelCall);
         return null;
     }
+
+    @Override
+    public Object visit(AbsFunName funName, Stack<Frame> visArg) {
+        Vector<ImcExpr> args = new Vector<ImcExpr>();
+        for (AbsExpr arg : funName.args.args()) {
+            ImcExpr imcArg = (ImcExpr) arg.accept(this, visArg);
+            args.add(imcArg);
+        }
+
+        AbsFunDecl funDecl = (AbsFunDecl) SemAn.declaredAt.get(funName);
+        Label funLabel = Frames.frames.get(funDecl).label;
+
+        ImcCALL funCall = new ImcCALL(funLabel, args);
+        ImcGen.exprImCode.put(funName, funCall);
+        return funCall;
+
+    }
 }

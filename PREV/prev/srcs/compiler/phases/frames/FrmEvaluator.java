@@ -54,9 +54,19 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	@Override
 	public Object visit(AbsFunDecl funDecl, FrmEvaluator.Context visArg) {
 		FunContext funContext = new FunContext();
+		FunContext outherFunContext = (FunContext) visArg;
 		// To prevernt crash in ParDecls
 		funDecl.parDecls.accept(this, funContext);
 		funDecl.type.accept(this, funContext);
+
+		Label funLabel = funLabel = new Label();
+		if (outherFunContext == null) {
+			funLabel = new Label(funDecl.name);
+		}
+
+		Frame funFrame = new Frame(funLabel, funContext.depth, funContext.locsSize, funContext.argsSize);
+		Frames.frames.put(funDecl, funFrame);
+
 		return null;
 	}
 
@@ -77,9 +87,9 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 		// Parse Local variables and function calls
 		funDef.value.accept(this, funContext);
 
-		Label funLabel = new Label(funDef.name);
-		if (outherFunContext != null && (funDef.name.equals(outherFunContext.funDef.name))) {
-			funLabel = new Label();
+		Label funLabel = funLabel = new Label();
+		if (outherFunContext == null) {
+			funLabel = new Label(funDef.name);
 		}
 
 		Frame funFrame = new Frame(funLabel, funContext.depth, funContext.locsSize, funContext.argsSize);
