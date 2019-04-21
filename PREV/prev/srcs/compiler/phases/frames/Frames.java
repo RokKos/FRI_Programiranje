@@ -21,6 +21,9 @@ public class Frames extends Phase {
 	/** Maps variable declarations to accesses. */
 	public static final AbsAttribute<AbsVarDecl, Access> accesses = new AbsAttribute<AbsVarDecl, Access>();
 
+	/** Maps string constants to accesses. */
+	public static final AbsAttribute<AbsAtomExpr, AbsAccess> strings = new AbsAttribute<AbsAtomExpr, AbsAccess>();
+	
 	/**
 	 * Constructs a new phase for computing layout.
 	 */

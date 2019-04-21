@@ -34,6 +34,21 @@ public class FrmLogger extends AbsNullVisitor<Object, Object> {
 	}
 
 	@Override
+	public Object visit(AbsAtomExpr atomExpr, Object visArg) {
+		switch (atomExpr.type) {
+		case STR: {
+			AbsAccess access = Frames.strings.get(atomExpr);
+			if (access != null)
+				access.log(logger);
+			break;
+		}
+		default:
+			break;
+		}
+		return null;
+	}
+
+	@Override
 	public Object visit(AbsCompDecl compDecl, Object visArg) {
 		Access access = Frames.accesses.get(compDecl);
 		if (access != null)

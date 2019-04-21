@@ -128,6 +128,8 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 
 		FunContext funContext = (FunContext) visArg;
 		funContext.argsSize = Math.max(funContext.argsSize, calledFunArgsSize);
+
+		funName.args.accept(this, visArg);
 		return null;
 	}
 
@@ -167,6 +169,15 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 		recContext.compsSize += recSize;
 
 		compDecl.type.accept(this, visArg);
+		return null;
+	}
+
+	@Override
+	public Object visit(AbsAtomExpr atomExpr, Context visArg) {
+		if (atomExpr.type == Type.STR) {
+			long strSize = TypeSize(SemAn.ofType.get(atomExpr));
+			Frames.strings.put(atomExpr, new AbsAccess(strSize, new Label(atomExpr.expr), atomExpr.expr));
+		}
 		return null;
 	}
 
