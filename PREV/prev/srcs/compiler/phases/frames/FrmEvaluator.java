@@ -185,8 +185,9 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 	@Override
 	public Object visit(AbsAtomExpr atomExpr, Context visArg) {
 		if (atomExpr.type == Type.STR) {
-			long strSize = TypeSize(SemAn.ofType.get(atomExpr));
-			Frames.strings.put(atomExpr, new AbsAccess(strSize, new Label(atomExpr.expr), atomExpr.expr));
+			long strSize = atomExpr.expr.length() - 1; // Because we need to include \0 and we have double quotes so it
+														// comes -1
+			Frames.strings.put(atomExpr, new AbsAccess(strSize, new Label(), atomExpr.expr));
 		}
 		return null;
 	}
