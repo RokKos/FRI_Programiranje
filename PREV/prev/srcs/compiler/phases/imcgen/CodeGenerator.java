@@ -12,10 +12,12 @@ import compiler.data.abstree.visitor.*;
 import compiler.data.imcode.ImcBINOP;
 import compiler.data.imcode.ImcCONST;
 import compiler.data.imcode.ImcESTMT;
+import compiler.data.imcode.ImcExpr;
 import compiler.data.imcode.ImcLABEL;
 import compiler.data.imcode.ImcMEM;
 import compiler.data.imcode.ImcNAME;
 import compiler.data.imcode.ImcTEMP;
+import compiler.data.imcode.ImcUNOP;
 import compiler.data.imcode.ImcBINOP.Oper;
 import compiler.data.layout.*;
 import compiler.data.type.SemArrType;
@@ -63,6 +65,11 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
             ImcCONST intConst = new ImcCONST(Long.parseLong(atomExpr.expr));
             ImcGen.exprImCode.put(atomExpr, intConst);
             return intConst;
+
+        case BOOL:
+            ImcCONST boolConst = new ImcCONST(Boolean.parseBoolean(atomExpr.expr) ? 1 : 0);
+            ImcGen.exprImCode.put(atomExpr, boolConst);
+            return boolConst;
 
         default:
             break;
@@ -125,10 +132,10 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         AbsVarDecl recordDeclaration = (AbsVarDecl) SemAn.declaredAt.get(recordName);
         SemRecType recordType = (SemRecType) SemAn.isType.get(recordDeclaration.type);
         SymbTable recTable = TypeResolver.symbTables.get(recordType);
-        
+
         AbsCompDecl recComponentDeclaration;
         try {
-            recComponentDeclaration= (AbsCompDecl) recTable.fnd(recordComponent.name);
+            recComponentDeclaration = (AbsCompDecl) recTable.fnd(recordComponent.name);
         } catch (Exception e) {
             throw new Report.Error(recExpr.location(), "Record name: " + recordName.name + " was not found.");
         }
@@ -140,4 +147,51 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         return memAcces;
     }
 
+    @Override
+    public Object visit(AbsUnExpr unExpr, Stack<Frame> visArg) {
+        ImcExpr expr = (ImcExpr) unExpr.subExpr.accept(this, visArg);
+        switch (unExpr.oper) {
+        case DATA: {
+            ImcMEM memAcces = new ImcMEM(expr);
+            ImcGen.exprImCode.put(unExpr, memAcces);
+            return memAcces;
+        }
+        case ADDR: {
+            ImcMEM memAcces = (ImcMEM) expr;
+            ImcGen.exprImCode.put(unExpr, memAcces.addr);
+            return memAcces.addr;
+        }
+        case ADD:
+            ImcGen.exprImCode.put(unExpr, expr);
+            return expr;
+        case SUB: {
+            if (expr instanceof ImcCONST) {
+                ImcCONST constExpr = (ImcCONST) expr;
+                ImcCONST negativeConstant = new ImcCONST(-constExpr.value);
+                ImcGen.exprImCode.put(unExpr, negativeConstant);
+                return negativeConstant;
+            }
+
+            ImcUNOP sub = new ImcUNOP(ImcUNOP.Oper.NEG, expr);
+            ImcGen.exprImCode.put(unExpr, sub);
+            return sub;
+        }
+        case NOT: {
+            if (expr instanceof ImcCONST) {
+                ImcCONST constExpr = (ImcCONST) expr;
+                ImcCONST negatingConstant = new ImcCONST(constExpr.value == 1 ? 0 : 1);
+                ImcGen.exprImCode.put(unExpr, negatingConstant);
+                return negatingConstant;
+            }
+
+            ImcUNOP not = new ImcUNOP(ImcUNOP.Oper.NOT, expr);
+            ImcGen.exprImCode.put(unExpr, not);
+            return not;
+        }
+
+        default:
+            throw new Report.Error(unExpr.location(), "Not supported unary operator");
+
+        }
+    }
 }
