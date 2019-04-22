@@ -19,6 +19,7 @@ import compiler.data.imcode.ImcLABEL;
 import compiler.data.imcode.ImcMEM;
 import compiler.data.imcode.ImcMOVE;
 import compiler.data.imcode.ImcNAME;
+import compiler.data.imcode.ImcSEXPR;
 import compiler.data.imcode.ImcSTMTS;
 import compiler.data.imcode.ImcStmt;
 import compiler.data.imcode.ImcTEMP;
@@ -151,7 +152,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         AbsVarName recordComponent = (AbsVarName) recExpr.comp;
 
         AbsVarDecl recordDeclaration = (AbsVarDecl) SemAn.declaredAt.get(recordName);
-        SemRecType recordType = (SemRecType) SemAn.isType.get(recordDeclaration.type);
+        SemRecType recordType = (SemRecType) SemAn.isType.get(recordDeclaration.type).actualType();
         SymbTable recTable = TypeResolver.symbTables.get(recordType);
 
         AbsCompDecl recComponentDeclaration;
@@ -301,10 +302,11 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
     @Override
     public Object visit(AbsBlockExpr blockExpr, Stack<Frame> visArg) {
         blockExpr.decls.accept(this, visArg);
-        blockExpr.stmts.accept(this, visArg);
+        ImcSTMTS stmts = (ImcSTMTS) blockExpr.stmts.accept(this, visArg);
 
         ImcExpr expr = (ImcExpr) blockExpr.expr.accept(this, visArg);
-        ImcGen.exprImCode.put(blockExpr, expr);
+        ImcSEXPR sExpr = new ImcSEXPR(stmts, expr);
+        ImcGen.exprImCode.put(blockExpr, sExpr);
         return expr;
     }
 
