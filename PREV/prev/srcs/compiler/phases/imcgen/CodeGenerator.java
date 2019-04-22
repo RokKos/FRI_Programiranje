@@ -312,10 +312,10 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
     @Override
     public Object visit(AbsAssignStmt assignStmt, Stack<Frame> visArg) {
-        ImcExpr destination = (ImcExpr) assignStmt.dst.accept(this, visArg);
+        ImcMEM destination = (ImcMEM) assignStmt.dst.accept(this, visArg);
         ImcExpr source = (ImcExpr) assignStmt.src.accept(this, visArg);
 
-        ImcMOVE move = new ImcMOVE(destination, source);
+        ImcMOVE move = new ImcMOVE(destination.addr, source);
         ImcGen.stmtImCode.put(assignStmt, move);
         return move;
     }
