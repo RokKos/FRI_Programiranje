@@ -8,6 +8,7 @@ import compiler.common.report.*;
 import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
+import compiler.phases.chunks.*;
 import compiler.phases.seman.*;
 import compiler.phases.frames.*;
 import compiler.phases.imcgen.*;
@@ -20,7 +21,7 @@ import compiler.phases.imcgen.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -179,6 +180,17 @@ public class Main {
 					logger.addSubvisitor(new ImcLogger(imcGen.logger));
 					Abstr.absTree.accept(logger, null);
 				}
+				if (cmdLine.get("--target-phase").equals("imcgen"))
+					break;
+
+				// Chunks.
+				try (Chunks chunks = new Chunks()) {
+					Abstr.absTree.accept(new ChunkGenerator(), null);
+
+					chunks.log();
+				}
+				if (cmdLine.get("--target-phase").equals("chunks"))
+					break;
 
 				int endWarnings = Report.numOfWarnings();
 				if (begWarnings != endWarnings)
