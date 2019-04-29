@@ -23,44 +23,44 @@
       <tr bgcolor="FFEE00">
 	<td colspan="1000">
 	  <nobr>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	    <font style="font-family:arial black">
 	      <xsl:value-of select="@label"/>
 	    </font>
 	    <xsl:if test="@spec!=''">
-	      <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	      <xsl:text>&#xA0;</xsl:text>
 	      <font style="font-family:helvetica">
 		<xsl:value-of select="@spec"/>
 	      </font>
 	    </xsl:if>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	  </nobr>
 	  <br/>
 	  <nobr>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	    <xsl:apply-templates select="location"/>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	  </nobr>
 	  <xsl:if test="@lexeme!=''">
 	    <br/>
 	    <nobr>
-	      <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	      <xsl:text>&#xA0;</xsl:text>
 	      <font style="font-family:courier new">
 		<xsl:value-of select="@lexeme"/>
 	      </font>
-	      <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	      <xsl:text>&#xA0;</xsl:text>
 	    </nobr>
 	  </xsl:if>
 	  <br/>
 	  <table width="100%">
 	    <xsl:apply-templates select="declAt"/>
-	    <xsl:apply-templates select="addr"/>
+	    <xsl:apply-templates select="lvalue"/>
 	    <tr>
 	      <xsl:apply-templates select="type"/>
 	    </tr>
-	    <xsl:apply-templates select="frame"/>
-	    <xsl:apply-templates select="access"/>
 	  </table>
+	  <xsl:apply-templates select="frame"/>
+	  <xsl:apply-templates select="access"/>
 	  <table width="100%">
 	    <xsl:apply-templates select="imc"/>
 	  </table>
@@ -77,21 +77,21 @@
   <tr bgcolor="FFCF00">
     <td>
       <nobr>
-	<xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	<xsl:text>&#xA0;</xsl:text>
 	[<xsl:value-of select="@location"/>]
-	<xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	<xsl:text>&#xA0;</xsl:text>
       </nobr>
     </td>
   </tr>	
 </xsl:template>
 
-<xsl:template match="addr">
+<xsl:template match="lvalue">
   <tr bgcolor="FFCF00">
     <td>
       <nobr>
-	<xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
-	ADDR
-	<xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	<xsl:text>&#xA0;</xsl:text>
+	LVALUE
+	<xsl:text>&#xA0;</xsl:text>
       </nobr>
     </td>
   </tr>
@@ -103,13 +103,13 @@
       <tr>
 	<td bgcolor="FFCF00" colspan="10000000">
 	  <nobr>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	    <xsl:value-of select="@label"/>
 	    <xsl:if test="@name!=''">
-	      <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	      <xsl:text>&#xA0;</xsl:text>
 	      <xsl:value-of select="@name"/>
 	    </xsl:if>
-	    <xsl:text disable-output-escaping="yes"><![CDATA[&nbsp;]]></xsl:text>
+	    <xsl:text>&#xA0;</xsl:text>
 	  </nobr>
 	  <xsl:if test="@loc!=''">
 	    <br/>
@@ -125,63 +125,56 @@
 </xsl:template>
 
 <xsl:template match="frame">
-  <tr>
-    <td>
-      <table width="100%" bgcolor="EECF00">
-	<tr>
-	  <td>
-	    FRAME
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <nobr>
-	      label:<font style="font-family:courier new"><xsl:value-of select="@label"/></font>
-	      depth:<xsl:value-of select="@depth"/> 
-	      size:<xsl:value-of select="@size"/> 
-	      locs:<xsl:value-of select="@locssize"/>
-	      args:<xsl:value-of select="@argssize"/>
-	      FP:<xsl:value-of select="@FP"/>
-	      RV:<xsl:value-of select="@RV"/>
-	    </nobr>
-	  </td>
-	</tr>
-      </table>
-    </td>
-  </tr>
+  <table width="100%">
+    <tr bgcolor="EECF00">
+      <td>
+	<nobr>
+	  FRAME
+	  label=<font style="font-family:courier new"><xsl:value-of select="@label"/></font>
+	  depth=<xsl:value-of select="@depth"/> 
+	  size=<xsl:value-of select="@size"/> 
+	  locs=<xsl:value-of select="@locssize"/>
+	  args=<xsl:value-of select="@argssize"/>
+	</nobr>
+      </td>
+    </tr>
+  </table>
 </xsl:template>
 
 <xsl:template match="access">
-  <tr>
-    <td>
-      <table width="100%" bgcolor="EECF00">
-	<tr>
-	  <td>
-	    ACCESS
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <nobr>
-	      size:<xsl:value-of select="@size"/> 
-	      <xsl:if test="@label!=''">
-		label:<font style="font-family:courier new"><xsl:value-of select="@label"/></font>
-	      </xsl:if>
-	      <xsl:if test="@init!=''">
-		init:<font style="font-family:courier new"><xsl:value-of select="@init"/></font>
-	      </xsl:if>
-	      <xsl:if test="@offset!=''">
-		offset:<xsl:value-of select="@offset"/>
-	      </xsl:if>
-	      <xsl:if test="@depth!=''">
-		depth:<xsl:value-of select="@depth"/>
-	      </xsl:if>
-	    </nobr>
-	  </td>
-	</tr>
-      </table>
-    </td>
-  </tr>
+  <table width="100%" bgcolor="EECF00">
+    <tr>
+      <td>
+	ACCESS
+      </td>
+    </tr>
+    <tr>
+      <td>
+	size=<xsl:value-of select="@size"/> 
+      </td>
+    </tr>
+    <xsl:if test="@label!=''">
+      <tr>
+	<td>
+	  label=<font style="font-family:courier new"><xsl:value-of select="@label"/></font>
+	</td>
+      </tr>
+    </xsl:if>
+    <xsl:if test="@offset!=''">
+      <tr>
+	<td>
+	  offset=<xsl:value-of select="@offset"/>
+	</td>
+      </tr>
+    </xsl:if>
+    <xsl:if test="@depth!=''">
+      <tr>
+	<td>
+	  depth=<xsl:value-of select="@depth"/>
+	</td>
+      </tr>
+    </xsl:if>
+  </table>
 </xsl:template>
 
 <xsl:template match="imc">
@@ -203,7 +196,6 @@
     </table>
   </td>
 </xsl:template>
-
 
 <xsl:template match="location">
   <nobr>
