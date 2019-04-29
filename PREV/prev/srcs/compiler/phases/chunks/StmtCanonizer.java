@@ -59,9 +59,10 @@ public class StmtCanonizer implements ImcVisitor<Vector<ImcStmt>, Object> {
     }
 
     public Vector<ImcStmt> visit(ImcSEXPR sExpr, Object visArg) {
-        Vector<ImcStmt> stmts = new Vector<ImcStmt>();
-        stmts.add(sExpr.stmt);
-        return stmts;
+        return new Vector<ImcStmt>();
+        // Vector<ImcStmt> stmts = new Vector<ImcStmt>();
+        // stmts.add(sExpr.stmt);
+        // return stmts;
     }
 
     public Vector<ImcStmt> visit(ImcSTMTS stmts, Object visArg) {

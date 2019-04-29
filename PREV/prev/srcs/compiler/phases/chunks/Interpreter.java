@@ -223,6 +223,9 @@ public class Interpreter {
 
 		@Override
 		public Long visit(ImcMEM imcMem, Object arg) {
+			if (debug) {
+				System.out.printf("###R Mem acc: %s\n", imcMem.addr);
+			}
 			return memLD(imcMem.addr.accept(this, null));
 		}
 
@@ -300,6 +303,9 @@ public class Interpreter {
 				Long src;
 				if (imcMove.src instanceof ImcCALL) {
 					call((ImcCALL) imcMove.src);
+					if (debug) {
+						System.out.printf("###R Src acc: %s\n", imcMove.src.toString());
+					}
 					src = memLD(tempLD(SP));
 				} else
 					src = imcMove.src.accept(new ExprInterpreter(), null);
@@ -311,6 +317,9 @@ public class Interpreter {
 				Long src;
 				if (imcMove.src instanceof ImcCALL) {
 					call((ImcCALL) imcMove.src);
+					if (debug) {
+						System.out.printf("###R Dest acc: %s\n", imcMove.dst.toString());
+					}
 					src = memLD(tempLD(SP));
 				} else
 					src = imcMove.src.accept(new ExprInterpreter(), null);
