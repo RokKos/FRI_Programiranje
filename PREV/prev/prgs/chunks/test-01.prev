@@ -1,0 +1,3 @@
+var i:int;
+fun main(): ptr char = "one";
+fun f2(): int = 1;
