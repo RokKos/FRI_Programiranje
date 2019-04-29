@@ -35,7 +35,7 @@ public class ChunkGenerator extends AbsFullVisitor<Object, Object> {
         // Vector<ImcStmt> canonizeStmts = funStmt.accept(new StmtCanonizer(), null);
         // stmts.addAll(canonizeStmts);
         stmts.add(funStmt);
-        stmts.add(new ImcLABEL(exitLabel));
+        stmts.add(new ImcJUMP(exitLabel));
 
         Chunks.codeChunks.add(new CodeChunk(frameFun, stmts, entryLabel, exitLabel));
 
