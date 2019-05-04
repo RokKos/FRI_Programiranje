@@ -727,6 +727,7 @@ public class SynAn extends Phase {
 			node.add(parseExpr());
 			node.add(parseCastEps());
 			CheckAndSkip(Symbol.Term.RPARENTHESIS, RPARENTHESIS_ERR_STRING + currSymb.token.toString());
+			node.add(parsePstfExprRest());
 			break;
 		case ADD:
 			add(node, Symbol.Term.ADD, EXPECTED_SYMBOLS_STR + "+" + GOT_STR + currSymb.token.toString());

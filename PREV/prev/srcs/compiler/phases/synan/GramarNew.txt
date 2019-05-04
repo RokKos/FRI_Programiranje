@@ -81,7 +81,7 @@ PrefExpr -> $ PrefExpr .
 PrefExpr -> @ PrefExpr .
 PrefExpr -> new ( Type ) .
 PrefExpr -> del ( Expr ) .
-PrefExpr -> ( Expr CastEps ) .
+PrefExpr -> ( Expr CastEps ) PstfExprRest .
 
 # Type Casting
 CastEps -> : Type | .
