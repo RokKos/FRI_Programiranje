@@ -25,7 +25,7 @@ public class ExprCanonizer implements ImcVisitor<ImcExpr, Vector<ImcStmt>> {
         Vector<ImcStmt> stmts2 = binOp.sndExpr.accept(new StmtCanonizer(), null);
         visArg.addAll(stmts2);
 
-        ImcExpr expr2 = binOp.fstExpr.accept(this, visArg);
+        ImcExpr expr2 = binOp.sndExpr.accept(this, visArg);
         ImcTEMP temp2 = new ImcTEMP(new Temp());
         ImcStmt move2 = new ImcMOVE(temp2, expr2);
         visArg.add(move2);
