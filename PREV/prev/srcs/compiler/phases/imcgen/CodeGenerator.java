@@ -15,6 +15,7 @@ import compiler.data.imcode.ImcCJUMP;
 import compiler.data.imcode.ImcCONST;
 import compiler.data.imcode.ImcESTMT;
 import compiler.data.imcode.ImcExpr;
+import compiler.data.imcode.ImcJUMP;
 import compiler.data.imcode.ImcLABEL;
 import compiler.data.imcode.ImcMEM;
 import compiler.data.imcode.ImcMOVE;
@@ -385,8 +386,14 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcLABEL imcTrueLabel = new ImcLABEL(trueLabel);
         vStmts.add(imcTrueLabel);
 
+        // Just to jump over else statement
+        Label endLabel = new Label();
+        ImcLABEL imcEndLabel = new ImcLABEL(endLabel);
+        ImcJUMP jumpOverElse = new ImcJUMP(endLabel);
+
         ImcStmt thenStmts = (ImcStmt) ifStmt.thenStmts.accept(this, visArg);
         vStmts.add(thenStmts);
+        vStmts.add(jumpOverElse);
 
         Label falseLabel = new Label();
         ImcSTMTS elseStmts = (ImcSTMTS) ifStmt.elseStmts.accept(this, visArg);
@@ -396,6 +403,8 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
             vStmts.add(elseStmts);
         }
+
+        vStmts.add(imcEndLabel);
 
         ImcCJUMP cJump = new ImcCJUMP(cond, trueLabel, falseLabel);
         vStmts.add(0, cJump);
