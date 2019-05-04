@@ -292,6 +292,7 @@ public class TypeResolverCheckingStage extends TypeResolver {
             AbsCompDecl recordComponentDeclaration = (AbsCompDecl) symbTable.fnd(recExpr.comp.name);
             AbsType compType = recordComponentDeclaration.type;
             SemType semCompType = SemAn.isType.get(compType);
+            SemAn.declaredAt.put(recExpr.comp, recordComponentDeclaration);
             SemAn.ofType.put(recExpr, semCompType);
             return semCompType;
 
