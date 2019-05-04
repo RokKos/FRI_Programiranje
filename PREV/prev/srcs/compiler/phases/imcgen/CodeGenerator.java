@@ -119,12 +119,18 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
     @Override
     public Object visit(AbsArrExpr arrExpr, Stack<Frame> visArg) {
         ImcMEM arrayStart = (ImcMEM) arrExpr.array.accept(this, visArg);
-        ImcCONST arrayIndex = (ImcCONST) arrExpr.index.accept(this, visArg);
+        ImcExpr arrayIndex = (ImcExpr) arrExpr.index.accept(this, visArg);
 
-        AbsVarName arrName = (AbsVarName) arrExpr.array;
-        AbsVarDecl arrDecl = (AbsVarDecl) SemAn.declaredAt.get(arrName);
-        SemArrType arrType = (SemArrType) SemAn.isType.get(arrDecl.type);
-        SemType arrElemType = arrType.elemType;
+        SemType arrElemType;
+        if (arrExpr.array instanceof AbsVarName) {
+            AbsVarName arrName = (AbsVarName) arrExpr.array;
+            AbsVarDecl arrDecl = (AbsVarDecl) SemAn.declaredAt.get(arrName);
+            SemArrType arrType = (SemArrType) SemAn.isType.get(arrDecl.type);
+            arrElemType = arrType.elemType;
+        } else {
+            SemArrType arrType = (SemArrType) SemAn.ofType.get(arrExpr.array);
+            arrElemType = arrType.elemType;
+        }
 
         ImcCONST lenghtConst = new ImcCONST(arrElemType.size());
         ImcBINOP arrayIndexOffset = new ImcBINOP(Oper.MUL, arrayIndex, lenghtConst);

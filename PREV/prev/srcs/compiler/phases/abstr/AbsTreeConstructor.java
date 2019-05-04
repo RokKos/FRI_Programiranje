@@ -270,7 +270,13 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 				DerNode exprNode = (DerNode) node.subtree(0);
 				AbsExpr expr = (AbsExpr) exprNode.accept(this, null);
 				if (exprNode.label == Nont.Expr) {
-					return node.subtree(1).accept(this, expr);
+					AbsExpr cast = (AbsExpr) node.subtree(1).accept(this, expr);
+
+					if (node.subtrees().size() >= 3) {
+						return node.subtree(2).accept(this, cast);
+					}
+
+					return cast;
 				} else if (exprNode.label == Nont.PstfExpr) {
 					return node.subtree(1).accept(this, expr);
 				}

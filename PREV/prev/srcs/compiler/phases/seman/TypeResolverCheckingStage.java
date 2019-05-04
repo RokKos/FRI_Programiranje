@@ -132,6 +132,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
     public SemType visit(AbsBinExpr binExpr, Object visArg) {
         SemType firstType = (SemType) binExpr.fstExpr.accept(this, visArg);
         SemType secondType = (SemType) binExpr.sndExpr.accept(this, visArg);
+        firstType = firstType.actualType();
+        secondType = secondType.actualType();
 
         SemType binType;
 
@@ -172,7 +174,9 @@ public class TypeResolverCheckingStage extends TypeResolver {
                 if (!firstPtrType.ptdType.actualType().getClass()
                         .equals(secondPtrType.ptdType.actualType().getClass())) {
                     throw new Report.Error(binExpr.location(),
-                            "Binary operator ==, !=  is inbetween two expresions that don't have same PTD TYPE");
+                            "Binary operator ==, !=  is inbetween two expresions that don't have same PTD TYPE. PTD TYPES: "
+                                    + firstPtrType.ptdType.actualType().toString() + " "
+                                    + secondPtrType.ptdType.actualType().toString());
                 }
                 binType = new SemBoolType();
                 break;
@@ -323,7 +327,9 @@ public class TypeResolverCheckingStage extends TypeResolver {
         for (AbsExpr arg : args.args()) {
             SemType argType = (SemType) arg.accept(this, visArg);
             SemType actType = argType.actualType();
-            if (!(expectedParametersType.get(ind).getClass().equals(actType.getClass()))) {
+            SemType expectedType = expectedParametersType.get(ind);
+            expectedType = expectedType.actualType();
+            if (!(expectedType.getClass().equals(actType.getClass()))) {
                 throw new Report.Error(arg.location(),
                         "Arguments of function call doesn't match declared function arguments.");
             }
@@ -362,6 +368,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
     public SemType visit(AbsAssignStmt assignStmt, Object visArg) {
         SemType firstType = (SemType) assignStmt.dst.accept(this, visArg);
         SemType secondType = (SemType) assignStmt.src.accept(this, visArg);
+        firstType = firstType.actualType();
+        secondType = secondType.actualType();
 
         SemType assigmentType;
 
@@ -379,7 +387,8 @@ public class TypeResolverCheckingStage extends TypeResolver {
 
         } else {
             throw new Report.Error(assignStmt.location(),
-                    "Assigment between two expresions that don't have same TYPE (possible same types are INT, CHAR, BOOL)");
+                    "Assigment between two expresions that don't have same TYPE (possible same types are INT, CHAR, BOOL)\nTypes: "
+                            + firstType.toString() + " and " + secondType.toString() + " ");
         }
 
         return assigmentType;
