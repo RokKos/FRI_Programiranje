@@ -224,7 +224,7 @@ public class Interpreter {
 		@Override
 		public Long visit(ImcMEM imcMem, Object arg) {
 			if (debug) {
-				System.out.printf("###R Mem acc: %s\n", imcMem.addr);
+				System.out.printf("###ROK Mem acc: %s\n", imcMem.addr);
 			}
 			return memLD(imcMem.addr.accept(this, null));
 		}
@@ -273,6 +273,10 @@ public class Interpreter {
 			if (debug)
 				System.out.println(imcEStmt);
 			if (imcEStmt.expr instanceof ImcCALL) {
+				if (debug) {
+					ImcCALL funCall = (ImcCALL) imcEStmt.expr;
+					System.out.println("###ROK Function Call: " + funCall.label.name);
+				}
 				call((ImcCALL) imcEStmt.expr);
 				return null;
 			}
@@ -304,7 +308,7 @@ public class Interpreter {
 				if (imcMove.src instanceof ImcCALL) {
 					call((ImcCALL) imcMove.src);
 					if (debug) {
-						System.out.printf("###R Src acc: %s\n", imcMove.src.toString());
+						System.out.printf("###ROK Src acc: %s\n", imcMove.src.toString());
 					}
 					src = memLD(tempLD(SP));
 				} else
@@ -318,7 +322,7 @@ public class Interpreter {
 				if (imcMove.src instanceof ImcCALL) {
 					call((ImcCALL) imcMove.src);
 					if (debug) {
-						System.out.printf("###R Dest acc: %s\n", imcMove.dst.toString());
+						System.out.printf("###ROK Dest acc: %s\n", imcMove.dst.toString());
 					}
 					src = memLD(tempLD(SP));
 				} else
@@ -364,6 +368,10 @@ public class Interpreter {
 				return;
 			}
 			if (imcCall.label.name.equals("_putString")) {
+				if (debug) {
+					System.out.println("###ROK Put String");
+				}
+
 				Long addr = memLD(tempLD(SP, false) + 1 * 8, false);
 				do {
 					long c = memLD(addr, false);

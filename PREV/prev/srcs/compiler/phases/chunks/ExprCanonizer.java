@@ -41,6 +41,7 @@ public class ExprCanonizer implements ImcVisitor<ImcExpr, Vector<ImcStmt>> {
 
             ImcExpr argExpr = expr.accept(this, visArg);
             ImcTEMP temp = new ImcTEMP(new Temp());
+            args.add(temp);
             ImcStmt move = new ImcMOVE(temp, argExpr);
             visArg.add(move);
         }
@@ -67,7 +68,8 @@ public class ExprCanonizer implements ImcVisitor<ImcExpr, Vector<ImcStmt>> {
     public ImcExpr visit(ImcESTMT eStmt, Vector<ImcStmt> visArg) {
         // Vector<ImcStmt> stmts = eStmt.accept(new StmtCanonizer(), null);
         // visArg.addAll(stmts);
-        eStmt.expr.accept(this, visArg);
+        ImcExpr expr = eStmt.expr.accept(this, visArg);
+        visArg.add(new ImcESTMT(expr));
         return null;
     }
 

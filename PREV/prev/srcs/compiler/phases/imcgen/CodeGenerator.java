@@ -73,8 +73,8 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
         case STR:
             ImcMEM memAcces = AccesToMemory(Frames.strings.get(atomExpr), visArg);
-            ImcGen.exprImCode.put(atomExpr, memAcces);
-            return memAcces;
+            ImcGen.exprImCode.put(atomExpr, memAcces.addr);
+            return memAcces.addr;
 
         case INT:
             ImcCONST intConst = new ImcCONST(Long.parseLong(atomExpr.expr));
