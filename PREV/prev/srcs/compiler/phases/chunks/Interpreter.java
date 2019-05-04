@@ -348,6 +348,10 @@ public class Interpreter {
 				offset += 8;
 			}
 			if (imcCall.label.name.equals("_new")) {
+				if (debug) {
+					System.out.println("###ROK Call new allocation");
+				}
+
 				Long size = memLD(tempLD(SP, false) + 1 * 8, false);
 				Long addr = tempLD(HP);
 				tempST(HP, addr + size);

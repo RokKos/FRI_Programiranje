@@ -1,0 +1,1211 @@
+'rm' -fr -fr compiler module-info.class
+javac -sourcepath ../../srcs -d . ../../srcs/compiler/Main.java
+echo ; \
+for SRC in `'ls' -1 *.prev` ; do \
+	echo "TEST $SRC:" ; \
+	java -classpath . compiler.Main $SRC --target-phase=chunks --logged-phase=chunks --xsl=../../data/ ; \
+	echo ; \
+done ; \
+for XML in `'ls' -1 *.xml` ; do \
+	xsltproc $XML > `basename $XML .xml`.html ; \
+done ;
+
+TEST a_plus_b.prev:
+:-) This is PREV compiler:
+:-) Done.
+### SP <- -16
+### HP <- 2305843009213693952
+### _i @ 2305843009213693952
+### HP <- 2305843009213693960
+###
+###
+### CALL: _main
+### -16 <- SP
+### FP <- -16
+### -16 <- SP
+### SP <- -40
+### _main (1):
+compiler.data.imcode.ImcLABEL@5acf9800
+### _main (2):
+compiler.data.imcode.ImcMOVE@4617c264
+### T2 <- 5
+### _main (3):
+compiler.data.imcode.ImcMOVE@7a81197d
+### T3 <- 5
+### _main (4):
+compiler.data.imcode.ImcMOVE@24d46ca6
+### 5 <- T2
+### 5 <- T3
+### T4 <- 10
+### _main (5):
+compiler.data.imcode.ImcMOVE@372f7a8d
+### -16 <- FP
+### T5 <- -16
+### _main (6):
+compiler.data.imcode.ImcMOVE@28a418fc
+### T6 <- -8
+### _main (7):
+compiler.data.imcode.ImcMOVE@1f32e575
+### -16 <- T5
+### -8 <- T6
+### T7 <- -24
+### _main (8):
+compiler.data.imcode.ImcMOVE@2ff4acd0
+### -24 <- T7
+### 10 <- T4
+### [-24] <- 10
+### _main (9):
+compiler.data.imcode.ImcMOVE@54bedef2
+### -16 <- FP
+### T8 <- -16
+### _main (10):
+compiler.data.imcode.ImcMOVE@27716f4
+### T9 <- -8
+### _main (11):
+compiler.data.imcode.ImcMOVE@2a84aee7
+### -16 <- T8
+### -8 <- T9
+### T10 <- -24
+### _main (12):
+compiler.data.imcode.ImcMOVE@30f39991
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@452b3a41
+### -24 <- T10
+### 10 <- [-24]
+### RV <- 10
+### _main (13):
+compiler.data.imcode.ImcJUMP@f6f4d33
+### -16 <- FP
+### 10 <- RV
+### [-16] <- 10
+### -40 <- SP
+### SP <- -16
+### 2305843009213693960 <- HP
+### HP <- 2305843009213693960
+### RETURN: _main
+###
+### -16 <- SP
+### 10 <- [-16]
+
+TEST faktoriela.prev:
+:-) This is PREV compiler:
+:-) Done.
+### SP <- -16
+### HP <- 2305843009213693952
+###
+###
+### CALL: _main
+### -16 <- SP
+### FP <- -16
+### -16 <- SP
+### SP <- -48
+### _main (1):
+compiler.data.imcode.ImcLABEL@452b3a41
+### _main (2):
+compiler.data.imcode.ImcESTMT@4a574795
+### _main (3):
+compiler.data.imcode.ImcMOVE@f6f4d33
+### -16 <- FP
+### T4 <- -16
+### _main (4):
+compiler.data.imcode.ImcMOVE@3f99bd52
+### T5 <- 5
+### _main (5):
+compiler.data.imcode.ImcMOVE@3a71f4dd
+### -16 <- T4
+### -48 <- SP
+### [-48] <- -16
+### 5 <- T5
+### -48 <- SP
+### [-40] <- 5
+###
+### CALL: L0
+### -48 <- SP
+### FP <- -48
+### -48 <- SP
+### SP <- -88
+### L0 (1):
+compiler.data.imcode.ImcLABEL@85ede7b
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5674cd4d
+### -48 <- FP
+### T6 <- -48
+### L0 (3):
+compiler.data.imcode.ImcMOVE@65b54208
+### T7 <- 8
+### L0 (4):
+compiler.data.imcode.ImcMOVE@6b884d57
+### -48 <- T6
+### 8 <- T7
+### T8 <- -40
+### L0 (5):
+compiler.data.imcode.ImcMOVE@77459877
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b2133b1
+### -40 <- T8
+### 5 <- [-40]
+### T9 <- 5
+### L0 (6):
+compiler.data.imcode.ImcMOVE@33c7353a
+### T10 <- 1
+### L0 (7):
+compiler.data.imcode.ImcMOVE@3af49f1c
+### 5 <- T9
+### 1 <- T10
+### T11 <- 0
+### L0 (8):
+compiler.data.imcode.ImcCJUMP@13221655
+### 0 <- T11
+### L0 (9):
+compiler.data.imcode.ImcLABEL@2f2c9b19
+### L0 (10):
+compiler.data.imcode.ImcMOVE@31befd9f
+### -16 <- T2
+### T16 <- -16
+### L0 (11):
+compiler.data.imcode.ImcMOVE@1fb3ebeb
+### -48 <- FP
+### T17 <- -48
+### L0 (12):
+compiler.data.imcode.ImcMOVE@1218025c
+### T18 <- 8
+### L0 (13):
+compiler.data.imcode.ImcMOVE@87aac27
+### -48 <- T17
+### 8 <- T18
+### T19 <- -40
+### L0 (14):
+compiler.data.imcode.ImcMOVE@6ce253f1
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@53d8d10a
+### -40 <- T19
+### 5 <- [-40]
+### T20 <- 5
+### L0 (15):
+compiler.data.imcode.ImcMOVE@65ab7765
+### T21 <- 1
+### L0 (16):
+compiler.data.imcode.ImcMOVE@eed1f14
+### 5 <- T20
+### 1 <- T21
+### T22 <- 4
+### L0 (17):
+compiler.data.imcode.ImcMOVE@4c873330
+### -16 <- T16
+### -88 <- SP
+### [-88] <- -16
+### 4 <- T22
+### -88 <- SP
+### [-80] <- 4
+###
+### CALL: L0
+### -88 <- SP
+### FP <- -88
+### -88 <- SP
+### SP <- -128
+### L0 (1):
+compiler.data.imcode.ImcLABEL@85ede7b
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5674cd4d
+### -88 <- FP
+### T6 <- -88
+### L0 (3):
+compiler.data.imcode.ImcMOVE@65b54208
+### T7 <- 8
+### L0 (4):
+compiler.data.imcode.ImcMOVE@6b884d57
+### -88 <- T6
+### 8 <- T7
+### T8 <- -80
+### L0 (5):
+compiler.data.imcode.ImcMOVE@77459877
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b2133b1
+### -80 <- T8
+### 4 <- [-80]
+### T9 <- 4
+### L0 (6):
+compiler.data.imcode.ImcMOVE@33c7353a
+### T10 <- 1
+### L0 (7):
+compiler.data.imcode.ImcMOVE@3af49f1c
+### 4 <- T9
+### 1 <- T10
+### T11 <- 0
+### L0 (8):
+compiler.data.imcode.ImcCJUMP@13221655
+### 0 <- T11
+### L0 (9):
+compiler.data.imcode.ImcLABEL@2f2c9b19
+### L0 (10):
+compiler.data.imcode.ImcMOVE@31befd9f
+### -16 <- T2
+### T16 <- -16
+### L0 (11):
+compiler.data.imcode.ImcMOVE@1fb3ebeb
+### -88 <- FP
+### T17 <- -88
+### L0 (12):
+compiler.data.imcode.ImcMOVE@1218025c
+### T18 <- 8
+### L0 (13):
+compiler.data.imcode.ImcMOVE@87aac27
+### -88 <- T17
+### 8 <- T18
+### T19 <- -80
+### L0 (14):
+compiler.data.imcode.ImcMOVE@6ce253f1
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@53d8d10a
+### -80 <- T19
+### 4 <- [-80]
+### T20 <- 4
+### L0 (15):
+compiler.data.imcode.ImcMOVE@65ab7765
+### T21 <- 1
+### L0 (16):
+compiler.data.imcode.ImcMOVE@eed1f14
+### 4 <- T20
+### 1 <- T21
+### T22 <- 3
+### L0 (17):
+compiler.data.imcode.ImcMOVE@4c873330
+### -16 <- T16
+### -128 <- SP
+### [-128] <- -16
+### 3 <- T22
+### -128 <- SP
+### [-120] <- 3
+###
+### CALL: L0
+### -128 <- SP
+### FP <- -128
+### -128 <- SP
+### SP <- -168
+### L0 (1):
+compiler.data.imcode.ImcLABEL@85ede7b
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5674cd4d
+### -128 <- FP
+### T6 <- -128
+### L0 (3):
+compiler.data.imcode.ImcMOVE@65b54208
+### T7 <- 8
+### L0 (4):
+compiler.data.imcode.ImcMOVE@6b884d57
+### -128 <- T6
+### 8 <- T7
+### T8 <- -120
+### L0 (5):
+compiler.data.imcode.ImcMOVE@77459877
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b2133b1
+### -120 <- T8
+### 3 <- [-120]
+### T9 <- 3
+### L0 (6):
+compiler.data.imcode.ImcMOVE@33c7353a
+### T10 <- 1
+### L0 (7):
+compiler.data.imcode.ImcMOVE@3af49f1c
+### 3 <- T9
+### 1 <- T10
+### T11 <- 0
+### L0 (8):
+compiler.data.imcode.ImcCJUMP@13221655
+### 0 <- T11
+### L0 (9):
+compiler.data.imcode.ImcLABEL@2f2c9b19
+### L0 (10):
+compiler.data.imcode.ImcMOVE@31befd9f
+### -16 <- T2
+### T16 <- -16
+### L0 (11):
+compiler.data.imcode.ImcMOVE@1fb3ebeb
+### -128 <- FP
+### T17 <- -128
+### L0 (12):
+compiler.data.imcode.ImcMOVE@1218025c
+### T18 <- 8
+### L0 (13):
+compiler.data.imcode.ImcMOVE@87aac27
+### -128 <- T17
+### 8 <- T18
+### T19 <- -120
+### L0 (14):
+compiler.data.imcode.ImcMOVE@6ce253f1
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@53d8d10a
+### -120 <- T19
+### 3 <- [-120]
+### T20 <- 3
+### L0 (15):
+compiler.data.imcode.ImcMOVE@65ab7765
+### T21 <- 1
+### L0 (16):
+compiler.data.imcode.ImcMOVE@eed1f14
+### 3 <- T20
+### 1 <- T21
+### T22 <- 2
+### L0 (17):
+compiler.data.imcode.ImcMOVE@4c873330
+### -16 <- T16
+### -168 <- SP
+### [-168] <- -16
+### 2 <- T22
+### -168 <- SP
+### [-160] <- 2
+###
+### CALL: L0
+### -168 <- SP
+### FP <- -168
+### -168 <- SP
+### SP <- -208
+### L0 (1):
+compiler.data.imcode.ImcLABEL@85ede7b
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5674cd4d
+### -168 <- FP
+### T6 <- -168
+### L0 (3):
+compiler.data.imcode.ImcMOVE@65b54208
+### T7 <- 8
+### L0 (4):
+compiler.data.imcode.ImcMOVE@6b884d57
+### -168 <- T6
+### 8 <- T7
+### T8 <- -160
+### L0 (5):
+compiler.data.imcode.ImcMOVE@77459877
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b2133b1
+### -160 <- T8
+### 2 <- [-160]
+### T9 <- 2
+### L0 (6):
+compiler.data.imcode.ImcMOVE@33c7353a
+### T10 <- 1
+### L0 (7):
+compiler.data.imcode.ImcMOVE@3af49f1c
+### 2 <- T9
+### 1 <- T10
+### T11 <- 0
+### L0 (8):
+compiler.data.imcode.ImcCJUMP@13221655
+### 0 <- T11
+### L0 (9):
+compiler.data.imcode.ImcLABEL@2f2c9b19
+### L0 (10):
+compiler.data.imcode.ImcMOVE@31befd9f
+### -16 <- T2
+### T16 <- -16
+### L0 (11):
+compiler.data.imcode.ImcMOVE@1fb3ebeb
+### -168 <- FP
+### T17 <- -168
+### L0 (12):
+compiler.data.imcode.ImcMOVE@1218025c
+### T18 <- 8
+### L0 (13):
+compiler.data.imcode.ImcMOVE@87aac27
+### -168 <- T17
+### 8 <- T18
+### T19 <- -160
+### L0 (14):
+compiler.data.imcode.ImcMOVE@6ce253f1
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@53d8d10a
+### -160 <- T19
+### 2 <- [-160]
+### T20 <- 2
+### L0 (15):
+compiler.data.imcode.ImcMOVE@65ab7765
+### T21 <- 1
+### L0 (16):
+compiler.data.imcode.ImcMOVE@eed1f14
+### 2 <- T20
+### 1 <- T21
+### T22 <- 1
+### L0 (17):
+compiler.data.imcode.ImcMOVE@4c873330
+### -16 <- T16
+### -208 <- SP
+### [-208] <- -16
+### 1 <- T22
+### -208 <- SP
+### [-200] <- 1
+###
+### CALL: L0
+### -208 <- SP
+### FP <- -208
+### -208 <- SP
+### SP <- -248
+### L0 (1):
+compiler.data.imcode.ImcLABEL@85ede7b
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5674cd4d
+### -208 <- FP
+### T6 <- -208
+### L0 (3):
+compiler.data.imcode.ImcMOVE@65b54208
+### T7 <- 8
+### L0 (4):
+compiler.data.imcode.ImcMOVE@6b884d57
+### -208 <- T6
+### 8 <- T7
+### T8 <- -200
+### L0 (5):
+compiler.data.imcode.ImcMOVE@77459877
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b2133b1
+### -200 <- T8
+### 1 <- [-200]
+### T9 <- 1
+### L0 (6):
+compiler.data.imcode.ImcMOVE@33c7353a
+### T10 <- 1
+### L0 (7):
+compiler.data.imcode.ImcMOVE@3af49f1c
+### 1 <- T9
+### 1 <- T10
+### T11 <- 1
+### L0 (8):
+compiler.data.imcode.ImcCJUMP@13221655
+### 1 <- T11
+### L0 (9):
+compiler.data.imcode.ImcLABEL@119d7047
+### L0 (10):
+compiler.data.imcode.ImcMOVE@776ec8df
+### T12 <- 1
+### L0 (11):
+compiler.data.imcode.ImcMOVE@3b07d329
+### -208 <- FP
+### T13 <- -208
+### L0 (12):
+compiler.data.imcode.ImcMOVE@404b9385
+### T14 <- -8
+### L0 (13):
+compiler.data.imcode.ImcMOVE@682a0b20
+### -208 <- T13
+### -8 <- T14
+### T15 <- -216
+### L0 (14):
+compiler.data.imcode.ImcMOVE@214c265e
+### -216 <- T15
+### 1 <- T12
+### [-216] <- 1
+### L0 (15):
+compiler.data.imcode.ImcJUMP@448139f0
+### L0 (16):
+compiler.data.imcode.ImcLABEL@7cca494b
+### L0 (17):
+compiler.data.imcode.ImcMOVE@7ba4f24f
+### -208 <- FP
+### T32 <- -208
+### L0 (18):
+compiler.data.imcode.ImcMOVE@7699a589
+### T33 <- -8
+### L0 (19):
+compiler.data.imcode.ImcMOVE@4dd8dc3
+### -208 <- T32
+### -8 <- T33
+### T34 <- -216
+### L0 (20):
+compiler.data.imcode.ImcMOVE@568db2f2
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@378bf509
+### -216 <- T34
+### 1 <- [-216]
+### RV <- 1
+### L0 (21):
+compiler.data.imcode.ImcJUMP@2d98a335
+### -208 <- FP
+### 1 <- RV
+### [-208] <- 1
+### -248 <- SP
+### SP <- -208
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@16b98e56
+### -208 <- SP
+### 1 <- [-208]
+### T23 <- 1
+### L0 (18):
+compiler.data.imcode.ImcMOVE@27d6c5e0
+### -168 <- T0
+### T24 <- -168
+### L0 (19):
+compiler.data.imcode.ImcMOVE@15aeb7ab
+### T25 <- 8
+### L0 (20):
+compiler.data.imcode.ImcMOVE@6acbcfc0
+### -168 <- T24
+### 8 <- T25
+### T26 <- -160
+### L0 (21):
+compiler.data.imcode.ImcMOVE@3feba861
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b480cf9
+### -160 <- T26
+### 2 <- [-160]
+### T27 <- 2
+### L0 (22):
+compiler.data.imcode.ImcMOVE@723279cf
+### 1 <- T23
+### 2 <- T27
+### T28 <- 2
+### L0 (23):
+compiler.data.imcode.ImcMOVE@b4c966a
+### -168 <- T0
+### T29 <- -168
+### L0 (24):
+compiler.data.imcode.ImcMOVE@4e50df2e
+### T30 <- -8
+### L0 (25):
+compiler.data.imcode.ImcMOVE@7291c18f
+### -168 <- T29
+### -8 <- T30
+### T31 <- -176
+### L0 (26):
+compiler.data.imcode.ImcMOVE@7cc355be
+### -176 <- T31
+### 2 <- T28
+### [-176] <- 2
+### L0 (27):
+compiler.data.imcode.ImcLABEL@7cca494b
+### L0 (28):
+compiler.data.imcode.ImcMOVE@7ba4f24f
+### -168 <- T0
+### T32 <- -168
+### L0 (29):
+compiler.data.imcode.ImcMOVE@7699a589
+### T33 <- -8
+### L0 (30):
+compiler.data.imcode.ImcMOVE@4dd8dc3
+### -168 <- T32
+### -8 <- T33
+### T34 <- -176
+### L0 (31):
+compiler.data.imcode.ImcMOVE@568db2f2
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@378bf509
+### -176 <- T34
+### 2 <- [-176]
+### T1 <- 2
+### L0 (32):
+compiler.data.imcode.ImcJUMP@2d98a335
+### -168 <- T0
+### 2 <- T1
+### [-168] <- 2
+### -208 <- SP
+### SP <- -168
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@16b98e56
+### -168 <- SP
+### 2 <- [-168]
+### T23 <- 2
+### L0 (18):
+compiler.data.imcode.ImcMOVE@27d6c5e0
+### -128 <- T0
+### T24 <- -128
+### L0 (19):
+compiler.data.imcode.ImcMOVE@15aeb7ab
+### T25 <- 8
+### L0 (20):
+compiler.data.imcode.ImcMOVE@6acbcfc0
+### -128 <- T24
+### 8 <- T25
+### T26 <- -120
+### L0 (21):
+compiler.data.imcode.ImcMOVE@3feba861
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b480cf9
+### -120 <- T26
+### 3 <- [-120]
+### T27 <- 3
+### L0 (22):
+compiler.data.imcode.ImcMOVE@723279cf
+### 2 <- T23
+### 3 <- T27
+### T28 <- 6
+### L0 (23):
+compiler.data.imcode.ImcMOVE@b4c966a
+### -128 <- T0
+### T29 <- -128
+### L0 (24):
+compiler.data.imcode.ImcMOVE@4e50df2e
+### T30 <- -8
+### L0 (25):
+compiler.data.imcode.ImcMOVE@7291c18f
+### -128 <- T29
+### -8 <- T30
+### T31 <- -136
+### L0 (26):
+compiler.data.imcode.ImcMOVE@7cc355be
+### -136 <- T31
+### 6 <- T28
+### [-136] <- 6
+### L0 (27):
+compiler.data.imcode.ImcLABEL@7cca494b
+### L0 (28):
+compiler.data.imcode.ImcMOVE@7ba4f24f
+### -128 <- T0
+### T32 <- -128
+### L0 (29):
+compiler.data.imcode.ImcMOVE@7699a589
+### T33 <- -8
+### L0 (30):
+compiler.data.imcode.ImcMOVE@4dd8dc3
+### -128 <- T32
+### -8 <- T33
+### T34 <- -136
+### L0 (31):
+compiler.data.imcode.ImcMOVE@568db2f2
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@378bf509
+### -136 <- T34
+### 6 <- [-136]
+### T1 <- 6
+### L0 (32):
+compiler.data.imcode.ImcJUMP@2d98a335
+### -128 <- T0
+### 6 <- T1
+### [-128] <- 6
+### -168 <- SP
+### SP <- -128
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@16b98e56
+### -128 <- SP
+### 6 <- [-128]
+### T23 <- 6
+### L0 (18):
+compiler.data.imcode.ImcMOVE@27d6c5e0
+### -88 <- T0
+### T24 <- -88
+### L0 (19):
+compiler.data.imcode.ImcMOVE@15aeb7ab
+### T25 <- 8
+### L0 (20):
+compiler.data.imcode.ImcMOVE@6acbcfc0
+### -88 <- T24
+### 8 <- T25
+### T26 <- -80
+### L0 (21):
+compiler.data.imcode.ImcMOVE@3feba861
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b480cf9
+### -80 <- T26
+### 4 <- [-80]
+### T27 <- 4
+### L0 (22):
+compiler.data.imcode.ImcMOVE@723279cf
+### 6 <- T23
+### 4 <- T27
+### T28 <- 24
+### L0 (23):
+compiler.data.imcode.ImcMOVE@b4c966a
+### -88 <- T0
+### T29 <- -88
+### L0 (24):
+compiler.data.imcode.ImcMOVE@4e50df2e
+### T30 <- -8
+### L0 (25):
+compiler.data.imcode.ImcMOVE@7291c18f
+### -88 <- T29
+### -8 <- T30
+### T31 <- -96
+### L0 (26):
+compiler.data.imcode.ImcMOVE@7cc355be
+### -96 <- T31
+### 24 <- T28
+### [-96] <- 24
+### L0 (27):
+compiler.data.imcode.ImcLABEL@7cca494b
+### L0 (28):
+compiler.data.imcode.ImcMOVE@7ba4f24f
+### -88 <- T0
+### T32 <- -88
+### L0 (29):
+compiler.data.imcode.ImcMOVE@7699a589
+### T33 <- -8
+### L0 (30):
+compiler.data.imcode.ImcMOVE@4dd8dc3
+### -88 <- T32
+### -8 <- T33
+### T34 <- -96
+### L0 (31):
+compiler.data.imcode.ImcMOVE@568db2f2
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@378bf509
+### -96 <- T34
+### 24 <- [-96]
+### T1 <- 24
+### L0 (32):
+compiler.data.imcode.ImcJUMP@2d98a335
+### -88 <- T0
+### 24 <- T1
+### [-88] <- 24
+### -128 <- SP
+### SP <- -88
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@16b98e56
+### -88 <- SP
+### 24 <- [-88]
+### T23 <- 24
+### L0 (18):
+compiler.data.imcode.ImcMOVE@27d6c5e0
+### -48 <- T0
+### T24 <- -48
+### L0 (19):
+compiler.data.imcode.ImcMOVE@15aeb7ab
+### T25 <- 8
+### L0 (20):
+compiler.data.imcode.ImcMOVE@6acbcfc0
+### -48 <- T24
+### 8 <- T25
+### T26 <- -40
+### L0 (21):
+compiler.data.imcode.ImcMOVE@3feba861
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5b480cf9
+### -40 <- T26
+### 5 <- [-40]
+### T27 <- 5
+### L0 (22):
+compiler.data.imcode.ImcMOVE@723279cf
+### 24 <- T23
+### 5 <- T27
+### T28 <- 120
+### L0 (23):
+compiler.data.imcode.ImcMOVE@b4c966a
+### -48 <- T0
+### T29 <- -48
+### L0 (24):
+compiler.data.imcode.ImcMOVE@4e50df2e
+### T30 <- -8
+### L0 (25):
+compiler.data.imcode.ImcMOVE@7291c18f
+### -48 <- T29
+### -8 <- T30
+### T31 <- -56
+### L0 (26):
+compiler.data.imcode.ImcMOVE@7cc355be
+### -56 <- T31
+### 120 <- T28
+### [-56] <- 120
+### L0 (27):
+compiler.data.imcode.ImcLABEL@7cca494b
+### L0 (28):
+compiler.data.imcode.ImcMOVE@7ba4f24f
+### -48 <- T0
+### T32 <- -48
+### L0 (29):
+compiler.data.imcode.ImcMOVE@7699a589
+### T33 <- -8
+### L0 (30):
+compiler.data.imcode.ImcMOVE@4dd8dc3
+### -48 <- T32
+### -8 <- T33
+### T34 <- -56
+### L0 (31):
+compiler.data.imcode.ImcMOVE@568db2f2
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@378bf509
+### -56 <- T34
+### 120 <- [-56]
+### T1 <- 120
+### L0 (32):
+compiler.data.imcode.ImcJUMP@2d98a335
+### -48 <- T0
+### 120 <- T1
+### [-48] <- 120
+### -88 <- SP
+### SP <- -48
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@6e8cf4c6
+### -48 <- SP
+### 120 <- [-48]
+### T3 <- 120
+### _main (6):
+compiler.data.imcode.ImcJUMP@34c45dca
+### -16 <- T2
+### 120 <- T3
+### [-16] <- 120
+### -48 <- SP
+### SP <- -16
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: _main
+###
+### -16 <- SP
+### 120 <- [-16]
+
+TEST fucking_huge_dump_test.prev:
+:-) This is PREV compiler:
+
+TEST HelloWorld.prev:
+:-) This is PREV compiler:
+:-) Done.
+### SP <- -16
+### HP <- 2305843009213693952
+### L3 @ 2305843009213693952
+### HP <- 2305843009213693964
+###
+###
+### CALL: _main
+### -16 <- SP
+### FP <- -16
+### -16 <- SP
+### SP <- -48
+### _main (1):
+compiler.data.imcode.ImcLABEL@279f2327
+### _main (2):
+compiler.data.imcode.ImcMOVE@2ff4acd0
+### T8 <- 0
+### _main (3):
+compiler.data.imcode.ImcMOVE@5caf905d
+### T9 <- 2305843009213693952
+### _main (4):
+compiler.data.imcode.ImcESTMT@8efb846
+###ROK Function Call: _putString
+### 0 <- T8
+### -48 <- SP
+### [-48] <- 0
+### 2305843009213693952 <- T9
+### -48 <- SP
+### [-40] <- 2305843009213693952
+###ROK Put String
+Hello World### _main (5):
+compiler.data.imcode.ImcMOVE@2a84aee7
+### T10 <- 0
+### _main (6):
+compiler.data.imcode.ImcMOVE@30f39991
+### T11 <- 10
+### _main (7):
+compiler.data.imcode.ImcMOVE@4a574795
+### T12 <- 256
+### _main (8):
+compiler.data.imcode.ImcMOVE@23fc625e
+### 10 <- T11
+### 256 <- T12
+### T13 <- 10
+### _main (9):
+compiler.data.imcode.ImcESTMT@4f023edb
+###ROK Function Call: _putChar
+### 0 <- T10
+### -48 <- SP
+### [-48] <- 0
+### 10 <- T13
+### -48 <- SP
+### [-40] <- 10
+
+### _main (10):
+compiler.data.imcode.ImcMOVE@3a71f4dd
+### RV <- 42
+### _main (11):
+compiler.data.imcode.ImcJUMP@85ede7b
+### -16 <- FP
+### 42 <- RV
+### [-16] <- 42
+### -48 <- SP
+### SP <- -16
+### 2305843009213693964 <- HP
+### HP <- 2305843009213693964
+### RETURN: _main
+###
+### -16 <- SP
+### 42 <- [-16]
+
+TEST rok_test.prev:
+:-) This is PREV compiler:
+:-) Done.
+### SP <- -16
+### HP <- 2305843009213693952
+###
+###
+### CALL: _main
+### -16 <- SP
+### FP <- -16
+### -16 <- SP
+### SP <- -64
+### _main (1):
+compiler.data.imcode.ImcLABEL@3b07d329
+### _main (2):
+compiler.data.imcode.ImcMOVE@41629346
+### -16 <- FP
+### T8 <- -16
+### _main (3):
+compiler.data.imcode.ImcMOVE@6d311334
+### T9 <- 1
+### _main (4):
+compiler.data.imcode.ImcMOVE@3d075dc0
+### T10 <- 2
+### _main (5):
+compiler.data.imcode.ImcMOVE@448139f0
+### T11 <- 4
+### _main (6):
+compiler.data.imcode.ImcESTMT@7ba4f24f
+###ROK Function Call: L2
+### -16 <- T8
+### -64 <- SP
+### [-64] <- -16
+### 1 <- T9
+### -64 <- SP
+### [-56] <- 1
+### 2 <- T10
+### -64 <- SP
+### [-48] <- 2
+### 4 <- T11
+### -64 <- SP
+### [-40] <- 4
+###
+### CALL: L2
+### -64 <- SP
+### FP <- -64
+### -64 <- SP
+### SP <- -104
+### L2 (1):
+compiler.data.imcode.ImcLABEL@7699a589
+### L2 (2):
+compiler.data.imcode.ImcMOVE@58372a00
+### -64 <- FP
+### T16 <- -64
+### L2 (3):
+compiler.data.imcode.ImcMOVE@6d03e736
+### -64 <- T16
+### -104 <- SP
+### [-104] <- -64
+###
+### CALL: L0
+### -104 <- SP
+### FP <- -104
+### -104 <- SP
+### SP <- -120
+### L0 (1):
+compiler.data.imcode.ImcLABEL@378bf509
+### L0 (2):
+compiler.data.imcode.ImcMOVE@5fd0d5ae
+### RV <- 3
+### L0 (3):
+compiler.data.imcode.ImcJUMP@16b98e56
+### -104 <- FP
+### 3 <- RV
+### [-104] <- 3
+### -120 <- SP
+### SP <- -104
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693952
+### RETURN: L0
+###
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@7ef20235
+### -104 <- SP
+### 3 <- [-104]
+### T17 <- 3
+### L2 (4):
+compiler.data.imcode.ImcMOVE@4f3f5b24
+### -64 <- T4
+### T18 <- -64
+### L2 (5):
+compiler.data.imcode.ImcMOVE@7b23ec81
+### T19 <- 16
+### L2 (6):
+compiler.data.imcode.ImcMOVE@5f184fc6
+### -64 <- T18
+### 16 <- T19
+### T20 <- -48
+### L2 (7):
+compiler.data.imcode.ImcMOVE@5b480cf9
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@6f496d9f
+### -48 <- T20
+### 2 <- [-48]
+### T21 <- 2
+### L2 (8):
+compiler.data.imcode.ImcMOVE@10f87f48
+### 3 <- T17
+### 2 <- T21
+### T22 <- 5
+### L2 (9):
+compiler.data.imcode.ImcMOVE@2f4d3709
+### -64 <- T4
+### T23 <- -64
+### L2 (10):
+compiler.data.imcode.ImcMOVE@1d81eb93
+### T24 <- 8
+### L2 (11):
+compiler.data.imcode.ImcMOVE@34a245ab
+### -64 <- T23
+### 8 <- T24
+### T25 <- -56
+### L2 (12):
+compiler.data.imcode.ImcMOVE@6e8cf4c6
+### -56 <- T25
+### 5 <- T22
+### [-56] <- 5
+### L2 (13):
+compiler.data.imcode.ImcMOVE@12edcd21
+### -64 <- T4
+### T26 <- -64
+### L2 (14):
+compiler.data.imcode.ImcMOVE@52cc8049
+### T27 <- 8
+### L2 (15):
+compiler.data.imcode.ImcMOVE@27973e9b
+### -64 <- T26
+### 8 <- T27
+### T28 <- -56
+### L2 (16):
+compiler.data.imcode.ImcMOVE@7530d0a
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@27bc2616
+### -56 <- T28
+### 5 <- [-56]
+### T29 <- 5
+### L2 (17):
+compiler.data.imcode.ImcMOVE@506e1b77
+### T30 <- 1
+### L2 (18):
+compiler.data.imcode.ImcMOVE@9807454
+### 5 <- T29
+### 1 <- T30
+### T31 <- 6
+### L2 (19):
+compiler.data.imcode.ImcMOVE@1ddc4ec2
+### -64 <- T4
+### T32 <- -64
+### L2 (20):
+compiler.data.imcode.ImcMOVE@b1bc7ed
+### T33 <- 24
+### L2 (21):
+compiler.data.imcode.ImcMOVE@30dae81
+### -64 <- T32
+### 24 <- T33
+### T34 <- -40
+### L2 (22):
+compiler.data.imcode.ImcMOVE@4edde6e5
+### -40 <- T34
+### 6 <- T31
+### [-40] <- 6
+### L2 (23):
+compiler.data.imcode.ImcMOVE@70177ecd
+### -64 <- T4
+### T35 <- -64
+### L2 (24):
+compiler.data.imcode.ImcMOVE@66a29884
+### T36 <- 0
+### L2 (25):
+compiler.data.imcode.ImcMOVE@cc34f4d
+### T37 <- 0
+### L2 (26):
+compiler.data.imcode.ImcMOVE@65b3120a
+### T38 <- 8
+### L2 (27):
+compiler.data.imcode.ImcMOVE@79fc0f2f
+### 0 <- T37
+### -104 <- SP
+### [-104] <- 0
+### 8 <- T38
+### -104 <- SP
+### [-96] <- 8
+###ROK Call new allocation
+### 2305843009213693952 <- HP
+### HP <- 2305843009213693960
+### -104 <- SP
+###ROK Dest acc: compiler.data.imcode.ImcTEMP@50040f0c
+### -104 <- SP
+### 2305843009213693952 <- [-104]
+### T39 <- 2305843009213693952
+### L2 (28):
+compiler.data.imcode.ImcESTMT@5e9f23b4
+###ROK Function Call: L1
+### -64 <- T35
+### -104 <- SP
+### [-104] <- -64
+### 0 <- T36
+### -104 <- SP
+### [-96] <- 0
+### 2305843009213693952 <- T39
+### -104 <- SP
+### [-88] <- 2305843009213693952
+###
+### CALL: L1
+### -104 <- SP
+### FP <- -104
+### -104 <- SP
+### SP <- -120
+### L1 (1):
+compiler.data.imcode.ImcLABEL@378fd1ac
+### L1 (2):
+compiler.data.imcode.ImcMOVE@49097b5d
+### -104 <- FP
+### T43 <- -104
+### L1 (3):
+compiler.data.imcode.ImcMOVE@37a71e93
+### T44 <- 8
+### L1 (4):
+compiler.data.imcode.ImcMOVE@7c3df479
+### -104 <- T43
+### 8 <- T44
+### T45 <- -96
+### L1 (5):
+compiler.data.imcode.ImcMOVE@7eda2dbb
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@6576fe71
+### -96 <- T45
+### 0 <- [-96]
+### T46 <- 0
+### L1 (6):
+compiler.data.imcode.ImcCJUMP@300ffa5d
+### 0 <- T46
+### L1 (7):
+compiler.data.imcode.ImcLABEL@1f17ae12
+### L1 (8):
+compiler.data.imcode.ImcMOVE@4d405ef7
+### -104 <- FP
+### T58 <- -104
+### L1 (9):
+compiler.data.imcode.ImcMOVE@2e817b38
+### T59 <- 16
+### L1 (10):
+compiler.data.imcode.ImcMOVE@433c675d
+### -104 <- T58
+### 16 <- T59
+### T60 <- -88
+### L1 (11):
+compiler.data.imcode.ImcMOVE@1a6c5a9e
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@37bba400
+### -88 <- T60
+### 2305843009213693952 <- [-88]
+### T61 <- 2305843009213693952
+### L1 (12):
+compiler.data.imcode.ImcMOVE@254989ff
+###ROK Mem acc: compiler.data.imcode.ImcTEMP@5d099f62
+### 2305843009213693952 <- T61
+
+TEST test-01.prev:
+:-) This is PREV compiler:
+:-) Done.
+### SP <- -16
+### HP <- 2305843009213693952
+### _i @ 2305843009213693952
+### HP <- 2305843009213693960
+### L0 @ 2305843009213693960
+### HP <- 2305843009213693964
+###
+###
+### CALL: _main
+### -16 <- SP
+### FP <- -16
+### -16 <- SP
+### SP <- -32
+### _main (1):
+compiler.data.imcode.ImcLABEL@3fee733d
+### _main (2):
+compiler.data.imcode.ImcMOVE@5acf9800
+### RV <- 2305843009213693960
+### _main (3):
+compiler.data.imcode.ImcJUMP@36baf30c
+### -16 <- FP
+### 2305843009213693960 <- RV
+### [-16] <- 2305843009213693960
+### -32 <- SP
+### SP <- -16
+### 2305843009213693964 <- HP
+### HP <- 2305843009213693964
+### RETURN: _main
+###
+### -16 <- SP
+### 2305843009213693960 <- [-16]
+

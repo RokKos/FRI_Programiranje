@@ -17,14 +17,14 @@
 </td></tr>
 <tr><td><table width="100%">
 <tr bgcolor="FFEE00"><td colspan="1000">
-<nobr>&nbsp;<font style="font-family:arial black">FunDef</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">1.1--18.32</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">r</font>&nbsp;</nobr><br><table width="100%">
+<nobr>&nbsp;<font style="font-family:arial black">FunDef</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">1.1--18.32</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">main</font>&nbsp;</nobr><br><table width="100%">
 <tr></tr>
 <tr><td><table width="100%" bgcolor="EECF00">
 <tr><td>
 	    FRAME
 	  </td></tr>
 <tr><td><nobr>
-	      label:<font style="font-family:courier new">_r</font>
+	      label:<font style="font-family:courier new">_main</font>
 	      depth:1 
 	      size:48 
 	      locs:0
@@ -45,7 +45,7 @@
 </table></td>
 <td><table width="100%">
 <tr bgcolor="FFEE00"><td colspan="1000">
-<nobr>&nbsp;<font style="font-family:arial black">AtomType</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">1.11--1.13</font></nobr>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<nobr>&nbsp;<font style="font-family:arial black">AtomType</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">1.14--1.16</font></nobr>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
 <tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
 <tr></tr>
 </table></td></tr></table>
@@ -100,10 +100,35 @@
 </table></td></tr>
 </table></td>
 <td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (42)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CALL
+	      (L2)
+	    </nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (6)
 	    </nobr></td></tr>
 <tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (1)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (4)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
 </table></td>
 </tr>
 </table></td></table>
@@ -281,8 +306,8 @@
 	      (L0)
 	    </nobr></td></tr>
 <tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (0)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (4)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
@@ -452,7 +477,22 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="FFEE00"><td colspan="1000">
-<nobr>&nbsp;<font style="font-family:arial black">FunDecl</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">11.17--11.28</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">f</font>&nbsp;</nobr><br><table width="100%"><tr></tr></table>
+<nobr>&nbsp;<font style="font-family:arial black">FunDef</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">11.17--11.32</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">f</font>&nbsp;</nobr><br><table width="100%">
+<tr></tr>
+<tr><td><table width="100%" bgcolor="EECF00">
+<tr><td>
+	    FRAME
+	  </td></tr>
+<tr><td><nobr>
+	      label:<font style="font-family:courier new">L0</font>
+	      depth:3 
+	      size:16 
+	      locs:0
+	      args:0
+	      FP:T0
+	      RV:T1</nobr></td></tr>
+</table></td></tr>
+</table>
 <table width="100%"></table>
 </td></tr>
 <tr>
@@ -470,6 +510,21 @@
 <tr></tr>
 </table></td></tr></table>
 <table width="100%"></table>
+</td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="FFEE00"><td colspan="1000">
+<nobr>&nbsp;<font style="font-family:arial black">AtomExpr</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">11.32--11.32</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">3</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
+<tr></tr>
+</table></td></tr></table>
+<table width="100%"><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (3)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td></table>
 </td></tr>
 <tr></tr>
 </table></td>
@@ -1872,8 +1927,8 @@
 	      (L0)
 	    </nobr></td></tr>
 <tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (0)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (4)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
@@ -1958,8 +2013,8 @@
 	      (L0)
 	    </nobr></td></tr>
 <tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (0)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (4)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
@@ -2001,8 +2056,8 @@
 	      (L0)
 	    </nobr></td></tr>
 <tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (0)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (4)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
@@ -2588,18 +2643,95 @@
 </table></td>
 <td><table width="100%">
 <tr bgcolor="FFEE00"><td colspan="1000">
-<nobr>&nbsp;<font style="font-family:arial black">AtomExpr</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.7--3.8</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">42</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<nobr>&nbsp;<font style="font-family:arial black">FunName</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.7--3.13</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">c</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
+<tr></tr>
+</table></td></tr></table>
+<table width="100%"><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CALL
+	      (L2)
+	    </nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (6)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (1)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (4)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></table>
+</td></tr>
+<tr><td><table width="100%">
+<tr bgcolor="FFEE00"><td colspan="1000">
+<nobr>&nbsp;<font style="font-family:arial black">Args</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.9--3.13</font></nobr>&nbsp;</nobr><br><table width="100%"><tr></tr></table>
+<table width="100%"></table>
+</td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="FFEE00"><td colspan="1000">
+<nobr>&nbsp;<font style="font-family:arial black">AtomExpr</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.9--3.9</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">1</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
 <tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
 <tr></tr>
 </table></td></tr></table>
 <table width="100%"><td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (42)
+	      (1)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></table>
 </td></tr>
 <tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="FFEE00"><td colspan="1000">
+<nobr>&nbsp;<font style="font-family:arial black">AtomExpr</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.11--3.11</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">2</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
+<tr></tr>
+</table></td></tr></table>
+<table width="100%"><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td></table>
+</td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="FFEE00"><td colspan="1000">
+<nobr>&nbsp;<font style="font-family:arial black">AtomExpr</font>&nbsp;<font style="font-family:helvetica">INT</font>&nbsp;</nobr><br><nobr>&nbsp;<nobr><font style="font-family:helvetica">3.13--3.13</font></nobr>&nbsp;</nobr><br><nobr>&nbsp;<font style="font-family:courier new">4</font>&nbsp;</nobr><br><table width="100%"><tr><td><table width="100%" border="1" rules="all">
+<tr><td bgcolor="FFCF00" colspan="10000000"><nobr>&nbsp;INT&nbsp;</nobr></td></tr>
+<tr></tr>
+</table></td></tr></table>
+<table width="100%"><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (4)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td></table>
+</td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
 </table></td>
 </tr>
 </table></td>
