@@ -27,7 +27,8 @@ public class TypeNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
 
             SemAn.declaredAt.put(typName, typeDeclaration);
         } catch (Exception e) {
-            throw new Report.Error(typName.location(), "This type: " + typName.name + " does not exist in this scope");
+            throw new Report.Error(typName.location(),
+                    "This type: " + typName.name + " does not exist in this scope. Message: " + e.toString());
         }
 
         super.visit(typName, visArg);

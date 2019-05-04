@@ -15,19 +15,6 @@ import compiler.data.abstree.visitor.*;
 public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
 
     @Override
-    public Result visit(AbsTypDecl typDecl, Arg visArg) {
-        try {
-            // System.out.println("TypeDecl:" + typDecl.name);
-            symbTable.ins(typDecl.name, typDecl);
-        } catch (Exception e) {
-            throw new Report.Error(typDecl.location(), "Type defined twice in same scope");
-        }
-
-        super.visit(typDecl, visArg);
-        return null;
-    }
-
-    @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
         // System.out.println("TypeNameDeclaration new scope currDepth: " +
         // symbTable.currDepth());

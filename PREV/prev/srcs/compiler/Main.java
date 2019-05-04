@@ -127,6 +127,7 @@ public class Main {
 				// Semantic analysis.
 				try (SemAn seman = new SemAn()) {
 					// Name resolution
+					Abstr.absTree.accept(new GlobalTypeNameDeclaration(), null);
 					Abstr.absTree.accept(new TypeNameDeclaration(), null);
 					Abstr.absTree.accept(new TypeNameResolution(), null);
 					Abstr.absTree.accept(new VarNameDeclaration(), null);
