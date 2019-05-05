@@ -368,8 +368,13 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcLABEL imcTrueLabel = new ImcLABEL(trueLabel);
         vStmts.add(imcTrueLabel);
 
+        Label loopLabel = new Label();
+        ImcLABEL imcLoopLabel = new ImcLABEL(loopLabel);
+        ImcJUMP loopJump = new ImcJUMP(loopLabel);
+
         ImcStmt whileStmts = (ImcStmt) whileStmt.stmts.accept(this, visArg);
         vStmts.add(whileStmts);
+        vStmts.add(loopJump);
 
         Label falseLabel = new Label();
         ImcLABEL imcFalseLabel = new ImcLABEL(falseLabel);
@@ -377,6 +382,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
         ImcCJUMP cJump = new ImcCJUMP(cond, trueLabel, falseLabel);
         vStmts.add(0, cJump);
+        vStmts.add(0, imcLoopLabel);
 
         ImcSTMTS stmts = new ImcSTMTS(vStmts);
         ImcGen.stmtImCode.put(whileStmt, stmts);
