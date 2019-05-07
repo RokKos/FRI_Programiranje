@@ -8,10 +8,11 @@ import compiler.common.report.*;
 import compiler.phases.lexan.*;
 import compiler.phases.synan.*;
 import compiler.phases.abstr.*;
-import compiler.phases.chunks.*;
+import compiler.phases.asmcode.*;
 import compiler.phases.seman.*;
 import compiler.phases.frames.*;
 import compiler.phases.imcgen.*;
+import compiler.phases.chunks.*;
 
 /**
  * The compiler.
@@ -21,7 +22,7 @@ import compiler.phases.imcgen.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -187,10 +188,20 @@ public class Main {
 				// Chunks.
 				try (Chunks chunks = new Chunks()) {
 					Abstr.absTree.accept(new ChunkGenerator(), null);
-
 					chunks.log();
+
+					// Interpreter interpreter = new Interpreter(Chunks.dataChunks, Chunks.codeChunks);
+					// System.out.println("EXIT CODE: " + interpreter.run("_main"));
 				}
 				if (cmdLine.get("--target-phase").equals("chunks"))
+					break;
+
+				// Code generation.
+				try (AsmGen asmgen = new AsmGen()) {
+					asmgen.genAsmCodes();
+					asmgen.log();
+				}
+				if (cmdLine.get("--target-phase").equals("asmgen"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();
@@ -200,10 +211,6 @@ public class Main {
 			} while (false);
 
 			Report.info("Done.");
-
-			Interpreter interpreter = new Interpreter(Chunks.dataChunks, Chunks.codeChunks);
-			interpreter.run("_main");
-
 		} catch (Report.Error __) {
 		}
 	}

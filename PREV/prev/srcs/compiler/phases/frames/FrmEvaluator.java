@@ -197,7 +197,9 @@ public class FrmEvaluator extends AbsFullVisitor<Object, FrmEvaluator.Context> {
 		if (atomExpr.type == Type.STR) {
 			long strSize = atomExpr.expr.length() - 1; // Because we need to include \0 and we have double quotes so it
 														// comes -1
-			Frames.strings.put(atomExpr, new AbsAccess(strSize, new Label(), atomExpr.expr));
+
+			String stringLiteral = atomExpr.expr.substring(0, atomExpr.expr.length() - 1) + 0;
+			Frames.strings.put(atomExpr, new AbsAccess(strSize, new Label(), stringLiteral));
 		}
 		return null;
 	}
