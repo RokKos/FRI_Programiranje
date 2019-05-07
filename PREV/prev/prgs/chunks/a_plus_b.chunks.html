@@ -15,55 +15,19 @@
 	  FRAME
 	  label=<font style="font-family:courier new">_main</font>
 	  depth=1 
-	  size=24 
+	  size=40 
 	  locs=8
-	  args=0
-    	  FP=T0
-	  RV=T1</nobr></td></tr></table></td></tr>
+	  args=16
+    	  FP=T2
+	  RV=T3</nobr></td></tr></table></td></tr>
 <tr><td bgcolor="EECF00"><nobr>
-	    entryLabel=L1
-	    exitLabel=L2</nobr></td></tr>
+	    entryLabel=L2
+	    exitLabel=L3</nobr></td></tr>
 <tr><td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>LABEL
-	      (L1)
+	      (L2)
 	    </nobr></td></tr>
 <tr></tr>
-</table></td></tr>
-<tr></tr>
-<tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
-<tr>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (2)
-	    </nobr></td></tr>
-<tr></tr>
-</table></td>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (5)
-	    </nobr></td></tr>
-<tr></tr>
-</table></td>
-</tr>
-</table></td></tr>
-<tr></tr>
-<tr><td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
-<tr>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (3)
-	    </nobr></td></tr>
-<tr></tr>
-</table></td>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
-	      (5)
-	    </nobr></td></tr>
-<tr></tr>
-</table></td>
-</tr>
 </table></td></tr>
 <tr></tr>
 <tr><td><table width="100%">
@@ -76,23 +40,10 @@
 <tr></tr>
 </table></td>
 <td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>BINOP
-	      (ADD)
-	    </nobr></td></tr>
-<tr>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (2)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (5)
 	    </nobr></td></tr>
 <tr></tr>
-</table></td>
-<td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (3)
-	    </nobr></td></tr>
-<tr></tr>
-</table></td>
-</tr>
 </table></td>
 </tr>
 </table></td></tr>
@@ -107,8 +58,8 @@
 <tr></tr>
 </table></td>
 <td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (0)
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (5)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -121,6 +72,55 @@
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
 	      (6)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>BINOP
+	      (ADD)
+	    </nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (4)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (5)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (7)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (8)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -138,7 +138,7 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (7)
+	      (9)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -149,13 +149,13 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (5)
+	      (7)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (6)
+	      (8)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -171,14 +171,14 @@
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>MEM</nobr></td></tr>
 <tr><td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (7)
+	      (9)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
 </table></td>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (4)
+	      (6)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -190,12 +190,12 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (8)
+	      (10)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
 <td><table width="100%">
-<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
 	      (0)
 	    </nobr></td></tr>
 <tr></tr>
@@ -208,7 +208,25 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (9)
+	      (11)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (12)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -226,7 +244,7 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (10)
+	      (13)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -237,13 +255,13 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (8)
+	      (11)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (9)
+	      (12)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -257,7 +275,7 @@
 <tr>
 <td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
-	      (1)
+	      (14)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td>
@@ -265,7 +283,118 @@
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>MEM</nobr></td></tr>
 <tr><td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (13)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td></tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>ESTMT</nobr></td></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CALL
+	      (_putInt)
+	    </nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
 	      (10)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (14)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (15)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (2)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (16)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>CONST
+	      (-8)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (17)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>BINOP
+	      (ADD)
+	    </nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (15)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (16)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td></tr>
+<tr></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MOVE</nobr></td></tr>
+<tr>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (3)
+	    </nobr></td></tr>
+<tr></tr>
+</table></td>
+<td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>MEM</nobr></td></tr>
+<tr><td><table width="100%">
+<tr bgcolor="00BBFF"><td colspan="1000"><nobr>TEMP
+	      (17)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>
@@ -275,7 +404,7 @@
 <tr></tr>
 <tr><td><table width="100%">
 <tr bgcolor="00BBFF"><td colspan="1000"><nobr>JUMP
-	      (L2)
+	      (L3)
 	    </nobr></td></tr>
 <tr></tr>
 </table></td></tr>

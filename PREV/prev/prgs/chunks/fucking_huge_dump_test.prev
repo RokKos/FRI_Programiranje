@@ -8,27 +8,27 @@ fun main():int =
       n=1;
       while n<=10 do
         putInt(n); putString(": ");
-	putInt(facItr(n));
-	putChar((10:char));
-	n=n+1;
+				putInt(facItr(n));
+				putChar((10:char));
+				n=n+1;
       end;
 
       putString("facRec:"); putChar((10:char));
       n=1;
       while n<=10 do
         putInt(n); putString(": ");
-	putInt(facRec(n));
-	putChar((10:char));
-	n=n+1;
+				putInt(facRec(n));
+				putChar((10:char));
+				n=n+1;
       end;
 
       putString("fibItr:"); putChar((10:char));
       n=1;
       while n<=10 do
         putInt(n); putString(": ");
-	putInt(fibItr(n));
-	putChar((10:char));
-	n=n+1;
+				putInt(fibItr(n));
+				putChar((10:char));
+				n=n+1;
       end;
 
       putString("fibRec:"); putChar((10:char));
@@ -181,13 +181,13 @@ fun insBT(i:int,t:bintree):bintree =
     };
 
 fun delBT(i:int,t:bintree):bintree =
-    { if t!=null then
+    { if t!=(null:bintree) then
         if (@t).i==i then
 	  if (@t).lth==(null:bintree)&(@t).gth==(null:bintree) then
 	    del(t);
 	    t=(null:bintree);
 	  else
-	    if (@t).lth!=null then
+	    if (@t).lth!=(null:bintree) then
 	      { max=maxBT((@t).lth);
 		(@t).i=@max;
 		(@t).lth=delBT(@max,(@t).lth);
@@ -218,7 +218,7 @@ fun minBT(t:bintree):ptr int =
       if t==(null:bintree) then
         min=(null:ptr int);
       else
-        if (@t).lth==null then
+        if (@t).lth==(null:bintree) then
           min=$((@t).i);
 	else
 	  min=minBT((@t).gth);
@@ -231,10 +231,10 @@ fun minBT(t:bintree):ptr int =
 
 fun maxBT(t:bintree):ptr int =
     {
-      if t==null then
+      if t==(null:bintree) then
         max=(null:ptr int);
       else
-        if (@t).gth==null then
+        if (@t).gth==(null:bintree) then
 	  max=$((@t).i);
 	else
 	  max=maxBT((@t).gth);
@@ -246,7 +246,9 @@ fun maxBT(t:bintree):ptr int =
     };
 
 fun sudoku(t2d:ptr arr[9] arr[9] int):int =
-    { t1d=(t2d:ptr arr[81] int);
+    { 
+			putString("Sudoku2:"); putChar((10:char));
+			t1d=(t2d:ptr arr[81] int);
     : solve(0,81)
     where
       var t1d:ptr arr[81] int;
@@ -314,7 +316,8 @@ fun sudoku(t2d:ptr arr[9] arr[9] int):int =
 	    var check:bool;
 	  };
       fun solve(k:int,n:int):int =
-          { if k==n then
+          { putString("solve:"); putChar((10:char));
+						if k==n then
 	      { if true then
 	          j=0;
 	          while j<9 do
