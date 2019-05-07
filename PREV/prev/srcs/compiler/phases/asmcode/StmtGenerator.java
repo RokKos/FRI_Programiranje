@@ -15,6 +15,86 @@ import compiler.common.report.*;
  */
 public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
-    // TODO
+    private final String kSetNormal = "SET `d0 `s0";
 
+    // TODO
+    public Vector<AsmInstr> visit(ImcBINOP binOp, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcCALL call, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcCJUMP cjump, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcCONST constant, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcESTMT eStmt, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcJUMP jump, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcLABEL label, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcMEM mem, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcMOVE move, Object visArg) {
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        if (move.dst instanceof ImcTEMP && move.src instanceof ImcTEMP) {
+            ImcTEMP destTemp = (ImcTEMP) move.dst;
+            Vector<Temp> defs = new Vector<>();
+            defs.add(destTemp.temp);
+
+            ImcTEMP srcTemp = (ImcTEMP) move.src;
+            Vector<Temp> uses = new Vector<>();
+            uses.add(srcTemp.temp);
+
+            instructions.add(new AsmMOVE(kSetNormal, uses, defs));
+        }
+        return instructions;
+    }
+
+    public Vector<AsmInstr> visit(ImcNAME name, Object visArg) {
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        Vector<Temp> defs = new Vector<>();
+        Temp temp = new Temp();
+        defs.add(temp);
+
+        String set = "SET `d0 " + name.label;
+        instructions.add(new AsmOPER(set, null, defs, null));
+
+        return instructions;
+    }
+
+    public Vector<AsmInstr> visit(ImcSEXPR sExpr, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcSTMTS stmts, Object visArg) {
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        for (ImcStmt stmt : stmts.stmts()) {
+            instructions.addAll(stmt.accept(this, visArg));
+        }
+        return instructions;
+    }
+
+    public Vector<AsmInstr> visit(ImcTEMP temp, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
+
+    public Vector<AsmInstr> visit(ImcUNOP unOp, Object visArg) {
+        return new Vector<AsmInstr>();
+    }
 }
