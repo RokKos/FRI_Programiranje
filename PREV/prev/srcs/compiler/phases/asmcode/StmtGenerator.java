@@ -21,19 +21,11 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
     // IZ STMT GENERATORJA CALLI V EXPR GENERATOR K TI DA NAZAJ TEMP STVARI
 
-    public Vector<AsmInstr> visit(ImcBINOP binOp, Object visArg) {
-        return new Vector<AsmInstr>();
-    }
-
     public Vector<AsmInstr> visit(ImcCALL call, Object visArg) {
         return new Vector<AsmInstr>();
     }
 
     public Vector<AsmInstr> visit(ImcCJUMP cjump, Object visArg) {
-        return new Vector<AsmInstr>();
-    }
-
-    public Vector<AsmInstr> visit(ImcCONST constant, Object visArg) {
         return new Vector<AsmInstr>();
     }
 
@@ -55,25 +47,20 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
     public Vector<AsmInstr> visit(ImcMOVE move, Object visArg) {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+
+        Temp destTemp = move.dst.accept(new ExprGenerator(), instructions);
+        Vector<Temp> defs = new Vector<>();
+        defs.add(destTemp);
+
+        Temp srcTemp = move.src.accept(new ExprGenerator(), instructions);
+        Vector<Temp> uses = new Vector<>();
+        uses.add(srcTemp);
+
         if (move.dst instanceof ImcTEMP && move.src instanceof ImcTEMP) {
-            Temp destTemp = move.dst.accept(new ExprGenerator(), instructions);
-            Vector<Temp> defs = new Vector<>();
-            defs.add(destTemp);
-
-            Temp srcTemp = move.src.accept(new ExprGenerator(), instructions);
-            Vector<Temp> uses = new Vector<>();
-            uses.add(srcTemp);
-
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcBINOP) {
-            Temp destTemp = move.dst.accept(new ExprGenerator(), instructions);
-            Vector<Temp> defs = new Vector<>();
-            defs.add(destTemp);
-
-            Temp srcTemp = move.src.accept(new ExprGenerator(), instructions);
-            Vector<Temp> uses = new Vector<>();
-            uses.add(srcTemp);
-
+            instructions.add(new AsmMOVE(kSetNormal, uses, defs));
+        } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcCONST) {
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         }
 

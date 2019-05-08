@@ -15,10 +15,15 @@ import compiler.data.asmcode.*;
  */
 public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
-    private final String kSetHigh = "SET `d0 ";
+    private final String kSetConstPrePendix = "SET `d0 ";
+    private final String kINCLow = "INCML `d0 ";
+    private final String kINCMidHigh = "INCMH `d0 ";
+    private final String kINCHigh = "INCH `d0 ";
     private final String kBinopAppend = "`d0 `s0 `s1";
     private final String kCompareParam = "`d0 `s0 0";
+    private final String kNeg = "NEG `d0 0 `s0";
     private final String kHighBit = "32768"; // 2^15
+    private final long k2_16 = 0xfffffff;
     // Binary operator op names
     private final String kAdd = "ADD ";
     private final String kAnd = "AND ";
@@ -64,10 +69,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
         case MOD:
             instructions.add(new AsmOPER(kDiv + kBinopAppend, uses, defs, null));
-            Vector<Temp> regRR = new Vector<>();
-            // Hacky
-            regRR.add(new Temp());
-            instructions.add(new AsmMOVE("SET `d0 $rR", regRR, defs)); // Remainder is in rR register
+            instructions.add(new AsmOPER("GET `d0 $rR", null, defs, null)); // Remainder is in rR register
             break;
 
         case AND:
@@ -130,7 +132,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         // Seting high of one register to 1000000000000000
         Vector<Temp> defs_C_reg = new Vector<>();
         defs_C_reg.add(new Temp());
-        instructions.add(new AsmOPER(kSetHigh + kHighBit, null, defs_C_reg, null));
+        instructions.add(new AsmOPER(kSetConstPrePendix + kHighBit, null, defs_C_reg, null));
 
         // Comparing first bit to see if differend than zero, that means that is smaller
         Vector<Temp> defs_B_reg = new Vector<>();
@@ -157,8 +159,40 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         return new Temp();
     }
 
-    public Temp visit(ImcCONST constant, Vector<AsmInstr> visArg) {
-        return new Temp();
+    public Temp visit(ImcCONST constant, Vector<AsmInstr> instructions) {
+        long value = Math.abs(constant.value);
+
+        Vector<Temp> defs = new Vector<>();
+        Temp resTemp = new Temp();
+        defs.add(resTemp);
+
+        int bits = ((short) value & 0xffff);
+        instructions.add(new AsmOPER(kSetConstPrePendix + bits, null, defs, null));
+        value >>= 16;
+
+        if (value > 0) {
+            bits = ((short) value & 0xffff);
+            instructions.add(new AsmOPER(kINCLow + bits, null, defs, null));
+            value >>= 16;
+        }
+
+        if (value > 0) {
+            bits = ((short) value & 0xffff);
+            instructions.add(new AsmOPER(kINCMidHigh + bits, null, defs, null));
+            value >>= 16;
+        }
+
+        if (value > 0) {
+            bits = ((short) value & 0xffff);
+            instructions.add(new AsmOPER(kINCHigh + bits, null, defs, null));
+            value >>= 16;
+        }
+
+        if (constant.value < 0) {
+            instructions.add(new AsmOPER(kNeg, defs, defs, null));
+        }
+
+        return resTemp;
     }
 
     public Temp visit(ImcESTMT eStmt, Vector<AsmInstr> visArg) {
