@@ -16,6 +16,7 @@ import compiler.common.report.*;
 public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
     private final String kSetNormal = "SET `d0 `s0";
+    private final String kJump = "JMP ";
 
     // TODO
 
@@ -29,16 +30,18 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
         return new Vector<AsmInstr>();
     }
 
-    public Vector<AsmInstr> visit(ImcESTMT eStmt, Object visArg) {
-        return new Vector<AsmInstr>();
-    }
-
     public Vector<AsmInstr> visit(ImcJUMP jump, Object visArg) {
-        return new Vector<AsmInstr>();
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        Vector<Label> jumps = new Vector<>();
+        jumps.add(jump.label);
+        instructions.add(new AsmOPER(kJump + jump.label.name, null, null, jumps));
+        return instructions;
     }
 
     public Vector<AsmInstr> visit(ImcLABEL label, Object visArg) {
-        return new Vector<AsmInstr>();
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        instructions.add(new AsmLABEL(label.label));
+        return instructions;
     }
 
     public Vector<AsmInstr> visit(ImcMEM mem, Object visArg) {
@@ -64,23 +67,24 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         }
 
+        // TODO:
+
         return instructions;
     }
 
-    public Vector<AsmInstr> visit(ImcNAME name, Object visArg) {
-        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
-        Vector<Temp> defs = new Vector<>();
-        Temp temp = new Temp();
-        defs.add(temp);
+    public Vector<AsmInstr> visit(ImcESTMT eStmt, Object visArg) {
+        return eStmt.expr.accept(this, null);
+    }
 
-        String set = "SET `d0 " + name.label;
-        instructions.add(new AsmOPER(set, null, defs, null));
-
-        return instructions;
+    public Vector<AsmInstr> visit(ImcCONST constant, Object visArg) {
+        return new Vector<AsmInstr>();
     }
 
     public Vector<AsmInstr> visit(ImcSEXPR sExpr, Object visArg) {
-        return new Vector<AsmInstr>();
+        Vector<AsmInstr> instructions = new Vector<AsmInstr>();
+        instructions.addAll(sExpr.stmt.accept(this, null));
+        sExpr.accept(new ExprGenerator(), instructions);
+        return instructions;
     }
 
     public Vector<AsmInstr> visit(ImcSTMTS stmts, Object visArg) {
@@ -89,13 +93,5 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
             instructions.addAll(stmt.accept(this, visArg));
         }
         return instructions;
-    }
-
-    public Vector<AsmInstr> visit(ImcTEMP temp, Object visArg) {
-        return new Vector<AsmInstr>();
-    }
-
-    public Vector<AsmInstr> visit(ImcUNOP unOp, Object visArg) {
-        return new Vector<AsmInstr>();
     }
 }

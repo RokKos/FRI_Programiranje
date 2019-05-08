@@ -31,6 +31,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kDiv = "DIV ";
     private final String kMul = "MUL ";
     private final String kNxor = "NXOR ";
+    private final String kNor = "NOR ";
     private final String kOr = "OR ";
     private final String kSub = "SUB ";
     private final String kXor = "XOR ";
@@ -196,15 +197,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     }
 
     public Temp visit(ImcESTMT eStmt, Vector<AsmInstr> visArg) {
-        return new Temp();
-    }
-
-    public Temp visit(ImcJUMP jump, Vector<AsmInstr> visArg) {
-        return new Temp();
-    }
-
-    public Temp visit(ImcLABEL label, Vector<AsmInstr> visArg) {
-        return new Temp();
+        return eStmt.expr.accept(this, visArg);
     }
 
     public Temp visit(ImcMEM mem, Vector<AsmInstr> visArg) {
@@ -215,15 +208,18 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         return new Temp();
     }
 
-    public Temp visit(ImcNAME name, Vector<AsmInstr> visArg) {
-        return new Temp();
+    public Temp visit(ImcNAME name, Vector<AsmInstr> instructions) {
+        Vector<Temp> defs = new Vector<>();
+        Temp temp = new Temp();
+        defs.add(temp);
+
+        String set = "SET `d0 " + name.label.name;
+        instructions.add(new AsmOPER(set, null, defs, null));
+
+        return temp;
     }
 
     public Temp visit(ImcSEXPR sExpr, Vector<AsmInstr> visArg) {
-        return new Temp();
-    }
-
-    public Temp visit(ImcSTMTS stmts, Vector<AsmInstr> visArg) {
         return new Temp();
     }
 
@@ -231,8 +227,26 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         return temp.temp;
     }
 
-    public Temp visit(ImcUNOP unOp, Vector<AsmInstr> visArg) {
-        return new Temp();
+    public Temp visit(ImcUNOP unOp, Vector<AsmInstr> instructions) {
+        Vector<Temp> uses = new Vector<>();
+
+        Temp exprTemp = unOp.subExpr.accept(this, instructions);
+        uses.add(exprTemp);
+
+        switch (unOp.oper) {
+        case NEG:
+            instructions.add(new AsmOPER(kNeg, uses, uses, null));
+            break;
+
+        case NOT:
+            instructions.add(new AsmOPER(kNor + kCompareParam, uses, uses, null));
+            break;
+
+        default:
+            throw new Report.Error("EXPR GENERATOR: Unsuported unary operator");
+        }
+
+        return exprTemp;
     }
 
 }
