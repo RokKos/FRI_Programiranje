@@ -23,7 +23,11 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kCompareParam = "`d0 `s0 0";
     private final String kNeg = "NEG `d0 0 `s0";
     private final String kHighBit = "32768"; // 2^15
-    private final long k2_16 = 0xfffffff;
+    private final String kPush = "PUSHJ $15 "; // Temporary
+    private final String kStore = "STO `s0 $254 ";
+    private final String kLoad = "LDO `d0 $254 ";
+    private final short kOctaSize = 8;
+
     // Binary operator op names
     private final String kAdd = "ADD ";
     private final String kAnd = "AND ";
@@ -152,12 +156,35 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         instructions.add(new AsmOPER(finalComparison + kBinopAppend, A_and_B, defs, null));
     }
 
-    public Temp visit(ImcCALL call, Vector<AsmInstr> visArg) {
-        return new Temp();
-    }
+    public Temp visit(ImcCALL call, Vector<AsmInstr> instructions) {
 
-    public Temp visit(ImcCJUMP cjump, Vector<AsmInstr> visArg) {
-        return new Temp();
+        // Vector<Temp> defs = new Vector<>();
+        // Temp registerCountReg = new Temp();
+        // defs.add(registerCountReg);
+
+        // int registerCound
+        // instructions.add(new AsmOPER(kSetConstPrePendix + bits, null, defs, null));
+
+        int offset = 0;
+        for (ImcExpr parameter : call.args()) {
+            Vector<Temp> uses = new Vector<>();
+            Temp tempParam = parameter.accept(this, instructions);
+            uses.add(tempParam);
+            instructions.add(new AsmOPER(kStore + offset, uses, null, null));
+            offset += kOctaSize;
+        }
+
+        Vector<Label> jumps = new Vector<>();
+        jumps.add(call.label);
+
+        instructions.add(new AsmOPER(kPush + call.label.name, null, null, jumps));
+
+        Temp retVal = new Temp();
+        Vector<Temp> defs = new Vector<>();
+        defs.add(retVal);
+        instructions.add(new AsmOPER(kLoad, null, defs, null));
+
+        return retVal;
     }
 
     public Temp visit(ImcCONST constant, Vector<AsmInstr> instructions) {
@@ -204,10 +231,6 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         return new Temp();
     }
 
-    public Temp visit(ImcMOVE move, Vector<AsmInstr> visArg) {
-        return new Temp();
-    }
-
     public Temp visit(ImcNAME name, Vector<AsmInstr> instructions) {
         Vector<Temp> defs = new Vector<>();
         Temp temp = new Temp();
@@ -217,10 +240,6 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         instructions.add(new AsmOPER(set, null, defs, null));
 
         return temp;
-    }
-
-    public Temp visit(ImcSEXPR sExpr, Vector<AsmInstr> visArg) {
-        return new Temp();
     }
 
     public Temp visit(ImcTEMP temp, Vector<AsmInstr> visArg) {
