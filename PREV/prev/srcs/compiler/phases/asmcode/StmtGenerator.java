@@ -18,6 +18,9 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
     private final String kSetNormal = "SET `d0 `s0";
 
     // TODO
+
+    // IZ STMT GENERATORJA CALLI V EXPR GENERATOR K TI DA NAZAJ TEMP STVARI
+
     public Vector<AsmInstr> visit(ImcBINOP binOp, Object visArg) {
         return new Vector<AsmInstr>();
     }
@@ -53,16 +56,27 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
     public Vector<AsmInstr> visit(ImcMOVE move, Object visArg) {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
         if (move.dst instanceof ImcTEMP && move.src instanceof ImcTEMP) {
-            ImcTEMP destTemp = (ImcTEMP) move.dst;
+            Temp destTemp = move.dst.accept(new ExprGenerator(), instructions);
             Vector<Temp> defs = new Vector<>();
-            defs.add(destTemp.temp);
+            defs.add(destTemp);
 
-            ImcTEMP srcTemp = (ImcTEMP) move.src;
+            Temp srcTemp = move.src.accept(new ExprGenerator(), instructions);
             Vector<Temp> uses = new Vector<>();
-            uses.add(srcTemp.temp);
+            uses.add(srcTemp);
+
+            instructions.add(new AsmMOVE(kSetNormal, uses, defs));
+        } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcBINOP) {
+            Temp destTemp = move.dst.accept(new ExprGenerator(), instructions);
+            Vector<Temp> defs = new Vector<>();
+            defs.add(destTemp);
+
+            Temp srcTemp = move.src.accept(new ExprGenerator(), instructions);
+            Vector<Temp> uses = new Vector<>();
+            uses.add(srcTemp);
 
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         }
+
         return instructions;
     }
 
