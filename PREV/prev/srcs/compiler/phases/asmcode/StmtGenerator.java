@@ -18,6 +18,8 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
     private final String kSetNormal = "SET `d0 `s0";
     private final String kJump = "JMP ";
     private final String kCjump = "BZ `s0 ";
+    private final String kStore = "STO `s0 `s1 0";
+    private final String kLoad = "LDO `d0 `s0 0";
 
     public Vector<AsmInstr> visit(ImcCJUMP cjump, Object visArg) {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
@@ -28,7 +30,7 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
         jumps.add(cjump.posLabel);
         jumps.add(cjump.negLabel);
-        instructions.add(new AsmOPER(kCjump + cjump.negLabel.name, null, uses, jumps));
+        instructions.add(new AsmOPER(kCjump + cjump.negLabel.name, uses, null, jumps));
         return instructions;
 
     }
@@ -68,9 +70,17 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcCONST) {
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
-        }
+        } else if (move.dst instanceof ImcMEM) {
+            uses.add(destTemp);
+            instructions.add(new AsmOPER(kStore, uses, null, null));
+        } else if (move.src instanceof ImcMEM) {
+            Temp loadReg = new Temp();
+            Vector<Temp> defs_load = new Vector<>();
+            defs_load.add(loadReg);
+            instructions.add(new AsmOPER(kLoad, uses, defs_load, null));
 
-        // TODO:
+            instructions.add(new AsmMOVE(kSetNormal, defs_load, defs));
+        }
 
         return instructions;
     }

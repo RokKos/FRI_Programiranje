@@ -16,6 +16,8 @@ import compiler.data.asmcode.*;
 public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
     private final String kSetConstPrePendix = "SET `d0 ";
+    private final String kSetNormal = "SET `d0 `s0";
+    private final String kLoadNormal = "LDO `d0 `s0 0";
     private final String kINCLow = "INCML `d0 ";
     private final String kINCMidHigh = "INCMH `d0 ";
     private final String kINCHigh = "INCH `d0 ";
@@ -40,7 +42,13 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kSub = "SUB ";
     private final String kXor = "XOR ";
 
-    //
+    // Comparing
+    private final String kSettingCompare = "`d0 `s0 1";
+    private final String kPositive = "ZSP ";
+    private final String kNonNegative = "ZSNN ";
+    private final String kNonPositive = "ZSNP ";
+    private final String kNegative = "ZSN ";
+
     private final String kLeftShiftUnsigned = "SLU ";
 
     public Temp visit(ImcBINOP binOp, Vector<AsmInstr> instructions) {
@@ -52,8 +60,33 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
         Temp fstTemp = binOp.fstExpr.accept(this, instructions);
         Temp sndTemp = binOp.sndExpr.accept(this, instructions);
+
         uses.add(fstTemp);
+
+        // checking for mem
+        if (binOp.fstExpr instanceof ImcMEM) {
+            Temp loadReg = new Temp();
+            Vector<Temp> defs_load = new Vector<>();
+            defs_load.add(loadReg);
+            instructions.add(new AsmOPER(kLoadNormal, uses, defs_load, null));
+
+            // we used that temp
+            uses.remove(fstTemp);
+            uses.addAll(defs_load);
+        }
+
         uses.add(sndTemp);
+
+        if (binOp.sndExpr instanceof ImcMEM) {
+            Temp loadReg = new Temp();
+            Vector<Temp> defs_load = new Vector<>();
+            defs_load.add(loadReg);
+            instructions.add(new AsmOPER(kLoadNormal, uses, defs_load, null));
+
+            // we used that temp
+            uses.remove(sndTemp);
+            uses.addAll(defs_load);
+        }
 
         switch (binOp.oper) {
         case ADD:
@@ -102,19 +135,23 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
             break;
 
         case GTH:
-            GreaterLowerComparison(kAnd, kXor, instructions, uses, defs);
+            instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
+            instructions.add(new AsmOPER(kPositive + kSettingCompare, defs, defs, null));
             break;
 
         case GEQ:
-            GreaterLowerComparison(kOr, kXor, instructions, uses, defs);
+            instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
+            instructions.add(new AsmOPER(kNonNegative + kSettingCompare, defs, defs, null));
             break;
 
         case LTH:
-            GreaterLowerComparison(kAnd, kNxor, instructions, uses, defs);
+            instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
+            instructions.add(new AsmOPER(kNegative + kSettingCompare, defs, defs, null));
             break;
 
         case LEQ:
-            GreaterLowerComparison(kOr, kNxor, instructions, uses, defs);
+            instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
+            instructions.add(new AsmOPER(kNonPositive + kSettingCompare, defs, defs, null));
             break;
 
         default:
@@ -122,38 +159,6 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         }
 
         return resTemp;
-    }
-
-    private void GreaterLowerComparison(String finalComparison, String largerGreaterChecking,
-            Vector<AsmInstr> instructions, Vector<Temp> uses, Vector<Temp> defs) {
-        instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
-
-        // Comparing last bit to see if differend than zero, that means that is bigger
-        // or smaller
-        Vector<Temp> defs_A_reg = new Vector<>();
-        defs_A_reg.add(new Temp());
-        instructions.add(new AsmOPER(kXor + kCompareParam, defs, defs_A_reg, null));
-
-        // Seting high of one register to 1000000000000000
-        Vector<Temp> defs_C_reg = new Vector<>();
-        defs_C_reg.add(new Temp());
-        instructions.add(new AsmOPER(kSetConstPrePendix + kHighBit, null, defs_C_reg, null));
-
-        // Comparing first bit to see if differend than zero, that means that is smaller
-        Vector<Temp> defs_B_reg = new Vector<>();
-        Temp regB = new Temp();
-        defs_B_reg.add(regB);
-        defs_C_reg.add(regB);
-        instructions.add(new AsmOPER(largerGreaterChecking + kBinopAppend, defs_C_reg, defs_B_reg, null));
-
-        // Shift top bit to the begining for later and
-        instructions.add(new AsmOPER(kLeftShiftUnsigned + "`d0 `s0 63", defs_B_reg, defs_B_reg, null));
-
-        Vector<Temp> A_and_B = new Vector<>();
-        A_and_B.addAll(defs_A_reg);
-        A_and_B.addAll(defs_B_reg);
-        // Final end to check all out
-        instructions.add(new AsmOPER(finalComparison + kBinopAppend, A_and_B, defs, null));
     }
 
     public Temp visit(ImcCALL call, Vector<AsmInstr> instructions) {
@@ -228,7 +233,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     }
 
     public Temp visit(ImcMEM mem, Vector<AsmInstr> visArg) {
-        return new Temp();
+        return mem.addr.accept(this, visArg);
     }
 
     public Temp visit(ImcNAME name, Vector<AsmInstr> instructions) {
