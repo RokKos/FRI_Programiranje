@@ -39,10 +39,14 @@ def MatchingHash(hash_1, hash_2):
     return hash_1[:kMatchingLen] == hash_2[:kMatchingLen]
 
 
+###################
+# TASK 1
 
 # Finding mathcing text
 length = 1
 number = 0
+text_1 = ""
+hash_1 = ""
 text_2 = ""
 hash_2 = ""
 while (True):
@@ -60,8 +64,11 @@ while (True):
     if (hash_key in ComputedHashes_):
         text_1, hash_1 = ComputedHashes_[hash_key]
 
-        print ("Text1: " + text_1.decode())
-        print ("Text2: " + text_2.decode())
+        text_1 = text_1.decode()
+        text_2 = text_2.decode()
+
+        print ("Text1: " + text_1)
+        print ("Text2: " + text_2)
         print ("hash1: " + hash_1)
         print ("hash2: " + hash_2)
         break
@@ -79,3 +86,14 @@ while (True):
 # Text2: I6it
 # hash1: 041af7f44dfc2aa50cd947131d57ecb771a24bca
 # hash2: 041af7f44df9042408f0742f0f33560cbdbc8d35
+
+###################
+# TASK 2
+
+# Constants
+kMainText = text_1 + " " + text_2
+kMainHash = HashText(kMainText)
+kMainNum = int(kMainHash, 16)
+
+# This prime number was generated from Java file PrimeGenerator which is in ZIP file
+k160BitPrimerNumber = 1161920828799848229743882544373088734211888441911 
