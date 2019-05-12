@@ -1,0 +1,300 @@
+<html>
+<style>
+      table, tr, td {
+      text-align: center;
+      vertical-align: top;
+      }
+    </style>
+<body><table>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_main</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T0
+	  RV=T1</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L2
+	    exitLabel=L3
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>L2</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T5</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T5</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T10 1</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T10</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T5</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T5 T10</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T4 T10</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T10</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T4</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T5 T10</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T5 T4</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T11 _i</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T11</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T5 T4</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T5 T4</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>STO T4 T5 0</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T4 T5</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T5 T4</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T12 2</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T12</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T12</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T6 T12</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T12</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T6</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T12</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T6</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T13 3</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T13</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T6</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T13 T6</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T7 T13</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T13</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T7</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T13 T6</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T6 T7</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>DIV T14 T6 T7</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T6 T7</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T14</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T6 T7</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>GET T14 $rR</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T14</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T14</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T1 T14</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T14</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T1</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T14</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>JMP L3</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+</table></td>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_b</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T2
+	  RV=T3</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L4
+	    exitLabel=L5
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>L4</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T15 1</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T15</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T15</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T8 T15</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T15</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T8</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T15</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T8</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T16 0</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T16</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T8</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T8 T16</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T9 T16</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T16</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T9</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T8 T16</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T8 T9</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>XOR T17 T8 T9</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T8 T9</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T17</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T8 T9</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T17</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T3 T17</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T17</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T3</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T17</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>JMP L5</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>in:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>out:
+      </td></tr>
+</table></td></tr>
+</table></td>
+</table></body>
+</html>
