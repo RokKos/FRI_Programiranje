@@ -60,8 +60,8 @@ while (True):
     if (hash_key in ComputedHashes_):
         text_1, hash_1 = ComputedHashes_[hash_key]
 
-        print ("Text1: " + text_1)
-        print ("Text2: " + text_2)
+        print ("Text1: " + text_1.decode())
+        print ("Text2: " + text_2.decode())
         print ("hash1: " + hash_1)
         print ("hash2: " + hash_2)
         break
@@ -71,3 +71,11 @@ while (True):
 
 
     number += 1
+
+
+##################################################
+# RESULTS OF TASK 1:
+# Text1: E4cp
+# Text2: I6it
+# hash1: 041af7f44dfc2aa50cd947131d57ecb771a24bca
+# hash2: 041af7f44df9042408f0742f0f33560cbdbc8d35
