@@ -1,0 +1,8 @@
+fun main():int = {
+    i = 5;
+    j = 999999999;
+    : i + j
+    where
+        var i : int;
+        var j : int;
+};
