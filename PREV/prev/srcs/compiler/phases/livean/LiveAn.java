@@ -43,7 +43,16 @@ public class LiveAn extends Phase {
 
 				HashSet<Temp> new_out = new HashSet<Temp>();
 				if (i < code.instrs.size() - 1) {
-					new_out.addAll(code.instrs.get(i + 1).in());
+					if (instruction.jumps().size() == 0) {
+						new_out.addAll(code.instrs.get(i + 1).in());
+					} else {
+						for (Label jump : instruction.jumps()) {
+							AsmInstr after_jump = FindInstructionAfterJump(code, jump);
+							if (after_jump != null) {
+								new_out.addAll(after_jump.in());
+							}
+						}
+					}
 				}
 
 				instruction.addOutTemp(new_out);
@@ -55,6 +64,23 @@ public class LiveAn extends Phase {
 			}
 		}
 
+	}
+
+	private AsmInstr FindInstructionAfterJump(Code code, Label jump_label) {
+		for (int i = 0; i < code.instrs.size(); ++i) {
+			AsmInstr instruction = code.instrs.get(i);
+			if (instruction instanceof AsmLABEL) {
+				AsmLABEL label = (AsmLABEL) instruction;
+				if (label.GetLabel() == jump_label) {
+					if (i + 1 < code.instrs.size()) {
+						return code.instrs.get(i + 1);
+					} else {
+						return null;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	public void chunksLiveness() {

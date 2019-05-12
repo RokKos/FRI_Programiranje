@@ -31,4 +31,8 @@ public class AsmLABEL extends AsmOPER {
 		return label.name;
 	}
 
+	public Label GetLabel() {
+		return label;
+	}
+
 }
