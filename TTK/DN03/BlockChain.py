@@ -8,6 +8,9 @@ kNewLenSign = "#"
 kMatchingLen = 11
 
 
+# Globals
+ComputedHashes_ = {}
+
 def GenerateNextText(length, number):
     if (kSetOfCharactersLen ** length <= number):
         # This will be sing that we need larger string
@@ -37,10 +40,6 @@ def MatchingHash(hash_1, hash_2):
 
 
 
-text_1 = b"ROK bo vsemu KOS"  # b is infront because Python3 implementation of hashlib uses bytes-like object.
-hash_1 = HashText(text_1)
-print (hash_1)
-
 # Finding mathcing text
 length = 1
 number = 0
@@ -48,7 +47,6 @@ text_2 = ""
 hash_2 = ""
 while (True):
     text_2 = GenerateNextText(length, number)
-    #print (text_2)
     if (text_2 == kNewLenSign):
         length += 1
         number = 0
@@ -57,12 +55,19 @@ while (True):
     # Each time we are creating new sha
     hash_2 = HashText(text_2)
 
-    #print(hash_2)
-    if (MatchingHash(hash_1, hash_2)):
+    hash_key = hash_2[:kMatchingLen]
+
+    if (hash_key in ComputedHashes_):
+        text_1, hash_1 = ComputedHashes_[hash_key]
+
+        print ("Text1: " + text_1)
+        print ("Text2: " + text_2)
+        print ("hash1: " + hash_1)
+        print ("hash2: " + hash_2)
         break
 
+    # Adding tupple in hash
+    ComputedHashes_[hash_key] = (text_2, hash_2)
+
+
     number += 1
-
-
-print (text_1, text_2)
-print (hash_1, hash_2)
