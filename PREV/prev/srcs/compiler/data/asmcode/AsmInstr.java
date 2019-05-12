@@ -43,10 +43,43 @@ public abstract class AsmInstr {
 	public abstract String toString();
 
 	/**
+	 * Returns the set of temporaries that are live in the control flow graph edges
+	 * leading to this instruction.
+	 * 
+	 * @return The set of temporaries that are live in the control flow graph edges
+	 *         leading to this instruction.
+	 */
+	public abstract HashSet<Temp> in();
+
+	/**
+	 * Returns the set of temporaries that are live in the control flow graph edges
+	 * leading from this instruction.
+	 * 
+	 * @return The set of temporaries that are live in the control flow graph edges
+	 *         leading from this instruction.
+	 */
+	public abstract HashSet<Temp> out();
+
+	/**
+	 * Adds a set of temporaries to the set of temporaries that are live in the
+	 * control flow graph edges leading to this instruction.
+	 * 
+	 * @param in A set of temporaries to be added.
+	 */
+	public abstract void addInTemps(HashSet<Temp> in);
+
+	/**
+	 * Adds a set of temporaries to the set of temporaries that are live in the
+	 * control flow graph edges leading from this instruction.
+	 * 
+	 * @param out A set of temporaries to be added.
+	 */
+	public abstract void addOutTemp(HashSet<Temp> out);
+
+	/**
 	 * Returns a string representing this instruction with registers.
 	 * 
-	 * @param regs
-	 *            A mapping of temporaries to registers.
+	 * @param regs A mapping of temporaries to registers.
 	 * @return A a string representing this instruction with registers.
 	 */
 	public abstract String toString(HashMap<Temp, Integer> regs);

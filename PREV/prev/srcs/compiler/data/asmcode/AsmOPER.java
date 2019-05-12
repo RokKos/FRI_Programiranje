@@ -17,9 +17,9 @@ import compiler.data.layout.*;
  * 
  * For instance:
  * 
- * ADD T1,T2,T3 => "ADD `d0,`s0,`s1" & uses={T2,T3} & defs={T1}
- * SETL T1,3 => "SETL `d0,3" & uses={} & defs={T1}
- * SETML T1,3 => "SETL `d0,3" & uses={T1} & defs={T1}
+ * ADD T1,T2,T3 => "ADD `d0,`s0,`s1" & uses={T2,T3} & defs={T1} SETL T1,3 =>
+ * "SETL `d0,3" & uses={} & defs={T1} SETML T1,3 => "SETL `d0,3" & uses={T1} &
+ * defs={T1}
  * 
  * @author sliva
  *
@@ -39,6 +39,18 @@ public class AsmOPER extends AsmInstr {
 	private final Vector<Label> jumps;
 
 	/**
+	 * The set of temporaries that are live in the control flow graph edges leading
+	 * to this instruction.
+	 */
+	private final HashSet<Temp> in;
+
+	/**
+	 * The set of temporaries that are live in the control flow graph edges leading
+	 * from this instruction.
+	 */
+	private final HashSet<Temp> out;
+
+	/**
 	 * Constructs a new assembly instruction.
 	 * 
 	 * @param instr The string representation of the instruction.
@@ -51,6 +63,8 @@ public class AsmOPER extends AsmInstr {
 		this.uses = uses == null ? new Vector<Temp>() : uses;
 		this.defs = defs == null ? new Vector<Temp>() : defs;
 		this.jumps = jumps == null ? new Vector<Label>() : jumps;
+		this.in = new HashSet<Temp>();
+		this.out = new HashSet<Temp>();
 	}
 
 	@Override
@@ -66,6 +80,26 @@ public class AsmOPER extends AsmInstr {
 	@Override
 	public Vector<Label> jumps() {
 		return new Vector<Label>(jumps);
+	}
+
+	@Override
+	public HashSet<Temp> in() {
+		return new HashSet<Temp>(in);
+	}
+
+	@Override
+	public HashSet<Temp> out() {
+		return new HashSet<Temp>(out);
+	}
+
+	@Override
+	public void addInTemps(HashSet<Temp> in) {
+		this.in.addAll(in);
+	}
+
+	@Override
+	public void addOutTemp(HashSet<Temp> out) {
+		this.out.addAll(out);
 	}
 
 	@Override

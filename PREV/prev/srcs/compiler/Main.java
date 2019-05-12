@@ -13,6 +13,7 @@ import compiler.phases.seman.*;
 import compiler.phases.frames.*;
 import compiler.phases.imcgen.*;
 import compiler.phases.chunks.*;
+import compiler.phases.livean.*;
 
 /**
  * The compiler.
@@ -22,7 +23,7 @@ import compiler.phases.chunks.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen|livean";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -202,6 +203,14 @@ public class Main {
 					asmgen.log();
 				}
 				if (cmdLine.get("--target-phase").equals("asmgen"))
+					break;
+				
+				// Liveness analysis.
+				try (LiveAn livean = new LiveAn()) {
+					livean.chunksLiveness();
+					livean.log();
+				}
+				if (cmdLine.get("--target-phase").equals("livean"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();
