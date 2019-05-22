@@ -33,8 +33,12 @@ public class CodeChunk extends Chunk {
 	/**
 	 * Constructs a new code chunk.
 	 * 
-	 * @param frame A frame of a function.
-	 * @param stmts The statements of a function body.
+	 * @param frame      A frame of a function.
+	 * @param stmts      The statements of a function body.
+	 * @param entryLabel The function's body entry label, i.e., the label the
+	 *                   prologue jumps to.
+	 * @param exitLabel  The function's body exit label, i.e., the label at which
+	 *                   the epilogue starts.
 	 */
 	public CodeChunk(Frame frame, Vector<ImcStmt> stmts, Label entryLabel, Label exitLabel) {
 		this.frame = frame;

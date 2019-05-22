@@ -14,6 +14,7 @@ import compiler.phases.frames.*;
 import compiler.phases.imcgen.*;
 import compiler.phases.chunks.*;
 import compiler.phases.livean.*;
+import compiler.phases.ralloc.*;
 
 /**
  * The compiler.
@@ -23,10 +24,13 @@ import compiler.phases.livean.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen|livean";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen|livean|ralloc";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
+
+	/** The number of general-purpose registers. */
+	public final int numOfRegs = 8;
 
 	/**
 	 * Returns the value of a command line argument.
@@ -191,7 +195,8 @@ public class Main {
 					Abstr.absTree.accept(new ChunkGenerator(), null);
 					chunks.log();
 
-					// Interpreter interpreter = new Interpreter(Chunks.dataChunks, Chunks.codeChunks);
+					// Interpreter interpreter = new Interpreter(Chunks.dataChunks,
+					// Chunks.codeChunks);
 					// System.out.println("EXIT CODE: " + interpreter.run("_main"));
 				}
 				if (cmdLine.get("--target-phase").equals("chunks"))
@@ -204,13 +209,21 @@ public class Main {
 				}
 				if (cmdLine.get("--target-phase").equals("asmgen"))
 					break;
-				
+
 				// Liveness analysis.
 				try (LiveAn livean = new LiveAn()) {
 					livean.chunksLiveness();
 					livean.log();
 				}
 				if (cmdLine.get("--target-phase").equals("livean"))
+					break;
+
+				// Register allocation.
+				try (RAlloc ralloc = new RAlloc()) {
+					ralloc.tempsToRegs();
+					ralloc.log();
+				}
+				if (cmdLine.get("--target-phase").equals("ralloc"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();

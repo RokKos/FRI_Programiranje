@@ -30,13 +30,14 @@ public class Code {
 	public final Vector<AsmInstr> instrs;
 
 	/**
-	 * The size of all temporaries in the frame.
-	 * 
-	 * This is initially set to 0, but increases later if the register allocation
-	 * does not succeed and requires some temporary variables to be stroed in the
-	 * frame.
+	 * Mapping of temporary variables to registers.
 	 */
-	public long tempSize = 0;
+	public final HashMap<Temp, Integer> regs;
+
+	/**
+	 * The size of all temporaries in the frame.
+	 */
+	public final long tempSize;
 
 	/**
 	 * Creates a new fragment of code.
@@ -44,7 +45,7 @@ public class Code {
 	 * @param frame      The funtion's frame.
 	 * @param entryLabel The label the prologue jumps to.
 	 * @param exitLabel  The label at which the epilogue starts.
-	 * @param instrs     Assembly instructions representing the bofy of the
+	 * @param instrs     Assembly instructions representing the body of the
 	 *                   function.
 	 */
 	public Code(Frame frame, Label entryLabel, Label exitLabel, Vector<AsmInstr> instrs) {
@@ -52,6 +53,29 @@ public class Code {
 		this.entryLabel = entryLabel;
 		this.exitLabel = exitLabel;
 		this.instrs = new Vector<AsmInstr>(instrs);
+		this.regs = null;
+		this.tempSize = 0;
+	}
+
+	/**
+	 * Creates a new fragment of code.
+	 * 
+	 * @param frame      The funtion's frame.
+	 * @param entryLabel The label the prologue jumps to.
+	 * @param exitLabel  The label at which the epilogue starts.
+	 * @param instrs     Assembly instructions representing the body of the
+	 *                   function.
+	 * @param regs       Mapping of temporary variables to registers.
+	 * @param tempSize   The size of all temporaries in the frame.
+	 */
+	public Code(Frame frame, Label entryLabel, Label exitLabel, Vector<AsmInstr> instrs, HashMap<Temp, Integer> regs,
+			long tempSize) {
+		this.frame = frame;
+		this.entryLabel = entryLabel;
+		this.exitLabel = exitLabel;
+		this.instrs = new Vector<AsmInstr>(instrs);
+		this.regs = regs;
+		this.tempSize = tempSize;
 	}
 
 }

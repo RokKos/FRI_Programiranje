@@ -15,7 +15,7 @@ all: clean tests
 
 compiler/Main.class: $(SRCS)
 	$(RM) -fr compiler module-info.class
-	$(JAVAC) -sourcepath $(SRCDIR) -d $(DSTDIR) $(SRCDIR)/compiler/Main.java
+	$(JAVAC) --source-path $(SRCDIR) -d $(DSTDIR) $(SRCDIR)/compiler/Main.java
 
 tests: compiler/Main.class $(shell find . -name '*.prev')
 	echo ; \
