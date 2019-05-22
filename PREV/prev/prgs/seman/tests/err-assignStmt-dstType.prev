@@ -1,0 +1,3 @@
+var a:arr[10]int;
+var b:int;
+fun f():int={a=b;:1};

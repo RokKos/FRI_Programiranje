@@ -1,0 +1,4 @@
+fun f1(i:int):int=
+  {none;:f1(i)+f2(i) where
+   fun f2(i:int):int=
+     {none;:f1(i)+f2(i)};};

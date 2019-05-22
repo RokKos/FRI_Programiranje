@@ -1,1 +1,4 @@
+fun three():int=two(three())+3*i;
+fun one():ptr(char)=(new(int):ptr char);
+fun two(i:int):int;
 var i:int;

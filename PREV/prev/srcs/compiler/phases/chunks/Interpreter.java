@@ -15,7 +15,7 @@ import compiler.data.chunk.*;
  */
 public class Interpreter {
 
-	private boolean debug = true;
+	private boolean debug = false;
 
 	private Random random;
 

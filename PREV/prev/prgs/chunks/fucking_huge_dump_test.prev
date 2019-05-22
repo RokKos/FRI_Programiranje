@@ -246,9 +246,7 @@ fun maxBT(t:bintree):ptr int =
     };
 
 fun sudoku(t2d:ptr arr[9] arr[9] int):int =
-    { 
-			putString("Sudoku2:"); putChar((10:char));
-			t1d=(t2d:ptr arr[81] int);
+    { t1d=(t2d:ptr arr[81] int);
     : solve(0,81)
     where
       var t1d:ptr arr[81] int;
@@ -316,8 +314,7 @@ fun sudoku(t2d:ptr arr[9] arr[9] int):int =
 	    var check:bool;
 	  };
       fun solve(k:int,n:int):int =
-          { putString("solve:"); putChar((10:char));
-						if k==n then
+          { if k==n then
 	      { if true then
 	          j=0;
 	          while j<9 do

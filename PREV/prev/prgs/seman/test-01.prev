@@ -1,1 +1,2 @@
+fun f(i:int,j:int):int=i+j+f(i,j);
 var i:int;

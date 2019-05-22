@@ -1,0 +1,2 @@
+fun f1(i:int,c:char):int=
+  {i=f1(i+1,c);:f1(i,c)};

@@ -1,0 +1,2 @@
+var i:int;
+fun banner():ptr char="This is a test, v0.1:";

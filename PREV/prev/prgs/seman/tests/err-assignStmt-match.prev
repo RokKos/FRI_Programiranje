@@ -1,0 +1,2 @@
+var b:ptr char;
+fun f():int={null=b;:1};

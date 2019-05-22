@@ -1,0 +1,6 @@
+fun main():int=
+    {i=5;
+     if i<4 then i=3; else i=7; end;
+     while i>0 do i=i-1; end;
+    :i
+    where var i:int;};
