@@ -80,6 +80,11 @@ public class RAlloc extends Phase {
 		private HashMap<Temp, Vector<Temp>> graph = new HashMap<Temp, Vector<Temp>>();
 
 		private void addEdgeToNode(Temp node1, Temp node2) {
+			if (node1 == node2 && !graph.containsKey(node1)) {
+				graph.put(node1, new Vector<Temp>());
+				return;
+			}
+
 			if (!graph.containsKey(node1)) {
 				graph.put(node1, new Vector<Temp>());
 				graph.get(node1).add(node2);
@@ -118,13 +123,9 @@ public class RAlloc extends Phase {
 		InterferenceGraph interGraph = new InterferenceGraph();
 
 		for (AsmInstr instr : code.instrs) {
-
 			for (Temp defTemp : instr.defs()) {
-
 				for (Temp outTemp : instr.out()) {
-					if (defTemp != outTemp) {
-						interGraph.addEdge(defTemp, outTemp);
-					}
+					interGraph.addEdge(defTemp, outTemp);
 				}
 			}
 		}
@@ -158,12 +159,19 @@ public class RAlloc extends Phase {
 
 	private void SpillPhase(InterferenceGraph interGraph) {
 		Set<Temp> allNodes = interGraph.getAllNodes();
+
+		Vector<Temp> removedNodes = new Vector<>();
+
 		for (Temp node : allNodes) {
 			Vector<Temp> connections = interGraph.getEdgesFromNode(node);
 			if (connections.size() >= Main.numOfRegs) {
 				nodeStack.add(new Node(node, connections, true));
-				interGraph.RemoveNodeFromGraph(node);
+				removedNodes.add(node);
 			}
+		}
+
+		for (Temp node : removedNodes) {
+			interGraph.RemoveNodeFromGraph(node);
 		}
 	}
 
@@ -197,6 +205,11 @@ public class RAlloc extends Phase {
 
 	private Vector<Node> SelectPhase() {
 		Vector<Node> reconstructedGraph = new Vector<>();
+
+		System.out.println("##############################");
+		for (Node node : nodeStack) {
+			System.out.println("node: " + node.nodeName);
+		}
 
 		while (nodeStack.size() > 0) {
 			Node node = nodeStack.pop();
@@ -269,7 +282,7 @@ public class RAlloc extends Phase {
 						uses.add(newTemp);
 						uses.add(address);
 
-						newInstructions.insertElementAt(new AsmOPER(kStore, uses, null, null), ind + 3);
+						newInstructions.insertElementAt(new AsmOPER(kStore, usesStore, null, null), ind + 3);
 					} else if (instr.uses().contains(node.nodeName)) {
 						int ind = newInstructions.indexOf(instr);
 						newInstructions.get(ind).defs().remove(node.nodeName);
@@ -344,12 +357,6 @@ public class RAlloc extends Phase {
 				if (success) {
 					code = RemapTempToRegs(code, reconstructedGraph);
 					AsmGen.codes.set(i, code);
-
-					System.out.println("here");
-					for (Temp temp : code.regs.keySet()) {
-						System.out.println("h :" + temp);
-					}
-					System.out.println("ent :" + code.entryLabel.name);
 					break;
 				} else {
 					code = SpillRegs(code, reconstructedGraph);
@@ -365,16 +372,15 @@ public class RAlloc extends Phase {
 		for (Code code : AsmGen.codes) {
 			logger.begElement("code");
 			logger.addAttribute("entrylabel", code.entryLabel.name);
-			System.out.println("entrylabel :" + code.entryLabel.name);
 			logger.addAttribute("exitlabel", code.exitLabel.name);
 			logger.addAttribute("tempsize", Long.toString(code.tempSize));
 			code.frame.log(logger);
 			logger.begElement("instructions");
+			for (Temp temp : code.regs.keySet()) {
+				System.out.println("temp :" + temp + " val: " + code.regs.get(temp));
+			}
 			for (AsmInstr instr : code.instrs) {
 				logger.begElement("instruction");
-				for (Temp temp : code.regs.keySet()) {
-					System.out.println("s :" + temp);
-				}
 				logger.addAttribute("code", instr.toString(code.regs));
 				logger.endElement();
 			}

@@ -117,8 +117,10 @@ public class AsmOPER extends AsmInstr {
 		String instruction = this.instr;
 		for (int i = 0; i < uses.size(); i++)
 			instruction = instruction.replace("`s" + i, "$" + regs.get(uses.get(i)));
-		for (int i = 0; i < defs.size(); i++)
+		for (int i = 0; i < defs.size(); i++) {
+			System.out.println("defs: " + defs.get(i) + " inst: " + instruction);
 			instruction = instruction.replace("`d" + i, "$" + regs.get(defs.get(i)));
+		}
 		return instruction;
 	}
 
