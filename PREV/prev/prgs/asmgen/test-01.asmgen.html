@@ -5,7 +5,8 @@
       vertical-align: top;
       }
     </style>
-<body><table><td bgcolor="FFEE00"><table>
+<body><table>
+<td bgcolor="FFEE00"><table>
 <tr><td bgcolor="EECF00"><table width="100%">
 <tr><td><nobr>
 	  FRAME
@@ -20,16 +21,70 @@
 	  RV=T1</nobr></td></tr>
 </table></td></tr>
 <tr><td bgcolor="EECF00"><nobr>
-	    entryLabel=L1
-	    exitLabel=L2
+	    entryLabel=L2
+	    exitLabel=L3
 	    temps=0</nobr></td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">L1</td></tr>
+<tr><td bgcolor="00BBFF">L2</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T2 1</td></tr>
+<tr><td bgcolor="00BBFF">SET T10, 1</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T1 T2</td></tr>
+<tr><td bgcolor="00BBFF">SET T4, T10</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">JMP L2</td></tr>
-</table></td></table></body>
+<tr><td bgcolor="00BBFF">SET T11 _i</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T4, T5, 0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T12, 2</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T6, T12</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T13, 3</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T7, T13</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">DIV T14, T6, T7</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET T14 $rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T1, T14</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L3</td></tr>
+</table></td>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_b</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T2
+	  RV=T3</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L4
+	    exitLabel=L5
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L4</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T15, 1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T8, T15</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T16, 0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T9, T16</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">XOR T17, T8, T9</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T3, T17</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L5</td></tr>
+</table></td>
+</table></body>
 </html>

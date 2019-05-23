@@ -8,6 +8,7 @@ import compiler.data.imcode.*;
 import compiler.data.imcode.visitor.*;
 import compiler.data.layout.*;
 import compiler.data.asmcode.*;
+import compiler.data.chunk.CodeChunk;
 import compiler.common.report.*;
 
 /**
@@ -15,11 +16,11 @@ import compiler.common.report.*;
  */
 public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
-    private final String kSetNormal = "SET `d0 `s0";
+    private final String kSetNormal = "SET `d0, `s0";
     private final String kJump = "JMP ";
-    private final String kCjump = "BZ `s0 ";
-    private final String kStore = "STO `s0 `s1 0";
-    private final String kLoad = "LDO `d0 `s0 0";
+    private final String kCjump = "BZ `s0, ";
+    private final String kStore = "STO `s0, `s1, 0";
+    private final String kLoad = "LDO `d0, `s0, 0";
 
     public Vector<AsmInstr> visit(ImcCJUMP cjump, Object visArg) {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
@@ -39,7 +40,15 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
         Vector<Label> jumps = new Vector<>();
         jumps.add(jump.label);
-        instructions.add(new AsmOPER(kJump + jump.label.name, null, null, jumps));
+
+        Vector<Temp> uses = new Vector<>();
+
+        CodeChunk codeChunk = (CodeChunk) visArg;
+        if (jump.label == codeChunk.exitLabel) {
+            uses.add(codeChunk.frame.RV);
+        }
+
+        instructions.add(new AsmOPER(kJump + jump.label.name, uses, null, jumps));
         return instructions;
     }
 

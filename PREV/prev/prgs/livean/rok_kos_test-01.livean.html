@@ -37,7 +37,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T9 1</td></tr>
+<tr><td>SET T9, 1</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -49,7 +49,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T2 T9</td></tr>
+<tr><td>SET T2, T9</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T9</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -61,7 +61,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>BZ T2 L3</td></tr>
+<tr><td>BZ T2, L3</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T2</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -85,7 +85,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T10 1</td></tr>
+<tr><td>SET T10, 1</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -97,7 +97,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T3 T10</td></tr>
+<tr><td>SET T3, T10</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T10</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -121,7 +121,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>STO T3 T4 0</td></tr>
+<tr><td>STO T3, T4, 0</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T3 T4</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -157,7 +157,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T12 2</td></tr>
+<tr><td>SET T12, 2</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -169,7 +169,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T5 T12</td></tr>
+<tr><td>SET T5, T12</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T12</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -193,7 +193,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>STO T5 T6 0</td></tr>
+<tr><td>STO T5, T6, 0</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T5 T6</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -217,7 +217,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T14 2</td></tr>
+<tr><td>SET T14, 2</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -229,7 +229,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T7 T14</td></tr>
+<tr><td>SET T7, T14</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T14</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -241,7 +241,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T15 3</td></tr>
+<tr><td>SET T15, 3</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -253,7 +253,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T8 T15</td></tr>
+<tr><td>SET T8, T15</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T15</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -265,7 +265,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>DIV T16 T7 T8</td></tr>
+<tr><td>DIV T16, T7, T8</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T7 T8</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -289,7 +289,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T1 T16</td></tr>
+<tr><td>SET T1, T16</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T16</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -297,17 +297,17 @@
 <tr bgcolor="00CCFF"><td>in:
        T16</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-      </td></tr>
+       T1</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
 <tr><td>JMP L5</td></tr>
 <tr bgcolor="00CCFF"><td>use:
-      </td></tr>
+       T1</td></tr>
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-      </td></tr>
+       T1</td></tr>
 <tr bgcolor="00CCFF"><td>out:
       </td></tr>
 </table></td></tr>
