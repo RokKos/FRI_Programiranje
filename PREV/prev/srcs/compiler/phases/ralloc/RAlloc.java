@@ -167,11 +167,15 @@ public class RAlloc extends Phase {
 			if (connections.size() >= Main.numOfRegs) {
 				nodeStack.add(new Node(node, connections, true));
 				removedNodes.add(node);
+				break;
 			}
 		}
 
 		for (Temp node : removedNodes) {
+			// System.out.println(interGraph.graph.size());
+			// System.out.println("Spill remove");
 			interGraph.RemoveNodeFromGraph(node);
+			// System.out.println(interGraph.graph.size());
 		}
 	}
 
@@ -189,7 +193,7 @@ public class RAlloc extends Phase {
 				}
 			}
 
-			if (ngbColor != Integer.MAX_VALUE) {
+			if (ngbColor < Main.numOfRegs) {
 				colors.set(ngbColor, false);
 			}
 		}
@@ -203,16 +207,20 @@ public class RAlloc extends Phase {
 		return Integer.MAX_VALUE;
 	}
 
-	private Vector<Node> SelectPhase() {
+	private Vector<Node> SelectPhase(Code code) {
 		Vector<Node> reconstructedGraph = new Vector<>();
 
-		System.out.println("##############################");
-		for (Node node : nodeStack) {
-			System.out.println("node: " + node.nodeName);
-		}
+		// //System.out.println("FP TEMP:" + code.frame.FP);
 
 		while (nodeStack.size() > 0) {
 			Node node = nodeStack.pop();
+			if (node.nodeName.temp == code.frame.FP.temp) {
+				// //System.out.println("FP CHANGED");
+				node.setColor(253);
+				reconstructedGraph.add(node);
+				continue;
+			}
+
 			if (node.getIsPotencialSpill()) {
 				int color = GetColor(node, reconstructedGraph);
 				node.setColor(color);
@@ -238,10 +246,6 @@ public class RAlloc extends Phase {
 			mapping.put(node.nodeName, node.color);
 		}
 
-		for (Temp temp : mapping.keySet()) {
-			System.out.println("m :" + temp);
-		}
-
 		return new Code(code.frame, code.entryLabel, code.exitLabel, code.instrs, mapping, code.tempSize);
 	}
 
@@ -252,54 +256,67 @@ public class RAlloc extends Phase {
 		}
 
 		long temps = code.tempSize;
-		long offset = code.frame.locsSize;
+		long offset = code.frame.locsSize + 16;
 		for (Node node : reconstructedGraph) {
 			if (node.isActualSpill) {
 				for (AsmInstr instr : code.instrs) {
 					if (instr.defs().contains(node.nodeName)) {
 						int ind = newInstructions.indexOf(instr);
-						newInstructions.get(ind).defs().remove(node.nodeName);
+						AsmOPER oldInstruction = (AsmOPER) newInstructions.get(ind);
 
 						Temp newTemp = new Temp();
-						newInstructions.get(ind).defs().add(newTemp);
+						Vector<Temp> newDef = new Vector<>();
+						newDef.add(newTemp);
+
+						AsmInstr modInstruction = new AsmOPER(oldInstruction.instr(), oldInstruction.uses(), newDef,
+								oldInstruction.jumps());
+
+						newInstructions.remove(oldInstruction);
+						newInstructions.add(ind, modInstruction);
 
 						Temp address = new Temp();
 						Vector<Temp> defs = new Vector<>();
 						defs.add(address);
-						newInstructions.insertElementAt(new AsmOPER(kSetConst + ", " + offset, null, defs, null),
-								ind + 1);
+						newInstructions.add(ind + 1, new AsmOPER(kSetConst + offset, null, defs, null));
 
 						offset += 8;
 						temps += 1;
 
 						Vector<Temp> uses = new Vector<>();
-						uses.add(address);
 						uses.add(code.frame.FP);
+						uses.add(address);
 
-						newInstructions.insertElementAt(new AsmOPER(kSub, uses, defs, null), ind + 2);
+						newInstructions.add(ind + 2, new AsmOPER(kSub, uses, defs, null));
 
 						Vector<Temp> usesStore = new Vector<>();
-						uses.add(newTemp);
-						uses.add(address);
+						usesStore.add(newTemp);
+						usesStore.add(address);
 
-						newInstructions.insertElementAt(new AsmOPER(kStore, usesStore, null, null), ind + 3);
+						newInstructions.add(ind + 3, new AsmOPER(kStore, usesStore, null, null));
 					} else if (instr.uses().contains(node.nodeName)) {
 						int ind = newInstructions.indexOf(instr);
-						newInstructions.get(ind).defs().remove(node.nodeName);
+						AsmOPER oldInstruction = (AsmOPER) newInstructions.get(ind);
 
 						Temp newTemp = new Temp();
-						newInstructions.get(ind).defs().add(newTemp);
+						Vector<Temp> newUses = new Vector<>();
+						newUses.add(newTemp);
+
+						AsmInstr modInstruction = new AsmOPER(oldInstruction.instr(), newUses, oldInstruction.defs(),
+								oldInstruction.jumps());
+
+						newInstructions.remove(oldInstruction);
+						newInstructions.add(ind, modInstruction);
 
 						Temp address = new Temp();
 						Vector<Temp> defs = new Vector<>();
 						defs.add(address);
-						newInstructions.insertElementAt(new AsmOPER(kSetConst + ", " + offset, null, defs, null), ind);
+						newInstructions.add(ind, new AsmOPER(kSetConst + offset, null, defs, null));
 
 						Vector<Temp> uses = new Vector<>();
-						uses.add(address);
 						uses.add(code.frame.FP);
+						uses.add(address);
 
-						newInstructions.insertElementAt(new AsmOPER(kSub, uses, defs, null), ind);
+						newInstructions.add(ind + 1, new AsmOPER(kSub, uses, defs, null));
 
 						Vector<Temp> defsLoad = new Vector<>();
 						defsLoad.add(newTemp);
@@ -307,13 +324,13 @@ public class RAlloc extends Phase {
 						Vector<Temp> usesLoad = new Vector<>();
 						usesLoad.add(address);
 
-						newInstructions.insertElementAt(new AsmOPER(kLoad, usesLoad, defsLoad, null), ind);
+						newInstructions.add(ind + 2, new AsmOPER(kLoad, usesLoad, defsLoad, null));
 					}
 				}
 			}
 		}
 
-		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset, code.frame.argsSize);
+		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize);
 		return new Code(newFrame, code.entryLabel, code.exitLabel, newInstructions, code.regs, temps);
 	}
 
@@ -325,6 +342,7 @@ public class RAlloc extends Phase {
 
 		for (int i = 0; i < AsmGen.codes.size(); i++) {
 			Code code = AsmGen.codes.get(i);
+
 			while (true) {
 				InterferenceGraph interGraph = BuildPhase(code);
 
@@ -334,21 +352,25 @@ public class RAlloc extends Phase {
 
 					// Simplify until you can
 					while (SimplifyPhase(interGraph)) {
+						// System.out.println("SimplifyPhase");
 					}
 
 					if (interGraph.getNodesInGraph() > 0) {
+						// System.out.println("SpillPhase");
 						SpillPhase(interGraph);
 					}
 
 					if (interGraph.getNodesInGraph() == 0) {
+						// System.out.println("Over");
 						break;
 					}
 				}
 
-				Vector<Node> reconstructedGraph = SelectPhase();
+				Vector<Node> reconstructedGraph = SelectPhase(code);
 				boolean success = true;
 				for (Node node : reconstructedGraph) {
 					if (node.isActualSpill) {
+						// System.out.println("Actual Spill");
 						success = false;
 						break;
 					}
@@ -376,9 +398,6 @@ public class RAlloc extends Phase {
 			logger.addAttribute("tempsize", Long.toString(code.tempSize));
 			code.frame.log(logger);
 			logger.begElement("instructions");
-			for (Temp temp : code.regs.keySet()) {
-				System.out.println("temp :" + temp + " val: " + code.regs.get(temp));
-			}
 			for (AsmInstr instr : code.instrs) {
 				logger.begElement("instruction");
 				logger.addAttribute("code", instr.toString(code.regs));

@@ -72,6 +72,10 @@ public class AsmOPER extends AsmInstr {
 		return new Vector<Temp>(uses);
 	}
 
+	public String instr() {
+		return instr;
+	}
+
 	@Override
 	public Vector<Temp> defs() {
 		return new Vector<Temp>(defs);
@@ -118,7 +122,6 @@ public class AsmOPER extends AsmInstr {
 		for (int i = 0; i < uses.size(); i++)
 			instruction = instruction.replace("`s" + i, "$" + regs.get(uses.get(i)));
 		for (int i = 0; i < defs.size(); i++) {
-			System.out.println("defs: " + defs.get(i) + " inst: " + instruction);
 			instruction = instruction.replace("`d" + i, "$" + regs.get(defs.get(i)));
 		}
 		return instruction;
