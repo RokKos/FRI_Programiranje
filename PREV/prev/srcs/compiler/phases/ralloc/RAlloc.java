@@ -176,7 +176,6 @@ public class RAlloc extends Phase {
 		for (Temp node : allNodes) {
 			Vector<Temp> connections = interGraph.getEdgesFromNode(node);
 			if (connections.size() >= Main.numOfRegs && connections.size() > maxConn.size()) {
-				System.out.println(node + " co: " + connections.size());
 				toSpill = node;
 				maxConn = connections;
 			}
@@ -220,15 +219,12 @@ public class RAlloc extends Phase {
 	private Vector<Node> SelectPhase(Code code) {
 		Vector<Node> reconstructedGraph = new Vector<>();
 
-		// System.out.println("FP TEMP:" + code.frame.FP);
-
 		while (nodeStack.size() > 0) {
 			Node node = nodeStack.pop();
 
 			// Hacky
 			for (Code code_ : AsmGen.codes) {
 				if (node.nodeName.temp == code_.frame.FP.temp) {
-					// System.out.println("FP CHANGED");
 					node.setColor(253);
 					reconstructedGraph.add(node);
 					continue;
@@ -267,7 +263,6 @@ public class RAlloc extends Phase {
 		Vector<AsmInstr> newInstructions = new Vector<>();
 
 		for (AsmInstr instr : code.instrs) {
-			System.out.println(instr.toString());
 			if (instr instanceof AsmLABEL) {
 				AsmLABEL instr_ = (AsmLABEL) instr;
 				newInstructions.add(new AsmLABEL(instr_.GetLabel()));
@@ -277,12 +272,10 @@ public class RAlloc extends Phase {
 			}
 
 		}
-		System.out.println("#######");
 
 		long temps = code.tempSize;
 		long offset = code.frame.locsSize + 16;
 
-		// TODO: SPILLING
 		HashMap<Temp, Temp> newTemps = new HashMap<Temp, Temp>();
 		for (Node node : reconstructedGraph) {
 			newTemps.put(node.nodeName, node.nodeName);
@@ -301,10 +294,6 @@ public class RAlloc extends Phase {
 				AsmOPER instr = (AsmOPER) newInstructions.get(i);
 
 				if (instr.defs().contains(node.nodeName)) {
-
-					System.out.println("defs temp: " + node.nodeName + " new: " + newTemps.get(node.nodeName)
-							+ " instr: " + instr.toString());
-
 					Temp newTemp = new Temp();
 					Vector<Temp> newDef = new Vector<>();
 					newDef.add(newTemp);
@@ -312,7 +301,6 @@ public class RAlloc extends Phase {
 					newTemps.replace(node.nodeName, newTemp);
 
 					AsmInstr modInstruction = new AsmOPER(instr.instr(), instr.uses(), newDef, instr.jumps());
-					// System.out.println("Left uses: " + instr.uses());
 					newInstructions.remove(i);
 					newInstructions.add(i, modInstruction);
 
@@ -345,8 +333,6 @@ public class RAlloc extends Phase {
 			for (int i = 0; i < repeats; ++i) {
 				AsmOPER instr = (AsmOPER) newInstructions.get(i);
 				if (instr.uses().contains(node.nodeName)) {
-					System.out.println("uses temp: " + node.nodeName + " new: " + newTemps.get(node.nodeName)
-							+ " instr: " + instr.toString());
 
 					Temp newTemp = new Temp();
 					Vector<Temp> newUses = new Vector<>();
@@ -359,7 +345,6 @@ public class RAlloc extends Phase {
 					Temp address = new Temp();
 					Vector<Temp> defs = new Vector<>();
 					defs.add(address);
-					System.out.println("temp: " + node.nodeName + " " + newTemps.get(node.nodeName));
 					long offsetTemp = tempOffsets.get(newTemps.get(node.nodeName));
 					newInstructions.add(i, new AsmOPER(kSetConst + offsetTemp, null, defs, null));
 
@@ -385,12 +370,6 @@ public class RAlloc extends Phase {
 
 		}
 
-		for (
-
-		AsmInstr debug : newInstructions) {
-			System.out.println(debug.toString());
-		}
-
 		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize, code.frame.FP,
 				code.frame.RV);
 		return new Code(newFrame, code.entryLabel, code.exitLabel, newInstructions, code.regs, temps);
@@ -408,9 +387,7 @@ public class RAlloc extends Phase {
 			Code code = AsmGen.codes.get(i);
 
 			while (true) {
-				System.out.println("LIVE");
 				liveAn.chunkLiveness(code);
-				System.out.println("Build");
 				InterferenceGraph interGraph = BuildPhase(code);
 
 				nodeStack = new Stack<>();
@@ -419,16 +396,13 @@ public class RAlloc extends Phase {
 
 					// Simplify until you can
 					while (SimplifyPhase(interGraph)) {
-						System.out.println("SimplifyPhase");
 					}
 
 					if (interGraph.getNodesInGraph() > 0) {
-						System.out.println("SpillPhase");
 						SpillPhase(interGraph);
 					}
 
 					if (interGraph.getNodesInGraph() == 0) {
-						System.out.println("Over");
 						break;
 					}
 				}
@@ -437,7 +411,6 @@ public class RAlloc extends Phase {
 				boolean success = true;
 				for (Node node : reconstructedGraph) {
 					if (node.isActualSpill) {
-						System.out.println("Actual Spill");
 						success = false;
 						break;
 					}
