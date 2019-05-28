@@ -15,6 +15,7 @@ import compiler.phases.imcgen.*;
 import compiler.phases.chunks.*;
 import compiler.phases.livean.*;
 import compiler.phases.ralloc.*;
+import compiler.phases.finalphase.*;
 
 /**
  * The compiler.
@@ -24,7 +25,7 @@ import compiler.phases.ralloc.*;
 public class Main {
 
 	/** All valid phases of the compiler. */
-	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen|livean|ralloc";
+	private static final String phases = "lexan|synan|abstr|seman|frames|imcgen|chunks|asmgen|livean|ralloc|final";
 
 	/** Values of command line arguments. */
 	private static HashMap<String, String> cmdLine = new HashMap<String, String>();
@@ -224,6 +225,14 @@ public class Main {
 					ralloc.log();
 				}
 				if (cmdLine.get("--target-phase").equals("ralloc"))
+					break;
+
+				// Register allocation.
+				try (FinalPhase finalPhase = new FinalPhase()) {
+					finalPhase.Finish();
+					finalPhase.log();
+				}
+				if (cmdLine.get("--target-phase").equals("final"))
 					break;
 
 				int endWarnings = Report.numOfWarnings();
