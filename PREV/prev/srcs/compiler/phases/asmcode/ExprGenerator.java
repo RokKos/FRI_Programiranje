@@ -24,9 +24,9 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kCompareParam = "`d0, `s0, 0";
     private final String kNeg = "NEG `d0, 0, `s0";
     private final String kHighBit = "32768"; // 2^15
-    private final String kPush = "PUSHJ $15 "; // Temporary
-    private final String kStore = "STO `s0, $254 ";
-    private final String kLoad = "LDO `d0, $254 ";
+    private final String kPush = "PUSHJ $15, "; // Temporary
+    private final String kStore = "STO `s0, $254, ";
+    private final String kLoad = "LDO `d0, $254, ";
     private final short kOctaSize = 8;
 
     // Binary operator op names
@@ -106,7 +106,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
         case MOD:
             instructions.add(new AsmOPER(kDiv + kBinopAppend, uses, defs, null));
-            instructions.add(new AsmOPER("GET `d0 $rR", null, defs, null)); // Remainder is in rR register
+            instructions.add(new AsmOPER("GET `d0, $rR", null, defs, null)); // Remainder is in rR register
             break;
 
         case AND:
@@ -240,7 +240,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         Temp temp = new Temp();
         defs.add(temp);
 
-        String set = "SET `d0 " + name.label.name;
+        String set = "SET `d0, " + name.label.name;
         instructions.add(new AsmOPER(set, null, defs, null));
 
         return temp;

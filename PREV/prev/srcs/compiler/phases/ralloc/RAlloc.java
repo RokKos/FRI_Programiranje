@@ -14,6 +14,7 @@ import compiler.data.layout.Frame;
 import compiler.data.layout.Temp;
 import compiler.phases.*;
 import compiler.phases.asmcode.*;
+import compiler.phases.livean.LiveAn;
 
 /**
  * Register allocation phase.
@@ -251,83 +252,130 @@ public class RAlloc extends Phase {
 
 	private Code SpillRegs(Code code, Vector<Node> reconstructedGraph) {
 		Vector<AsmInstr> newInstructions = new Vector<>();
+
 		for (AsmInstr instr : code.instrs) {
-			newInstructions.add(instr);
+			System.out.println(instr.toString());
+			if (instr instanceof AsmLABEL) {
+				AsmLABEL instr_ = (AsmLABEL) instr;
+				newInstructions.add(new AsmLABEL(instr_.GetLabel()));
+			} else if (instr instanceof AsmOPER) {
+				AsmOPER instr_ = (AsmOPER) instr;
+				newInstructions.add(new AsmOPER(instr_.instr(), instr.uses(), instr.defs(), instr.jumps()));
+			}
+
 		}
+		System.out.println("#######");
 
 		long temps = code.tempSize;
 		long offset = code.frame.locsSize + 16;
+
+		// TODO: SPILLING
+		HashMap<Temp, Temp> newTemps = new HashMap<Temp, Temp>();
 		for (Node node : reconstructedGraph) {
-			if (node.isActualSpill) {
-				for (AsmInstr instr : code.instrs) {
-					if (instr.defs().contains(node.nodeName)) {
-						int ind = newInstructions.indexOf(instr);
-						AsmOPER oldInstruction = (AsmOPER) newInstructions.get(ind);
+			newTemps.put(node.nodeName, node.nodeName);
+		}
 
-						Temp newTemp = new Temp();
-						Vector<Temp> newDef = new Vector<>();
-						newDef.add(newTemp);
+		HashMap<Temp, Long> tempOffsets = new HashMap<Temp, Long>();
 
-						AsmInstr modInstruction = new AsmOPER(oldInstruction.instr(), oldInstruction.uses(), newDef,
-								oldInstruction.jumps());
+		for (Node node : reconstructedGraph) {
+			if (!node.isActualSpill) {
+				continue;
+			}
 
-						newInstructions.remove(oldInstruction);
-						newInstructions.add(ind, modInstruction);
+			int repeats = newInstructions.size();
 
-						Temp address = new Temp();
-						Vector<Temp> defs = new Vector<>();
-						defs.add(address);
-						newInstructions.add(ind + 1, new AsmOPER(kSetConst + offset, null, defs, null));
+			for (int i = 0; i < repeats; ++i) {
+				AsmOPER instr = (AsmOPER) newInstructions.get(i);
 
-						offset += 8;
-						temps += 1;
+				if (instr.defs().contains(node.nodeName)) {
 
-						Vector<Temp> uses = new Vector<>();
-						uses.add(code.frame.FP);
-						uses.add(address);
+					System.out.println("defs temp: " + node.nodeName + " new: " + newTemps.get(node.nodeName)
+							+ " instr: " + instr.toString());
 
-						newInstructions.add(ind + 2, new AsmOPER(kSub, uses, defs, null));
+					Temp newTemp = new Temp();
+					Vector<Temp> newDef = new Vector<>();
+					newDef.add(newTemp);
 
-						Vector<Temp> usesStore = new Vector<>();
-						usesStore.add(newTemp);
-						usesStore.add(address);
+					newTemps.replace(node.nodeName, newTemp);
 
-						newInstructions.add(ind + 3, new AsmOPER(kStore, usesStore, null, null));
-					} else if (instr.uses().contains(node.nodeName)) {
-						int ind = newInstructions.indexOf(instr);
-						AsmOPER oldInstruction = (AsmOPER) newInstructions.get(ind);
+					AsmInstr modInstruction = new AsmOPER(instr.instr(), instr.uses(), newDef, instr.jumps());
+					// System.out.println("Left uses: " + instr.uses());
+					newInstructions.remove(i);
+					newInstructions.add(i, modInstruction);
 
-						Temp newTemp = new Temp();
-						Vector<Temp> newUses = new Vector<>();
-						newUses.add(newTemp);
+					Temp address = new Temp();
+					Vector<Temp> defs = new Vector<>();
+					defs.add(address);
+					newInstructions.add(i + 1, new AsmOPER(kSetConst + offset, null, defs, null));
 
-						AsmInstr modInstruction = new AsmOPER(oldInstruction.instr(), newUses, oldInstruction.defs(),
-								oldInstruction.jumps());
+					offset += 8;
+					tempOffsets.put(newTemp, offset);
+					temps += 1;
 
-						newInstructions.remove(oldInstruction);
-						newInstructions.add(ind, modInstruction);
+					Vector<Temp> uses = new Vector<>();
+					uses.add(code.frame.FP);
+					uses.add(address);
 
-						Temp address = new Temp();
-						Vector<Temp> defs = new Vector<>();
-						defs.add(address);
-						newInstructions.add(ind, new AsmOPER(kSetConst + offset, null, defs, null));
+					newInstructions.add(i + 2, new AsmOPER(kSub, uses, defs, null));
 
-						Vector<Temp> uses = new Vector<>();
-						uses.add(code.frame.FP);
-						uses.add(address);
+					Vector<Temp> usesStore = new Vector<>();
+					usesStore.add(newTemp);
+					usesStore.add(address);
 
-						newInstructions.add(ind + 1, new AsmOPER(kSub, uses, defs, null));
+					newInstructions.add(i + 3, new AsmOPER(kStore, usesStore, null, null));
 
-						Vector<Temp> defsLoad = new Vector<>();
-						defsLoad.add(newTemp);
-
-						Vector<Temp> usesLoad = new Vector<>();
-						usesLoad.add(address);
-
-						newInstructions.add(ind + 2, new AsmOPER(kLoad, usesLoad, defsLoad, null));
-					}
+					repeats += 3;
 				}
 			}
+
+			repeats = newInstructions.size();
+			for (int i = 0; i < repeats; ++i) {
+				AsmOPER instr = (AsmOPER) newInstructions.get(i);
+				if (instr.uses().contains(node.nodeName)) {
+					System.out.println("uses temp: " + node.nodeName + " new: " + newTemps.get(node.nodeName)
+							+ " instr: " + instr.toString());
+
+					Temp newTemp = new Temp();
+					Vector<Temp> newUses = new Vector<>();
+					newUses.add(newTemp);
+
+					AsmInstr modInstruction = new AsmOPER(instr.instr(), newUses, instr.defs(), instr.jumps());
+
+					newInstructions.remove(i);
+
+					Temp address = new Temp();
+					Vector<Temp> defs = new Vector<>();
+					defs.add(address);
+					System.out.println("temp: " + node.nodeName + " " + newTemps.get(node.nodeName));
+					long offsetTemp = tempOffsets.get(newTemps.get(node.nodeName));
+					newInstructions.add(i, new AsmOPER(kSetConst + offsetTemp, null, defs, null));
+
+					Vector<Temp> uses = new Vector<>();
+					uses.add(code.frame.FP);
+					uses.add(address);
+
+					newInstructions.add(i + 1, new AsmOPER(kSub, uses, defs, null));
+
+					Vector<Temp> defsLoad = new Vector<>();
+					defsLoad.add(newTemp);
+
+					Vector<Temp> usesLoad = new Vector<>();
+					usesLoad.add(address);
+
+					newInstructions.add(i + 2, new AsmOPER(kLoad, usesLoad, defsLoad, null));
+
+					newInstructions.add(i + 3, modInstruction);
+
+					repeats += 3;
+				}
+			}
+
+		}
+
+		for (
+
+		AsmInstr debug : newInstructions) {
+			System.out.println(debug.toString());
 		}
 
 		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize);
@@ -340,10 +388,15 @@ public class RAlloc extends Phase {
 	 */
 	public void tempsToRegs() {
 
+		LiveAn liveAn = new LiveAn();
+
 		for (int i = 0; i < AsmGen.codes.size(); i++) {
 			Code code = AsmGen.codes.get(i);
 
 			while (true) {
+				System.out.println("LIVE");
+				liveAn.chunkLiveness(code);
+				System.out.println("Build");
 				InterferenceGraph interGraph = BuildPhase(code);
 
 				nodeStack = new Stack<>();
@@ -352,16 +405,16 @@ public class RAlloc extends Phase {
 
 					// Simplify until you can
 					while (SimplifyPhase(interGraph)) {
-						// System.out.println("SimplifyPhase");
+						System.out.println("SimplifyPhase");
 					}
 
 					if (interGraph.getNodesInGraph() > 0) {
-						// System.out.println("SpillPhase");
+						System.out.println("SpillPhase");
 						SpillPhase(interGraph);
 					}
 
 					if (interGraph.getNodesInGraph() == 0) {
-						// System.out.println("Over");
+						System.out.println("Over");
 						break;
 					}
 				}
@@ -370,7 +423,7 @@ public class RAlloc extends Phase {
 				boolean success = true;
 				for (Node node : reconstructedGraph) {
 					if (node.isActualSpill) {
-						// System.out.println("Actual Spill");
+						System.out.println("Actual Spill");
 						success = false;
 						break;
 					}

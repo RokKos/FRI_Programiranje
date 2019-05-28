@@ -56,7 +56,6 @@ public class LiveAn extends Phase {
 				}
 
 				instruction.addOutTemp(new_out);
-
 				if (!(_in.equals(new_in) && _out.equals(new_out))) {
 					stable = false;
 				}
