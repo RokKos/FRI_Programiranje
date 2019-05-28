@@ -90,7 +90,10 @@ public class RAlloc extends Phase {
 				graph.put(node1, new Vector<Temp>());
 				graph.get(node1).add(node2);
 			} else {
-				graph.get(node1).add(node2);
+				Vector<Temp> arr = graph.get(node1);
+				if (!arr.contains(node2)) {
+					arr.add(node2);
+				}
 			}
 		}
 
@@ -122,6 +125,12 @@ public class RAlloc extends Phase {
 
 	private InterferenceGraph BuildPhase(Code code) {
 		InterferenceGraph interGraph = new InterferenceGraph();
+
+		for (AsmInstr instr : code.instrs) {
+			for (Temp use : instr.uses()) {
+				interGraph.addEdge(use, use);
+			}
+		}
 
 		for (AsmInstr instr : code.instrs) {
 			for (Temp defTemp : instr.defs()) {
@@ -161,23 +170,23 @@ public class RAlloc extends Phase {
 	private void SpillPhase(InterferenceGraph interGraph) {
 		Set<Temp> allNodes = interGraph.getAllNodes();
 
-		Vector<Temp> removedNodes = new Vector<>();
+		Temp toSpill = new Temp();
+		Vector<Temp> maxConn = new Vector<>();
 
 		for (Temp node : allNodes) {
 			Vector<Temp> connections = interGraph.getEdgesFromNode(node);
-			if (connections.size() >= Main.numOfRegs) {
-				nodeStack.add(new Node(node, connections, true));
-				removedNodes.add(node);
-				break;
+			if (connections.size() >= Main.numOfRegs && connections.size() > maxConn.size()) {
+				System.out.println(node + " co: " + connections.size());
+				toSpill = node;
+				maxConn = connections;
 			}
 		}
 
-		for (Temp node : removedNodes) {
-			// System.out.println(interGraph.graph.size());
-			// System.out.println("Spill remove");
-			interGraph.RemoveNodeFromGraph(node);
-			// System.out.println(interGraph.graph.size());
+		if (maxConn.size() > 0) {
+			nodeStack.add(new Node(toSpill, maxConn, true));
+			interGraph.RemoveNodeFromGraph(toSpill);
 		}
+
 	}
 
 	public int GetColor(Node node, Vector<Node> reconstructedGraph) {
@@ -211,15 +220,19 @@ public class RAlloc extends Phase {
 	private Vector<Node> SelectPhase(Code code) {
 		Vector<Node> reconstructedGraph = new Vector<>();
 
-		// //System.out.println("FP TEMP:" + code.frame.FP);
+		// System.out.println("FP TEMP:" + code.frame.FP);
 
 		while (nodeStack.size() > 0) {
 			Node node = nodeStack.pop();
-			if (node.nodeName.temp == code.frame.FP.temp) {
-				// //System.out.println("FP CHANGED");
-				node.setColor(253);
-				reconstructedGraph.add(node);
-				continue;
+
+			// Hacky
+			for (Code code_ : AsmGen.codes) {
+				if (node.nodeName.temp == code_.frame.FP.temp) {
+					// System.out.println("FP CHANGED");
+					node.setColor(253);
+					reconstructedGraph.add(node);
+					continue;
+				}
 			}
 
 			if (node.getIsPotencialSpill()) {
@@ -378,7 +391,8 @@ public class RAlloc extends Phase {
 			System.out.println(debug.toString());
 		}
 
-		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize);
+		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize, code.frame.FP,
+				code.frame.RV);
 		return new Code(newFrame, code.entryLabel, code.exitLabel, newInstructions, code.regs, temps);
 	}
 
