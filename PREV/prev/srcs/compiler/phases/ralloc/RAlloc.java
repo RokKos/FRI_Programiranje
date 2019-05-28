@@ -130,6 +130,9 @@ public class RAlloc extends Phase {
 			for (Temp use : instr.uses()) {
 				interGraph.addEdge(use, use);
 			}
+			for (Temp def : instr.defs()) {
+				interGraph.addEdge(def, def);
+			}
 		}
 
 		for (AsmInstr instr : code.instrs) {
@@ -309,9 +312,10 @@ public class RAlloc extends Phase {
 					defs.add(address);
 					newInstructions.add(i + 1, new AsmOPER(kSetConst + offset, null, defs, null));
 
-					offset += 8;
-					tempOffsets.put(newTemp, offset);
+					tempOffsets.put(newTemp, offset + temps * 8);
+
 					temps += 1;
+					System.out.println("TEMPS----------" + temps);
 
 					Vector<Temp> uses = new Vector<>();
 					uses.add(code.frame.FP);
@@ -368,11 +372,18 @@ public class RAlloc extends Phase {
 				}
 			}
 
+			for (AsmInstr instr : code.instrs) {
+				System.out.println(instr.toString());
+			}
+
+			System.out.println("$$$$$$$$$$$$$$$$$$$");
+			for (AsmInstr instr : newInstructions) {
+				System.out.println(instr.toString());
+			}
+
 		}
 
-		Frame newFrame = new Frame(code.frame.label, code.frame.depth, offset - 16, code.frame.argsSize, code.frame.FP,
-				code.frame.RV);
-		return new Code(newFrame, code.entryLabel, code.exitLabel, newInstructions, code.regs, temps);
+		return new Code(code.frame, code.entryLabel, code.exitLabel, newInstructions, code.regs, temps);
 	}
 
 	/**

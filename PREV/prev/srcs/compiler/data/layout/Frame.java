@@ -53,16 +53,6 @@ public class Frame implements Loggable {
 		this.RV = new Temp();
 	}
 
-	public Frame(Label label, int depth, long locsSize, long argsSize, Temp FP, Temp RV) {
-		this.label = label;
-		this.depth = depth;
-		this.locsSize = locsSize;
-		this.argsSize = argsSize;
-		this.size = this.locsSize + 2 * (new SemPtrType(new SemVoidType())).size() + this.argsSize;
-		this.FP = FP;
-		this.RV = RV;
-	}
-
 	@Override
 	public void log(Logger logger) {
 		if (logger == null)

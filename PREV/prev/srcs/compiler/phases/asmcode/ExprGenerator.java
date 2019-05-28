@@ -26,7 +26,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kHighBit = "32768"; // 2^15
     private final String kPush = "PUSHJ $15, "; // Temporary
     private final String kStore = "STO `s0, $254, ";
-    private final String kLoad = "LDO `d0, $254, ";
+    private final String kLoad = "LDO `d0, $254, 0";
     private final short kOctaSize = 8;
 
     // Binary operator op names
