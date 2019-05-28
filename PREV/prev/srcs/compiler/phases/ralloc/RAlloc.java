@@ -223,13 +223,13 @@ public class RAlloc extends Phase {
 			Node node = nodeStack.pop();
 
 			// Hacky
-			for (Code code_ : AsmGen.codes) {
-				if (node.nodeName.temp == code_.frame.FP.temp) {
-					node.setColor(253);
-					reconstructedGraph.add(node);
-					continue;
-				}
+			// for (Code code_ : AsmGen.codes) {
+			if (node.nodeName.temp == code.frame.FP.temp) {
+				node.setColor(253);
+				reconstructedGraph.add(node);
+				continue;
 			}
+			// }
 
 			if (node.getIsPotencialSpill()) {
 				int color = GetColor(node, reconstructedGraph);
