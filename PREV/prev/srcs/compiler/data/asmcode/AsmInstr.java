@@ -84,4 +84,6 @@ public abstract class AsmInstr {
 	 */
 	public abstract String toString(HashMap<Temp, Integer> regs);
 
+	public abstract String toAsemblerCode(HashMap<Temp, Integer> regs);
+
 }

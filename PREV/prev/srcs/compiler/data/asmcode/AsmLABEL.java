@@ -31,6 +31,11 @@ public class AsmLABEL extends AsmOPER {
 		return label.name;
 	}
 
+	@Override
+	public String toAsemblerCode(HashMap<Temp, Integer> regs) {
+		return label.name;
+	}
+
 	public Label GetLabel() {
 		return label;
 	}

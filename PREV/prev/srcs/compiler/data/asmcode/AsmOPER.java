@@ -127,4 +127,21 @@ public class AsmOPER extends AsmInstr {
 		return instruction;
 	}
 
+	@Override
+	public String toAsemblerCode(HashMap<Temp, Integer> regs) {
+		String instruction = this.instr;
+		for (int i = 0; i < uses.size(); i++)
+			instruction = instruction.replace("`s" + i, "$" + regs.get(uses.get(i)));
+		for (int i = 0; i < defs.size(); i++) {
+			instruction = instruction.replace("`d" + i, "$" + regs.get(defs.get(i)));
+		}
+		int firstSpace = instruction.indexOf(" ");
+		if (firstSpace != -1) {
+			return "\t" + instruction.substring(0, firstSpace) + "\t" + instruction.substring(firstSpace);
+		}
+		System.out.println(instruction);
+		return instruction;
+
+	}
+
 }
