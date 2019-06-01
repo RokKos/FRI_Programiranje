@@ -16,6 +16,7 @@ import compiler.data.asmcode.AsmLABEL;
 import compiler.data.asmcode.AsmOPER;
 import compiler.data.asmcode.Code;
 import compiler.data.chunk.DataChunk;
+import compiler.data.layout.Frame;
 import compiler.data.layout.Label;
 import compiler.data.layout.Temp;
 import compiler.phases.*;
@@ -34,6 +35,49 @@ public class FinalPhase extends Phase {
 
 	public FinalPhase() {
 		super("final");
+	}
+
+	private Vector<String> AsmInstructionToString(Vector<AsmInstr> instructions) {
+		Vector<String> strings = new Vector<>();
+
+		for (AsmInstr instr : instructions) {
+			if (instr instanceof AsmLABEL) {
+				strings.add(instr.toAsemblerCode(null));
+			} else {
+				strings.add(instr.toAsemblerCode(null) + '\n');
+			}
+		}
+
+		return strings;
+	}
+
+	private Vector<String> CreatePutChar() {
+		Vector<String> putCharCode = new Vector<>();
+		Label putCharLabel = new Label("putChar");
+		Label entryLabel = new Label();
+		Label exitLabel = new Label();
+		Code code = new Code(new Frame(putCharLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
+
+		putCharCode.add("% Code for function: _putChar\n");
+		putCharCode.addAll(AsmInstructionToString(CreateProlog(code)));
+
+		putCharCode.add(entryLabel.name + "\tSET\t$0,14\n");
+		putCharCode.add("\tADD\t$0,FP,$0\n");
+
+		putCharCode.add("\t%Putting char one position in front\n");
+		putCharCode.add("\t%so that we put end char at the end\n");
+		putCharCode.add("\tLDB\t$1,$0,1\n");
+		putCharCode.add("\tSTB\t$1,$0,0\n");
+
+		putCharCode.add("\tSET\t$1,0\n");
+		putCharCode.add("\tSTB\t$1,$0,1\n");
+
+		putCharCode.add("\tSET\t$255,$0\n");
+		putCharCode.add("\tTRAP\t0,Fputs,StdOut\n");
+
+		putCharCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+
+		return putCharCode;
 	}
 
 	private Vector<AsmInstr> SetConstant(long value) {
@@ -147,7 +191,7 @@ public class FinalPhase extends Phase {
 
 		bootstrapCode.add("% Code Segment");
 		bootstrapCode.add("\tLOC\t#500");
-		bootstrapCode.add("Main\tPUSHJ\t$" + Main.numOfRegs + ",main");
+		bootstrapCode.add("Main\tPUSHJ\t$" + Main.numOfRegs + ",_main");
 
 		bootstrapCode.add("% STOPPING PROGRAM");
 		bootstrapCode.add("\tTRAP\t0,Halt,0");
@@ -169,6 +213,10 @@ public class FinalPhase extends Phase {
 					}
 				}
 
+			}
+
+			for (String putCharInstruction : CreatePutChar()) {
+				os.write(putCharInstruction.getBytes());
 			}
 
 			os.close();
