@@ -315,7 +315,7 @@ public class RAlloc extends Phase {
 					tempOffsets.put(newTemp, offset + temps * 8);
 
 					temps += 1;
-					System.out.println("TEMPS----------" + temps);
+					// System.out.println("TEMPS----------" + temps);
 
 					Vector<Temp> uses = new Vector<>();
 					uses.add(code.frame.FP);
@@ -372,14 +372,12 @@ public class RAlloc extends Phase {
 				}
 			}
 
-			for (AsmInstr instr : code.instrs) {
-				System.out.println(instr.toString());
-			}
-
-			System.out.println("$$$$$$$$$$$$$$$$$$$");
-			for (AsmInstr instr : newInstructions) {
-				System.out.println(instr.toString());
-			}
+			/*
+			 * for (AsmInstr instr : code.instrs) { System.out.println(instr.toString()); }
+			 * 
+			 * System.out.println("$$$$$$$$$$$$$$$$$$$"); for (AsmInstr instr :
+			 * newInstructions) { System.out.println(instr.toString()); }
+			 */
 
 		}
 

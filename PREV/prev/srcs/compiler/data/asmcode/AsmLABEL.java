@@ -33,6 +33,9 @@ public class AsmLABEL extends AsmOPER {
 
 	@Override
 	public String toAsemblerCode(HashMap<Temp, Integer> regs) {
+		if (label.name.charAt(0) == '_') {
+			return label.name.substring(1);
+		}
 		return label.name;
 	}
 

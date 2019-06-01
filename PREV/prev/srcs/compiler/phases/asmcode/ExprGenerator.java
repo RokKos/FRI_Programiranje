@@ -15,18 +15,18 @@ import compiler.data.asmcode.*;
  */
 public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
-    private final String kSetConstPrePendix = "SET `d0, ";
-    private final String kLoadNormal = "LDO `d0, `s0, 0";
-    private final String kINCLow = "INCML `d0, ";
-    private final String kINCMidHigh = "INCMH `d0, ";
-    private final String kINCHigh = "INCH `d0, ";
-    private final String kBinopAppend = "`d0, `s0, `s1";
-    private final String kCompareParam = "`d0, `s0, 0";
-    private final String kNeg = "NEG `d0, 0, `s0";
+    private final String kSetConstPrePendix = "SET `d0,";
+    private final String kLoadNormal = "LDO `d0,`s0,0";
+    private final String kINCLow = "INCML `d0,";
+    private final String kINCMidHigh = "INCMH `d0,";
+    private final String kINCHigh = "INCH `d0,";
+    private final String kBinopAppend = "`d0,`s0,`s1";
+    private final String kCompareParam = "`d0,`s0,0";
+    private final String kNeg = "NEG `d0,0,`s0";
     private final String kHighBit = "32768"; // 2^15
-    private final String kPush = "PUSHJ $15, "; // Temporary
-    private final String kStore = "STO `s0, $254, ";
-    private final String kLoad = "LDO `d0, $254, 0";
+    private final String kPush = "PUSHJ $15,"; // Temporary
+    private final String kStore = "STO `s0,$254,";
+    private final String kLoad = "LDO `d0,$254,0";
     private final short kOctaSize = 8;
 
     // Binary operator op names
@@ -42,7 +42,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kXor = "XOR ";
 
     // Comparing
-    private final String kSettingCompare = "`d0, `s0, 1";
+    private final String kSettingCompare = "`d0,`s0,1";
     private final String kPositive = "ZSP ";
     private final String kNonNegative = "ZSNN ";
     private final String kNonPositive = "ZSNP ";

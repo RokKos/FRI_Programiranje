@@ -16,11 +16,11 @@ import compiler.common.report.*;
  */
 public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
 
-    private final String kSetNormal = "SET `d0, `s0";
+    private final String kSetNormal = "SET `d0,`s0";
     private final String kJump = "JMP ";
-    private final String kCjump = "BZ `s0, ";
-    private final String kStore = "STO `s0, `s1, 0";
-    private final String kLoad = "LDO `d0, `s0, 0";
+    private final String kCjump = "BZ `s0,";
+    private final String kStore = "STO `s0,`s1,0";
+    private final String kLoad = "LDO `d0,`s0,0";
 
     public Vector<AsmInstr> visit(ImcCJUMP cjump, Object visArg) {
         Vector<AsmInstr> instructions = new Vector<AsmInstr>();
