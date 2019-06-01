@@ -5,12 +5,12 @@ FP	GREG	#6100000000000000
 DATA	GREG	@
 % Code Segment
 	LOC	#500
-Main	PUSHJ	$8,main
+Main	PUSHJ	$8,_main
 % STOPPING PROGRAM
 	TRAP	0,Halt,0
 % Code for function: _main
 	%	 --- Prolog ---
-main	SET	 $0,16
+_main	SET	 $0,16
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -76,6 +76,38 @@ L4	SET	 $1,$253
 	JMP	 L5
 	%	 --- Epilogue ---
 L5	STO	 $0,FP,0  % Save return value 
+	%	 Highering Stack pointer 
+	SET	 SP,FP
+	%	 Getting RA 
+	SET	 $0,16
+	SUB	 $0,SP,$0
+	LDO	 $1,$0,8
+	PUT	 rJ,$1
+	%	 Getting old FP 
+	LDO	 FP,$0,0
+	POP	 8,0
+% Code for function: _putChar
+	%	 --- Prolog ---
+_putChar	SET	 $0,16
+	%	 Storing FP 
+	SUB	 $0,SP,$0
+	STO	 FP,$0,0
+	%	 STORING RA 
+	GET	 $1,rJ
+	STO	 $1,$0,8
+	%	 Lowering FP 
+	SET	 FP,SP
+	%	 Lowering SP 
+	SET	 $0,24
+	SUB	 SP,SP,$0
+	JMP	 L6
+L6	SET	$0,8
+	ADD	$0,FP,$0
+	LDO	$1,FP,0
+	SET	$255,$0
+	TRAP	0,Fputs,StdOut
+	%	 --- Epilogue ---
+L7	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 

@@ -3,23 +3,23 @@ SP	GREG	Stack_Segment
 FP	GREG	#6100000000000000
 	LOC	Data_Segment
 DATA	GREG	@
-_i	null,0
-_j	null,0
-_k	null,0
-_l	null,0
-_m	null,0
-_n	null,0
-_o	null,0
-_p	null,0
-_q	null,0
+_i	OCTA	0
+_j	OCTA	0
+_k	OCTA	0
+_l	OCTA	0
+_m	OCTA	0
+_n	OCTA	0
+_o	OCTA	0
+_p	OCTA	0
+_q	OCTA	0
 % Code Segment
 	LOC	#500
-Main	PUSHJ	$8,main
+Main	PUSHJ	$8,_main
 % STOPPING PROGRAM
 	TRAP	0,Halt,0
 % Code for function: _main
 	%	 --- Prolog ---
-main	SET	 $0,16
+_main	SET	 $0,16
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -29,80 +29,116 @@ main	SET	 $0,16
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,100
+	SET	 $0,105
 	SUB	 SP,SP,$0
 	JMP	 L2
-L2	SET	 $5,$253
-	SET	 $0, _i
+L2	SET	 $1,$253
+	SET	 $0,16
+	SUB	 $0,$253,$0
+	STO	 $1,$0,0
+	LDA	 $1,_i
+	LDO	 $0,$1,0
+	SET	 $0,$1
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,16
+	SUB	 $1,$253,$1
+	STO	 $0,$1,0
+	LDA	 $0,_j
+	LDO	 $1,$0,0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $4,$0
+	LDA	 $1,_k
+	LDO	 $0,$1,0
+	SET	 $0,$1
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,16
+	SUB	 $0,$253,$0
+	STO	 $1,$0,0
+	LDA	 $0,_l
+	LDO	 $1,$0,0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
-	SET	 $0, 16
-	SUB	 $0, $253, $0
-	STO	 $1, $0, 0
-	SET	 $0, _j
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $2,$0
-	SET	 $0, _k
-	SET	 $0,$0
+	SET	 $0,16
+	SUB	 $0,$253,$0
+	STO	 $1,$0,0
+	LDA	 $1,_m
+	LDO	 $0,$1,0
+	SET	 $0,$1
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $1, 16
-	SUB	 $1, $253, $1
-	STO	 $0, $1, 0
-	SET	 $0, _l
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0, 16
-	SUB	 $0, $253, $0
-	STO	 $1, $0, 0
-	SET	 $0, _m
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1, _n
+	LDA	 $1,_n
+	LDO	 $2,$1,0
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	LDA	 $1,_o
+	LDO	 $3,$1,0
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $3, _o
-	SET	 $3,$3
+	SET	 $3,16
+	SUB	 $3,$253,$3
+	STO	 $1,$3,0
+	LDA	 $1,_p
+	LDO	 $3,$1,0
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $5,$1
+	LDA	 $1,_q
+	LDO	 $3,$1,0
+	SET	 $6,16
+	SUB	 $6,$253,$6
+	STO	 $3,$6,0
+	SET	 $3,16
+	SET	 $6,16
+	SUB	 $6,$253,$6
+	STO	 $3,$6,0
+	SET	 $3,32
+	SUB	 $3,$253,$3
 	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3, 16
-	SUB	 $3, $253, $3
-	STO	 $4, $3, 0
-	SET	 $3, _p
-	SET	 $3,$3
+	SUB	 $6,$253,$3
+	SET	 $3,16
+	SUB	 $3,$253,$3
+	STO	 $6,$3,0
+	SET	 $3,32
+	SUB	 $3,$253,$3
 	LDO	 $3,$3,0
-	SET	 $3,$3
-	SET	 $4, _q
-	SET	 $4,$4
-	LDO	 $4,$4,0
-	SET	 $4,$4
-	STO	 $5,$254,0
-	SET	 $5, 24
-	SUB	 $5, $253, $5
-	LDO	 $5, $5, 0
-	STO	 $5,$254,8
-	STO	 $2,$254,16
-	SET	 $2, 32
-	SUB	 $2, $253, $2
-	LDO	 $2, $2, 0
-	STO	 $2,$254,24
-	SET	 $2, 16
-	SUB	 $2, $253, $2
-	LDO	 $2, $2, 0
-	STO	 $2,$254,32
+	SET	 $6,40
+	SUB	 $6,$253,$6
+	LDO	 $6,$6,0
+	STO	 $6,$3,0
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $3,72
+	SUB	 $3,$253,$3
+	LDO	 $3,$3,0
+	STO	 $3,$254,0
+	SET	 $3,56
+	SUB	 $3,$253,$3
+	LDO	 $3,$3,0
+	STO	 $3,$254,8
+	STO	 $4,$254,16
+	SET	 $3,64
+	SUB	 $3,$253,$3
+	LDO	 $3,$3,0
+	STO	 $3,$254,24
+	SET	 $3,48
+	SUB	 $3,$253,$3
+	LDO	 $3,$3,0
+	STO	 $3,$254,32
 	STO	 $0,$254,40
-	STO	 $1,$254,48
-	SET	 $0, 40
-	SUB	 $0, $253, $0
-	LDO	 $0, $0, 0
+	STO	 $2,$254,48
+	SET	 $0,80
+	SUB	 $0,$253,$0
+	LDO	 $0,$0,0
 	STO	 $0,$254,56
-	STO	 $3,$254,64
-	STO	 $4,$254,72
+	STO	 $5,$254,64
+	STO	 $1,$254,72
 	PUSHJ	 $8,L0
 	LDO	 $0,$254,0
 	SET	 $0,0
@@ -140,6 +176,38 @@ L4	SET	 $0,1
 	JMP	 L5
 	%	 --- Epilogue ---
 L5	STO	 $0,FP,0  % Save return value 
+	%	 Highering Stack pointer 
+	SET	 SP,FP
+	%	 Getting RA 
+	SET	 $0,16
+	SUB	 $0,SP,$0
+	LDO	 $1,$0,8
+	PUT	 rJ,$1
+	%	 Getting old FP 
+	LDO	 FP,$0,0
+	POP	 8,0
+% Code for function: _putChar
+	%	 --- Prolog ---
+_putChar	SET	 $0,16
+	%	 Storing FP 
+	SUB	 $0,SP,$0
+	STO	 FP,$0,0
+	%	 STORING RA 
+	GET	 $1,rJ
+	STO	 $1,$0,8
+	%	 Lowering FP 
+	SET	 FP,SP
+	%	 Lowering SP 
+	SET	 $0,24
+	SUB	 SP,SP,$0
+	JMP	 L6
+L6	SET	$0,8
+	ADD	$0,FP,$0
+	LDO	$1,FP,0
+	SET	$255,$0
+	TRAP	0,Fputs,StdOut
+	%	 --- Epilogue ---
+L7	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 

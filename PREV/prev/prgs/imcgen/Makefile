@@ -15,7 +15,7 @@ all: clean tests
 
 compiler/Main.class: $(SRCS)
 	$(RM) -fr compiler module-info.class
-	$(JAVAC) --source-path $(SRCDIR) -d $(DSTDIR) $(SRCDIR)/compiler/Main.java
+	$(JAVAC) -sourcepath $(SRCDIR) -d $(DSTDIR) $(SRCDIR)/compiler/Main.java
 
 tests: compiler/Main.class $(shell find . -name '*.prev')
 	echo ; \
@@ -47,3 +47,9 @@ clean:
 distclean: clean
 	$(RM) -fr compiler module-info.class
 	find . -type d -depth 1 -exec $(MAKE) -C {} distclean \;
+
+
+assemble: tests
+	./mmixal 00_rok_spill.asm
+	./mmix -v -i 00_rok_spill.asm.mmo
+

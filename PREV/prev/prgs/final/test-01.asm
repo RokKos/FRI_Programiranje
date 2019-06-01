@@ -3,15 +3,14 @@ SP	GREG	Stack_Segment
 FP	GREG	#6100000000000000
 	LOC	Data_Segment
 DATA	GREG	@
-_i	null,0
 % Code Segment
 	LOC	#500
-Main	PUSHJ	$8,main
+Main	PUSHJ	$8,_main
 % STOPPING PROGRAM
 	TRAP	0,Halt,0
 % Code for function: _main
 	%	 --- Prolog ---
-main	SET	 $0,16
+_main	SET	 $0,16
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -21,20 +20,18 @@ main	SET	 $0,16
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,16
+	SET	 $0,32
 	SUB	 SP,SP,$0
 	JMP	 L2
-L2	SET	 $0,1
-	SET	 $0,$0
-	SET	 $1, _i
-	SET	 $1,$1
-	STO	 $0,$1,0
-	SET	 $0,2
+L2	SET	 $0,0
 	SET	 $1,$0
-	SET	 $0,3
+	SET	 $0,82
 	SET	 $0,$0
-	DIV	 $0,$1,$0
-	GET	 $0, $rR
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $0,42
 	SET	 $0,$0
 	JMP	 L3
 	%	 --- Epilogue ---
@@ -49,9 +46,9 @@ L3	STO	 $0,FP,0  % Save return value
 	%	 Getting old FP 
 	LDO	 FP,$0,0
 	POP	 8,0
-% Code for function: _b
+% Code for function: _putChar
 	%	 --- Prolog ---
-b	SET	 $0,16
+_putChar	SET	 $0,16
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -61,16 +58,14 @@ b	SET	 $0,16
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,16
+	SET	 $0,24
 	SUB	 SP,SP,$0
 	JMP	 L4
-L4	SET	 $0,1
-	SET	 $1,$0
-	SET	 $0,0
-	SET	 $0,$0
-	XOR	 $0,$1,$0
-	SET	 $0,$0
-	JMP	 L5
+L4	SET	$0,8
+	ADD	$0,FP,$0
+	LDO	$1,FP,0
+	SET	$255,$0
+	TRAP	0,Fputs,StdOut
 	%	 --- Epilogue ---
 L5	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
