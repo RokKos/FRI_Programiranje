@@ -327,7 +327,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         ImcExpr expr = (ImcExpr) blockExpr.expr.accept(this, visArg);
         ImcSEXPR sExpr = new ImcSEXPR(stmts, expr);
         ImcGen.exprImCode.put(blockExpr, sExpr);
-        return expr;
+        return sExpr;
     }
 
     @Override
@@ -409,10 +409,9 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
         Label falseLabel = new Label();
         ImcSTMTS elseStmts = (ImcSTMTS) ifStmt.elseStmts.accept(this, visArg);
+        ImcLABEL imcFalseLabel = new ImcLABEL(falseLabel);
+        vStmts.add(imcFalseLabel);
         if (elseStmts.stmts().size() > 0) {
-            ImcLABEL imcFalseLabel = new ImcLABEL(falseLabel);
-            vStmts.add(imcFalseLabel);
-
             vStmts.add(elseStmts);
         }
 
