@@ -107,7 +107,7 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
 
         case MOD:
             instructions.add(new AsmOPER(kDiv + kBinopAppend, uses, defs, null));
-            instructions.add(new AsmOPER("GET `d0, $rR", null, defs, null)); // Remainder is in rR register
+            instructions.add(new AsmOPER("GET `d0,rR", null, defs, null)); // Remainder is in rR register
             break;
 
         case AND:
