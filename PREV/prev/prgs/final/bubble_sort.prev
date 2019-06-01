@@ -1,0 +1,81 @@
+typ string : ptr char;
+
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun readString():string;
+fun readInt():int={
+	chars = readString();
+	
+	negative = false;
+	if(@chars == '-')then
+		negative = true;
+		chars = ((chars:int) + 8 : ptr char);
+	end;
+	
+	value = 0;
+	current = @chars;	
+	while((current:int) >= ('0':int) & (current:int) <= ('9':int)) do
+		value = value * 10 + ((current:int) - ('0':int));
+		chars = ((chars:int) + 8 : ptr char);
+		current = @chars;
+	end;
+	
+	if negative then
+		value = value * (-1);
+	end;
+	
+	:value
+	where 
+		var value:int;
+		var chars:string;
+		var current:char;
+		var negative:bool;
+};
+
+typ array : arr [10] int;
+var tabela : array;
+
+fun sort():void={
+	i = 0;
+	while i < 10 do
+		j = 9;
+		while j > i do
+			if(tabela[j] < tabela[j-1])then
+				t = tabela[j];
+				tabela[j] = tabela[j-1];
+				tabela[j-1] = t;	
+			end;
+			j = j - 1;
+		end;
+		i = i + 1;
+	end;
+	
+	:none
+	where
+		var i:int;
+		var j:int;
+		var t:int;
+};
+
+fun main():int = {
+ 	i = 0;
+ 	while i < 10 do
+ 		tabela[i] = readInt();
+ 		i = i + 1;
+ 	end;
+	
+	sort();
+	
+ 	i = 0;
+ 	while i < 10 do
+ 		putInt(tabela[i]);
+ 		putChar(' ');
+ 		i = i + 1;
+ 	end;
+ 	putChar((10:char));
+	
+	:0
+	where 
+		var i:int;
+};

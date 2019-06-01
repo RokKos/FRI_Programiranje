@@ -5,5 +5,88 @@
       vertical-align: top;
       }
     </style>
-<body><table></table></body>
+<body><table>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_main</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T0
+	  RV=T1</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L2
+	    exitLabel=L3
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L2</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, 1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $1, _i</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $1, $1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO $0, $1, 0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, 2</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $1, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, 3</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">DIV $0, $1, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET $0, $rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L3</td></tr>
+</table></td>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_b</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T2
+	  RV=T3</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L4
+	    exitLabel=L5
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L4</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, 1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $1, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, 0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">XOR $0, $1, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET $0, $0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L5</td></tr>
+</table></td>
+</table></body>
 </html>

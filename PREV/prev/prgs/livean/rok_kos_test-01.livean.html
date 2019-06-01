@@ -31,9 +31,9 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6 T4</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6 T4</td></tr>
+      </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -43,9 +43,9 @@
 <tr bgcolor="00CCFF"><td>def:
        T9</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6 T4</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T9 T6 T4</td></tr>
+       T9</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -55,9 +55,9 @@
 <tr bgcolor="00CCFF"><td>def:
        T2</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T9 T6 T4</td></tr>
+       T9</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T2 T6 T4</td></tr>
+       T2</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -67,9 +67,9 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T2 T6 T4</td></tr>
+       T2</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6 T4</td></tr>
+      </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -79,9 +79,9 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T4</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T4</td></tr>
+      </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -91,9 +91,9 @@
 <tr bgcolor="00CCFF"><td>def:
        T10</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T4</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T10 T4</td></tr>
+       T10</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -103,19 +103,31 @@
 <tr bgcolor="00CCFF"><td>def:
        T3</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T10 T4</td></tr>
+       T10</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T3 T4</td></tr>
+       T3</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T11 _i</td></tr>
+<tr><td>SET T11, _i</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T11</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T3 T4</td></tr>
+       T3</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T11 T3</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T4, T11</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T11</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T4</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T11 T3</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T3 T4</td></tr>
 </table></td></tr>
@@ -151,9 +163,9 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6</td></tr>
+      </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -163,9 +175,9 @@
 <tr bgcolor="00CCFF"><td>def:
        T12</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6 T12</td></tr>
+       T12</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -175,19 +187,31 @@
 <tr bgcolor="00CCFF"><td>def:
        T5</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6 T12</td></tr>
+       T12</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6 T5</td></tr>
+       T5</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T13 _i</td></tr>
+<tr><td>SET T13, _i</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T13</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6 T5</td></tr>
+       T5</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T13 T5</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T6, T13</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T13</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T6</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T13 T5</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T6 T5</td></tr>
 </table></td></tr>
@@ -261,7 +285,7 @@
 <tr bgcolor="00CCFF"><td>in:
        T15 T7</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T8 T7</td></tr>
+       T7 T8</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -271,13 +295,13 @@
 <tr bgcolor="00CCFF"><td>def:
        T16</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T8 T7</td></tr>
+       T7 T8</td></tr>
 <tr bgcolor="00CCFF"><td>out:
       </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>GET T16 $rR</td></tr>
+<tr><td>GET T16, $rR</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:

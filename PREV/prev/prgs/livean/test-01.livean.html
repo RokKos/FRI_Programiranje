@@ -32,9 +32,9 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T5</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T5</td></tr>
+      </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -44,9 +44,9 @@
 <tr bgcolor="00CCFF"><td>def:
        T10</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T5</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T5 T10</td></tr>
+       T10</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -56,21 +56,33 @@
 <tr bgcolor="00CCFF"><td>def:
        T4</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T5 T10</td></tr>
+       T10</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T5 T4</td></tr>
+       T4</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T11 _i</td></tr>
+<tr><td>SET T11, _i</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T11</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T5 T4</td></tr>
+       T4</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T5 T4</td></tr>
+       T4 T11</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T5, T11</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T11</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T5</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T4 T11</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T4 T5</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -80,7 +92,7 @@
 <tr bgcolor="00CCFF"><td>def:
       </td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T5 T4</td></tr>
+       T4 T5</td></tr>
 <tr bgcolor="00CCFF"><td>out:
       </td></tr>
 </table></td></tr>
@@ -130,7 +142,7 @@
 <tr bgcolor="00CCFF"><td>in:
        T13 T6</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T6 T7</td></tr>
+       T7 T6</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
@@ -140,13 +152,13 @@
 <tr bgcolor="00CCFF"><td>def:
        T14</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6 T7</td></tr>
+       T7 T6</td></tr>
 <tr bgcolor="00CCFF"><td>out:
       </td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>GET T14 $rR</td></tr>
+<tr><td>GET T14, $rR</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
