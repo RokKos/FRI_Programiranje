@@ -27,10 +27,10 @@ public class RAlloc extends Phase {
 		super("ralloc");
 	}
 
-	private final String kSetConst = "SET `d0, ";
-	private final String kSub = "SUB `d0, `s0, `s1";
-	private final String kStore = "STO `s0, `s1, 0";
-	private final String kLoad = "LDO `d0, `s0, 0";
+	private final String kSetConst = "SET `d0,";
+	private final String kSub = "SUB `d0,`s0,`s1";
+	private final String kStore = "STO `s0,`s1,0";
+	private final String kLoad = "LDO `d0,`s0,0";
 
 	private class Node {
 		private Temp nodeName;
@@ -299,7 +299,10 @@ public class RAlloc extends Phase {
 				if (instr.defs().contains(node.nodeName)) {
 					Temp newTemp = new Temp();
 					Vector<Temp> newDef = new Vector<>();
-					newDef.add(newTemp);
+					newDef.addAll(instr.defs());
+					int replaceInd = newDef.indexOf(node.nodeName);
+					newDef.add(replaceInd, newTemp);
+					newDef.remove(node.nodeName);
 
 					newTemps.replace(node.nodeName, newTemp);
 
@@ -340,7 +343,10 @@ public class RAlloc extends Phase {
 
 					Temp newTemp = new Temp();
 					Vector<Temp> newUses = new Vector<>();
-					newUses.add(newTemp);
+					newUses.addAll(instr.uses());
+					int replaceInd = newUses.indexOf(node.nodeName);
+					newUses.add(replaceInd, newTemp);
+					newUses.remove(node.nodeName);
 
 					AsmInstr modInstruction = new AsmOPER(instr.instr(), newUses, instr.defs(), instr.jumps());
 

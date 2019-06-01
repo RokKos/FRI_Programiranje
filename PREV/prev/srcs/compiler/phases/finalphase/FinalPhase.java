@@ -141,7 +141,8 @@ public class FinalPhase extends Phase {
 		bootstrapCode.add("DATA\tGREG\t@");
 
 		for (DataChunk data : Chunks.dataChunks) {
-			bootstrapCode.add(data.label.name + "\t" + data.init + ",0");
+			String string_data = data.init != null ? data.init + ",0" : "0";
+			bootstrapCode.add(data.label.name + "\tOCTA\t" + string_data);
 		}
 
 		bootstrapCode.add("% Code Segment");

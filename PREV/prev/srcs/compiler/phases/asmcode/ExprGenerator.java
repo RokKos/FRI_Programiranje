@@ -241,8 +241,15 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         Temp temp = new Temp();
         defs.add(temp);
 
-        String set = "SET `d0, " + name.label.name;
+        String set = "LDA `d0," + name.label.name;
+
         instructions.add(new AsmOPER(set, null, defs, null));
+
+        Vector<Temp> defsLoad = new Vector<>();
+        Temp tempLoad = new Temp();
+        defsLoad.add(tempLoad);
+        String load = "LDO `d0,`s0,0";
+        instructions.add(new AsmOPER(load, defs, defsLoad, null));
 
         return temp;
     }
