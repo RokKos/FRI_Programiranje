@@ -143,7 +143,7 @@ public class FinalPhase extends Phase {
 		putIntCode.add("% Storing inverse number\n");
 		putIntCode.add(entryLabel.name);
 		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
-		putIntCode.add("\tSET\t$1,0\n");
+		putIntCode.add("\tSET\t$1,1\n");
 		putIntCode.add("\tSTO\t$1,$0,0\n");
 
 		putIntCode.add("% While condition of inverse loop\n");
@@ -177,7 +177,9 @@ public class FinalPhase extends Phase {
 		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
 		putIntCode.add("\tLDO\t$0,$0,0\n");
 
-		CompareWith(0);
+		putIntCode.add("\tSET\t$1,1\n");
+		putIntCode.add("\tCMP\t$0,$0,$1\n");
+		putIntCode.add("\tZSP\t$0,$0,1\n");
 
 		putIntCode.add("\tBZ\t$0,_putInt_Print_out_end\n");
 
