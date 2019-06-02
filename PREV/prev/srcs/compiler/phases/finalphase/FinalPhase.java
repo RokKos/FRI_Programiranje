@@ -101,6 +101,37 @@ public class FinalPhase extends Phase {
 		return putStringCode;
 	}
 
+	private Vector<String> GetFunctionLocalVariableAddress(int offset) {
+		Vector<String> varCode = new Vector<>();
+
+		varCode.add("\tSET\t$0,FP\n");
+		varCode.add("\tSET\t$1," + offset + "\n");
+		varCode.add("\tNEG\t$1,0,$1\n");
+		varCode.add("\tADD\t$0,$0,$1\n");
+
+		return varCode;
+	}
+
+	private Vector<String> GetFunctionArgVariableAddress(int offset) {
+		Vector<String> varCode = new Vector<>();
+
+		varCode.add("\tSET\t$0,FP\n");
+		varCode.add("\tSET\t$1," + offset + "\n");
+		varCode.add("\tADD\t$0,$0,$1\n");
+
+		return varCode;
+	}
+
+	private Vector<String> CompareWith(int comparator) {
+		Vector<String> varCode = new Vector<>();
+		varCode.add("\tSET\t$1," + comparator + "\n");
+		varCode.add("\tCMP\t$0,$0,$1\n");
+		varCode.add("\tZSP\t$0,$0,1\n");
+
+		return varCode;
+
+	}
+
 	private Vector<String> CreatePutInt() {
 		Vector<String> putIntCode = new Vector<>();
 		Label putIntLabel = new Label("putInt");
@@ -112,22 +143,58 @@ public class FinalPhase extends Phase {
 		putIntCode.addAll(AsmInstructionToString(CreateProlog(code)));
 
 		putIntCode.add("% Storing inverse number\n");
-		putIntCode.add(entryLabel.name + "\tSET\t$0,FP\n");
-		putIntCode.add("\tSET\t$1,16\n");
-		putIntCode.add("\tNEG\t$1,0,$1\n");
-		putIntCode.add("\tADD\t$0,$0,$1\n");
+		putIntCode.add(entryLabel.name);
+		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
 		putIntCode.add("\tSET\t$1,0\n");
 		putIntCode.add("\tSTO\t$1,$0,0\n");
 
-		putIntCode.add("% While condition\n");
-		putIntCode.add("_putInt_Inverse_Loop_\tSET\t$0,FP\n");
-		putIntCode.add("\tSET\t$1,8\n");
-		putIntCode.add("\tADD\t$0,$0,$1\n");
+		putIntCode.add("% While condition of inverse loop\n");
+		putIntCode.add("_putInt_Inverse_Loop_");
+		putIntCode.addAll(GetFunctionArgVariableAddress(8));
 		putIntCode.add("\tLDO\t$0,$0,0\n");
-		putIntCode.add("\tSET\t$1,0\n");
-		putIntCode.add("\tCMP\t$0,$0,$1\n");
-		putIntCode.add("\tZSP\t$0,$0,1\n");
-		putIntCode.add("\tBZ\t$0,_putInt_Inverse_End_\n");
+
+		CompareWith(0);
+
+		putIntCode.add("\tBZ\t$0,_putInt_Print_out_loop\n");
+
+		putIntCode.add("% While loop of inverse loop\n");
+		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
+		putIntCode.add("\tLDO\t$2,$0,0\n");
+		putIntCode.add("\tMUL\t$2,$2,10 % Multipling inverse num\n");
+
+		putIntCode.addAll(GetFunctionArgVariableAddress(8));
+		putIntCode.add("\tLDO\t$3,$0,0\n");
+		putIntCode.add("\tDIV\t$3,$3,10\n");
+		putIntCode.add("\tSTO\t$3,$0,0 % Storing N\n");
+
+		putIntCode.add("\tGET\t$1,rR\n");
+		putIntCode.add("\tADD\t$2,$2,$1\n");
+
+		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
+		putIntCode.add("\tSTO\t$2,$0,0\n");
+		putIntCode.add("\tJMP\t_putInt_Inverse_Loop_\n");
+
+		putIntCode.add("% While condition of print loop\n");
+		putIntCode.add("_putInt_Print_out_loop");
+		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
+		putIntCode.add("\tLDO\t$0,$0,0\n");
+
+		CompareWith(0);
+
+		putIntCode.add("\tBZ\t$0,_putInt_Print_out_end\n");
+
+		putIntCode.addAll(GetFunctionLocalVariableAddress(16));
+		putIntCode.add("\tLDO\t$1,$0,0\n");
+		putIntCode.add("\tDIV\t$1,$1,10\n");
+		putIntCode.add("\tGET\t$2,rR\n");
+
+		putIntCode.add("\tSTO\t$1,$0,0\n");
+
+		putIntCode.add("\tADD\t$2,$2,48\n");
+		putIntCode.add("\tSTO\t$2,$254,8\n");
+		putIntCode.add("\tPUSHJ\t$8,_putChar\n");
+		putIntCode.add("\tJMP\t_putInt_Print_out_loop\n");
+		putIntCode.add("_putInt_Print_out_end\tJMP\t" + exitLabel.name);
 
 		putIntCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
 

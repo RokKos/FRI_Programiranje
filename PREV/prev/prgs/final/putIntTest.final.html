@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<td bgcolor="FFEE00"><table><tr><td bgcolor="EECF00"><table width="100%"><tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_main</font></nobr></td></tr><tr><td><nobr>
+	  depth=1 
+	  size=32 
+	  locs=0
+	  args=16</nobr></td></tr><tr><td><nobr>
+    	  FP=T6
+	  RV=T7</nobr></td></tr></table></td></tr><tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L4
+	    exitLabel=L5
+	    temps=0</nobr></td></tr><tr/><tr><td bgcolor="00BBFF">% --- Prolog ---</td></tr><tr/><tr><td bgcolor="00BBFF">_main</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,16</td></tr><tr/><tr><td bgcolor="00BBFF">% Storing FP </td></tr><tr/><tr><td bgcolor="00BBFF">SUB $0,SP,$0</td></tr><tr/><tr><td bgcolor="00BBFF">STO FP,$0,0</td></tr><tr/><tr><td bgcolor="00BBFF">% STORING RA </td></tr><tr/><tr><td bgcolor="00BBFF">GET $1,rJ</td></tr><tr/><tr><td bgcolor="00BBFF">STO $1,$0,8</td></tr><tr/><tr><td bgcolor="00BBFF">% Lowering FP </td></tr><tr/><tr><td bgcolor="00BBFF">SET FP,SP</td></tr><tr/><tr><td bgcolor="00BBFF">% Lowering SP </td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,32</td></tr><tr/><tr><td bgcolor="00BBFF">SUB SP,SP,$0</td></tr><tr/><tr><td bgcolor="00BBFF">JMP L4</td></tr><tr/><tr><td bgcolor="00BBFF">L4</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,0</td></tr><tr/><tr><td bgcolor="00BBFF">SET $1,$0</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,42</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,$0</td></tr><tr/><tr><td bgcolor="00BBFF">STO $1,$254,0</td></tr><tr/><tr><td bgcolor="00BBFF">STO $0,$254,8</td></tr><tr/><tr><td bgcolor="00BBFF">PUSHJ $8,_putInt</td></tr><tr/><tr><td bgcolor="00BBFF">LDO $0,$254,0</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,42</td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,$0</td></tr><tr/><tr><td bgcolor="00BBFF">JMP L5</td></tr><tr/><tr><td bgcolor="00BBFF">% --- Epilogue ---</td></tr><tr/><tr><td bgcolor="00BBFF">L5</td></tr><tr/><tr><td bgcolor="00BBFF">STO $0,FP,0  % Save return value </td></tr><tr/><tr><td bgcolor="00BBFF">% Highering Stack pointer </td></tr><tr/><tr><td bgcolor="00BBFF">SET SP,FP</td></tr><tr/><tr><td bgcolor="00BBFF">% Getting RA </td></tr><tr/><tr><td bgcolor="00BBFF">SET $0,16</td></tr><tr/><tr><td bgcolor="00BBFF">SUB $0,SP,$0</td></tr><tr/><tr><td bgcolor="00BBFF">LDO $1,$0,8</td></tr><tr/><tr><td bgcolor="00BBFF">PUT rJ,$1</td></tr><tr/><tr><td bgcolor="00BBFF">% Getting old FP </td></tr><tr/><tr><td bgcolor="00BBFF">LDO FP,$0,0</td></tr><tr/><tr><td bgcolor="00BBFF">POP 8,0</td></tr></table></td>
