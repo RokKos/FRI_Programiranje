@@ -27,27 +27,31 @@
 <tr></tr>
 <tr><td bgcolor="00BBFF">L2</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T10, 1</td></tr>
+<tr><td bgcolor="00BBFF">SET T10,1</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T4, T10</td></tr>
+<tr><td bgcolor="00BBFF">SET T4,T10</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T11, _i</td></tr>
+<tr><td bgcolor="00BBFF">LDA T11,_i</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">STO T4, T5, 0</td></tr>
+<tr><td bgcolor="00BBFF">LDO T12,T11,0</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T12, 2</td></tr>
+<tr><td bgcolor="00BBFF">SET T5,T11</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T6, T12</td></tr>
+<tr><td bgcolor="00BBFF">STO T4,T5,0</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T13, 3</td></tr>
+<tr><td bgcolor="00BBFF">SET T13,2</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T7, T13</td></tr>
+<tr><td bgcolor="00BBFF">SET T6,T13</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">DIV T14, T6, T7</td></tr>
+<tr><td bgcolor="00BBFF">SET T14,3</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">GET T14, $rR</td></tr>
+<tr><td bgcolor="00BBFF">SET T7,T14</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T1, T14</td></tr>
+<tr><td bgcolor="00BBFF">DIV T15,T6,T7</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET T15,rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T1,T15</td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF">JMP L3</td></tr>
 </table></td>
@@ -72,17 +76,17 @@
 <tr></tr>
 <tr><td bgcolor="00BBFF">L4</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T15, 1</td></tr>
+<tr><td bgcolor="00BBFF">SET T16,1</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T8, T15</td></tr>
+<tr><td bgcolor="00BBFF">SET T8,T16</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T16, 0</td></tr>
+<tr><td bgcolor="00BBFF">SET T17,0</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T9, T16</td></tr>
+<tr><td bgcolor="00BBFF">SET T9,T17</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">XOR T17, T8, T9</td></tr>
+<tr><td bgcolor="00BBFF">XOR T18,T8,T9</td></tr>
 <tr></tr>
-<tr><td bgcolor="00BBFF">SET T3, T17</td></tr>
+<tr><td bgcolor="00BBFF">SET T3,T18</td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF">JMP L5</td></tr>
 </table></td>

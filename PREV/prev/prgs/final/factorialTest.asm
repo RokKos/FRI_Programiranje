@@ -97,38 +97,38 @@ L7	SET	 $0,0
 	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
+	SET	 $1,0
 	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
+	SET	 $2,$253
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	STO	 $1,$254,0
+	STO	 $2,$254,8
+	PUSHJ	 $8,_facItr
+	LDO	 $1,$254,0
 	SET	 $1,$1
 	STO	 $0,$254,0
 	STO	 $1,$254,8
-	PUSHJ	 $8,_facItr
-	LDO	 $0,$254,0
-	SET	 $0,$0
-	STO	 $1,$254,0
-	STO	 $0,$254,8
 	PUSHJ	 $8,_putInt
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,10
 	SET	 $0,$0
+	SET	 $1,10
+	SET	 $1,$1
 	SET	 $2,256
 	SET	 $2,$2
-	DIV	 $0,$0,$2
-	GET	 $0,rR
-	SET	 $0,$0
-	STO	 $1,$254,0
-	STO	 $0,$254,8
+	DIV	 $1,$1,$2
+	GET	 $1,rR
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
 	SET	 $0,$253

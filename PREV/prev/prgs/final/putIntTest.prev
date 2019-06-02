@@ -2,7 +2,10 @@ fun putChar(c:char):void;
 fun putInt(n:int):void;
 fun putString(s:ptr char):void;
 fun main():int={
-    putInt(42);
+    n = 10;
+    putInt(n);
     : 42
+    where
+        var n:int;
 };
 

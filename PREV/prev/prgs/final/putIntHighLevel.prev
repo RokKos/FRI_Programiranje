@@ -6,14 +6,14 @@ fun main():int={
 };
 
 fun putInt(n:int):void = {
-    obrnjena_cifra = 0;
+    obrnjena_cifra = 1;
     while(n > 0) do
         obrnjena_cifra = obrnjena_cifra * 10;
         obrnjena_cifra = obrnjena_cifra + (n % 10);
         n = n / 10;
     end;
 
-    while(obrnjena_cifra > 0) do
+    while(obrnjena_cifra > 1) do
         cifra = obrnjena_cifra % 10;
         cifra = cifra + 48;
         putChar((cifra:char));

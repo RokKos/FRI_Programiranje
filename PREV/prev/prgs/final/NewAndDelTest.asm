@@ -26,10 +26,10 @@ _main	SET	 $0,16
 L4	SET	 $0,0
 	SET	 $1,$0
 	SET	 $0,0
-	SET	 $1,$0
+	SET	 $2,$0
 	SET	 $0,8
 	SET	 $0,$0
-	STO	 $1,$254,0
+	STO	 $2,$254,0
 	STO	 $0,$254,8
 	PUSHJ	 $8,_new
 	LDO	 $0,$254,0
@@ -60,18 +60,18 @@ L4	SET	 $0,0
 	PUSHJ	 $8,_del
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $0,$0
+	SET	 $1,$0
 	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,816
-	SET	 $1,$1
+	SET	 $2,816
+	SET	 $2,$2
 	STO	 $0,$254,0
-	STO	 $1,$254,8
+	STO	 $2,$254,8
 	PUSHJ	 $8,_new
-	LDO	 $1,$254,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
 	PUSHJ	 $8,_putInt
 	LDO	 $0,$254,0
 	SET	 $0,0
@@ -90,10 +90,10 @@ L4	SET	 $0,0
 	SET	 $0,0
 	SET	 $1,$0
 	SET	 $0,0
-	SET	 $1,$0
+	SET	 $2,$0
 	SET	 $0,8
 	SET	 $0,$0
-	STO	 $1,$254,0
+	STO	 $2,$254,0
 	STO	 $0,$254,8
 	PUSHJ	 $8,_new
 	LDO	 $0,$254,0
@@ -253,7 +253,7 @@ _putInt	SET	 $0,32
 % Storing inverse number
 L12	SET	$0,16
 	SUB	$0,FP,$0
-	SET	$1,0
+	SET	$1,1
 	STO	$1,$0,0
 % While condition of inverse loop
 _putInt_Inverse_Loop_	SET	$0,8
@@ -280,6 +280,9 @@ _putInt_Inverse_Loop_	SET	$0,8
 _putInt_Print_out_loop	SET	$0,16
 	SUB	$0,FP,$0
 	LDO	$0,$0,0
+	SET	$1,1
+	CMP	$0,$0,$1
+	ZSP	$0,$0,1
 	BZ	$0,_putInt_Print_out_end
 	SET	$0,16
 	SUB	$0,FP,$0

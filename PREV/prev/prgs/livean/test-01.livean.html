@@ -38,7 +38,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T10, 1</td></tr>
+<tr><td>SET T10,1</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -50,7 +50,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T4, T10</td></tr>
+<tr><td>SET T4,T10</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T10</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -62,7 +62,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T11, _i</td></tr>
+<tr><td>LDA T11,_i</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -74,7 +74,19 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T5, T11</td></tr>
+<tr><td>LDO T12,T11,0</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T11</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T12</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T4 T11</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T4 T11</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T5,T11</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T11</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -86,7 +98,7 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>STO T4, T5, 0</td></tr>
+<tr><td>STO T4,T5,0</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T4 T5</td></tr>
 <tr bgcolor="00CCFF"><td>def:
@@ -98,59 +110,59 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T12, 2</td></tr>
-<tr bgcolor="00CCFF"><td>use:
-      </td></tr>
-<tr bgcolor="00CCFF"><td>def:
-       T12</td></tr>
-<tr bgcolor="00CCFF"><td>in:
-      </td></tr>
-<tr bgcolor="00CCFF"><td>out:
-       T12</td></tr>
-</table></td></tr>
-<tr></tr>
-<tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T6, T12</td></tr>
-<tr bgcolor="00CCFF"><td>use:
-       T12</td></tr>
-<tr bgcolor="00CCFF"><td>def:
-       T6</td></tr>
-<tr bgcolor="00CCFF"><td>in:
-       T12</td></tr>
-<tr bgcolor="00CCFF"><td>out:
-       T6</td></tr>
-</table></td></tr>
-<tr></tr>
-<tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T13, 3</td></tr>
+<tr><td>SET T13,2</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T13</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T6</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T13 T6</td></tr>
+       T13</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T7, T13</td></tr>
+<tr><td>SET T6,T13</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T13</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T6</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T13</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T6</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T14,3</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T14</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T6</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T14 T6</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T7,T14</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T14</td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T7</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T13 T6</td></tr>
+       T14 T6</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T7 T6</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>DIV T14, T6, T7</td></tr>
+<tr><td>DIV T15,T6,T7</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T6 T7</td></tr>
 <tr bgcolor="00CCFF"><td>def:
-       T14</td></tr>
+       T15</td></tr>
 <tr bgcolor="00CCFF"><td>in:
        T7 T6</td></tr>
 <tr bgcolor="00CCFF"><td>out:
@@ -158,25 +170,25 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>GET T14, $rR</td></tr>
+<tr><td>GET T15,rR</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
-       T14</td></tr>
+       T15</td></tr>
 <tr bgcolor="00CCFF"><td>in:
       </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T14</td></tr>
+       T15</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T1, T14</td></tr>
+<tr><td>SET T1,T15</td></tr>
 <tr bgcolor="00CCFF"><td>use:
-       T14</td></tr>
+       T15</td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T1</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T14</td></tr>
+       T15</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T1</td></tr>
 </table></td></tr>
@@ -225,73 +237,73 @@
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T15, 1</td></tr>
-<tr bgcolor="00CCFF"><td>use:
-      </td></tr>
-<tr bgcolor="00CCFF"><td>def:
-       T15</td></tr>
-<tr bgcolor="00CCFF"><td>in:
-      </td></tr>
-<tr bgcolor="00CCFF"><td>out:
-       T15</td></tr>
-</table></td></tr>
-<tr></tr>
-<tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T8, T15</td></tr>
-<tr bgcolor="00CCFF"><td>use:
-       T15</td></tr>
-<tr bgcolor="00CCFF"><td>def:
-       T8</td></tr>
-<tr bgcolor="00CCFF"><td>in:
-       T15</td></tr>
-<tr bgcolor="00CCFF"><td>out:
-       T8</td></tr>
-</table></td></tr>
-<tr></tr>
-<tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T16, 0</td></tr>
+<tr><td>SET T16,1</td></tr>
 <tr bgcolor="00CCFF"><td>use:
       </td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T16</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T8</td></tr>
+      </td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T16 T8</td></tr>
+       T16</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T9, T16</td></tr>
+<tr><td>SET T8,T16</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T16</td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T8</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T16</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T8</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T17,0</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+      </td></tr>
+<tr bgcolor="00CCFF"><td>def:
+       T17</td></tr>
+<tr bgcolor="00CCFF"><td>in:
+       T8</td></tr>
+<tr bgcolor="00CCFF"><td>out:
+       T17 T8</td></tr>
+</table></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF"><table width="100%">
+<tr><td>SET T9,T17</td></tr>
+<tr bgcolor="00CCFF"><td>use:
+       T17</td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T9</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T16 T8</td></tr>
+       T17 T8</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T8 T9</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>XOR T17, T8, T9</td></tr>
+<tr><td>XOR T18,T8,T9</td></tr>
 <tr bgcolor="00CCFF"><td>use:
        T8 T9</td></tr>
 <tr bgcolor="00CCFF"><td>def:
-       T17</td></tr>
+       T18</td></tr>
 <tr bgcolor="00CCFF"><td>in:
        T8 T9</td></tr>
 <tr bgcolor="00CCFF"><td>out:
-       T17</td></tr>
+       T18</td></tr>
 </table></td></tr>
 <tr></tr>
 <tr><td bgcolor="00BBFF"><table width="100%">
-<tr><td>SET T3, T17</td></tr>
+<tr><td>SET T3,T18</td></tr>
 <tr bgcolor="00CCFF"><td>use:
-       T17</td></tr>
+       T18</td></tr>
 <tr bgcolor="00CCFF"><td>def:
        T3</td></tr>
 <tr bgcolor="00CCFF"><td>in:
-       T17</td></tr>
+       T18</td></tr>
 <tr bgcolor="00CCFF"><td>out:
        T3</td></tr>
 </table></td></tr>
