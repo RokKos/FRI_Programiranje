@@ -102,6 +102,25 @@ public class FinalPhase extends Phase {
 		return putStringCode;
 	}
 
+	private Vector<String> CreateReadString() {
+		Vector<String> readStringCode = new Vector<>();
+		Label readStringLabel = new Label("readString");
+		Label entryLabel = new Label();
+		Label exitLabel = new Label();
+		Code code = new Code(new Frame(readStringLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
+
+		readStringCode.add("% Code for function: _readString\n");
+		readStringCode.addAll(AsmInstructionToString(CreateProlog(code)));
+
+		readStringCode.add(entryLabel.name + "\tLDA\t$255,ReadArgs\n");
+		readStringCode.add("\tSET\t$0,$255\n");
+		readStringCode.add("\tTRAP\t0,Fgets,StdIn\n");
+
+		readStringCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+
+		return readStringCode;
+	}
+
 	private Vector<String> GetFunctionLocalVariableAddress(int offset) {
 		Vector<String> varCode = new Vector<>();
 
@@ -336,6 +355,9 @@ public class FinalPhase extends Phase {
 			bootstrapCode.add(data.label.name + "\tBYTE\t" + string_data);
 		}
 
+		bootstrapCode.add("ReadSize\tIS\t255\n");
+		bootstrapCode.add("ReadArgs\tBYTE\t0,ReadSize\n");
+
 		bootstrapCode.add("% Code Segment");
 		bootstrapCode.add("\tLOC\t#500");
 		bootstrapCode.add("Main\tPUSHJ\t$" + Main.numOfRegs + ",_main");
@@ -384,6 +406,10 @@ public class FinalPhase extends Phase {
 			}
 
 			for (String instructions : CreatePutString()) {
+				os.write(instructions.getBytes());
+			}
+
+			for (String instructions : CreateReadString()) {
 				os.write(instructions.getBytes());
 			}
 

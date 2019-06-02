@@ -1,0 +1,13 @@
+typ string : ptr char;
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun readString():string;
+fun main():int =
+    {
+        a = readString();
+        putString(a);
+      : 0
+      where
+        var a : string;
+    };

@@ -1,0 +1,36 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun main():int = {
+    n = 1;
+    sum = 0;
+    while (n < 1000) do
+        putInt(n); putChar((10:char));
+        if (Deli3ali5(n)) then
+            putString("5 ali 3 deli: "); putInt(n); putChar((10:char));
+            sum = sum + n;
+        end;
+        n = n + 1;
+    end;
+
+    putString("Vsota: "); putInt(sum); putChar((10:char));
+
+    : 0
+    where
+        var n : int;
+        var sum : int;
+};
+
+fun Deli3ali5(n:int):bool = {
+    deli = false;
+    if (n % 3 == 0) then
+        deli = true;
+    end;
+    if (n % 5 == 0) then
+        deli = true;
+    end;
+
+    : deli
+    where
+        var deli : bool;
+};
