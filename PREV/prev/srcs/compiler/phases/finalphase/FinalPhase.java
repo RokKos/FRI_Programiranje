@@ -104,10 +104,8 @@ public class FinalPhase extends Phase {
 	private Vector<String> GetFunctionLocalVariableAddress(int offset) {
 		Vector<String> varCode = new Vector<>();
 
-		varCode.add("\tSET\t$0,FP\n");
-		varCode.add("\tSET\t$1," + offset + "\n");
-		varCode.add("\tNEG\t$1,0,$1\n");
-		varCode.add("\tADD\t$0,$0,$1\n");
+		varCode.add("\tSET\t$0," + offset + "\n");
+		varCode.add("\tSUB\t$0,FP,$0\n");
 
 		return varCode;
 	}
@@ -115,9 +113,8 @@ public class FinalPhase extends Phase {
 	private Vector<String> GetFunctionArgVariableAddress(int offset) {
 		Vector<String> varCode = new Vector<>();
 
-		varCode.add("\tSET\t$0,FP\n");
-		varCode.add("\tSET\t$1," + offset + "\n");
-		varCode.add("\tADD\t$0,$0,$1\n");
+		varCode.add("\tSET\t$0," + offset + "\n");
+		varCode.add("\tADD\t$0,$0,FP\n");
 
 		return varCode;
 	}
