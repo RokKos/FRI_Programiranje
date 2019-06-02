@@ -43,15 +43,13 @@ public class LiveAn extends Phase {
 
 				HashSet<Temp> new_out = new HashSet<Temp>();
 				if (i < code.instrs.size() - 1) {
-					if (instruction.jumps().size() == 0) {
-						new_out.addAll(code.instrs.get(i + 1).in());
-					} else {
-						for (Label jump : instruction.jumps()) {
-							AsmInstr after_jump = FindInstructionAfterJump(code, jump);
-							if (after_jump != null) {
-								new_out.addAll(after_jump.in());
-							}
-						}
+					new_out.addAll(code.instrs.get(i + 1).in());
+				}
+
+				for (Label jump : instruction.jumps()) {
+					AsmInstr after_jump = FindInstructionAfterJump(code, jump);
+					if (after_jump != null) {
+						new_out.addAll(after_jump.in());
 					}
 				}
 

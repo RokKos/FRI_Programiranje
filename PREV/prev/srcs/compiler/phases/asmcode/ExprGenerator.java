@@ -36,7 +36,6 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kCompare = "CMP ";
     private final String kDiv = "DIV ";
     private final String kMul = "MUL ";
-    private final String kNxor = "NXOR ";
     private final String kNor = "NOR ";
     private final String kOr = "OR ";
     private final String kSub = "SUB ";
@@ -46,6 +45,8 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
     private final String kSettingCompare = "`d0,`s0,1";
     private final String kPositive = "ZSP ";
     private final String kNonNegative = "ZSNN ";
+    private final String kNonZero = "ZSNZ ";
+    private final String kZero = "ZSZ ";
     private final String kNonPositive = "ZSNP ";
     private final String kNegative = "ZSN ";
 
@@ -125,13 +126,13 @@ public class ExprGenerator implements ImcVisitor<Temp, Vector<AsmInstr>> {
         case EQU:
             instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
             // Bitwise negation because compare returns 0 if they are equal
-            instructions.add(new AsmOPER(kNxor + kCompareParam, defs, defs, null));
+            instructions.add(new AsmOPER(kZero + kSettingCompare, defs, defs, null));
             break;
 
         case NEQ:
             instructions.add(new AsmOPER(kCompare + kBinopAppend, uses, defs, null));
             // Bitwise negation because compare returns 0 if they are equal
-            instructions.add(new AsmOPER(kXor + kCompareParam, defs, defs, null));
+            instructions.add(new AsmOPER(kNonZero + kSettingCompare, defs, defs, null));
             break;
 
         case GTH:
