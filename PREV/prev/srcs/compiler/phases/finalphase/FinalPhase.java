@@ -81,24 +81,57 @@ public class FinalPhase extends Phase {
 	}
 
 	private Vector<String> CreatePutString() {
-		Vector<String> putCharCode = new Vector<>();
-		Label putCharLabel = new Label("putString");
+		Vector<String> putStringCode = new Vector<>();
+		Label putStringLabel = new Label("putString");
 		Label entryLabel = new Label();
 		Label exitLabel = new Label();
-		Code code = new Code(new Frame(putCharLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
+		Code code = new Code(new Frame(putStringLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
 
-		putCharCode.add("% Code for function: _putString\n");
-		putCharCode.addAll(AsmInstructionToString(CreateProlog(code)));
+		putStringCode.add("% Code for function: _putString\n");
+		putStringCode.addAll(AsmInstructionToString(CreateProlog(code)));
 
-		putCharCode.add(entryLabel.name + "\tSET\t$0,8\n");
-		putCharCode.add("\tADD\t$0,FP,$0\n");
-		putCharCode.add("\tLDO\t$1,$0,0\n");
-		putCharCode.add("\tSET\t$255,$1\n");
-		putCharCode.add("\tTRAP\t0,Fputs,StdOut\n");
+		putStringCode.add(entryLabel.name + "\tSET\t$0,8\n");
+		putStringCode.add("\tADD\t$0,FP,$0\n");
+		putStringCode.add("\tLDO\t$1,$0,0\n");
+		putStringCode.add("\tSET\t$255,$1\n");
+		putStringCode.add("\tTRAP\t0,Fputs,StdOut\n");
 
-		putCharCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+		putStringCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
 
-		return putCharCode;
+		return putStringCode;
+	}
+
+	private Vector<String> CreatePutInt() {
+		Vector<String> putIntCode = new Vector<>();
+		Label putIntLabel = new Label("putInt");
+		Label entryLabel = new Label();
+		Label exitLabel = new Label();
+		Code code = new Code(new Frame(putIntLabel, 1, 16, 16), entryLabel, exitLabel, new Vector<>(), null, 0);
+
+		putIntCode.add("% Code for function: _putInt\n");
+		putIntCode.addAll(AsmInstructionToString(CreateProlog(code)));
+
+		putIntCode.add("% Storing inverse number\n");
+		putIntCode.add(entryLabel.name + "\tSET\t$0,FP\n");
+		putIntCode.add("\tSET\t$1,16\n");
+		putIntCode.add("\tNEG\t$1,0,$1\n");
+		putIntCode.add("\tADD\t$0,$0,$1\n");
+		putIntCode.add("\tSET\t$1,0\n");
+		putIntCode.add("\tSTO\t$1,$0,0\n");
+
+		putIntCode.add("% While condition\n");
+		putIntCode.add("_putInt_Inverse_Loop_\tSET\t$0,FP\n");
+		putIntCode.add("\tSET\t$1,8\n");
+		putIntCode.add("\tADD\t$0,$0,$1\n");
+		putIntCode.add("\tLDO\t$0,$0,0\n");
+		putIntCode.add("\tSET\t$1,0\n");
+		putIntCode.add("\tCMP\t$0,$0,$1\n");
+		putIntCode.add("\tZSP\t$0,$0,1\n");
+		putIntCode.add("\tBZ\t$0,_putInt_Inverse_End_\n");
+
+		putIntCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+
+		return putIntCode;
 	}
 
 	private Vector<AsmInstr> SetConstant(long value) {
@@ -201,10 +234,9 @@ public class FinalPhase extends Phase {
 
 		bootstrapCode.add("SP\tGREG\tStack_Segment");
 		bootstrapCode.add("FP\tGREG\t#6100000000000000");
+		bootstrapCode.add("HP\tGREG\tData_Segment");
 
 		bootstrapCode.add("\tLOC\tData_Segment");
-		bootstrapCode.add("DATA\tGREG\t@");
-
 		for (DataChunk data : Chunks.dataChunks) {
 			String string_data = data.init != null ? data.init + ",0" : "0";
 			bootstrapCode.add(data.label.name + "\tBYTE\t" + string_data);
@@ -224,13 +256,22 @@ public class FinalPhase extends Phase {
 				os.write((line + "\n").getBytes());
 			}
 
+			boolean previousLabel = false;
 			for (Code code : AsmGen.codes) {
 				os.write(("% Code for function: " + code.frame.label.name + "\n").getBytes());
 				for (AsmInstr instr : code.instrs) {
 					if (instr instanceof AsmLABEL) {
-						os.write((instr.toAsemblerCode(code.regs)).getBytes());
+						if (previousLabel) {
+							os.write(("\tSWYM\t0,4,2 %Two labels one after another\n").getBytes());
+							os.write((instr.toAsemblerCode(code.regs)).getBytes());
+						} else {
+							os.write((instr.toAsemblerCode(code.regs)).getBytes());
+						}
+
+						previousLabel = true;
 					} else {
 						os.write((instr.toAsemblerCode(code.regs) + "\n").getBytes());
+						previousLabel = false;
 					}
 				}
 
@@ -241,6 +282,10 @@ public class FinalPhase extends Phase {
 			}
 
 			for (String putCharInstruction : CreatePutString()) {
+				os.write(putCharInstruction.getBytes());
+			}
+
+			for (String putCharInstruction : CreatePutInt()) {
 				os.write(putCharInstruction.getBytes());
 			}
 
