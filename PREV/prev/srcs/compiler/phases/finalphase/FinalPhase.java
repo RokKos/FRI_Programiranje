@@ -80,6 +80,27 @@ public class FinalPhase extends Phase {
 		return putCharCode;
 	}
 
+	private Vector<String> CreatePutString() {
+		Vector<String> putCharCode = new Vector<>();
+		Label putCharLabel = new Label("putString");
+		Label entryLabel = new Label();
+		Label exitLabel = new Label();
+		Code code = new Code(new Frame(putCharLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
+
+		putCharCode.add("% Code for function: _putString\n");
+		putCharCode.addAll(AsmInstructionToString(CreateProlog(code)));
+
+		putCharCode.add(entryLabel.name + "\tSET\t$0,8\n");
+		putCharCode.add("\tADD\t$0,FP,$0\n");
+		putCharCode.add("\tLDO\t$1,$0,0\n");
+		putCharCode.add("\tSET\t$255,$1\n");
+		putCharCode.add("\tTRAP\t0,Fputs,StdOut\n");
+
+		putCharCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+
+		return putCharCode;
+	}
+
 	private Vector<AsmInstr> SetConstant(long value) {
 		Vector<AsmInstr> instructions = new Vector<>();
 		int bits = ((short) value & 0xffff);
@@ -186,7 +207,7 @@ public class FinalPhase extends Phase {
 
 		for (DataChunk data : Chunks.dataChunks) {
 			String string_data = data.init != null ? data.init + ",0" : "0";
-			bootstrapCode.add(data.label.name + "\tOCTA\t" + string_data);
+			bootstrapCode.add(data.label.name + "\tBYTE\t" + string_data);
 		}
 
 		bootstrapCode.add("% Code Segment");
@@ -216,6 +237,10 @@ public class FinalPhase extends Phase {
 			}
 
 			for (String putCharInstruction : CreatePutChar()) {
+				os.write(putCharInstruction.getBytes());
+			}
+
+			for (String putCharInstruction : CreatePutString()) {
 				os.write(putCharInstruction.getBytes());
 			}
 

@@ -3,6 +3,8 @@ SP	GREG	Stack_Segment
 FP	GREG	#6100000000000000
 	LOC	Data_Segment
 DATA	GREG	@
+L1	BYTE	"Rok Kos\n",0
+L2	BYTE	"Neki neki neki dakjdajskjska",0
 % Code Segment
 	LOC	#500
 Main	PUSHJ	$8,_main
@@ -22,36 +24,30 @@ _main	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,32
 	SUB	 SP,SP,$0
-	JMP	 L2
-L2	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,82
+	JMP	 L4
+L4	SET	 $0,0
+	SET	 $2,$0
+	LDA	 $0,L1
+	LDO	 $1,$0,0
 	SET	 $0,$0
-	STO	 $1,$254,0
+	STO	 $2,$254,0
 	STO	 $0,$254,8
-	PUSHJ	 $8,_putChar
+	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,111
-	SET	 $0,$0
-	STO	 $1,$254,0
+	SET	 $2,$0
+	LDA	 $1,L2
+	LDO	 $0,$1,0
+	SET	 $0,$1
+	STO	 $2,$254,0
 	STO	 $0,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,107
-	SET	 $0,$0
-	STO	 $1,$254,0
-	STO	 $0,$254,8
-	PUSHJ	 $8,_putChar
+	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,42
 	SET	 $0,$0
-	JMP	 L3
+	JMP	 L5
 	%	 --- Epilogue ---
-L3	STO	 $0,FP,0  % Save return value 
+L5	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -76,8 +72,8 @@ _putChar	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L4
-L4	SET	$0,14
+	JMP	 L6
+L6	SET	$0,14
 	ADD	$0,FP,$0
 	%Putting char one position in front
 	%so that we put end char at the end
@@ -88,7 +84,7 @@ L4	SET	$0,14
 	SET	$255,$0
 	TRAP	0,Fputs,StdOut
 	%	 --- Epilogue ---
-L5	STO	 $0,FP,0  % Save return value 
+L7	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -113,14 +109,14 @@ _putString	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L6
-L6	SET	$0,8
+	JMP	 L8
+L8	SET	$0,8
 	ADD	$0,FP,$0
 	LDO	$1,$0,0
 	SET	$255,$1
 	TRAP	0,Fputs,StdOut
 	%	 --- Epilogue ---
-L7	STO	 $0,FP,0  % Save return value 
+L9	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
