@@ -1,0 +1,458 @@
+<html>
+<style>
+      table, tr, td {
+      text-align: center;
+      vertical-align: top;
+      }
+    </style>
+<body><table>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_main</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=32 
+	  locs=0
+	  args=16</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T6
+	  RV=T7</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L13
+	    exitLabel=L14
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L13</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T88,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T10,T88</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDA T89,L3</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T90,T89,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T11,T89</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T10,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T11,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putString</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T91,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T92,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T12,T92</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T93,10</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T13,T93</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T94,256</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T14,T94</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">DIV T95,T13,T14</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET T95,rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T15,T95</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T12,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T15,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putChar</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T96,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T97,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T16,T97</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T17,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T98,T17,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T18,T98</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T99,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T19,T99</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T100,T18,T19</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T20,T100</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T16,T20,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T21,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T101,T21,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T22,T101</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T102,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T23,T102</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T103,T22,T23</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T24,T103</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T104,T24,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T25,T104</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T105,10</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T26,T105</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">CMP T106,T25,T26</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ZSNP T106,T106,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T27,T106</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">BZ T27,L9</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L7</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T107,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T28,T107</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T29,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T108,T29,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T30,T108</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T109,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T31,T109</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T110,T30,T31</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T32,T110</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T111,T32,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T33,T111</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T28,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T33,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putInt</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T112,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T113,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T34,T113</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDA T114,L4</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T115,T114,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T35,T114</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T34,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T35,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putString</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T116,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T117,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T36,T117</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T118,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T37,T118</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T38,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T119,T38,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T39,T119</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T120,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T40,T120</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T121,T39,T40</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T41,T121</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T122,T41,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T42,T122</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T37,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T42,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_facRec</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T123,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T43,T123</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T36,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T43,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putInt</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T124,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T125,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T44,T125</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T126,10</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T45,T126</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T127,256</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T46,T127</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">DIV T128,T45,T46</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET T128,rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T47,T128</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T44,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T47,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_putChar</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T129,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T48,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T130,T48,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T49,T130</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T131,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T50,T131</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T132,T49,T50</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T51,T132</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T133,T51,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T52,T133</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T134,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T53,T134</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T135,T52,T53</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T54,T135</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T55,T6</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T136,T55,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T56,T136</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T137,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T57,T137</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T138,T56,T57</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T58,T138</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T54,T58,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L9</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T139,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T7,T139</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L14</td></tr>
+</table></td>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_facRec</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=40 
+	  locs=8
+	  args=16</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T8
+	  RV=T9</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L15
+	    exitLabel=L16
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L15</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T59,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T140,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T60,T140</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T141,T59,T60</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T61,T141</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T142,T61,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T62,T142</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T143,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T63,T143</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">CMP T144,T62,T63</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ZSZ T144,T144,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T64,T144</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">BZ T64,L12</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L10</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T145,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T65,T145</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T66,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T146,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">NEG T146,0,T146</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T67,T146</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T147,T66,T67</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T68,T147</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T65,T68,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L11</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L12</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T69,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T148,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T70,T148</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T149,T69,T70</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T71,T149</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T150,T71,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T72,T150</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T151,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T73,T151</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T74,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T152,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T75,T152</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T153,T74,T75</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T76,T153</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T154,T76,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T77,T154</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T155,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T78,T155</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SUB T156,T77,T78</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T79,T156</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T73,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T79,$254,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">PUSHJ $8,_facRec</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T157,$254,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T80,T157</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">MUL T158,T72,T80</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T81,T158</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T82,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T159,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">NEG T159,0,T159</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T83,T159</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T160,T82,T83</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T84,T160</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T81,T84,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L11</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T85,T8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T161,8</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">NEG T161,0,T161</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T86,T161</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">ADD T162,T85,T86</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T87,T162</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T163,T87,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T9,T163</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L16</td></tr>
+</table></td>
+</table></body>
+</html>
