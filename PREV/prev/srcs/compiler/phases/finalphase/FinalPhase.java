@@ -32,6 +32,7 @@ public class FinalPhase extends Phase {
 	private final String kINCHigh = "INCH $0,";
 	private final String kFP = "FP";// "$253";
 	private final String kSP = "SP";// "$254";
+	private final String kHP = "HP";// "$252";
 
 	public FinalPhase() {
 		super("final");
@@ -198,6 +199,33 @@ public class FinalPhase extends Phase {
 		return putIntCode;
 	}
 
+	private Vector<String> CreateNew() {
+		Vector<String> newCode = new Vector<>();
+		Label newLabel = new Label("new");
+		Label entryLabel = new Label();
+		Label exitLabel = new Label();
+		Code code = new Code(new Frame(newLabel, 0, 0, 8), entryLabel, exitLabel, new Vector<>(), null, 0);
+
+		newCode.add("% Code for function: _new\n");
+		newCode.addAll(AsmInstructionToString(CreateProlog(code)));
+
+		newCode.add(entryLabel.name + "\tSET\t$0,8\n");
+		newCode.add("\tADD\t$0,FP,$0\n");
+		newCode.add("\tLDO\t$1,$0,0\n");
+		newCode.add("\tSET\t$0,HP % For return value\n");
+		newCode.add("\tADD\tHP,HP,$1\n");
+
+		newCode.addAll(AsmInstructionToString(CreateEpilogue(code)));
+
+		return newCode;
+	}
+
+	private Vector<String> CreateDel() {
+		Vector<String> delCode = new Vector<>();
+		delCode.add("_del\tPOP " + Main.numOfRegs + ",0 % Memory leak\n");
+		return delCode;
+	}
+
 	private Vector<AsmInstr> SetConstant(long value) {
 		Vector<AsmInstr> instructions = new Vector<>();
 		int bits = ((short) value & 0xffff);
@@ -340,17 +368,25 @@ public class FinalPhase extends Phase {
 				}
 
 			}
-
-			for (String putCharInstruction : CreatePutChar()) {
-				os.write(putCharInstruction.getBytes());
+			os.write("\n--- PREV STD LIB ---\n\n ".getBytes());
+			for (String instructions : CreateNew()) {
+				os.write(instructions.getBytes());
 			}
 
-			for (String putCharInstruction : CreatePutString()) {
-				os.write(putCharInstruction.getBytes());
+			for (String instructions : CreateDel()) {
+				os.write(instructions.getBytes());
 			}
 
-			for (String putCharInstruction : CreatePutInt()) {
-				os.write(putCharInstruction.getBytes());
+			for (String instructions : CreatePutChar()) {
+				os.write(instructions.getBytes());
+			}
+
+			for (String instructions : CreatePutString()) {
+				os.write(instructions.getBytes());
+			}
+
+			for (String instructions : CreatePutInt()) {
+				os.write(instructions.getBytes());
 			}
 
 			os.close();

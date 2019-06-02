@@ -91,6 +91,8 @@ public class StmtGenerator implements ImcVisitor<Vector<AsmInstr>, Object> {
             instructions.add(new AsmMOVE(kSetNormal, defs_load, defs));
         } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcNAME) {
             instructions.add(new AsmMOVE(kSetNormal, uses, defs));
+        } else if (move.dst instanceof ImcTEMP && move.src instanceof ImcCALL) {
+            instructions.add(new AsmMOVE(kSetNormal, uses, defs));
         }
 
         return instructions;
