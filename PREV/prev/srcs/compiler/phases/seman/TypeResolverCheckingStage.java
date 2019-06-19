@@ -266,10 +266,10 @@ public class TypeResolverCheckingStage extends TypeResolver {
     @Override
     public SemType visit(AbsArrExpr arrExpr, Object visArg) {
         SemType arrType = (SemType) arrExpr.array.accept(this, visArg);
-        if (!(arrType instanceof SemArrType)) {
+        if (!(arrType.actualType() instanceof SemArrType)) {
             throw new Report.Error(arrExpr.location(), "Arr expresion is not of type SemArrType");
         }
-        SemArrType semArrType = (SemArrType) arrType;
+        SemArrType semArrType = (SemArrType) arrType.actualType();
 
         SemType indexType = (SemType) arrExpr.index.accept(this, visArg);
         if (!(indexType instanceof SemIntType)) {

@@ -125,10 +125,10 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         if (arrExpr.array instanceof AbsVarName) {
             AbsVarName arrName = (AbsVarName) arrExpr.array;
             AbsVarDecl arrDecl = (AbsVarDecl) SemAn.declaredAt.get(arrName);
-            SemArrType arrType = (SemArrType) SemAn.isType.get(arrDecl.type);
+            SemArrType arrType = (SemArrType) SemAn.isType.get(arrDecl.type).actualType();
             arrElemType = arrType.elemType;
         } else {
-            SemArrType arrType = (SemArrType) SemAn.ofType.get(arrExpr.array);
+            SemArrType arrType = (SemArrType) SemAn.ofType.get(arrExpr.array).actualType();
             arrElemType = arrType.elemType;
         }
 
