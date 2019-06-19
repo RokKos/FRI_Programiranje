@@ -5,6 +5,10 @@ HP	GREG	Data_Segment
 	LOC	Data_Segment
 L3	BYTE	"facRec:",0
 L4	BYTE	": ",0
+ReadSize	IS	255
+
+ReadArgs	BYTE	0,ReadSize
+
 % Code Segment
 	LOC	#500
 Main	PUSHJ	$8,_main
@@ -366,6 +370,36 @@ L22	STO	 $0,FP,0  % Save return value
 	%	 Getting old FP 
 	LDO	 FP,$0,0
 	POP	 8,0
+% Code for function: _readString
+	%	 --- Prolog ---
+_readString	SET	 $0,16
+	%	 Storing FP 
+	SUB	 $0,SP,$0
+	STO	 FP,$0,0
+	%	 STORING RA 
+	GET	 $1,rJ
+	STO	 $1,$0,8
+	%	 Lowering FP 
+	SET	 FP,SP
+	%	 Lowering SP 
+	SET	 $0,24
+	SUB	 SP,SP,$0
+	JMP	 L23
+L23	LDA	$255,ReadArgs
+	SET	$0,$255
+	TRAP	0,Fgets,StdIn
+	%	 --- Epilogue ---
+L24	STO	 $0,FP,0  % Save return value 
+	%	 Highering Stack pointer 
+	SET	 SP,FP
+	%	 Getting RA 
+	SET	 $0,16
+	SUB	 $0,SP,$0
+	LDO	 $1,$0,8
+	PUT	 rJ,$1
+	%	 Getting old FP 
+	LDO	 FP,$0,0
+	POP	 8,0
 % Code for function: _putInt
 	%	 --- Prolog ---
 _putInt	SET	 $0,32
@@ -380,9 +414,9 @@ _putInt	SET	 $0,32
 	%	 Lowering SP 
 	SET	 $0,48
 	SUB	 SP,SP,$0
-	JMP	 L23
+	JMP	 L25
 % Storing inverse number
-L23	SET	$0,16
+L25	SET	$0,16
 	SUB	$0,FP,$0
 	SET	$1,1
 	STO	$1,$0,0
@@ -425,8 +459,8 @@ _putInt_Print_out_loop	SET	$0,16
 	STO	$2,$254,8
 	PUSHJ	$8,_putChar
 	JMP	_putInt_Print_out_loop
-_putInt_Print_out_end	JMP	L24	%	 --- Epilogue ---
-L24	STO	 $0,FP,0  % Save return value 
+_putInt_Print_out_end	JMP	L26	%	 --- Epilogue ---
+L26	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 

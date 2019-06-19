@@ -50,6 +50,6 @@ distclean: clean
 
 
 assemble: tests
-	./mmixal 00_rok_spill.asm
-	./mmix -v -i 00_rok_spill.asm.mmo
+	./mmixal putCharTest.asm
+	./mmix putCharTest.asm.mmo
 

@@ -14,6 +14,8 @@ fun main():int =
 		n=n+1;
       end;
       : 0
+      where 
+        var n : int;
     };
 
 fun facRec(n:int):int =

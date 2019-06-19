@@ -5,7 +5,7 @@ fun putString(s:ptr char):void;
 var i :int;
 
 fun main():int = {
-	i = -100;
+	i = 0;
 	while(i <= 100)do
 		putInt(i);
 		putChar((10:char));

@@ -16,7 +16,10 @@ fun combs(n:int,k:int):int =
       var c:arr[100]int;
       var i:int;
       fun gen(i:int):int =
-        { if i==n then
+
+        {
+					n_ = n;
+					 if i==n_ then
 	    j=0;
 	    while j<n do
 	      putInt(c[j]);
@@ -34,5 +37,6 @@ fun combs(n:int,k:int):int =
 	: 0
 	where
 	  var j:int;
+		var n_:int;
 	};
     };
