@@ -45,6 +45,18 @@ public class FunNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     }
 
     @Override
+    public Result visit(AbsFunDecl funDecl, Arg visArg) {
+        // System.out.println("FunDecl deck:" + funDecl.name);
+        symbTable.newScope();
+
+        super.visit(funDecl, visArg);
+
+        symbTable.oldScope();
+
+        return null;
+    }
+
+    @Override
     public Result visit(AbsVarName varName, Arg visArg) {
         try {
             // System.out.println("varName:" + varName.name);
