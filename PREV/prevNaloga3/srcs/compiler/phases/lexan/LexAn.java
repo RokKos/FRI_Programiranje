@@ -68,7 +68,6 @@ public class LexAn extends Phase {
 		return symb;
 	}
 
-
 	private boolean kDebugOn = false;
 	private int line = 1;
 	private int column = 1;
@@ -77,61 +76,65 @@ public class LexAn extends Phase {
 		kStart, kCharConst, kIntConst, kStrConst, kComment, kIdentifier, kSymbol, kLast
 	}
 
-	private Map<String, Term> kStringToSymbols = new HashMap<String, Term>(){{
-		put("|", Term.IOR);
-		put("^", Term.XOR);
-		put("&", Term.AND);
-		put("==", Term.EQU);
-		put("!=", Term.NEQ);
-		put("<", Term.LTH);
-		put(">", Term.GTH);
-		put("<=", Term.LEQ);
-		put(">=", Term.GEQ);
-		put("+", Term.ADD);
-		put("-", Term.SUB);
-		put("*", Term.MUL);
-		put("/", Term.DIV);
-		put("%", Term.MOD);
-		put("!", Term.NOT);
-		put("$", Term.ADDR);
-		put("@", Term.DATA);
-		put("=", Term.ASSIGN);
-		put(":", Term.COLON);
-		put(",", Term.COMMA);
-		put(".", Term.DOT);
-		put(";", Term.SEMIC);
-		put("{", Term.LBRACE);
-		put("}", Term.RBRACE);
-		put("[", Term.LBRACKET);
-		put("]", Term.RBRACKET);
-		put("(", Term.LPARENTHESIS);
-		put(")", Term.RPARENTHESIS);
-}};
-	private Map<String, Term> kStringToKeyWords = new HashMap<String, Term>(){{
-		put("new", Term.NEW);
-		put("del", Term.DEL);
-		put("none", Term.VOIDCONST);
-		put("true", Term.BOOLCONST);
-		put("false", Term.BOOLCONST);
-		put("null", Term.PTRCONST);
-		put("void", Term.VOID);
-		put("bool", Term.BOOL);
-		put("char", Term.CHAR);
-		put("int", Term.INT);
-		put("ptr", Term.PTR);
-		put("arr", Term.ARR);
-		put("rec", Term.REC);
-		put("do", Term.DO);
-		put("else", Term.ELSE);
-		put("end", Term.END);
-		put("fun", Term.FUN);
-		put("if", Term.IF);
-		put("then", Term.THEN);
-		put("typ", Term.TYP);
-		put("var", Term.VAR);
-		put("where", Term.WHERE);
-		put("while", Term.WHILE);
-	}};
+	private Map<String, Term> kStringToSymbols = new HashMap<String, Term>() {
+		{
+			put("|", Term.IOR);
+			put("^", Term.XOR);
+			put("&", Term.AND);
+			put("==", Term.EQU);
+			put("!=", Term.NEQ);
+			put("<", Term.LTH);
+			put(">", Term.GTH);
+			put("<=", Term.LEQ);
+			put(">=", Term.GEQ);
+			put("+", Term.ADD);
+			put("-", Term.SUB);
+			put("*", Term.MUL);
+			put("/", Term.DIV);
+			put("%", Term.MOD);
+			put("!", Term.NOT);
+			put("$", Term.ADDR);
+			put("@", Term.DATA);
+			put("=", Term.ASSIGN);
+			put(":", Term.COLON);
+			put(",", Term.COMMA);
+			put(".", Term.DOT);
+			put(";", Term.SEMIC);
+			put("{", Term.LBRACE);
+			put("}", Term.RBRACE);
+			put("[", Term.LBRACKET);
+			put("]", Term.RBRACKET);
+			put("(", Term.LPARENTHESIS);
+			put(")", Term.RPARENTHESIS);
+		}
+	};
+	private Map<String, Term> kStringToKeyWords = new HashMap<String, Term>() {
+		{
+			put("new", Term.NEW);
+			put("del", Term.DEL);
+			put("none", Term.VOIDCONST);
+			put("true", Term.BOOLCONST);
+			put("false", Term.BOOLCONST);
+			put("null", Term.PTRCONST);
+			put("void", Term.VOID);
+			put("bool", Term.BOOL);
+			put("char", Term.CHAR);
+			put("int", Term.INT);
+			put("ptr", Term.PTR);
+			put("arr", Term.ARR);
+			put("rec", Term.REC);
+			put("do", Term.DO);
+			put("else", Term.ELSE);
+			put("end", Term.END);
+			put("fun", Term.FUN);
+			put("if", Term.IF);
+			put("then", Term.THEN);
+			put("typ", Term.TYP);
+			put("var", Term.VAR);
+			put("where", Term.WHERE);
+			put("while", Term.WHILE);
+		}
+	};
 
 	/**
 	 * Performs the lexical analysis of the source file.
@@ -147,149 +150,156 @@ public class LexAn extends Phase {
 		int value;
 		int startLine = line;
 		int startColumn = column;
-		
-		
+
 		LexerState state = LexerState.kStart;
 		String lexeme = "";
 
 		try {
 			srcFile.mark(1);
-			while((value = srcFile.read()) != -1) {
-				
-				CheckAsciiValue(value, 0,127);
+			while ((value = srcFile.read()) != -1) {
 
-				char c = (char)value;
+				CheckAsciiValue(value, 0, 127);
+
+				char c = (char) value;
 				lexeme += c;
 
 				switch (state) {
-					case kStart:
-						state = DecideStartingState(c);
-						// TODO: Make this reseting better
-						lexeme = "" + c;
-						startLine = line;
-						startColumn = column;
+				case kStart:
+					state = DecideStartingState(c);
+					// TODO: Make this reseting better
+					lexeme = "" + c;
+					startLine = line;
+					startColumn = column;
 
+					if (kDebugOn) {
+						System.out.println("State: " + state);
+					}
+					break;
+
+				case kCharConst:
+					CheckAsciiValue(value, 32, 127);
+					char singleQuote = (char) srcFile.read();
+					// Because we read two characters and we don't go to MoveLocation
+					column += 2;
+					if (singleQuote != kSingleQuote) {
 						if (kDebugOn) {
-							System.out.println("State: " + state);
+							System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
 						}
-						break;
+						throw new Report.Error(new Location(startLine, startColumn, line, column),
+								"Character constant is more than one character long. Are you missing ' ?");
+					} else {
+						lexeme += singleQuote;
+						return new Symbol(Term.CHARCONST, lexeme,
+								new Location(startLine, startColumn, line, column - 1));
+					}
 
-					case kCharConst:
-						CheckAsciiValue(value, 32,127);
-						char singleQuote = (char)srcFile.read();
-						// Because we read two characters and we don't go to MoveLocation
-						column += 2;
-						if (singleQuote != kSingleQuote) {
-							if (kDebugOn) {
-								System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
-							}
-							throw new Report.Error(new Location(startLine, startColumn, line, column), "Character constant is more than one character long. Are you missing ' ?");
-						} else {
-							lexeme += singleQuote;
-							return new Symbol(Term.CHARCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
-						}
-						
+				case kIntConst:
+					if (!IsNumber(c)) {
+						lexeme = lexeme.substring(0, lexeme.length() - 1);
+						srcFile.reset();
+						return new Symbol(Term.INTCONST, lexeme,
+								new Location(startLine, startColumn, line, column - 1));
+					}
+					break;
 
-					case kIntConst:
-						if (!IsNumber(c)){
-							lexeme = lexeme.substring(0, lexeme.length() - 1);
-							srcFile.reset();
-							return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
-						}
-						break;
+				case kStrConst:
+					CheckAsciiValue(value, 32, 127);
+					if (c == kDoubleQuote) {
+						return new Symbol(Term.STRCONST, lexeme, new Location(startLine, startColumn, line, column));
+					}
+					break;
 
-					case kStrConst:
-						CheckAsciiValue(value, 32,127);
-						if (c == kDoubleQuote){
-							return new Symbol(Term.STRCONST, lexeme, new Location(startLine, startColumn, line, column));
-						}
-						break;
+				case kComment:
+					if (c == kNewLine) {
+						state = LexerState.kStart;
+					}
+					break;
 
-					case kComment:
-						if (c == kNewLine) {
-							state = LexerState.kStart;
-						}
-						break;
-					
-
-					case kIdentifier:
-						if (!(IsLetter(c) || IsNumber(c))){
-							// Hacky but only this simbols is not caught 
-							// Others are handled by others states
-							// If more symbols like this come up change this
-							if (c == '~'){
-								throw new Report.Error(new Location(startLine, startColumn, line, column), "Character ~ is prohibited in identiier");
-							} else {
-								lexeme = lexeme.substring(0, lexeme.length() - 1);
-								srcFile.reset();
-								return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
-							}
-						}
-						break;
-
-					case kSymbol:
-						
-						Term possibleSymbol = ReturnSymbolIfPossible(lexeme);
-						if (possibleSymbol != Term.EOF) {
-							column++;
-							return new Symbol(possibleSymbol, lexeme, new Location(startLine, startColumn, line, column - 1));
+				case kIdentifier:
+					if (!(IsLetter(c) || IsNumber(c))) {
+						// Hacky but only this simbols is not caught
+						// Others are handled by others states
+						// If more symbols like this come up change this
+						if (c == '~') {
+							throw new Report.Error(new Location(startLine, startColumn, line, column),
+									"Character ~ is prohibited in identiier");
 						} else {
 							lexeme = lexeme.substring(0, lexeme.length() - 1);
 							srcFile.reset();
-							return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, startLine, startColumn));
+							return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme,
+									new Location(startLine, startColumn, line, column - 1));
 						}
+					}
+					break;
 
-					case kLast:
-					default:
-						if (kDebugOn) {
-							System.out.println("Invalid state");	
-						}
-						break;
+				case kSymbol:
+
+					Term possibleSymbol = ReturnSymbolIfPossible(lexeme);
+					if (possibleSymbol != Term.EOF) {
+						column++;
+						return new Symbol(possibleSymbol, lexeme,
+								new Location(startLine, startColumn, line, column - 1));
+					} else {
+						lexeme = lexeme.substring(0, lexeme.length() - 1);
+						srcFile.reset();
+						return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme,
+								new Location(startLine, startColumn, startLine, startColumn));
+					}
+
+				case kLast:
+				default:
+					if (kDebugOn) {
+						System.out.println("Invalid state");
+					}
+					break;
 				}
 
 				srcFile.mark(1);
 				MoveLocation(c);
 
-				
 				if (kDebugOn) {
 					System.out.println("Read character: " + c + " in line:" + line + " collumn:" + column);
 				}
 
 				// TODO: Check for keyword
-				//return new Symbol(Term.IDENTIFIER, lexeme, new Location(line, column));
+				// return new Symbol(Term.IDENTIFIER, lexeme, new Location(line, column));
 			}
-			
+
 			// Handle EOF with somethign in
 			switch (state) {
-				case kStart:
-					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
-				case kCharConst:
-					throw new Report.Error(new Location(startLine, startColumn, line, column), "Character constant is not closed. Are you missing ' ?");
-				case kIntConst:
-					return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));		
-				case kStrConst:
-					throw new Report.Error(new Location(startLine, startColumn, line, column), "String constant is not closed. Are you missing \" ?");
-				case kComment:
-					return new Symbol(Term.EOF, lexeme, new Location(line, column));		
-				case kIdentifier:
-					return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
-				case kSymbol:
-					return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme, new Location(startLine, startColumn, line, column - 1));
-				case kLast:
-					if (kDebugOn) {
-						System.out.println("Error wrong state");
-					}
+			case kStart:
+				return new Symbol(Term.EOF, lexeme, new Location(line, column));
+			case kCharConst:
+				throw new Report.Error(new Location(startLine, startColumn, line, column),
+						"Character constant is not closed. Are you missing ' ?");
+			case kIntConst:
+				return new Symbol(Term.INTCONST, lexeme, new Location(startLine, startColumn, line, column - 1));
+			case kStrConst:
+				throw new Report.Error(new Location(startLine, startColumn, line, column),
+						"String constant is not closed. Are you missing \" ?");
+			case kComment:
+				return new Symbol(Term.EOF, lexeme, new Location(line, column));
+			case kIdentifier:
+				return new Symbol(ReturnKeywordIfPossible(lexeme), lexeme,
+						new Location(startLine, startColumn, line, column - 1));
+			case kSymbol:
+				return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme,
+						new Location(startLine, startColumn, line, column - 1));
+			case kLast:
+				if (kDebugOn) {
+					System.out.println("Error wrong state");
+				}
+				throw new Report.Error(new Location(startLine, startColumn, line, column), "Wrong state: kLast");
+			default:
+				throw new Report.Error(new Location(startLine, startColumn, line, column), "Unhandled state");
 			}
-
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		 
-		 return new Symbol(Term.EOF, lexeme, new Location(line, column));
-	}
+		}
 
+		return new Symbol(Term.EOF, lexeme, new Location(line, column));
+	}
 
 	private final char kSingleQuote = '\'';
 	private final char kDoubleQuote = '"';
@@ -326,7 +336,7 @@ public class LexAn extends Phase {
 		if (possibleSymbol != Term.EOF) {
 			return LexerState.kSymbol;
 		}
-		
+
 		if (kDebugOn) {
 			System.out.println("Missing indetifier state");
 		}
@@ -338,7 +348,7 @@ public class LexAn extends Phase {
 	private void MoveLocation(char c) {
 		if (c == kTab) {
 			column += kTabLenght;
-		} else if(c == kNewLine) {
+		} else if (c == kNewLine) {
 			column = 1;
 			line++;
 		} else if (c == kCarrygaReturn) {
@@ -348,18 +358,17 @@ public class LexAn extends Phase {
 		}
 	}
 
-
 	// --- Helpers ---
-	private boolean IsNumber(char c){
+	private boolean IsNumber(char c) {
 		return c >= kZeroChar && c <= kNineChar;
 	}
 
-	private boolean IsLetter(char c){
+	private boolean IsLetter(char c) {
 		return c == kUnderScore || (c >= kBigA && c <= kBigZ) || (c >= kSmallA && c <= kSmallZ);
 	}
 
 	private Term ReturnKeywordIfPossible(String lexeme) {
-		if (kStringToKeyWords.containsKey(lexeme)){
+		if (kStringToKeyWords.containsKey(lexeme)) {
 			return kStringToKeyWords.get(lexeme);
 		}
 
@@ -367,16 +376,17 @@ public class LexAn extends Phase {
 	}
 
 	private Term ReturnSymbolIfPossible(String lexeme) {
-		if (kStringToSymbols.containsKey(lexeme)){
+		if (kStringToSymbols.containsKey(lexeme)) {
 			return kStringToSymbols.get(lexeme);
 		}
 
 		return Term.EOF;
 	}
 
-	private void  CheckAsciiValue(int value, int low, int high) {
+	private void CheckAsciiValue(int value, int low, int high) {
 		if (value < low || value > high) {
-			throw new Report.Error(new Location(line, column, line, column), "Character in input file is not part of standart ASCII table. Are you using weird characters in your code?");
+			throw new Report.Error(new Location(line, column, line, column),
+					"Character in input file is not part of standart ASCII table. Are you using weird characters in your code?");
 		}
 	}
 }
