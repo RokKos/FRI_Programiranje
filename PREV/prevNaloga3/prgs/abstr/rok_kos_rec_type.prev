@@ -1,0 +1,1 @@
+var i : rec(a : int, b : bool, p : ptr char);

@@ -1,0 +1,2 @@
+typ record: rec(comp: arr[6] rec(sasxas: recursive));
+typ recursive: rec(comp: ptr(record));

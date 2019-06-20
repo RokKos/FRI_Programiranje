@@ -1,0 +1,21 @@
+fun main() : int = {
+    c (1, 2, 4);
+    : c(1,2,4)
+    where
+        fun c(a: int, b : int, g: int) : int = {
+            a = f() + b;
+            g = a + 1;
+            # zblj(false, new(int));
+            : g
+            where
+                fun f(): int = 3;
+                fun zblj(b : bool, lala : ptr int) : bool = {
+                    if (b) then
+                        @lala = @lala + 1;
+                    else
+                        @lala = @lala - 1;
+                    end;
+                    : @lala == 3
+                };
+        };
+};

@@ -1,0 +1,2 @@
+fun f1():int=f2();
+fun f2():int=f1();

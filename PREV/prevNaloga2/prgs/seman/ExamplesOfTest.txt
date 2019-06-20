@@ -1,0 +1,5 @@
+- negative array count
+- array void type
+- record void type
+- Cyclic types?
+

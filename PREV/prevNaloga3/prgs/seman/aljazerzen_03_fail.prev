@@ -1,0 +1,2 @@
+var myVar: rec(comp: myVoid);
+typ myVoid: void;

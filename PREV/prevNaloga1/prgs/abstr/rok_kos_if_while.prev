@@ -1,0 +1,20 @@
+fun main (args : arr[5] int ) : int = 
+{
+    if (true) then
+        a = 5;
+        a = a + b;
+    else 
+        a = -5;
+        a = a ^ b;
+    end;
+
+    while (i==5) do 
+        i = i * i;
+    end;
+    
+    : 3
+
+    where
+        var a : int;
+        var b : int;
+};

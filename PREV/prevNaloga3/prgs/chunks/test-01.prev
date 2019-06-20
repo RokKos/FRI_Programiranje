@@ -1,0 +1,5 @@
+fun main():int = {f0();f2();f2();:i where var i:int;
+fun f1():int = {if false then f1(); end;:1 where var i1:int;};
+fun f2():int = {if false then f1(); end;i=2;f21();:1 where var i2:int;
+fun f21():int = {if false then main();f1();f2();f21(); end;i=21;:1 where var i21:int;};};};
+fun f0():int = 1;

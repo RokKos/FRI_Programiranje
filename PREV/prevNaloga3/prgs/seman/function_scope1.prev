@@ -1,0 +1,16 @@
+
+typ outerType: char;
+typ myType: int;
+var variable1: int;
+
+# myType should reference the outer defintion
+fun main(variable1: myType): outerType = {
+  none; 
+  
+  # myType should reference the definition in where block
+  # variable1 should reference the parameter
+  : (variable1: myType)
+  where
+    typ myType: char;
+    var variable1: char;
+};

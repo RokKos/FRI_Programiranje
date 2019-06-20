@@ -1,0 +1,3 @@
+var i:int;
+fun main():int={i=1;:2%3};
+fun b():bool=true^false;

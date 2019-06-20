@@ -1,0 +1,4 @@
+typ a:b;
+typ b:c;
+typ c:a;
+fun f():a;

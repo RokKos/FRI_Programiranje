@@ -1,0 +1,27 @@
+fun a(): void = {
+    none; : strcmp(a, b)
+
+    where
+
+        typ string: arr [256] char;
+        var a: string;
+        var b: string;
+        var s2: char;
+
+        fun strcmp(s1: string, s2: string): void = {
+            same = true;
+            if i < 256 then
+                same = false & false;
+            end;
+
+            : none
+
+            where
+                var i: int;
+                var same: bool;
+
+        };
+
+        fun fff(): int = ggg() + 2;
+        fun ggg(): int = fff();
+};

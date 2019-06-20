@@ -1,0 +1,38 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+
+fun main():int={
+	i = 0;
+	while i < 20 do
+		j = 0;
+		while j <= i do
+			putInt(pascal(j, i));
+			putChar(' ');
+      		j = j + 1;
+		end;
+		putChar((10:char));
+		i = i + 1;
+	end;
+	
+	:0
+	where
+	var i : int;
+	var j : int;
+};
+
+# k is the row, n is the column
+fun pascal(n:int, k:int):int={
+	if n == 0 | n == k then
+		r = 1;
+	else
+		if n < 0 | n > k then
+			r = 0;
+		else
+			r = pascal(n, k - 1) + pascal(n - 1, k - 1);
+		end;
+	end;
+	: r
+	where
+	var r : int;
+};

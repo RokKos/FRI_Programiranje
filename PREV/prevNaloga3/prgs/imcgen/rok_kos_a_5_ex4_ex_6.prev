@@ -1,0 +1,14 @@
+fun r() : int = {
+    +1;
+    -1;
+    $array[5];
+    !true;
+    array[5] = -i;
+    !b;
+    : @p
+    where
+        var array : arr[10] int;
+        var i : int;
+        var p : ptr int;
+        var b : bool;
+};

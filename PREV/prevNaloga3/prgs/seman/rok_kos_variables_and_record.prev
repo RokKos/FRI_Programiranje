@@ -1,0 +1,9 @@
+typ w : ptr y;
+typ y : arr[10] z;
+typ z : a;
+typ a:int;
+var b : a;
+var c : z;
+var d : w;
+typ r : rec(x : int, y : bool, z : ptr int, w : ptr w);
+typ p : rec(a : r);

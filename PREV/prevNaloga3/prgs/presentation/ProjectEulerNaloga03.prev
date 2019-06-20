@@ -1,0 +1,52 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+
+var stevilo : int;
+
+fun main():int = {
+    n = 2;
+    najvecji = 1;
+    stevilo = 71*2;
+    while (n <= stevilo) do
+        #putInt(n); putChar((10:char));
+        if (JePrastevilo(n) == true & stevilo % n == 0) then
+            putString("JePrastevilo:"); putInt(n); putChar((10:char));
+            najvecji = n;
+            while (stevilo % n == 0) do
+                stevilo = stevilo / n;
+            end;
+        end;
+        n = n + 1;
+    end;
+
+    putString("Najvecji: "); putInt(najvecji); putChar((10:char));
+
+    : 0
+    where
+        var n : int;
+        var najvecji : int;
+        var neki : bool;
+};
+
+fun JePrastevilo(n : int): bool = {
+    je = true;
+    delitelji = 2;
+    while (delitelji < n/2) do
+        #putString("Tukaj: ");putChar((10:char));
+        if (n % delitelji == 0) then
+            #putString("Deli: ");putChar((10:char));
+            je = je & false;
+        else
+            #putString("Ne Deli: ");putChar((10:char));
+            je = je & true;
+        end;
+        delitelji = delitelji + 1;
+    end;
+
+    : je
+
+    where
+        var je : bool;
+        var delitelji : int;
+};

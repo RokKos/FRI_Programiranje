@@ -1,0 +1,9 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+
+fun main():int = {
+    putString("Hello World"); 
+    putChar((10:char));
+    : 42
+};

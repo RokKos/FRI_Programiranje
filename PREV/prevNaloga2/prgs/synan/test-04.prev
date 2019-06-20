@@ -1,0 +1,11 @@
+var i:int;
+
+
+fun helloWorld(asxa: bool) : void = 4;
+
+fun helloWorldWithBody(asxa: bool) : int = {
+    if (asxa == null) then
+        i = 15 & false;
+    end;
+    : 4
+};

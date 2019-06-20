@@ -1,0 +1,199 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+
+fun main():int =
+    {
+      putString("facItr:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); 
+        putString(": ");
+		putInt(facItr(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("facRec:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(facRec(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("fibItr:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(fibItr(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("fibRec:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(fibRec(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("BinTree:"); putChar((10:char));
+      { t=(null:bintree); printBT(t); putChar((10:char));
+	t=insBT(5,t); printBT(t); putChar((10:char));
+	t=insBT(7,t); printBT(t); putChar((10:char));
+	t=insBT(8,t); printBT(t); putChar((10:char));
+	t=insBT(2,t); printBT(t); putChar((10:char));
+	t=insBT(6,t); printBT(t); putChar((10:char));
+        t=delBT(8,t); printBT(t); putChar((10:char));
+      : none
+      where var t:bintree;
+      };
+
+      : 0
+    where
+      var n:int; var m:int;
+    };
+
+fun facItr(n:int):int =
+    { f=1;
+      while n>0 do f=f*n; n=n-1; end;
+    : f
+    where
+      var f:int;
+    };
+
+fun facRec(n:int):int =
+    { if n==1 then f=1; else f=n*facRec(n-1); end;
+    : f
+    where
+      var f:int;
+    };
+
+fun fibItr(n:int):int =
+    { f=1; fm1=1; fm2=0;
+      while n>1 do
+        f=fm1+fm2;fm2=fm1;fm1=f;
+	n=n-1;
+      end;
+    : f
+    where
+      var f:int;
+      var fm1:int;
+      var fm2:int;
+    };
+
+fun fibRec(n:int):int =
+    { if n<=2 then f=1; else f=fibRec(n-1)+fibRec(n-2); end;
+    : f
+    where
+      var f:int;
+    };
+
+
+typ bintree:ptr binnode;
+typ binnode:rec(i:int,lth:bintree,gth:bintree);
+
+fun printBT(t:bintree):void =
+    { if t==(null:bintree) then
+        putChar('$');
+      else
+        putInt((@t).i);
+	putChar('(');
+	printBT((@t).lth);
+	putChar(',');
+	printBT((@t).gth);
+	putChar(')');
+      end;
+    : none
+    };
+
+fun insBT(i:int,t:bintree):bintree =
+    {
+      if t==(null:bintree) then
+        t=new(binnode);
+	(@t).i=i;
+	(@t).lth=(null:bintree);
+	(@t).gth=(null:bintree);
+      else
+        if (@t).i!=i then
+	  if i<(@t).i
+	    then (@t).lth=insBT(i,(@t).lth);
+	    else (@t).gth=insBT(i,(@t).gth);
+	  end;
+	end;
+      end;
+    : t
+    };
+
+fun delBT(i:int,t:bintree):bintree =
+    { if t!=(null:bintree) then
+        if (@t).i==i then
+	  if (@t).lth==(null:bintree)&(@t).gth==(null:bintree) then
+	    del(t);
+	    t=(null:bintree);
+	  else
+	    if (@t).lth!=(null:bintree) then
+	      { max=maxBT((@t).lth);
+		(@t).i=@max;
+		(@t).lth=delBT(@max,(@t).lth);
+              : none
+              where var max:ptr int;
+	      };
+	    else
+	      { min=minBT((@t).lth);
+	        (@t).i=@min;
+		(@t).gth=delBT(@min,(@t).gth);
+	      : none
+	      where var min:ptr int;
+	      };
+	    end;
+	  end;
+	else
+	  if i<(@t).i
+	    then (@t).lth=delBT(i,(@t).lth);
+	    else (@t).gth=delBT(i,(@t).gth);
+	  end;
+	end;
+      end;
+    : t
+    };
+
+fun minBT(t:bintree):ptr int =
+    {
+      if t==(null:bintree) then
+        min=(null:ptr int);
+      else
+        if (@t).lth==(null:bintree) then
+          min=$((@t).i);
+	else
+	  min=minBT((@t).gth);
+	end;
+      end;
+    : min
+    where
+      var min:ptr int;
+    };
+
+fun maxBT(t:bintree):ptr int =
+    {
+      if t==(null:bintree) then
+        max=(null:ptr int);
+      else
+        if (@t).gth==(null:bintree) then
+	  max=$((@t).i);
+	else
+	  max=maxBT((@t).gth);
+	end;
+      end;
+    : max
+    where
+      var max:ptr int;
+    };

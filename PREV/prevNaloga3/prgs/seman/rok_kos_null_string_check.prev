@@ -1,0 +1,7 @@
+fun a () : void = {
+    a = "abcd";
+    null;
+    : none
+    where
+        var a : ptr char;
+};

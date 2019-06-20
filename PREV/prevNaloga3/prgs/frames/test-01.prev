@@ -1,0 +1,33 @@
+#var i:int;
+#var a:arr[10](rec(i:int,p:ptr int));
+#fun f1(i:int):ptr int;
+
+#typ r:rec(i:int,a:arr[10]int,n:ptr r);
+#fun f2(i:int,j:int):ptr int=
+#  {
+#   if i==0 then {rr.i=3;i=3;p=f2(i-1,j);:p
+#                 where var i:int;var rr:r;
+#		       fun f():int=1;}; end;
+#   :null
+#   where var p:ptr int;
+#  };
+
+typ a:ptr b;
+typ b:ptr a;
+fun test():int;
+fun fa(pa:a):b=@pa;
+fun fb(pb:b):a=null;
+
+#fun f(pa:a):a=pa;
+
+typ p:ptr p;
+fun fp(pp:p):bool=@pp==@pp;
+
+typ list:ptr node;
+typ node:rec(i:int,next:ptr node);
+fun f(l:list):bool=l==(@l).next;
+
+typ a1:ptr a2;
+typ a2:char;
+fun a12(a11:a1):bool=(@a11)=='1';
+

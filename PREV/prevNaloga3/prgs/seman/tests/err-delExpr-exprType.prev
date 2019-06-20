@@ -1,0 +1,1 @@
+fun f(i:int):int={del(i);:1};

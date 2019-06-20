@@ -1,0 +1,5 @@
+var v:void;
+typ new_bool:bool;
+fun f (a : int) : bool;
+fun g () : bool ;
+fun h (a : char, c : ptr bool ) : bool ;

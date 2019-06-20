@@ -1,0 +1,18 @@
+fun r() : int = {
+    if (true) then
+        @lala = @lala + 1;
+    end;
+
+    if (b) then
+        while (i < 10) do
+            i = i + 1;
+        end;
+    else
+        @lala = @lala - 1;
+    end;
+    : 42
+    where
+        var b : bool;
+        var lala : ptr int;
+        var i : int;
+};

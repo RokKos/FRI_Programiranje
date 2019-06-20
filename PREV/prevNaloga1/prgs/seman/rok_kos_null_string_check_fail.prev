@@ -1,0 +1,6 @@
+fun a () : void = {
+    a = "abcd";
+    : null
+    where
+        var a : arr[10] char;
+};

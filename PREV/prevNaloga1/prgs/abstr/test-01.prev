@@ -1,0 +1,1 @@
+fun f():int={if a==1 then a=a.b(); end;none;a=b;:1};

@@ -1,0 +1,4 @@
+fun test () : int = {
+    c = (b.keycode[0] : char);
+    : 42
+};

@@ -1,0 +1,6 @@
+fun putChar(c:char):void;
+fun main():int={
+    putChar('R');
+    : 42
+};
+

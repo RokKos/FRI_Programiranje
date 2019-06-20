@@ -1,0 +1,32 @@
+fun putString(string: ptr char): void;
+fun putChar(ch: char): void;
+fun putInt(i: int): void;
+
+fun power(a: int, p: int, mod: int): int = {
+	r = 1;
+	while p > 0 do
+		r = (r * a) % mod;
+		p = p - 1;
+	end;
+	: r
+	where var r: int;
+};
+
+fun powerFast(a: int, p: int, mod: int): int = {
+	r = 1;
+	while p > 0 do
+		if p % 2 == 1 then
+			r = (r * a) % mod;
+		end;
+		a = (a * a) % mod;
+		p = p / 2;
+	end;
+	: r
+	where var r: int;
+};
+
+fun main():int = {
+	putString("power: "); putInt(power(3, 321551, 71)); putString("\n");
+	putString("power fast: "); putInt(powerFast(3, 321551, 71)); putString("\n");
+	: 0
+};

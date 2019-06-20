@@ -1,0 +1,24 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun main():int =
+    {
+      putString("facRec:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); 
+        putString(": ");
+		putInt(facRec(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+      : 0
+    };
+
+fun facRec(n:int):int =
+    { if n==1 then f=1; else f=n*facRec(n-1); end;
+    : f
+    where
+      var f:int;
+    };

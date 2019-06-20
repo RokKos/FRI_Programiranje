@@ -1,0 +1,3 @@
+var i:int;
+fun f(p:int):int={none;:printf("foo") where var l:int;};
+fun printf(s:ptr char):int;

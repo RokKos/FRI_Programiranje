@@ -1,0 +1,25 @@
+fun wrapper(): int = {
+    a = x(213, 333);
+    a = g(123, 123, 123, 123, 123) + asd[122].a.x.a;
+
+    : -d() + {
+        none; : 3
+    }
+
+    where
+        var a: int;
+        var asd: arr[123] rec(a: rec(x: rec(a: int)));
+
+        fun f(): int = 3;
+        fun x(a: int, b: int): int = a * b + a * b + a * b;
+        fun g(a: int, b: int, c: int, d: int, e: int): int = {
+
+            none;
+            : { none; : a where var a: int; }+b+c+d+e + x(123,f())
+
+            where
+                var a: int;
+                var b: int;
+        };
+        fun d(): int = 3;
+};

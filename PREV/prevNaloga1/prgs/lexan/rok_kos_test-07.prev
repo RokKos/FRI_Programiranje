@@ -1,0 +1,2 @@
+# fail because character const has multyple chars
+'n'  'nnn'

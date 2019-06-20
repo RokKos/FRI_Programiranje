@@ -1,0 +1,18 @@
+var a: int;
+var c: ptr(int);
+var d: arr[4] int;
+var e: record;
+
+typ record: rec(comp: int);
+
+fun wrapper(b: int): void = {
+  
+  a = 5;
+  b = 5;
+  @c = 5;
+  d[2] = 5;
+  e.comp = 5;
+
+  
+  : none    
+};

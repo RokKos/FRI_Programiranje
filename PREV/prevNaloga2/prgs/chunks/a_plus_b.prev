@@ -1,0 +1,9 @@
+fun putInt(n:int):void;
+var i : int;
+fun main() : int = {
+    i = 5 + 5;
+    putInt(i);
+    : i
+    where
+        var i : int; 
+};

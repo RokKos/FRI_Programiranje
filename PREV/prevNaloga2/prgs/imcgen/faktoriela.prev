@@ -1,0 +1,15 @@
+fun main() : int = {
+    none;
+    : fak(5)
+    where
+        fun fak(f : int) : int = {
+            if (f <= 1) then
+                result = 1;
+            else 
+                result = fak(f - 1) * f;
+            end;
+            : result
+            where 
+                var result : int;
+        };
+};

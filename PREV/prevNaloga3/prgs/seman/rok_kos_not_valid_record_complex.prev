@@ -1,0 +1,3 @@
+typ r : rec (a : boBloVoid);
+typ boBloVoid : skorVoid;
+typ skorVoid : void;

@@ -1,0 +1,21 @@
+typ a : int;
+fun b() : d = {
+    l = false;
+    i(false,false, true);
+    : 42
+    where
+        typ c : a;
+        typ a : bool;
+        typ d : a;
+        var l : c;
+
+        fun i (j : a, f : bool, zad : d) : c = {
+            j;
+            : f
+            where 
+                typ z : a;
+                typ a : void;
+                typ w : a;
+        }; 
+};
+typ d : a;

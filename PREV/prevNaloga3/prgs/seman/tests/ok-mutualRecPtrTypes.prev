@@ -1,0 +1,4 @@
+typ a:ptr a;
+
+typ b1:ptr b2;
+typ b2:ptr b1;

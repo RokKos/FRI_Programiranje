@@ -1,0 +1,30 @@
+void fun test (int a, bool b, ptr p) {
+    # do something
+    if (b) {
+        p += @a;
+    } else {
+        p += a;
+    }
+}
+
+
+var variabla_3 = '3';
+var variabla_str = "str";
+
+int main (char[] args) {
+    char prvi = args[0];
+
+    if (prvi == 'a') {
+        typ void *= variabla_3;
+    }
+
+    int data = 4;
+    ptr ref = new $data;
+    
+
+    while(true) {
+        test(data, true, ref);
+    }
+
+    del ref;
+}

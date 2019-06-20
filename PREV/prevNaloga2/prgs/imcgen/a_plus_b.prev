@@ -1,0 +1,5 @@
+var i : int;
+fun main() : int = {
+    i = 5 + 5;
+    : i 
+};

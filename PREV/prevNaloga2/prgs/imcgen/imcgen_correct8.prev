@@ -1,0 +1,18 @@
+# referencing variables from outer scopes
+
+var j: int;
+
+fun a(): int = {
+  none; : i+2*j
+  where
+    var array: arr[2] int;
+    var i: int;
+
+    fun b(): int = {
+      none; : i+2*j
+      where
+        fun c(): int = {
+          none; : i+2*j
+        };
+    };
+};

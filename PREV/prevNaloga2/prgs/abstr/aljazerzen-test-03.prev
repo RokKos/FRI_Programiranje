@@ -1,0 +1,53 @@
+fun a(): void = {   
+    x = none;
+    a == b;
+    a = 3;
+    b = 6;
+    c = (b.keycode[0] : char);
+
+    name = new (arr[256] char);
+
+    tmpVal = new (void);
+    $tmpVal = @c;
+    del (tmpVal);
+
+    c = strcmp(c, c+123 == 0);
+
+    cond = a < b;
+    if (!!(!!cond:bool)) then
+        while a <= b do
+            a = a + 1;
+        end;
+    end;
+
+    : (a + b) == 12
+
+    where
+
+        typ myrecord: rec (a: int, b: void, nullptr: ptr void);
+        typ string: arr [256] char;
+        typ nothing: void;
+        var a: int;
+        var b: int;
+        var cond: bool;
+        var c: char;
+
+        fun strcmp(s1: string, s2: string): int = {
+            i = 0;
+            same = true;
+            while s1[i] == s2[i] & i < 256 do
+                i = i + 1;
+            end;
+
+            if i < 256 then
+                same = false;
+            end;
+
+            : same
+
+            where
+                var i: int;
+                var same: bool;
+
+        };
+};

@@ -1,0 +1,3 @@
+typ isti: isti;
+typ podoben: ptr podoben;
+typ skorEnak: arr[1 | 2 | 3] skorEnak;

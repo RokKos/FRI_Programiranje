@@ -1,0 +1,169 @@
+# --- Gramar ---
+
+# Start source
+
+Source -> decl decl' .
+decl' -> .
+decl' -> decl decl' .
+
+# Declaration
+
+decl -> typ arg ; .
+decl -> var arg ; .
+decl -> fun identifier ( args ) : type P_expr ; .
+
+# Arguments
+
+args -> .
+args -> arg args' .
+args' -> .
+args' -> , arg args' .
+
+arg -> identifier : type .
+
+# Proxy expresion
+
+P_expr -> .
+P_expr -> = expr .
+
+# Type
+
+type -> void .
+type -> bool .
+type -> char .
+type -> int .
+type -> arr [ expr ] type .
+type -> rec ( args ) .
+type -> ptr type .
+type -> identifier .
+type -> ( type ) .
+
+# Expresion
+expr -> NEXT_expr_XOR exprOR .
+exprOR -> or NEXT_expr_XOR exprOR .
+exprOR -> .
+
+NEXT_expr_XOR -> NEXT_expr_AND exprXOR .
+exprXOR -> ^ NEXT_expr_AND exprXOR .
+exprXOR -> .
+
+NEXT_expr_AND -> NEXT_expr_EQ exprAND .
+exprAND -> & NEXT_expr_EQ exprAND .
+exprAND -> .
+
+NEXT_expr_EQ -> NEXT_expr_NEQ exprEQ .
+exprEQ -> == NEXT_expr_NEQ exprEQ .
+exprEQ -> .
+
+NEXT_expr_NEQ -> NEXT_expr_LESS exprNEQ .
+exprNEQ -> != NEXT_expr_LESS exprNEQ.
+exprNEQ -> .
+
+NEXT_expr_LESS -> NEXT_expr_GREAT exprLESS .
+exprLESS -> < exprLESS_EQ NEXT_expr_GREAT exprLESS .
+exprLESS_EQ -> = .
+exprLESS_EQ -> .
+
+NEXT_expr_GREAT -> NEXT_expr_BIN_PLUS exprGREAT .
+exprGREAT -> > exprGREAT_EQ NEXT_expr_BIN_PLUS exprGREAT .
+exprGREAT_EQ -> = .
+exprGREAT_EQ -> .
+
+NEXT_expr_BIN_PLUS -> NEXT_expr_BIN_MINUS exprPLUS .
+exprPLUS -> + NEXT_expr_BIN_MINUS exprPLUS .
+exprPLUS -> .
+
+NEXT_expr_BIN_MINUS -> NEXT_expr_TIMES exprMINUS .
+exprMINUS -> - NEXT_expr_TIMES exprMINUS .
+exprMINUS -> .
+
+NEXT_expr_TIMES -> NEXT_expr_DIV exprTIMES .
+exprTIMES -> * NEXT_expr_DIV exprTIMES .
+exprTIMES -> .
+
+NEXT_expr_DIV -> NEXT_expr_MOD exprDIV .
+exprDIV -> / NEXT_expr_MOD exprDIV .
+exprDIV -> .
+
+NEXT_expr_MOD -> NEXT_expr_UNARY_NOT exprMOD .
+exprMOD -> % NEXT_expr_UNARY_NOT exprMOD .
+exprMOD -> .
+
+NEXT_expr_UNARY_NOT -> exprUNARY_NOT NEXT_expr_UNARY_PLUS  .
+exprUNARY_NOT -> ! expr.
+exprUNARY_NOT -> .
+
+NEXT_expr_UNARY_PLUS -> exprUNARY_PLUS NEXT_expr_UNARY_MINUS  .
+exprUNARY_PLUS -> + expr .
+exprUNARY_PLUS -> .
+
+NEXT_expr_UNARY_MINUS -> exprUNARY_MINUS NEXT_expr_ADDR  .
+exprUNARY_MINUS -> - expr .
+exprUNARY_MINUS -> .
+
+NEXT_expr_ADDR -> exprADDR NEXT_expr_DATA .
+exprADDR -> $ expr .
+exprADDR -> .
+
+NEXT_expr_DATA -> exprDATA NEXT_expr_NEW .
+exprDATA -> @ expr .
+exprDATA -> .
+
+NEXT_expr_NEW -> exprNEW NEXT_expr_DEL .
+exprNEW -> new ( type ) .
+exprNEW -> .
+
+NEXT_expr_DEL -> exprDEL NEXT_expr_TYPE_CAST .
+exprDEL -> del ( expr ) .
+exprDEL -> .
+
+
+NEXT_expr_TYPE_CAST -> exprTYPE_CAST NEXT_expr_ARR_ACC .
+exprTYPE_CAST -> ( exprIDE exprENCLOSE_TYPE_CAST .
+exprENCLOSE_TYPE_CAST -> ) .
+exprENCLOSE_TYPE_CAST -> : type ) .
+exprTYPE_CAST -> .
+
+NEXT_expr_ARR_ACC -> exprIDE exprARR_COMP_ACC .
+exprARR_COMP_ACC -> [ exprIDE ] .
+exprARR_COMP_ACC -> dot identifier .
+exprARR_COMP_ACC -> .
+
+exprIDE -> identifier exprFUNCTION .
+exprFUNCTION -> ( exprs ) .
+exprFUNCTION -> .
+
+exprs -> .
+exprs -> expr exprs' .
+exprs' -> .
+exprs' -> , expr exprs' .
+
+expr -> literal .
+literal -> ptr_const .
+literal -> bool_const .
+literal -> void_const .
+literal -> char_const .
+literal -> str_const .
+literal -> int_const .
+
+# Compound Expresion
+expr -> { stmts : expr where_o } .
+
+stmts -> stmt stmts' .
+stmts' -> .
+stmts' -> stmt stmts' .
+
+where_o -> .
+where_o -> where decl decl' .
+
+# Statements
+
+stmt -> expr stmtASS ; .
+stmtASS -> = expr .
+stmtASS -> .
+
+stmt -> if expr then stmts stmtELSE end ; .
+stmtELSE -> .
+stmtELSE -> else stmts .
+
+stmt -> while expr do stmts end ; .

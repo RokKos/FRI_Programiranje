@@ -1,0 +1,110 @@
+fun putString(string: ptr char): void;
+fun putChar(ch: char): void;
+fun putInt(i: int): void;
+
+typ vector: arr[5] int;
+typ matrix: arr[5] vector;
+
+fun multiply(a: ptr matrix, b: ptr matrix): ptr matrix = {
+	c = new(matrix);
+	i = 0;
+	while i < 5 do
+		j = 0;
+		while j < 5 do
+			k = 0;
+			sum = 0;
+			while k < 5 do
+				sum = sum + (@a)[i][k] * (@b)[k][j];
+				k = k + 1;
+			end;
+			(@c)[i][j] = sum;
+			j = j + 1;
+		end;
+		i = i + 1;
+	end;
+	: c
+	where 
+		var c: ptr matrix; 
+		var i: int;
+		var j: int;
+		var k: int;
+		var sum: int;
+};
+
+fun print(a: ptr matrix): void = {
+	i = 0;
+	while i < 5 do
+		j = 0;
+		while j < 5 do
+			putInt((@a)[i][j]); putString(" ");
+			j = j + 1;
+		end;
+		putString("\n");
+		i = i + 1;
+	end;
+    : none
+	where
+		var i: int;
+		var j: int;
+};
+
+fun init(v: int): ptr matrix  = {
+	r = new(matrix);
+	i = 0;
+	while i < 5 do
+		j = 0;
+		while j < 5 do
+			(@r)[i][j] = v;
+			j = j + 1;
+		end;
+		i = i + 1;
+	end;
+	: r
+	where
+		var r: ptr matrix;
+		var i: int;
+		var j: int;	
+};
+
+fun eye(): ptr matrix  = {
+	r = new(matrix);
+	i = 0;
+	while i < 5 do
+		j = 0;
+		while j < 5 do
+			if i == j then
+				(@r)[i][j] = 1;
+			else
+				(@r)[i][j] = 0;
+			end;
+			j = j + 1;
+		end;
+		i = i + 1;
+	end;
+	: r
+	where
+		var r: ptr matrix;
+		var i: int;
+		var j: int;	
+};
+
+fun main():int = {
+	a = eye();
+	(@a)[4][3] = 2;
+	putString("a:\n");
+	print(a);
+
+	b = init(1);
+	(@b)[1][2] = 9;
+	(@b)[2][2] = 4;
+	(@b)[3][2] = 3;
+	putString("b:\n");
+        print(b);
+
+        putString("a*b:\n");
+        print(multiply(a, b));
+	: 0
+	where
+		var a: ptr matrix;
+		var b: ptr matrix;
+};

@@ -1,0 +1,1721 @@
+'rm' -fr -fr compiler module-info.class
+javac -sourcepath ../../srcs -d . ../../srcs/compiler/Main.java
+echo ; \
+for SRC in `'ls' -1 *.prev` ; do \
+	echo "TEST $SRC:" ; \
+	java -classpath . compiler.Main $SRC --target-phase=final --logged-phase=final --xsl=../../data/ ; \
+	echo ; \
+done ; \
+for XML in `'ls' -1 *.xml` ; do \
+	xsltproc $XML > `basename $XML .xml`.html ; \
+done ;
+
+TEST CombTest.prev:
+:-) This is PREV compiler:
+25.22--25.24
+33.15--33.17
+12.27--12.29
+:-) Done.
+
+TEST FibFacBinaryTree.prev:
+:-) This is PREV compiler:
+:-) Done.
+
+TEST number_print.prev:
+:-) This is PREV compiler:
+:-) Done.
+
+TEST pascal.prev:
+:-) This is PREV compiler:
+:-) Done.
+
+TEST ProjectEulerNaloga01.prev:
+:-) This is PREV compiler:
+:-) Done.
+
+TEST ProjectEulerNaloga03.prev:
+:-) This is PREV compiler:
+:-) Done.
+
+for SRC in `'ls' -1 *.asm` ; do \
+	echo "Assemble $SRC:" ; \
+	./mmixal $SRC; \
+	echo ; \
+done ; \
+
+Assemble CombTest.asm:
+
+Assemble FibFacBinaryTree.asm:
+
+Assemble number_print.asm:
+
+Assemble pascal.asm:
+
+Assemble ProjectEulerNaloga01.asm:
+
+Assemble ProjectEulerNaloga03.asm:
+
+for SRC in `'ls' -1 *.asm.mmo` ; do \
+	echo "Run $SRC:" ; \
+	./mmix $SRC; \
+	echo ; \
+done ; \
+
+Run CombTest.asm.mmo:
+Combs:
+
+Run FibFacBinaryTree.asm.mmo:
+facItr:
+1: 1
+2: 2
+3: 6
+4: 24
+5: 120
+6: 720
+7: 5040
+8: 40320
+9: 362880
+10: 3628800
+facRec:
+1: 1
+2: 2
+3: 6
+4: 24
+5: 120
+6: 720
+7: 5040
+8: 40320
+9: 362880
+10: 3628800
+fibItr:
+1: 1
+2: 1
+3: 2
+4: 3
+5: 5
+6: 8
+7: 13
+8: 21
+9: 34
+10: 55
+fibRec:
+1: 1
+2: 1
+3: 2
+4: 3
+5: 5
+6: 8
+7: 13
+8: 21
+9: 34
+10: 55
+BinTree:
+$
+5($,$)
+5($,7($,$))
+5($,7($,8($,$)))
+5(2($,$),7($,8($,$)))
+5(2($,$),7(6($,$),8($,$)))
+5(2($,$),7(6($,$),$))
+
+Run number_print.asm.mmo:
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+
+Run pascal.asm.mmo:
+1 
+1 1 
+1 2 1 
+1 3 3 1 
+1 4 6 4 1 
+1 5 10 10 5 1 
+1 6 15 20 15 6 1 
+1 7 21 35 35 21 7 1 
+1 8 28 56 70 56 28 8 1 
+1 9 36 84 126 126 84 36 9 1 
+1 10 45 120 210 252 210 120 45 10 1 
+1 11 55 165 330 462 462 330 165 55 11 1 
+1 12 66 220 495 792 924 792 495 220 66 12 1 
+1 13 78 286 715 1287 1716 1716 1287 715 286 78 13 1 
+1 14 91 364 1001 2002 3003 3432 3003 2002 1001 364 91 14 1 
+1 15 105 455 1365 3003 5005 6435 6435 5005 3003 1365 455 105 15 1 
+1 16 120 560 1820 4368 8008 11440 12870 11440 8008 4368 1820 560 120 16 1 
+1 17 136 680 2380 6188 12376 19448 24310 24310 19448 12376 6188 2380 680 136 17 1 
+1 18 153 816 3060 8568 18564 31824 43758 48620     917746. 000000000000079c: adfd0000 (STOI) M8[#5ffffffffffffc80] = 6917529027641081032
+  102833129 instructions, 16072868 mems, 106567090 oops; 460062 good guesses, 917952 bad
+  (now at location #00000000000007a0)
+mmix>   102833129 instructions, 16072868 mems, 106567090 oops; 460062 good guesses, 917952 bad
+  (now at location #00000000000007a0)
+
+Run ProjectEulerNaloga01.asm.mmo:
+1
+2
+3
+5 ali 3 deli: 3
+4
+5
+5 ali 3 deli: 5
+6
+5 ali 3 deli: 6
+7
+8
+9
+5 ali 3 deli: 9
+10
+5 ali 3 deli: 10
+11
+12
+5 ali 3 deli: 12
+13
+14
+15
+5 ali 3 deli: 15
+16
+17
+18
+5 ali 3 deli: 18
+19
+20
+5 ali 3 deli: 20
+21
+5 ali 3 deli: 21
+22
+23
+24
+5 ali 3 deli: 24
+25
+5 ali 3 deli: 25
+26
+27
+5 ali 3 deli: 27
+28
+29
+30
+5 ali 3 deli: 30
+31
+32
+33
+5 ali 3 deli: 33
+34
+35
+5 ali 3 deli: 35
+36
+5 ali 3 deli: 36
+37
+38
+39
+5 ali 3 deli: 39
+40
+5 ali 3 deli: 40
+41
+42
+5 ali 3 deli: 42
+43
+44
+45
+5 ali 3 deli: 45
+46
+47
+48
+5 ali 3 deli: 48
+49
+50
+5 ali 3 deli: 50
+51
+5 ali 3 deli: 51
+52
+53
+54
+5 ali 3 deli: 54
+55
+5 ali 3 deli: 55
+56
+57
+5 ali 3 deli: 57
+58
+59
+60
+5 ali 3 deli: 60
+61
+62
+63
+5 ali 3 deli: 63
+64
+65
+5 ali 3 deli: 65
+66
+5 ali 3 deli: 66
+67
+68
+69
+5 ali 3 deli: 69
+70
+5 ali 3 deli: 70
+71
+72
+5 ali 3 deli: 72
+73
+74
+75
+5 ali 3 deli: 75
+76
+77
+78
+5 ali 3 deli: 78
+79
+80
+5 ali 3 deli: 80
+81
+5 ali 3 deli: 81
+82
+83
+84
+5 ali 3 deli: 84
+85
+5 ali 3 deli: 85
+86
+87
+5 ali 3 deli: 87
+88
+89
+90
+5 ali 3 deli: 90
+91
+92
+93
+5 ali 3 deli: 93
+94
+95
+5 ali 3 deli: 95
+96
+5 ali 3 deli: 96
+97
+98
+99
+5 ali 3 deli: 99
+100
+5 ali 3 deli: 100
+101
+102
+5 ali 3 deli: 102
+103
+104
+105
+5 ali 3 deli: 105
+106
+107
+108
+5 ali 3 deli: 108
+109
+110
+5 ali 3 deli: 110
+111
+5 ali 3 deli: 111
+112
+113
+114
+5 ali 3 deli: 114
+115
+5 ali 3 deli: 115
+116
+117
+5 ali 3 deli: 117
+118
+119
+120
+5 ali 3 deli: 120
+121
+122
+123
+5 ali 3 deli: 123
+124
+125
+5 ali 3 deli: 125
+126
+5 ali 3 deli: 126
+127
+128
+129
+5 ali 3 deli: 129
+130
+5 ali 3 deli: 130
+131
+132
+5 ali 3 deli: 132
+133
+134
+135
+5 ali 3 deli: 135
+136
+137
+138
+5 ali 3 deli: 138
+139
+140
+5 ali 3 deli: 140
+141
+5 ali 3 deli: 141
+142
+143
+144
+5 ali 3 deli: 144
+145
+5 ali 3 deli: 145
+146
+147
+5 ali 3 deli: 147
+148
+149
+150
+5 ali 3 deli: 150
+151
+152
+153
+5 ali 3 deli: 153
+154
+155
+5 ali 3 deli: 155
+156
+5 ali 3 deli: 156
+157
+158
+159
+5 ali 3 deli: 159
+160
+5 ali 3 deli: 160
+161
+162
+5 ali 3 deli: 162
+163
+164
+165
+5 ali 3 deli: 165
+166
+167
+168
+5 ali 3 deli: 168
+169
+170
+5 ali 3 deli: 170
+171
+5 ali 3 deli: 171
+172
+173
+174
+5 ali 3 deli: 174
+175
+5 ali 3 deli: 175
+176
+177
+5 ali 3 deli: 177
+178
+179
+180
+5 ali 3 deli: 180
+181
+182
+183
+5 ali 3 deli: 183
+184
+185
+5 ali 3 deli: 185
+186
+5 ali 3 deli: 186
+187
+188
+189
+5 ali 3 deli: 189
+190
+5 ali 3 deli: 190
+191
+192
+5 ali 3 deli: 192
+193
+194
+195
+5 ali 3 deli: 195
+196
+197
+198
+5 ali 3 deli: 198
+199
+200
+5 ali 3 deli: 200
+201
+5 ali 3 deli: 201
+202
+203
+204
+5 ali 3 deli: 204
+205
+5 ali 3 deli: 205
+206
+207
+5 ali 3 deli: 207
+208
+209
+210
+5 ali 3 deli: 210
+211
+212
+213
+5 ali 3 deli: 213
+214
+215
+5 ali 3 deli: 215
+216
+5 ali 3 deli: 216
+217
+218
+219
+5 ali 3 deli: 219
+220
+5 ali 3 deli: 220
+221
+222
+5 ali 3 deli: 222
+223
+224
+225
+5 ali 3 deli: 225
+226
+227
+228
+5 ali 3 deli: 228
+229
+230
+5 ali 3 deli: 230
+231
+5 ali 3 deli: 231
+232
+233
+234
+5 ali 3 deli: 234
+235
+5 ali 3 deli: 235
+236
+237
+5 ali 3 deli: 237
+238
+239
+240
+5 ali 3 deli: 240
+241
+242
+243
+5 ali 3 deli: 243
+244
+245
+5 ali 3 deli: 245
+246
+5 ali 3 deli: 246
+247
+248
+249
+5 ali 3 deli: 249
+250
+5 ali 3 deli: 250
+251
+252
+5 ali 3 deli: 252
+253
+254
+255
+5 ali 3 deli: 255
+256
+257
+258
+5 ali 3 deli: 258
+259
+260
+5 ali 3 deli: 260
+261
+5 ali 3 deli: 261
+262
+263
+264
+5 ali 3 deli: 264
+265
+5 ali 3 deli: 265
+266
+267
+5 ali 3 deli: 267
+268
+269
+270
+5 ali 3 deli: 270
+271
+272
+273
+5 ali 3 deli: 273
+274
+275
+5 ali 3 deli: 275
+276
+5 ali 3 deli: 276
+277
+278
+279
+5 ali 3 deli: 279
+280
+5 ali 3 deli: 280
+281
+282
+5 ali 3 deli: 282
+283
+284
+285
+5 ali 3 deli: 285
+286
+287
+288
+5 ali 3 deli: 288
+289
+290
+5 ali 3 deli: 290
+291
+5 ali 3 deli: 291
+292
+293
+294
+5 ali 3 deli: 294
+295
+5 ali 3 deli: 295
+296
+297
+5 ali 3 deli: 297
+298
+299
+300
+5 ali 3 deli: 300
+301
+302
+303
+5 ali 3 deli: 303
+304
+305
+5 ali 3 deli: 305
+306
+5 ali 3 deli: 306
+307
+308
+309
+5 ali 3 deli: 309
+310
+5 ali 3 deli: 310
+311
+312
+5 ali 3 deli: 312
+313
+314
+315
+5 ali 3 deli: 315
+316
+317
+318
+5 ali 3 deli: 318
+319
+320
+5 ali 3 deli: 320
+321
+5 ali 3 deli: 321
+322
+323
+324
+5 ali 3 deli: 324
+325
+5 ali 3 deli: 325
+326
+327
+5 ali 3 deli: 327
+328
+329
+330
+5 ali 3 deli: 330
+331
+332
+333
+5 ali 3 deli: 333
+334
+335
+5 ali 3 deli: 335
+336
+5 ali 3 deli: 336
+337
+338
+339
+5 ali 3 deli: 339
+340
+5 ali 3 deli: 340
+341
+342
+5 ali 3 deli: 342
+343
+344
+345
+5 ali 3 deli: 345
+346
+347
+348
+5 ali 3 deli: 348
+349
+350
+5 ali 3 deli: 350
+351
+5 ali 3 deli: 351
+352
+353
+354
+5 ali 3 deli: 354
+355
+5 ali 3 deli: 355
+356
+357
+5 ali 3 deli: 357
+358
+359
+360
+5 ali 3 deli: 360
+361
+362
+363
+5 ali 3 deli: 363
+364
+365
+5 ali 3 deli: 365
+366
+5 ali 3 deli: 366
+367
+368
+369
+5 ali 3 deli: 369
+370
+5 ali 3 deli: 370
+371
+372
+5 ali 3 deli: 372
+373
+374
+375
+5 ali 3 deli: 375
+376
+377
+378
+5 ali 3 deli: 378
+379
+380
+5 ali 3 deli: 380
+381
+5 ali 3 deli: 381
+382
+383
+384
+5 ali 3 deli: 384
+385
+5 ali 3 deli: 385
+386
+387
+5 ali 3 deli: 387
+388
+389
+390
+5 ali 3 deli: 390
+391
+392
+393
+5 ali 3 deli: 393
+394
+395
+5 ali 3 deli: 395
+396
+5 ali 3 deli: 396
+397
+398
+399
+5 ali 3 deli: 399
+400
+5 ali 3 deli: 400
+401
+402
+5 ali 3 deli: 402
+403
+404
+405
+5 ali 3 deli: 405
+406
+407
+408
+5 ali 3 deli: 408
+409
+410
+5 ali 3 deli: 410
+411
+5 ali 3 deli: 411
+412
+413
+414
+5 ali 3 deli: 414
+415
+5 ali 3 deli: 415
+416
+417
+5 ali 3 deli: 417
+418
+419
+420
+5 ali 3 deli: 420
+421
+422
+423
+5 ali 3 deli: 423
+424
+425
+5 ali 3 deli: 425
+426
+5 ali 3 deli: 426
+427
+428
+429
+5 ali 3 deli: 429
+430
+5 ali 3 deli: 430
+431
+432
+5 ali 3 deli: 432
+433
+434
+435
+5 ali 3 deli: 435
+436
+437
+438
+5 ali 3 deli: 438
+439
+440
+5 ali 3 deli: 440
+441
+5 ali 3 deli: 441
+442
+443
+444
+5 ali 3 deli: 444
+445
+5 ali 3 deli: 445
+446
+447
+5 ali 3 deli: 447
+448
+449
+450
+5 ali 3 deli: 450
+451
+452
+453
+5 ali 3 deli: 453
+454
+455
+5 ali 3 deli: 455
+456
+5 ali 3 deli: 456
+457
+458
+459
+5 ali 3 deli: 459
+460
+5 ali 3 deli: 460
+461
+462
+5 ali 3 deli: 462
+463
+464
+465
+5 ali 3 deli: 465
+466
+467
+468
+5 ali 3 deli: 468
+469
+470
+5 ali 3 deli: 470
+471
+5 ali 3 deli: 471
+472
+473
+474
+5 ali 3 deli: 474
+475
+5 ali 3 deli: 475
+476
+477
+5 ali 3 deli: 477
+478
+479
+480
+5 ali 3 deli: 480
+481
+482
+483
+5 ali 3 deli: 483
+484
+485
+5 ali 3 deli: 485
+486
+5 ali 3 deli: 486
+487
+488
+489
+5 ali 3 deli: 489
+490
+5 ali 3 deli: 490
+491
+492
+5 ali 3 deli: 492
+493
+494
+495
+5 ali 3 deli: 495
+496
+497
+498
+5 ali 3 deli: 498
+499
+500
+5 ali 3 deli: 500
+501
+5 ali 3 deli: 501
+502
+503
+504
+5 ali 3 deli: 504
+505
+5 ali 3 deli: 505
+506
+507
+5 ali 3 deli: 507
+508
+509
+510
+5 ali 3 deli: 510
+511
+512
+513
+5 ali 3 deli: 513
+514
+515
+5 ali 3 deli: 515
+516
+5 ali 3 deli: 516
+517
+518
+519
+5 ali 3 deli: 519
+520
+5 ali 3 deli: 520
+521
+522
+5 ali 3 deli: 522
+523
+524
+525
+5 ali 3 deli: 525
+526
+527
+528
+5 ali 3 deli: 528
+529
+530
+5 ali 3 deli: 530
+531
+5 ali 3 deli: 531
+532
+533
+534
+5 ali 3 deli: 534
+535
+5 ali 3 deli: 535
+536
+537
+5 ali 3 deli: 537
+538
+539
+540
+5 ali 3 deli: 540
+541
+542
+543
+5 ali 3 deli: 543
+544
+545
+5 ali 3 deli: 545
+546
+5 ali 3 deli: 546
+547
+548
+549
+5 ali 3 deli: 549
+550
+5 ali 3 deli: 550
+551
+552
+5 ali 3 deli: 552
+553
+554
+555
+5 ali 3 deli: 555
+556
+557
+558
+5 ali 3 deli: 558
+559
+560
+5 ali 3 deli: 560
+561
+5 ali 3 deli: 561
+562
+563
+564
+5 ali 3 deli: 564
+565
+5 ali 3 deli: 565
+566
+567
+5 ali 3 deli: 567
+568
+569
+570
+5 ali 3 deli: 570
+571
+572
+573
+5 ali 3 deli: 573
+574
+575
+5 ali 3 deli: 575
+576
+5 ali 3 deli: 576
+577
+578
+579
+5 ali 3 deli: 579
+580
+5 ali 3 deli: 580
+581
+582
+5 ali 3 deli: 582
+583
+584
+585
+5 ali 3 deli: 585
+586
+587
+588
+5 ali 3 deli: 588
+589
+590
+5 ali 3 deli: 590
+591
+5 ali 3 deli: 591
+592
+593
+594
+5 ali 3 deli: 594
+595
+5 ali 3 deli: 595
+596
+597
+5 ali 3 deli: 597
+598
+599
+600
+5 ali 3 deli: 600
+601
+602
+603
+5 ali 3 deli: 603
+604
+605
+5 ali 3 deli: 605
+606
+5 ali 3 deli: 606
+607
+608
+609
+5 ali 3 deli: 609
+610
+5 ali 3 deli: 610
+611
+612
+5 ali 3 deli: 612
+613
+614
+615
+5 ali 3 deli: 615
+616
+617
+618
+5 ali 3 deli: 618
+619
+620
+5 ali 3 deli: 620
+621
+5 ali 3 deli: 621
+622
+623
+624
+5 ali 3 deli: 624
+625
+5 ali 3 deli: 625
+626
+627
+5 ali 3 deli: 627
+628
+629
+630
+5 ali 3 deli: 630
+631
+632
+633
+5 ali 3 deli: 633
+634
+635
+5 ali 3 deli: 635
+636
+5 ali 3 deli: 636
+637
+638
+639
+5 ali 3 deli: 639
+640
+5 ali 3 deli: 640
+641
+642
+5 ali 3 deli: 642
+643
+644
+645
+5 ali 3 deli: 645
+646
+647
+648
+5 ali 3 deli: 648
+649
+650
+5 ali 3 deli: 650
+651
+5 ali 3 deli: 651
+652
+653
+654
+5 ali 3 deli: 654
+655
+5 ali 3 deli: 655
+656
+657
+5 ali 3 deli: 657
+658
+659
+660
+5 ali 3 deli: 660
+661
+662
+663
+5 ali 3 deli: 663
+664
+665
+5 ali 3 deli: 665
+666
+5 ali 3 deli: 666
+667
+668
+669
+5 ali 3 deli: 669
+670
+5 ali 3 deli: 670
+671
+672
+5 ali 3 deli: 672
+673
+674
+675
+5 ali 3 deli: 675
+676
+677
+678
+5 ali 3 deli: 678
+679
+680
+5 ali 3 deli: 680
+681
+5 ali 3 deli: 681
+682
+683
+684
+5 ali 3 deli: 684
+685
+5 ali 3 deli: 685
+686
+687
+5 ali 3 deli: 687
+688
+689
+690
+5 ali 3 deli: 690
+691
+692
+693
+5 ali 3 deli: 693
+694
+695
+5 ali 3 deli: 695
+696
+5 ali 3 deli: 696
+697
+698
+699
+5 ali 3 deli: 699
+700
+5 ali 3 deli: 700
+701
+702
+5 ali 3 deli: 702
+703
+704
+705
+5 ali 3 deli: 705
+706
+707
+708
+5 ali 3 deli: 708
+709
+710
+5 ali 3 deli: 710
+711
+5 ali 3 deli: 711
+712
+713
+714
+5 ali 3 deli: 714
+715
+5 ali 3 deli: 715
+716
+717
+5 ali 3 deli: 717
+718
+719
+720
+5 ali 3 deli: 720
+721
+722
+723
+5 ali 3 deli: 723
+724
+725
+5 ali 3 deli: 725
+726
+5 ali 3 deli: 726
+727
+728
+729
+5 ali 3 deli: 729
+730
+5 ali 3 deli: 730
+731
+732
+5 ali 3 deli: 732
+733
+734
+735
+5 ali 3 deli: 735
+736
+737
+738
+5 ali 3 deli: 738
+739
+740
+5 ali 3 deli: 740
+741
+5 ali 3 deli: 741
+742
+743
+744
+5 ali 3 deli: 744
+745
+5 ali 3 deli: 745
+746
+747
+5 ali 3 deli: 747
+748
+749
+750
+5 ali 3 deli: 750
+751
+752
+753
+5 ali 3 deli: 753
+754
+755
+5 ali 3 deli: 755
+756
+5 ali 3 deli: 756
+757
+758
+759
+5 ali 3 deli: 759
+760
+5 ali 3 deli: 760
+761
+762
+5 ali 3 deli: 762
+763
+764
+765
+5 ali 3 deli: 765
+766
+767
+768
+5 ali 3 deli: 768
+769
+770
+5 ali 3 deli: 770
+771
+5 ali 3 deli: 771
+772
+773
+774
+5 ali 3 deli: 774
+775
+5 ali 3 deli: 775
+776
+777
+5 ali 3 deli: 777
+778
+779
+780
+5 ali 3 deli: 780
+781
+782
+783
+5 ali 3 deli: 783
+784
+785
+5 ali 3 deli: 785
+786
+5 ali 3 deli: 786
+787
+788
+789
+5 ali 3 deli: 789
+790
+5 ali 3 deli: 790
+791
+792
+5 ali 3 deli: 792
+793
+794
+795
+5 ali 3 deli: 795
+796
+797
+798
+5 ali 3 deli: 798
+799
+800
+5 ali 3 deli: 800
+801
+5 ali 3 deli: 801
+802
+803
+804
+5 ali 3 deli: 804
+805
+5 ali 3 deli: 805
+806
+807
+5 ali 3 deli: 807
+808
+809
+810
+5 ali 3 deli: 810
+811
+812
+813
+5 ali 3 deli: 813
+814
+815
+5 ali 3 deli: 815
+816
+5 ali 3 deli: 816
+817
+818
+819
+5 ali 3 deli: 819
+820
+5 ali 3 deli: 820
+821
+822
+5 ali 3 deli: 822
+823
+824
+825
+5 ali 3 deli: 825
+826
+827
+828
+5 ali 3 deli: 828
+829
+830
+5 ali 3 deli: 830
+831
+5 ali 3 deli: 831
+832
+833
+834
+5 ali 3 deli: 834
+835
+5 ali 3 deli: 835
+836
+837
+5 ali 3 deli: 837
+838
+839
+840
+5 ali 3 deli: 840
+841
+842
+843
+5 ali 3 deli: 843
+844
+845
+5 ali 3 deli: 845
+846
+5 ali 3 deli: 846
+847
+848
+849
+5 ali 3 deli: 849
+850
+5 ali 3 deli: 850
+851
+852
+5 ali 3 deli: 852
+853
+854
+855
+5 ali 3 deli: 855
+856
+857
+858
+5 ali 3 deli: 858
+859
+860
+5 ali 3 deli: 860
+861
+5 ali 3 deli: 861
+862
+863
+864
+5 ali 3 deli: 864
+865
+5 ali 3 deli: 865
+866
+867
+5 ali 3 deli: 867
+868
+869
+870
+5 ali 3 deli: 870
+871
+872
+873
+5 ali 3 deli: 873
+874
+875
+5 ali 3 deli: 875
+876
+5 ali 3 deli: 876
+877
+878
+879
+5 ali 3 deli: 879
+880
+5 ali 3 deli: 880
+881
+882
+5 ali 3 deli: 882
+883
+884
+885
+5 ali 3 deli: 885
+886
+887
+888
+5 ali 3 deli: 888
+889
+890
+5 ali 3 deli: 890
+891
+5 ali 3 deli: 891
+892
+893
+894
+5 ali 3 deli: 894
+895
+5 ali 3 deli: 895
+896
+897
+5 ali 3 deli: 897
+898
+899
+900
+5 ali 3 deli: 900
+901
+902
+903
+5 ali 3 deli: 903
+904
+905
+5 ali 3 deli: 905
+906
+5 ali 3 deli: 906
+907
+908
+909
+5 ali 3 deli: 909
+910
+5 ali 3 deli: 910
+911
+912
+5 ali 3 deli: 912
+913
+914
+915
+5 ali 3 deli: 915
+916
+917
+918
+5 ali 3 deli: 918
+919
+920
+5 ali 3 deli: 920
+921
+5 ali 3 deli: 921
+922
+923
+924
+5 ali 3 deli: 924
+925
+5 ali 3 deli: 925
+926
+927
+5 ali 3 deli: 927
+928
+929
+930
+5 ali 3 deli: 930
+931
+932
+933
+5 ali 3 deli: 933
+934
+935
+5 ali 3 deli: 935
+936
+5 ali 3 deli: 936
+937
+938
+939
+5 ali 3 deli: 939
+940
+5 ali 3 deli: 940
+941
+942
+5 ali 3 deli: 942
+943
+944
+945
+5 ali 3 deli: 945
+946
+947
+948
+5 ali 3 deli: 948
+949
+950
+5 ali 3 deli: 950
+951
+5 ali 3 deli: 951
+952
+953
+954
+5 ali 3 deli: 954
+955
+5 ali 3 deli: 955
+956
+957
+5 ali 3 deli: 957
+958
+959
+960
+5 ali 3 deli: 960
+961
+962
+963
+5 ali 3 deli: 963
+964
+965
+5 ali 3 deli: 965
+966
+5 ali 3 deli: 966
+967
+968
+969
+5 ali 3 deli: 969
+970
+5 ali 3 deli: 970
+971
+972
+5 ali 3 deli: 972
+973
+974
+975
+5 ali 3 deli: 975
+976
+977
+978
+5 ali 3 deli: 978
+979
+980
+5 ali 3 deli: 980
+981
+5 ali 3 deli: 981
+982
+983
+984
+5 ali 3 deli: 984
+985
+5 ali 3 deli: 985
+986
+987
+5 ali 3 deli: 987
+988
+989
+990
+5 ali 3 deli: 990
+991
+992
+993
+5 ali 3 deli: 993
+994
+995
+5 ali 3 deli: 995
+996
+5 ali 3 deli: 996
+997
+998
+999
+5 ali 3 deli: 999
+Vsota: 233168
+
+Run ProjectEulerNaloga03.asm.mmo:
+2
+71
+Najvecji: 71
+

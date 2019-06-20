@@ -1,0 +1,10 @@
+var i:int;
+fun main():int={    
+    if (true) then
+        i=1;
+    else 
+        i=2;
+    end; 
+    :2%3
+};
+

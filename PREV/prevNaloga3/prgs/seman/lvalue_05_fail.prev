@@ -1,0 +1,11 @@
+fun wrapper(): void = {
+  
+  a[{
+    6 = b; : 5
+  }] = 3;
+  
+  : none
+  where
+    var a: arr [6] int;
+    var b: int;
+};

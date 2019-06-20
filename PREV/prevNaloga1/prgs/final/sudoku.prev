@@ -1,0 +1,367 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+
+fun main():int =
+    {
+      putString("facItr:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); 
+        putString(": ");
+		putInt(facItr(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("facRec:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(facRec(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("fibItr:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(fibItr(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("fibRec:"); 
+      putChar((10:char));
+      n=1;
+      while n<=10 do
+        putInt(n); putString(": ");
+		putInt(fibRec(n));
+		putChar((10:char));
+		n=n+1;
+      end;
+
+      putString("Combs:"); putChar((10:char));
+      combs(4,3);
+
+      putString("BinTree:"); putChar((10:char));
+      { t=(null:bintree); printBT(t); putChar((10:char));
+	t=insBT(5,t); printBT(t); putChar((10:char));
+	t=insBT(7,t); printBT(t); putChar((10:char));
+	t=insBT(8,t); printBT(t); putChar((10:char));
+	t=insBT(2,t); printBT(t); putChar((10:char));
+	t=insBT(6,t); printBT(t); putChar((10:char));
+        t=delBT(8,t); printBT(t); putChar((10:char));
+      : none
+      where var t:bintree;
+      };
+
+      putString("Sudoku:"); putChar((10:char));
+      { t[0][0]=0; t[0][1]=0; t[0][2]=3;   t[0][3]=0; t[0][4]=0; t[0][5]=0;   t[0][6]=0; t[0][7]=9; t[0][8]=0;
+        t[1][0]=9; t[1][1]=0; t[1][2]=0;   t[1][3]=0; t[1][4]=8; t[1][5]=4;   t[1][6]=0; t[1][7]=0; t[1][8]=6;
+	t[2][0]=8; t[2][1]=2; t[2][2]=0;   t[2][3]=0; t[2][4]=9; t[2][5]=0;   t[2][6]=0; t[2][7]=0; t[2][8]=0;
+
+        t[3][0]=0; t[3][1]=1; t[3][2]=4;   t[3][3]=8; t[3][4]=0; t[3][5]=0;   t[3][6]=0; t[3][7]=5; t[3][8]=0;
+	t[4][0]=3; t[4][1]=0; t[4][2]=0;   t[4][3]=0; t[4][4]=0; t[4][5]=0;   t[4][6]=6; t[4][7]=7; t[4][8]=0;
+	t[5][0]=0; t[5][1]=0; t[5][2]=0;   t[5][3]=0; t[5][4]=0; t[5][5]=9;   t[5][6]=0; t[5][7]=0; t[5][8]=0;
+
+        t[6][0]=0; t[6][1]=0; t[6][2]=0;   t[6][3]=0; t[6][4]=0; t[6][5]=1;   t[6][6]=0; t[6][7]=0; t[6][8]=7;
+	t[7][0]=1; t[7][1]=0; t[7][2]=0;   t[7][3]=0; t[7][4]=0; t[7][5]=2;   t[7][6]=4; t[7][7]=0; t[7][8]=0;
+	t[8][0]=5; t[8][1]=7; t[8][2]=0;   t[8][3]=0; t[8][4]=4; t[8][5]=0;   t[8][6]=9; t[8][7]=3; t[8][8]=0;
+
+        count=sudoku($t);
+	putInt(count); putChar((10:char));
+      : none
+      where
+        var t:arr[9] arr[9] int;
+	var count:int;
+      };
+
+      : 0
+    where
+      var n:int; var m:int;
+    };
+
+fun facItr(n:int):int =
+    { f=1;
+      while n>0 do f=f*n; n=n-1; end;
+    : f
+    where
+      var f:int;
+    };
+
+fun facRec(n:int):int =
+    { if n==1 then f=1; else f=n*facRec(n-1); end;
+    : f
+    where
+      var f:int;
+    };
+
+fun fibItr(n:int):int =
+    { f=1; fm1=1; fm2=0;
+      while n>1 do
+        f=fm1+fm2;fm2=fm1;fm1=f;
+	n=n-1;
+      end;
+    : f
+    where
+      var f:int;
+      var fm1:int;
+      var fm2:int;
+    };
+
+fun fibRec(n:int):int =
+    { if n<=2 then f=1; else f=fibRec(n-1)+fibRec(n-2); end;
+    : f
+    where
+      var f:int;
+    };
+
+fun combs(n:int,k:int):int =
+    { i=0; while i<100 do c[i]=0; i=i+1; end;
+      gen(0);
+    : 0
+    where
+      var c:arr[100]int;
+      var i:int;
+      fun gen(i:int):int =
+        { if i==n then
+	    j=0;
+	    while j<n do
+	      putInt(c[j]);
+	      putChar(' ');
+	      j=j+1;
+	    end;
+	    putChar((10:char));
+	  else
+	    j=1;
+	    while j<=k do
+	      c[i] = j; j=j+1;
+	      gen(i+1);
+	    end; 
+	  end;
+	: 0
+	where
+	  var j:int;
+	};
+    };
+
+typ bintree:ptr binnode;
+typ binnode:rec(i:int,lth:bintree,gth:bintree);
+
+fun printBT(t:bintree):void =
+    { if t==(null:bintree) then
+        putChar('$');
+      else
+        putInt((@t).i);
+	putChar('(');
+	printBT((@t).lth);
+	putChar(',');
+	printBT((@t).gth);
+	putChar(')');
+      end;
+    : none
+    };
+
+fun insBT(i:int,t:bintree):bintree =
+    {
+      if t==(null:bintree) then
+        t=new(binnode);
+	(@t).i=i;
+	(@t).lth=(null:bintree);
+	(@t).gth=(null:bintree);
+      else
+        if (@t).i!=i then
+	  if i<(@t).i
+	    then (@t).lth=insBT(i,(@t).lth);
+	    else (@t).gth=insBT(i,(@t).gth);
+	  end;
+	end;
+      end;
+    : t
+    };
+
+fun delBT(i:int,t:bintree):bintree =
+    { if t!=(null:bintree) then
+        if (@t).i==i then
+	  if (@t).lth==(null:bintree)&(@t).gth==(null:bintree) then
+	    del(t);
+	    t=(null:bintree);
+	  else
+	    if (@t).lth!=(null:bintree) then
+	      { max=maxBT((@t).lth);
+		(@t).i=@max;
+		(@t).lth=delBT(@max,(@t).lth);
+              : none
+              where var max:ptr int;
+	      };
+	    else
+	      { min=minBT((@t).lth);
+	        (@t).i=@min;
+		(@t).gth=delBT(@min,(@t).gth);
+	      : none
+	      where var min:ptr int;
+	      };
+	    end;
+	  end;
+	else
+	  if i<(@t).i
+	    then (@t).lth=delBT(i,(@t).lth);
+	    else (@t).gth=delBT(i,(@t).gth);
+	  end;
+	end;
+      end;
+    : t
+    };
+
+fun minBT(t:bintree):ptr int =
+    {
+      if t==(null:bintree) then
+        min=(null:ptr int);
+      else
+        if (@t).lth==(null:bintree) then
+          min=$((@t).i);
+	else
+	  min=minBT((@t).gth);
+	end;
+      end;
+    : min
+    where
+      var min:ptr int;
+    };
+
+fun maxBT(t:bintree):ptr int =
+    {
+      if t==(null:bintree) then
+        max=(null:ptr int);
+      else
+        if (@t).gth==(null:bintree) then
+	  max=$((@t).i);
+	else
+	  max=maxBT((@t).gth);
+	end;
+      end;
+    : max
+    where
+      var max:ptr int;
+    };
+
+fun sudoku(t2d:ptr arr[9] arr[9] int):int =
+    { t1d=(t2d:ptr arr[81] int);
+    : solve(0,81)
+    where
+      var t1d:ptr arr[81] int;
+      fun check_h(j:int):bool =
+          { check=true;
+	    i=1; while i<=9 do mask[i]=false; i=i+1; end;
+	    i=0;
+	    while i<9 do
+	      if (@t2d)[j][i]!=0 then
+	        if mask[(@t2d)[j][i]]
+		  then check=false;
+		  else mask[(@t2d)[j][i]]=true;
+		end;
+	      end;
+	      i=i+1;
+	    end;
+	  : check
+	  where
+	    var mask:arr[10] bool;
+	    var i:int;
+	    var check:bool;
+	  };
+      fun check_v(i:int):bool =
+          { check=true;
+	    j=1; while j<=9 do mask[j]=false; j=j+1; end;
+	    j=0;
+	    while j<9 do
+	      if (@t2d)[j][i]!=0 then
+	        if mask[(@t2d)[j][i]]
+		  then check=false;
+		  else mask[(@t2d)[j][i]]=true;
+		end;
+	      end;
+	      j=j+1;
+	    end;
+	  : check
+	  where
+	    var mask:arr[10] bool;
+	    var j:int;
+	    var check:bool;
+	  };
+      fun check_q(i:int,j:int):bool =
+          { check=true;
+	    k=1; while k<=9 do mask[k]=false; k=k+1; end;
+	    jj=0;
+	    while jj<3 do
+	      ii=0;
+	      while ii<3 do
+	        if (@t2d)[j*3+jj][i*3+ii]!=0 then
+		  if mask[(@t2d)[j*3+jj][i*3+ii]]
+		    then check=false;
+		    else mask[(@t2d)[j*3+jj][i*3+ii]]=true;
+		  end;
+		end;
+	        ii=ii+1;
+	      end;
+	      jj=jj+1;
+	    end;
+	  : check
+	  where
+	    var mask:arr[10] bool;
+	    var ii:int;
+	    var jj:int;
+	    var k:int;
+	    var check:bool;
+	  };
+      fun solve(k:int,n:int):int =
+          { if k==n then
+	      { if true then
+	          j=0;
+	          while j<9 do
+		    i=0;
+		    while i<9 do
+		      putInt((@t2d)[j][i]);
+		      putChar(' ');
+		      i=i+1;
+		    end;
+		    putChar((10:char));
+		    j=j+1;
+		  end;
+		  putChar((10:char));
+		end;
+	      : none
+	      where
+	        var j:int;
+		var i:int;
+	      };
+	      count=1;
+	    else
+	      if (@t1d)[k]!=0 then
+	        count=solve(k+1,n);
+              else
+		{ count = 0;
+		  d=1;
+		  while d<=9 do
+		    (@t1d)[k]=d;
+		    if check_h(k/9)&check_v(k%9)&check_q((k/9)/3,(k%9)/3) then
+		      count=count+solve(k+1,n);
+		    end;
+		    (@t1d)[k]=0;
+		    d=d+1;
+		  end;
+		: none
+		where
+		  var d:int;
+		};
+	      end;
+	    end;
+	  : count
+	  where
+	    var count:int;
+	  };
+    };

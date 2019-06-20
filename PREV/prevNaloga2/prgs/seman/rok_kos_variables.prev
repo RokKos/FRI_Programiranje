@@ -1,0 +1,7 @@
+typ w : ptr y;
+typ y : arr[10] z;
+typ z : a;
+typ a:int;
+var b : a;
+var c : z;
+var d : w;

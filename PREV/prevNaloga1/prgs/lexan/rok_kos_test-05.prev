@@ -1,0 +1,7 @@
+while (true) {
+    neki += "dsadas";
+    if (bla == 1) {
+        add = add + 2;
+    }
+    c = 'c'
+}

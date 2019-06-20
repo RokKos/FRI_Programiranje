@@ -1,0 +1,3 @@
+typ record: rec(a: int, b: int);
+
+fun f(x: ptr record): int = (@x).a + (@x).b;

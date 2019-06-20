@@ -1,0 +1,6 @@
+fun r() : int = {
+    none;
+    : a.x
+    where
+        var a : rec(x : int, y : ptr int);
+};

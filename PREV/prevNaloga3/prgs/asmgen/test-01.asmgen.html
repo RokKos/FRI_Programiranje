@@ -1,0 +1,94 @@
+<html>
+<style>
+      table, tr, td {
+      text-align: center;
+      vertical-align: top;
+      }
+    </style>
+<body><table>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_main</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T0
+	  RV=T1</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L2
+	    exitLabel=L3
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L2</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T10,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T4,T10</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDA T11,_i</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">LDO T12,T11,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T5,T11</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">STO T4,T5,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T13,2</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T6,T13</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T14,3</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T7,T14</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">DIV T15,T6,T7</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">GET T15,rR</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T1,T15</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L3</td></tr>
+</table></td>
+<td bgcolor="FFEE00"><table>
+<tr><td bgcolor="EECF00"><table width="100%">
+<tr><td><nobr>
+	  FRAME
+	  label=<font style="font-family:courier new">_b</font></nobr></td></tr>
+<tr><td><nobr>
+	  depth=1 
+	  size=16 
+	  locs=0
+	  args=0</nobr></td></tr>
+<tr><td><nobr>
+    	  FP=T2
+	  RV=T3</nobr></td></tr>
+</table></td></tr>
+<tr><td bgcolor="EECF00"><nobr>
+	    entryLabel=L4
+	    exitLabel=L5
+	    temps=0</nobr></td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">L4</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T16,1</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T8,T16</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T17,0</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T9,T17</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">XOR T18,T8,T9</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">SET T3,T18</td></tr>
+<tr></tr>
+<tr><td bgcolor="00BBFF">JMP L5</td></tr>
+</table></td>
+</table></body>
+</html>

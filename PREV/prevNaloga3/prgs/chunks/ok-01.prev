@@ -1,0 +1,2 @@
+var i:integer;
+fun main():int=1;

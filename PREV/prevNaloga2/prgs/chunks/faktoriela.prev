@@ -1,0 +1,19 @@
+fun putInt(n:int):void;
+
+fun main() : int = {
+    result = fak(5);
+    putInt(result);
+    : result
+    where
+        var result : int;
+        fun fak(f : int) : int = {
+            if (f <= 1) then
+                result = 1;
+            else 
+                result = fak(f - 1) * f;
+            end;
+            : result
+            where 
+                var result : int;
+        };
+};

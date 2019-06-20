@@ -1,0 +1,4 @@
+# fail because new line is not in range for string const
+"ghhgjasd" 1331 "sadsa
+dsa"
+1321 "213123"

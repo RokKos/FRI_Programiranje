@@ -1,0 +1,4 @@
+fun b(): void = {
+  a.a.a[a == b & b == c & a == c].access[array].access + !!!++--$$@@@@@$$@@@{ a = b; : a };
+  : null
+};

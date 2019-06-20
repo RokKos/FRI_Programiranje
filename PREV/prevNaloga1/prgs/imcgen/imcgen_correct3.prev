@@ -1,0 +1,64 @@
+# h g2 g1 f f' example from lectures
+
+fun wrapper(): int = {
+    none; : 1
+
+    where
+
+        var i: int;
+        var j: int;
+
+        # global element access example
+        var global_arr: arr[7] int;
+        var global_rec: rec(x: int);
+
+        fun h(a: int, b: int): int = {
+            (global_arr[7] : ptr(int));
+            (global_rec.x : char);
+            
+            : 1
+
+            where
+                fun g2(): int = {
+                    none; : 1
+
+                    where
+                        fun g1(a: int): int = {
+                            none; : 1
+
+                            where
+
+                                # record access example
+                                var aa: rec(x: int);
+
+                                fun f(a: int, b: int): int = {
+                                    
+                                    # record access from f to g1
+                                    aa.x;
+
+                                    # f calls
+                                    h(i, 3);
+
+                                    # f calls self
+                                    f(i, 3);
+
+                                    # f calls g1 (parent)
+                                    g1(i);
+
+                                    # f calls f_ (child)
+                                    f_(4, j);
+
+
+                                    : 1
+
+
+                                    where
+
+                                        fun f_(a: int, b: int): int = {
+                                            none; : 1
+                                        };
+                                };
+                        };
+                };
+        };
+};

@@ -1,0 +1,5 @@
+fun putString(s:ptr char):void;
+fun main():int={
+    putString("Rok Kos");
+    : 42
+};

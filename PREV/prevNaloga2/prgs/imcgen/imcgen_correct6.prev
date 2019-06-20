@@ -1,0 +1,41 @@
+# new/del, pointers
+
+fun wrapper(): int = {
+    # init
+    n = 10;
+    i = 0;
+    while i < n do
+        args[i] = (null: ptr string);
+        i = i + 1;
+    end;
+
+    : count_args($args, n)
+
+    where
+
+    typ string: arr[256] char;
+
+    var args: arr[10] ptr string;
+    var i: int;
+    var n: int;
+
+    fun count_args(x: ptr arr[10] ptr string, n: int): int = {
+
+        count = 0;
+        while count < n do
+            count = count + 1;
+            (@x)[count] = new (string);
+            del ((@x)[count]);
+        end;
+
+        if count == 0 then 
+            # empty array
+            'l'; 'u'; 'l';
+        end;
+
+        : count
+
+        where
+        var count: int;
+    };
+};

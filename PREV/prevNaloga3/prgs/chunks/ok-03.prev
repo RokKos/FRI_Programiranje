@@ -1,0 +1,7 @@
+fun main():int=
+    {none;
+    :f1()+f2()
+    where
+      fun f1():int=1;
+      fun f2():int=3;
+    };

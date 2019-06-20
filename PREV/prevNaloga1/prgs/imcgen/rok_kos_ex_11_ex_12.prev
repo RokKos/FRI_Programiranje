@@ -1,0 +1,18 @@
+fun r() : int = {
+    (c : int);
+    (c : ptr int);
+    (i : char);
+    (i : ptr bool);
+    (p : char);
+    (p : int);
+    (5 : char);
+    (257 : char);
+    (5 : ptr void);
+    (null : char);
+    (null : int);
+    : 42
+    where
+        var c : char;
+        var i : int;
+        var p : ptr bool;
+};

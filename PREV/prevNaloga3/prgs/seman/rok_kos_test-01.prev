@@ -1,0 +1,2 @@
+var i:int;
+fun main(n:int):int=main(i+2*n)+{none;:i where var i:int;};

@@ -1,0 +1,6 @@
+fun r() : int = {
+    none;
+    : array[5]
+    where
+        var array : arr[10] int;
+};

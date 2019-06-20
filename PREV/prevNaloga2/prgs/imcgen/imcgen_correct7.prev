@@ -1,0 +1,7 @@
+# const strings
+
+fun print(string: ptr char): void;
+
+fun main(): void = {
+  print("hello world"); : none
+};

@@ -1,0 +1,12 @@
+fun main():int = {
+    i = 5;
+    if (i > 5) then 
+        j = 999999;
+    else 
+        j = -1;
+    end;
+    : i + j
+    where
+        var i : int;
+        var j : int;
+};

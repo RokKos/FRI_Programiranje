@@ -1,0 +1,158 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun readString():ptr char;
+
+typ row : arr [30] int;
+typ table : arr [20] ptr row;
+
+var field : table; # 20 pointerjev na rows
+
+fun create():void={
+	
+	i = 0;
+	while i < 20 do
+		field[i] = new(row);
+		i = i + 1;
+	end;
+	
+	x = 0;
+	while x < 30 do
+		y = 0;
+		while y < 20 do
+			(@field[y])[x] = 0;
+			y = y + 1;
+		end;	
+		x = x + 1;
+	end;
+	
+	#(@field[0+2])[1+2] = 1;
+	#(@field[1+2])[2+2] = 1;
+	#(@field[2+2])[0+2] = 1;
+	#(@field[2+2])[1+2] = 1;
+	#(@field[2+2])[2+2] = 1;
+	
+	#(@field[8+2])[0+2] = 1;
+	#(@field[8+2])[1+2] = 1;
+	#(@field[8+2])[2+2] = 1;
+	
+
+	# Ten cell row
+	x = 9;
+	y = 9;
+	while x < 19 do
+		(@field[y])[x] = 1;
+		x = x + 1;
+	end;
+	
+	:none
+	where 
+		var x:int;
+		var y:int;
+		var i:int;
+};
+
+fun step():void={
+	x = 1;
+	while(x < 29) do
+		y = 1;
+		while(y < 19) do
+			n = 0;
+			
+			dx = -1;
+			while(dx <= 1) do
+				dy = -1;
+				while(dy <= 1) do
+					if(dx != 0 | dy != 0)then
+						
+						if((@field[y+dy])[x+dx] == 1 | (@field[y+dy])[x+dx] == 2)then
+							n = n + 1;
+						end;
+						
+					end;
+					dy = dy + 1;
+				end;
+				dx = dx + 1;
+			end;
+			
+			v = (@field[y])[x];
+			if(v == 0)then
+				if(n == 3)then
+					(@field[y])[x] = 3;
+				end;
+			else
+				if(n <= 1 | n >= 4)then
+					(@field[y])[x] = 2;
+				end;
+			end;
+			y = y + 1;
+		end;
+		x = x + 1;
+	end;
+	
+	x = 1;
+	while(x < 29) do
+		y = 1;
+		while(y < 19) do
+			if((@field[y])[x] == 3)then
+				(@field[y])[x] = 1;
+			end;
+			if((@field[y])[x] == 2)then
+				(@field[y])[x] = 0;
+			end;
+			y = y + 1;
+		end;
+		x = x + 1;
+	end;
+	
+	:none
+	where
+		var x:int;
+		var y:int;
+		var i:int;
+		var dx:int;
+		var dy:int;
+		var n:int;
+		var v:int;
+};
+
+fun print():void={
+
+	y = 1;
+	while(y < 19) do
+		x = 1;
+		while(x < 29) do
+			value = (@field[y])[x];
+			if (value == 0) then
+				putChar('.');
+			else
+				putChar('O');
+			end;
+			putChar(' ');
+			x = x + 1;
+		end;	
+		putChar((10:char));
+		y = y + 1;
+	end;
+	
+	:none
+	where 
+		var x:int;
+		var y:int;
+		var value:int;
+};
+
+fun main():int = {
+	create();
+	i=0;
+	while i < 100 do
+		putString("-------------------------------------------------------");
+		putChar((10:char));
+		step();
+		print();
+		i = i + 1;
+	end;
+	:0
+	where
+	var i:int;
+};
