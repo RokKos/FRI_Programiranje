@@ -3,6 +3,7 @@
  */
 package compiler.phases.seman;
 
+import compiler.Main;
 import compiler.common.report.*;
 import compiler.data.abstree.*;
 import compiler.data.abstree.visitor.*;
@@ -16,8 +17,10 @@ public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> 
 
     @Override
     public Result visit(AbsBlockExpr blockExpr, Arg visArg) {
-        // System.out.println("TypeNameDeclaration new scope currDepth: " +
-        // symbTable.currDepth());
+        if (Main.kDebugOn) {
+            System.out.println("TypeNameDeclaration new scope currDepth: " + symbTable.currDepth());
+        }
+
         symbTable.newScope();
         super.visit(blockExpr, visArg);
         blockExpr.decls.accept(new TypeNameResolution(), null);
@@ -27,8 +30,9 @@ public class TypeNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> 
         blockExpr.expr.accept(new TypeNameResolution(), null);
         blockExpr.expr.accept(new VarNameDeclaration(), null);
         symbTable.oldScope();
-        // System.out.println("TypeNameDeclaration old scope currDepth: " +
-        // symbTable.currDepth());
+        if (Main.kDebugOn) {
+            System.out.println("TypeNameDeclaration old scope currDepth: " + symbTable.currDepth());
+        }
         return null;
     }
 

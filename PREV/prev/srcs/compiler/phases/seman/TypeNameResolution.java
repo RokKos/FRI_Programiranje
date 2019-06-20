@@ -3,6 +3,7 @@
  */
 package compiler.phases.seman;
 
+import compiler.Main;
 import compiler.common.report.*;
 import compiler.data.abstree.*;
 import compiler.data.abstree.visitor.*;
@@ -17,7 +18,9 @@ public class TypeNameResolution<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsTypName typName, Arg visArg) {
         try {
-            // System.out.println("TypeName:" + typName.name);
+            if (Main.kDebugOn) {
+                System.out.println("TypeName:" + typName.name);
+            }
             AbsDecl typeDeclaration = symbTable.fnd(typName.name);
 
             // Not the best way to do this.. enter can surpass this statement

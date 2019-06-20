@@ -3,6 +3,7 @@
  */
 package compiler.phases.seman;
 
+import compiler.Main;
 import compiler.common.report.*;
 import compiler.data.abstree.*;
 import compiler.data.abstree.visitor.*;
@@ -17,7 +18,9 @@ public class VarNameDeclaration<Result, Arg> extends NameResolver<Result, Arg> {
     @Override
     public Result visit(AbsVarDecl varDecl, Arg visArg) {
         try {
-            // System.out.println("VarDecl:" + varDecl.name);
+            if (Main.kDebugOn) {
+                System.out.println("VarDecl:" + varDecl.name);
+            }
             symbTable.ins(varDecl.name, varDecl);
         } catch (Exception e) {
             throw new Report.Error(varDecl.location(), "Variable: " + varDecl.name + " defined twice in same scope");
