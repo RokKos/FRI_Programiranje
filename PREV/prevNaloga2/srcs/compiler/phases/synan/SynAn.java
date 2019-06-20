@@ -431,6 +431,9 @@ public class SynAn extends Phase {
 	}
 
 	private boolean IsOperator() {
+		if (IsLiteral()) {
+			return true;
+		}
 		switch (currSymb.token) {
 		case IDENTIFIER:
 		case LPARENTHESIS:
@@ -441,12 +444,6 @@ public class SynAn extends Phase {
 		case DATA:
 		case NEW:
 		case DEL:
-		case PTRCONST:
-		case BOOLCONST:
-		case VOIDCONST:
-		case CHARCONST:
-		case STRCONST:
-		case INTCONST:
 		case LBRACE:
 			return true;
 		default:
@@ -823,36 +820,30 @@ public class SynAn extends Phase {
 		return node;
 	}
 
-	private DerNode parsePstfExprRest() {
-		DerNode node = new DerNode(DerNode.Nont.PstfExprRest);
+	private boolean IsPostFix() {
+		if (IsRelExpresion()) {
+			return true;
+		}
 
 		switch (currSymb.token) {
-		case SEMIC:
-		case RPARENTHESIS:
-		case COLON:
-		case COMMA:
-		case ASSIGN:
-		case RBRACKET:
-		case RBRACE:
-		case IOR:
-		case XOR:
-		case AND:
-		case EQU:
-		case NEQ:
-		case GTH:
-		case LTH:
-		case LEQ:
-		case GEQ:
 		case ADD:
 		case SUB:
 		case MUL:
 		case DIV:
 		case MOD:
-		case THEN:
-		case DO:
-		case WHERE:
-			break;
+			return true;
+		}
+		return false;
+	}
 
+	private DerNode parsePstfExprRest() {
+		DerNode node = new DerNode(DerNode.Nont.PstfExprRest);
+
+		if (IsPostFix()) {
+			return node;
+		}
+
+		switch (currSymb.token) {
 		case LBRACKET:
 			CheckAndSkip(Symbol.Term.LBRACKET, LBRACKET_ERR_STRING + currSymb.token.toString());
 			node.add(parseExpr());
@@ -922,31 +913,11 @@ public class SynAn extends Phase {
 
 	private DerNode parseCallEps() {
 		DerNode node = new DerNode(DerNode.Nont.CallEps);
+		if (IsPostFix()) {
+			return node;
+		}
+
 		switch (currSymb.token) {
-		case SEMIC:
-		case RPARENTHESIS:
-		case COLON:
-		case COMMA:
-		case ASSIGN:
-		case RBRACKET:
-		case RBRACE:
-		case IOR:
-		case XOR:
-		case AND:
-		case EQU:
-		case NEQ:
-		case GTH:
-		case LTH:
-		case LEQ:
-		case GEQ:
-		case ADD:
-		case SUB:
-		case MUL:
-		case DIV:
-		case MOD:
-		case THEN:
-		case DO:
-		case WHERE:
 		case DOT:
 		case LBRACKET:
 			break;
@@ -962,6 +933,10 @@ public class SynAn extends Phase {
 	}
 
 	private boolean IsArgs() {
+		if (IsLiteral()) {
+			return true;
+		}
+
 		switch (currSymb.token) {
 		case IDENTIFIER:
 		case LPARENTHESIS:
@@ -973,12 +948,6 @@ public class SynAn extends Phase {
 		case DATA:
 		case NEW:
 		case DEL:
-		case PTRCONST:
-		case BOOLCONST:
-		case VOIDCONST:
-		case CHARCONST:
-		case STRCONST:
-		case INTCONST:
 			return true;
 		default:
 			return false;

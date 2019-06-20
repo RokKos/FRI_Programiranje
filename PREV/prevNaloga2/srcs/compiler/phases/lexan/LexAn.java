@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import compiler.Main;
 import compiler.common.report.*;
 import compiler.data.symbol.*;
 import compiler.data.symbol.Symbol.Term;
@@ -68,7 +69,6 @@ public class LexAn extends Phase {
 		return symb;
 	}
 
-	private boolean kDebugOn = false;
 	private int line = 1;
 	private int column = 1;
 
@@ -171,7 +171,7 @@ public class LexAn extends Phase {
 					startLine = line;
 					startColumn = column;
 
-					if (kDebugOn) {
+					if (Main.kDebugOn) {
 						System.out.println("State: " + state);
 					}
 					break;
@@ -182,7 +182,7 @@ public class LexAn extends Phase {
 					// Because we read two characters and we don't go to MoveLocation
 					column += 2;
 					if (singleQuote != kSingleQuote) {
-						if (kDebugOn) {
+						if (Main.kDebugOn) {
 							System.out.println("Lexer error: " + lexeme + " pos: " + line + " " + column);
 						}
 						throw new Report.Error(new Location(startLine, startColumn, line, column),
@@ -248,7 +248,7 @@ public class LexAn extends Phase {
 
 				case kLast:
 				default:
-					if (kDebugOn) {
+					if (Main.kDebugOn) {
 						System.out.println("Invalid state");
 					}
 					break;
@@ -257,7 +257,7 @@ public class LexAn extends Phase {
 				srcFile.mark(1);
 				MoveLocation(c);
 
-				if (kDebugOn) {
+				if (Main.kDebugOn) {
 					System.out.println("Read character: " + c + " in line:" + line + " collumn:" + column);
 				}
 
@@ -286,7 +286,7 @@ public class LexAn extends Phase {
 				return new Symbol(ReturnSymbolIfPossible(lexeme), lexeme,
 						new Location(startLine, startColumn, line, column - 1));
 			case kLast:
-				if (kDebugOn) {
+				if (Main.kDebugOn) {
 					System.out.println("Error wrong state");
 				}
 				throw new Report.Error(new Location(startLine, startColumn, line, column), "Wrong state: kLast");
@@ -337,7 +337,7 @@ public class LexAn extends Phase {
 			return LexerState.kSymbol;
 		}
 
-		if (kDebugOn) {
+		if (Main.kDebugOn) {
 			System.out.println("Missing indetifier state");
 		}
 		return LexerState.kStart;
