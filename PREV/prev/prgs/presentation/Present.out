@@ -1,3 +1,5 @@
+'rm' -fr -fr compiler module-info.class
+javac -sourcepath ../../srcs -d . ../../srcs/compiler/Main.java
 echo ; \
 for SRC in `'ls' -1 *.prev` ; do \
 	echo "TEST $SRC:" ; \
@@ -10,6 +12,9 @@ done ;
 
 TEST CombTest.prev:
 :-) This is PREV compiler:
+25.22--25.24
+33.15--33.17
+12.27--12.29
 :-) Done.
 
 TEST FibFacBinaryTree.prev:
@@ -235,8 +240,11 @@ Run pascal.asm.mmo:
 1 15 105 455 1365 3003 5005 6435 6435 5005 3003 1365 455 105 15 1 
 1 16 120 560 1820 4368 8008 11440 12870 11440 8008 4368 1820 560 120 16 1 
 1 17 136 680 2380 6188 12376 19448 24310 24310 19448 12376 6188 2380 680 136 17 1 
-1 18 153 816 3060 8568 18564 31824 43758 48620 43758 31824 18564 8568 3060 816 153 18 1 
-1 19 171 969 3876 11628 27132 50388 75582 92378 92378 75582 50388 27132 11628 3876 969 171 19 1 
+1 18 153 816 3060 8568 18564 31824 43758 48620     917746. 000000000000079c: adfd0000 (STOI) M8[#5ffffffffffffc80] = 6917529027641081032
+  102833129 instructions, 16072868 mems, 106567090 oops; 460062 good guesses, 917952 bad
+  (now at location #00000000000007a0)
+mmix>   102833129 instructions, 16072868 mems, 106567090 oops; 460062 good guesses, 917952 bad
+  (now at location #00000000000007a0)
 
 Run ProjectEulerNaloga01.asm.mmo:
 1

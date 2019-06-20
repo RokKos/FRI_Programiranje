@@ -3,9 +3,10 @@ SP	GREG	Stack_Segment
 FP	GREG	#6100000000000000
 HP	GREG	Data_Segment
 	LOC	Data_Segment
-_stevilo	BYTE	0
-L3	BYTE	"JePrastevilo:",0
-L4	BYTE	"Najvecji: ",0
+L5	BYTE	"power: ",0
+L6	BYTE	"\n",0
+L7	BYTE	"power fast: ",0
+L8	BYTE	"\n",0
 ReadSize	IS	255
 
 ReadArgs	BYTE	0,ReadSize
@@ -15,9 +16,9 @@ ReadArgs	BYTE	0,ReadSize
 Main	PUSHJ	$8,_main
 % STOPPING PROGRAM
 	TRAP	0,Halt,0
-% Code for function: _main
+% Code for function: _power
 	%	 --- Prolog ---
-_main	SET	 $0,40
+_power	SET	 $0,24
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -27,155 +28,50 @@ _main	SET	 $0,40
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,56
+	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L22
-L22	SET	 $0,2
-	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	STO	 $2,$0,0
-	SET	 $0,1
-	SET	 $2,$0
+	JMP	 L19
+L19	SET	 $0,1
+	SET	 $1,$0
 	SET	 $0,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	STO	 $2,$0,0
-	SET	 $0,60103
-	INCML	 $0,58761
-	INCMH	 $0,139
-	SET	 $1,$0
-	LDA	 $2,_stevilo
-	LDO	 $0,$2,0
-	SET	 $0,$2
-	STO	 $1,$0,0
-L8	SET	 $0,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	LDA	 $2,_stevilo
-	LDO	 $0,$2,0
-	SET	 $0,$2
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSNP	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L15
-L7	SET	 $0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_JePrastevilo
-	LDO	 $0,$254,0
-	SET	 $1,$0
-	SET	 $0,1
-	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSZ	 $0,$0,1
-	SET	 $1,$0
-	LDA	 $2,_stevilo
-	LDO	 $0,$2,0
-	SET	 $0,$2
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $3,$253
 	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	DIV	 $0,$0,$2
-	GET	 $0,rR
-	SET	 $2,$0
-	SET	 $0,0
-	SET	 $0,$0
-	CMP	 $0,$2,$0
-	ZSZ	 $0,$0,1
-	SET	 $0,$0
-	AND	 $0,$1,$0
-	SET	 $0,$0
-	BZ	 $0,L14
-L9	SET	 $0,0
-	SET	 $0,$0
-	LDA	 $1,L3
-	LDO	 $2,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putString
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putInt
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $1,10
-	SET	 $2,$1
-	SET	 $1,256
-	SET	 $1,$1
-	DIV	 $1,$2,$1
-	GET	 $1,rR
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $0,$254,0
-	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,$253
-	SET	 $2,16
 	NEG	 $2,0,$2
 	SET	 $2,$2
 	ADD	 $0,$0,$2
 	SET	 $0,$0
 	STO	 $1,$0,0
-L12	LDA	 $0,_stevilo
-	LDO	 $1,$0,0
+L11	SET	 $1,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L12
+L10	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	MUL	 $0,$0,$1
+	SET	 $0,$0
 	SET	 $1,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
+	SET	 $2,24
 	SET	 $2,$2
 	ADD	 $1,$1,$2
 	SET	 $1,$1
@@ -183,38 +79,16 @@ L12	LDA	 $0,_stevilo
 	SET	 $1,$1
 	DIV	 $0,$0,$1
 	GET	 $0,rR
-	SET	 $1,$0
-	SET	 $0,0
-	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSZ	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L13
-L11	LDA	 $0,_stevilo
-	LDO	 $1,$0,0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $2,$253
+	SET	 $2,$0
+	SET	 $0,$253
 	SET	 $1,8
 	NEG	 $1,0,$1
 	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	DIV	 $0,$0,$1
-	SET	 $2,$0
-	LDA	 $1,_stevilo
-	LDO	 $0,$1,0
-	SET	 $0,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
 	STO	 $2,$0,0
-	JMP	 L12
-L13	JMP	 L10
-L14	SWYM	0,4,2 %Two labels one after another
-L10	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
+	SET	 $1,$253
+	SET	 $0,16
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
@@ -222,70 +96,39 @@ L10	SET	 $1,$253
 	SET	 $1,$0
 	SET	 $0,1
 	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $2,$0
-	SET	 $1,$253
+	SUB	 $0,$1,$0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L11
+L12	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $2,$0,0
-	JMP	 L8
-L15	SET	 $0,0
-	SET	 $2,$0
-	LDA	 $1,L4
-	LDO	 $0,$1,0
-	SET	 $0,$1
-	STO	 $2,$254,0
-	STO	 $0,$254,8
-	PUSHJ	 $8,_putString
-	LDO	 $0,$254,0
-	SET	 $0,0
+	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putInt
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $2,$0
-	SET	 $0,10
-	SET	 $1,$0
-	SET	 $0,256
-	SET	 $0,$0
-	DIV	 $0,$1,$0
-	GET	 $0,rR
-	SET	 $0,$0
-	STO	 $2,$254,0
-	STO	 $0,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $0,$0
-	JMP	 L23
+	JMP	 L20
 	%	 --- Epilogue ---
-L23	STO	 $0,FP,0  % Save return value 
+L20	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
-	SET	 $0,40
+	SET	 $0,24
 	SUB	 $0,SP,$0
 	LDO	 $1,$0,8
 	PUT	 rJ,$1
 	%	 Getting old FP 
 	LDO	 FP,$0,0
 	POP	 8,0
-% Code for function: _JePrastevilo
+% Code for function: _powerFast
 	%	 --- Prolog ---
-_JePrastevilo	SET	 $0,32
+_powerFast	SET	 $0,24
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -295,32 +138,54 @@ _JePrastevilo	SET	 $0,32
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,32
+	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L24
-L24	SET	 $0,1
-	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	STO	 $1,$0,0
-	SET	 $0,2
+	JMP	 L21
+L21	SET	 $0,1
 	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,16
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	STO	 $2,$0,0
-L17	SET	 $1,$253
+L14	SET	 $1,$253
 	SET	 $0,16
-	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L18
+L13	SET	 $1,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,2
+	SET	 $0,$0
+	DIV	 $0,$1,$0
+	GET	 $0,rR
+	SET	 $0,$0
+	SET	 $1,1
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSZ	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L17
+L15	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -331,14 +196,27 @@ L17	SET	 $1,$253
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,2
-	SET	 $2,$2
-	DIV	 $1,$1,$2
-	SET	 $1,$1
-	CMP	 $0,$0,$1
-	ZSN	 $0,$0,1
+	MUL	 $0,$0,$1
 	SET	 $0,$0
-	BZ	 $0,L21
+	SET	 $2,$253
+	SET	 $1,24
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	DIV	 $0,$0,$1
+	GET	 $0,rR
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,8
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L16
+L17	SWYM	0,4,2 %Two labels one after another
 L16	SET	 $1,$253
 	SET	 $0,8
 	SET	 $0,$0
@@ -347,82 +225,49 @@ L16	SET	 $1,$253
 	LDO	 $0,$0,0
 	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
+	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
+	MUL	 $0,$0,$1
+	SET	 $0,$0
+	SET	 $1,$253
+	SET	 $2,24
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
 	DIV	 $0,$0,$1
 	GET	 $0,rR
-	SET	 $1,$0
-	SET	 $0,0
 	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSZ	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L20
-L18	SET	 $0,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
+	SET	 $1,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
+	SET	 $0,$253
+	SET	 $1,16
 	SET	 $1,$1
 	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
-	SET	 $0,0
+	SET	 $0,2
 	SET	 $0,$0
-	AND	 $0,$1,$0
-	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	STO	 $1,$0,0
-	JMP	 L19
-L20	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1,1
-	SET	 $1,$1
-	AND	 $0,$0,$1
-	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	STO	 $1,$0,0
-L19	SET	 $1,$253
-	SET	 $0,16
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,1
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	DIV	 $0,$1,$0
 	SET	 $2,$0
 	SET	 $1,$253
 	SET	 $0,16
-	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	STO	 $2,$0,0
-	JMP	 L17
-L21	SET	 $1,$253
+	JMP	 L14
+L18	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
@@ -430,13 +275,123 @@ L21	SET	 $1,$253
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	JMP	 L25
+	JMP	 L22
 	%	 --- Epilogue ---
-L25	STO	 $0,FP,0  % Save return value 
+L22	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
-	SET	 $0,32
+	SET	 $0,24
+	SUB	 $0,SP,$0
+	LDO	 $1,$0,8
+	PUT	 rJ,$1
+	%	 Getting old FP 
+	LDO	 FP,$0,0
+	POP	 8,0
+% Code for function: _main
+	%	 --- Prolog ---
+_main	SET	 $0,16
+	%	 Storing FP 
+	SUB	 $0,SP,$0
+	STO	 FP,$0,0
+	%	 STORING RA 
+	GET	 $1,rJ
+	STO	 $1,$0,8
+	%	 Lowering FP 
+	SET	 FP,SP
+	%	 Lowering SP 
+	SET	 $0,48
+	SUB	 SP,SP,$0
+	JMP	 L23
+L23	SET	 $0,0
+	SET	 $2,$0
+	LDA	 $0,L5
+	LDO	 $1,$0,0
+	SET	 $0,$0
+	STO	 $2,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putString
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	SET	 $2,3
+	SET	 $3,$2
+	SET	 $2,59407
+	INCML	 $2,4
+	SET	 $4,$2
+	SET	 $2,71
+	SET	 $2,$2
+	STO	 $1,$254,0
+	STO	 $3,$254,8
+	STO	 $4,$254,16
+	STO	 $2,$254,24
+	PUSHJ	 $8,_power
+	LDO	 $1,$254,0
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $2,$0
+	LDA	 $1,L6
+	LDO	 $0,$1,0
+	SET	 $0,$1
+	STO	 $2,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putString
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $1,$0
+	LDA	 $0,L7
+	LDO	 $2,$0,0
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putString
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	SET	 $2,3
+	SET	 $2,$2
+	SET	 $3,59407
+	INCML	 $3,4
+	SET	 $4,$3
+	SET	 $3,71
+	SET	 $3,$3
+	STO	 $1,$254,0
+	STO	 $2,$254,8
+	STO	 $4,$254,16
+	STO	 $3,$254,24
+	PUSHJ	 $8,_powerFast
+	LDO	 $1,$254,0
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $1,$0
+	LDA	 $2,L8
+	LDO	 $0,$2,0
+	SET	 $0,$2
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putString
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	JMP	 L24
+	%	 --- Epilogue ---
+L24	STO	 $0,FP,0  % Save return value 
+	%	 Highering Stack pointer 
+	SET	 SP,FP
+	%	 Getting RA 
+	SET	 $0,16
 	SUB	 $0,SP,$0
 	LDO	 $1,$0,8
 	PUT	 rJ,$1
@@ -460,14 +415,14 @@ _new	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L26
-L26	SET	$0,8
+	JMP	 L25
+L25	SET	$0,8
 	ADD	$0,FP,$0
 	LDO	$1,$0,0
 	SET	$0,HP % For return value
 	ADD	HP,HP,$1
 	%	 --- Epilogue ---
-L27	STO	 $0,FP,0  % Save return value 
+L26	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -493,8 +448,8 @@ _putChar	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L28
-L28	SET	$0,14
+	JMP	 L27
+L27	SET	$0,14
 	ADD	$0,FP,$0
 	%Putting char one position in front
 	%so that we put end char at the end
@@ -505,7 +460,7 @@ L28	SET	$0,14
 	SET	$255,$0
 	TRAP	0,Fputs,StdOut
 	%	 --- Epilogue ---
-L29	STO	 $0,FP,0  % Save return value 
+L28	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -530,14 +485,14 @@ _putString	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L30
-L30	SET	$0,8
+	JMP	 L29
+L29	SET	$0,8
 	ADD	$0,FP,$0
 	LDO	$1,$0,0
 	SET	$255,$1
 	TRAP	0,Fputs,StdOut
 	%	 --- Epilogue ---
-L31	STO	 $0,FP,0  % Save return value 
+L30	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -562,12 +517,12 @@ _readString	SET	 $0,16
 	%	 Lowering SP 
 	SET	 $0,24
 	SUB	 SP,SP,$0
-	JMP	 L32
-L32	LDA	$255,ReadArgs
+	JMP	 L31
+L31	LDA	$255,ReadArgs
 	SET	$0,$255
 	TRAP	0,Fgets,StdIn
 	%	 --- Epilogue ---
-L33	STO	 $0,FP,0  % Save return value 
+L32	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
@@ -592,9 +547,9 @@ _putInt	SET	 $0,32
 	%	 Lowering SP 
 	SET	 $0,48
 	SUB	 SP,SP,$0
-	JMP	 L34
+	JMP	 L33
 % Storing inverse number
-L34	SET	$0,16
+L33	SET	$0,16
 	SUB	$0,FP,$0
 	SET	$1,1
 	STO	$1,$0,0
@@ -637,8 +592,8 @@ _putInt_Print_out_loop	SET	$0,16
 	STO	$2,$254,8
 	PUSHJ	$8,_putChar
 	JMP	_putInt_Print_out_loop
-_putInt_Print_out_end	JMP	L35	%	 --- Epilogue ---
-L35	STO	 $0,FP,0  % Save return value 
+_putInt_Print_out_end	JMP	L34	%	 --- Epilogue ---
+L34	STO	 $0,FP,0  % Save return value 
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 

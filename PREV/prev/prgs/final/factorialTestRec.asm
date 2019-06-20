@@ -16,7 +16,7 @@ Main	PUSHJ	$8,_main
 	TRAP	0,Halt,0
 % Code for function: _main
 	%	 --- Prolog ---
-_main	SET	 $0,16
+_main	SET	 $0,24
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -26,101 +26,17 @@ _main	SET	 $0,16
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,32
+	SET	 $0,40
 	SUB	 SP,SP,$0
 	JMP	 L13
 L13	SET	 $0,0
-	SET	 $0,$0
-	LDA	 $1,L3
-	LDO	 $2,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putString
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $1,10
-	SET	 $2,$1
-	SET	 $1,256
-	SET	 $1,$1
-	DIV	 $1,$2,$1
-	GET	 $1,rR
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $0,$254,0
-	SET	 $0,1
-	SET	 $0,$0
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
-L8	SET	 $0,$253
-	LDO	 $0,$0,0
 	SET	 $1,$0
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,10
-	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSNP	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L9
-L7	SET	 $0,0
-	SET	 $0,$0
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putInt
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $0,$0
-	LDA	 $1,L4
-	LDO	 $2,$1,0
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putString
-	LDO	 $0,$254,0
-	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	STO	 $0,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_facRec
-	LDO	 $0,$254,0
-	SET	 $0,$0
+	LDA	 $2,L3
+	LDO	 $0,$2,0
+	SET	 $0,$2
 	STO	 $1,$254,0
 	STO	 $0,$254,8
-	PUSHJ	 $8,_putInt
+	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,0
 	SET	 $0,$0
@@ -135,27 +51,105 @@ L7	SET	 $0,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
-	SET	 $0,$253
-	LDO	 $0,$0,0
+	SET	 $0,1
 	SET	 $0,$0
+	SET	 $2,$253
 	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
+L8	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
 	SET	 $1,$1
 	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,10
 	SET	 $0,$0
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+	CMP	 $0,$1,$0
+	ZSNP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L9
+L7	SET	 $0,0
 	SET	 $0,$0
 	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $1,$1
 	SET	 $2,8
+	NEG	 $2,0,$2
 	SET	 $2,$2
 	ADD	 $1,$1,$2
 	SET	 $1,$1
-	STO	 $0,$1,0
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	LDA	 $2,L4
+	LDO	 $1,$2,0
+	SET	 $1,$2
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putString
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $2,8
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	STO	 $1,$254,0
+	STO	 $2,$254,8
+	PUSHJ	 $8,_facRec
+	LDO	 $1,$254,0
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,10
+	SET	 $2,$1
+	SET	 $1,256
+	SET	 $1,$1
+	DIV	 $1,$2,$1
+	GET	 $1,rR
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $2,$0
+	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
 	JMP	 L8
 L9	SET	 $0,0
 	SET	 $0,$0
@@ -165,7 +159,7 @@ L14	STO	 $0,FP,0  % Save return value
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
-	SET	 $0,16
+	SET	 $0,24
 	SUB	 $0,SP,$0
 	LDO	 $1,$0,8
 	PUT	 rJ,$1
@@ -201,14 +195,14 @@ L15	SET	 $1,$253
 	SET	 $0,$0
 	BZ	 $0,L12
 L10	SET	 $0,1
-	SET	 $2,$0
-	SET	 $1,$253
+	SET	 $1,$0
+	SET	 $2,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$1,$0
+	ADD	 $0,$2,$0
 	SET	 $0,$0
-	STO	 $2,$0,0
+	STO	 $1,$0,0
 	JMP	 L11
 L12	SET	 $1,$253
 	SET	 $0,8
@@ -216,13 +210,13 @@ L12	SET	 $1,$253
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,0
-	SET	 $1,$1
-	SET	 $2,$253
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $2,$2,$3
+	SET	 $3,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $3,$2
@@ -230,25 +224,25 @@ L12	SET	 $1,$253
 	SET	 $2,$2
 	SUB	 $2,$3,$2
 	SET	 $2,$2
-	STO	 $1,$254,0
+	STO	 $0,$254,0
 	STO	 $2,$254,8
 	PUSHJ	 $8,_facRec
-	LDO	 $1,$254,0
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	MUL	 $0,$1,$0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+L11	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
 	SET	 $1,$1
-	MUL	 $0,$0,$1
-	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	STO	 $2,$0,0
-L11	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0

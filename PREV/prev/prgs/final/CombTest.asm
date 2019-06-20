@@ -29,12 +29,12 @@ _main	SET	 $0,16
 	SUB	 SP,SP,$0
 	JMP	 L19
 L19	SET	 $0,0
-	SET	 $2,$0
-	LDA	 $0,L3
-	LDO	 $1,$0,0
 	SET	 $0,$0
-	STO	 $2,$254,0
-	STO	 $0,$254,8
+	LDA	 $2,L3
+	LDO	 $1,$2,0
+	SET	 $1,$2
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,0
@@ -93,11 +93,11 @@ _combs	SET	 $0,824
 	JMP	 L21
 L21	SET	 $0,0
 	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,808
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
+	SET	 $0,$253
+	SET	 $2,808
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
 	SET	 $0,$0
 	STO	 $1,$0,0
 L17	SET	 $1,$253
@@ -107,21 +107,21 @@ L17	SET	 $1,$253
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,100
 	SET	 $0,$0
-	SET	 $1,100
-	SET	 $1,$1
-	CMP	 $0,$0,$1
+	CMP	 $0,$1,$0
 	ZSN	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L18
 L16	SET	 $0,0
-	SET	 $0,$0
+	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $1,800
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
+	SET	 $0,800
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
 	SET	 $2,$253
 	SET	 $3,808
 	NEG	 $3,0,$3
@@ -129,14 +129,14 @@ L16	SET	 $0,0
 	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,8
 	SET	 $2,$2
-	MUL	 $2,$3,$2
+	SET	 $3,8
+	SET	 $3,$3
+	MUL	 $2,$2,$3
 	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	STO	 $0,$1,0
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
 	SET	 $0,$253
 	SET	 $1,808
 	NEG	 $1,0,$1
@@ -144,18 +144,18 @@ L16	SET	 $0,0
 	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,1
 	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $1,1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,808
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 	JMP	 L17
 L18	SET	 $0,$253
 	SET	 $1,0
@@ -181,7 +181,7 @@ L22	STO	 $0,FP,0  % Save return value
 	POP	 8,0
 % Code for function: L5
 	%	 --- Prolog ---
-L5	SET	 $0,24
+L5	SET	 $0,32
 	%	 Storing FP 
 	SUB	 $0,SP,$0
 	STO	 FP,$0,0
@@ -191,10 +191,12 @@ L5	SET	 $0,24
 	%	 Lowering FP 
 	SET	 FP,SP
 	%	 Lowering SP 
-	SET	 $0,40
+	SET	 $0,48
 	SUB	 SP,SP,$0
 	JMP	 L23
-L23	SET	 $2,$253
+L23	SET	 $1,$253
+	LDO	 $1,$1,0
+	SET	 $2,$1
 	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
@@ -202,11 +204,24 @@ L23	SET	 $2,$253
 	LDO	 $1,$1,0
 	SET	 $1,$1
 	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,8
+	SET	 $3,16
+	NEG	 $3,0,$3
 	SET	 $3,$3
 	ADD	 $2,$2,$3
+	SET	 $2,$2
+	STO	 $1,$2,0
+	SET	 $1,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $2,16
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
@@ -223,20 +238,20 @@ L7	SET	 $1,0
 	ADD	 $2,$3,$2
 	SET	 $2,$2
 	STO	 $1,$2,0
-L10	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
+L10	SET	 $1,$253
+	SET	 $2,8
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
 	SET	 $2,$253
 	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,8
 	SET	 $2,$2
-	ADD	 $2,$3,$2
+	SET	 $3,8
+	SET	 $3,$3
+	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
@@ -245,20 +260,20 @@ L10	SET	 $2,$253
 	SET	 $1,$1
 	BZ	 $1,L11
 L9	SET	 $1,0
+	SET	 $2,$1
+	SET	 $1,$253
+	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,800
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	SET	 $4,$253
-	SET	 $3,8
+	SET	 $3,800
 	NEG	 $3,0,$3
 	SET	 $3,$3
-	ADD	 $3,$4,$3
+	ADD	 $1,$1,$3
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $4,8
+	NEG	 $4,0,$4
+	SET	 $4,$4
+	ADD	 $3,$3,$4
 	SET	 $3,$3
 	LDO	 $3,$3,0
 	SET	 $4,$3
@@ -266,20 +281,20 @@ L9	SET	 $1,0
 	SET	 $3,$3
 	MUL	 $3,$4,$3
 	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_putInt
-	LDO	 $1,$254,0
-	SET	 $1,0
-	SET	 $2,$1
-	SET	 $1,32
+	ADD	 $1,$1,$3
+	SET	 $1,$1
+	LDO	 $1,$1,0
 	SET	 $1,$1
 	STO	 $2,$254,0
 	STO	 $1,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $1,$254,0
+	SET	 $1,0
+	SET	 $1,$1
+	SET	 $2,32
+	SET	 $2,$2
+	STO	 $1,$254,0
+	STO	 $2,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $1,$254,0
 	SET	 $2,$253
@@ -289,10 +304,10 @@ L9	SET	 $1,0
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,1
 	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $2,1
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	SET	 $3,$253
 	SET	 $2,8
@@ -335,10 +350,10 @@ L14	SET	 $2,$253
 	SET	 $1,$1
 	SET	 $2,$253
 	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,16
 	SET	 $2,$2
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $2,$2,$3
+	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
@@ -346,36 +361,36 @@ L14	SET	 $2,$253
 	ZSNP	 $1,$1,1
 	SET	 $1,$1
 	BZ	 $1,L15
-L13	SET	 $1,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
+L13	SET	 $2,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,$253
+	LDO	 $2,$2,0
 	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $1,$1
 	SET	 $3,800
 	NEG	 $3,0,$3
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
+	ADD	 $2,$2,$3
+	SET	 $2,$2
 	SET	 $4,$253
 	SET	 $3,8
 	SET	 $3,$3
 	ADD	 $3,$4,$3
 	SET	 $3,$3
 	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,8
 	SET	 $3,$3
-	MUL	 $3,$4,$3
+	SET	 $4,8
+	SET	 $4,$4
+	MUL	 $3,$3,$4
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	STO	 $2,$1,0
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	STO	 $1,$2,0
 	SET	 $2,$253
 	SET	 $1,8
 	NEG	 $1,0,$1
@@ -421,7 +436,7 @@ L24	STO	 $0,FP,0  % Save return value
 	%	 Highering Stack pointer 
 	SET	 SP,FP
 	%	 Getting RA 
-	SET	 $0,24
+	SET	 $0,32
 	SUB	 $0,SP,$0
 	LDO	 $1,$0,8
 	PUT	 rJ,$1
