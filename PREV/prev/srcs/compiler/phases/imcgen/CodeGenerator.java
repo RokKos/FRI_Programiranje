@@ -144,8 +144,7 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
 
     @Override
     public Object visit(AbsSource source, Stack<Frame> visArg) {
-        Stack<Frame> frames = new Stack<Frame>();
-        source.decls.accept(this, frames);
+        source.decls.accept(this, visArg);
         return null;
     }
 
@@ -279,14 +278,17 @@ public class CodeGenerator extends AbsFullVisitor<Object, Stack<Frame>> {
         AbsFunDecl funDecl = (AbsFunDecl) SemAn.declaredAt.get(funName);
         Frame currFrame = Frames.frames.get(funDecl);
 
+        Vector<Frame> reverseStack = new Vector<>(visArg);
+
         // Adding static link
         ImcExpr staticLink = new ImcCONST(0);
-        for (Frame parentFrame : visArg) {
-            if (parentFrame.depth == currFrame.depth - 1) {
-                staticLink = new ImcTEMP(parentFrame.FP);
-                break;
-            }
+        // for (int i = reverseStack.size() - 1; i >= 0; i--) {
+        Frame parentFrame = visArg.peek(); // reverseStack.get(i);
+        if (parentFrame.depth == currFrame.depth - 1) {
+            staticLink = new ImcTEMP(parentFrame.FP);
+            // break;
         }
+        // }
 
         Vector<ImcExpr> args = new Vector<ImcExpr>();
         args.add(staticLink); // First it so that it will be at the bottom
