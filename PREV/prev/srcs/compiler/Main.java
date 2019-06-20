@@ -33,6 +33,8 @@ public class Main {
 	/** The number of general-purpose registers. */
 	public static final int numOfRegs = 8;
 
+	public static final boolean kDebugOn = false;
+
 	/**
 	 * Returns the value of a command line argument.
 	 * 
