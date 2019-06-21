@@ -3606,223 +3606,224 @@ L19	SET	 $0,24
 	SET	 $0,40
 	SUB	 SP,SP,$0
 	JMP	 L180
-L180	SET	 $2,$253
+L180	SET	 $1,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	LDO	 $1,$1,0
+	SET	 $2,$1
 	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $3,$2
+	CMP	 $0,$0,$1
+	ZSZ	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L62
+L57	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
 	SET	 $2,8
+	NEG	 $2,0,$2
 	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	CMP	 $1,$1,$2
-	ZSZ	 $1,$1,1
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+L60	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
 	SET	 $1,$1
-	BZ	 $1,L62
-L57	SET	 $1,0
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,8
 	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSN	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L61
+L59	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $2,800
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
 	SET	 $2,$253
 	SET	 $3,8
 	NEG	 $3,0,$3
 	SET	 $3,$3
 	ADD	 $2,$2,$3
 	SET	 $2,$2
-	STO	 $1,$2,0
-L60	SET	 $1,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,$253
 	LDO	 $2,$2,0
 	SET	 $3,$2
 	SET	 $2,8
 	SET	 $2,$2
-	ADD	 $2,$3,$2
+	MUL	 $2,$3,$2
 	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	CMP	 $1,$1,$2
-	ZSN	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L61
-L59	SET	 $1,0
-	SET	 $2,$1
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $3,800
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $4,8
-	NEG	 $4,0,$4
-	SET	 $4,$4
-	ADD	 $3,$3,$4
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,8
-	SET	 $3,$3
-	MUL	 $3,$4,$3
-	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	STO	 $2,$254,0
-	STO	 $1,$254,8
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
 	PUSHJ	 $8,_putInt
-	LDO	 $1,$254,0
-	SET	 $1,0
-	SET	 $2,$1
-	SET	 $1,32
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,32
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L60
+L61	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,10
 	SET	 $1,$1
-	STO	 $2,$254,0
+	SET	 $2,256
+	SET	 $2,$2
+	DIV	 $1,$1,$2
+	GET	 $1,rR
+	SET	 $1,$1
+	STO	 $0,$254,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
-	LDO	 $1,$254,0
+	LDO	 $0,$254,0
+	JMP	 L58
+L62	SET	 $0,1
+	SET	 $0,$0
 	SET	 $2,$253
 	SET	 $1,8
 	NEG	 $1,0,$1
 	SET	 $1,$1
 	ADD	 $1,$2,$1
 	SET	 $1,$1
+	STO	 $0,$1,0
+L64	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
 	LDO	 $1,$1,0
-	SET	 $2,$1
+	SET	 $1,$1
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSNP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L65
+L63	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $2,$0
+	SET	 $0,800
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	SET	 $3,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $2,$3,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
 	SET	 $1,1
 	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L60
-L61	SET	 $1,0
-	SET	 $1,$1
-	SET	 $2,10
-	SET	 $2,$2
-	SET	 $3,256
-	SET	 $3,$3
-	DIV	 $2,$2,$3
-	GET	 $2,rR
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $1,$254,0
-	JMP	 L58
-L62	SET	 $1,1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-L64	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	CMP	 $1,$1,$2
-	ZSNP	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L65
-L63	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $3,$1
-	SET	 $1,800
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$3,$1
-	SET	 $1,$1
-	SET	 $4,$253
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,8
-	SET	 $3,$3
-	MUL	 $3,$4,$3
-	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	STO	 $2,$1,0
-	SET	 $1,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,1
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
+	ADD	 $0,$0,$1
 	SET	 $1,$0
-	SET	 $3,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $3,$2
+	SET	 $2,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
 	SET	 $2,1
 	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	PUSHJ	 $8,L19
-	LDO	 $1,$254,0
+	LDO	 $0,$254,0
 	JMP	 L64
 L65	SWYM	0,4,2 %Two labels one after another
 L58	SET	 $0,0
@@ -3855,34 +3856,34 @@ _printBT	SET	 $0,16
 	SET	 $0,32
 	SUB	 SP,SP,$0
 	JMP	 L182
-L182	SET	 $0,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L182	SET	 $1,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,0
-	SET	 $1,$1
-	CMP	 $0,$0,$1
+	CMP	 $0,$1,$0
 	ZSZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L71
 L69	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,36
 	SET	 $0,$0
-	STO	 $1,$254,0
-	STO	 $0,$254,8
+	SET	 $1,36
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
 	JMP	 L70
 L71	SET	 $0,0
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $1,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $2,$1
@@ -3897,11 +3898,11 @@ L71	SET	 $0,0
 	PUSHJ	 $8,_putInt
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,40
 	SET	 $0,$0
-	STO	 $1,$254,0
-	STO	 $0,$254,8
+	SET	 $1,40
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
 	SET	 $0,0
@@ -3951,11 +3952,11 @@ L71	SET	 $0,0
 	PUSHJ	 $8,_printBT
 	LDO	 $0,$254,0
 	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,41
 	SET	 $0,$0
-	SET	 $1,41
-	SET	 $1,$1
-	STO	 $0,$254,0
-	STO	 $1,$254,8
+	STO	 $1,$254,0
+	STO	 $0,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
 L70	SET	 $0,0
@@ -3988,10 +3989,10 @@ _insBT	SET	 $0,16
 	SET	 $0,40
 	SUB	 SP,SP,$0
 	JMP	 L184
-L184	SET	 $0,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L184	SET	 $1,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4009,13 +4010,13 @@ L72	SET	 $0,0
 	STO	 $0,$254,8
 	PUSHJ	 $8,_new
 	LDO	 $0,$254,0
-	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,16
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 	SET	 $1,$253
 	SET	 $0,8
 	SET	 $0,$0
@@ -4029,38 +4030,38 @@ L72	SET	 $0,0
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,0
 	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
-	SET	 $0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,16
+	SET	 $2,0
 	SET	 $2,$2
 	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
 	SET	 $1,$1
 	STO	 $0,$1,0
 	JMP	 L73
@@ -4077,10 +4078,10 @@ L74	SET	 $1,$253
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $1,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
@@ -4088,10 +4089,10 @@ L74	SET	 $1,$253
 	ZSNZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L80
-L75	SET	 $1,$253
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L75	SET	 $0,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4113,14 +4114,14 @@ L75	SET	 $1,$253
 	SET	 $0,$0
 	BZ	 $0,L79
 L77	SET	 $0,0
-	SET	 $1,$0
+	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
 	SET	 $3,$253
 	SET	 $2,16
 	SET	 $2,$2
@@ -4131,6 +4132,47 @@ L77	SET	 $0,0
 	SET	 $2,8
 	SET	 $2,$2
 	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	STO	 $2,$254,16
+	PUSHJ	 $8,_insBT
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
+	JMP	 L78
+L79	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $3,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	SET	 $3,16
+	SET	 $3,$3
+	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
@@ -4147,47 +4189,6 @@ L77	SET	 $0,0
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	STO	 $0,$1,0
-	JMP	 L78
-L79	SET	 $0,0
-	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $0,$254,8
-	STO	 $2,$254,16
-	PUSHJ	 $8,_insBT
-	LDO	 $0,$254,0
-	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
 	SET	 $2,16
 	SET	 $2,$2
 	ADD	 $1,$1,$2
@@ -4196,10 +4197,10 @@ L79	SET	 $0,0
 L78	JMP	 L76
 L80	SWYM	0,4,2 %Two labels one after another
 L76	SWYM	0,4,2 %Two labels one after another
-L73	SET	 $1,$253
-	SET	 $0,16
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L73	SET	 $0,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4231,10 +4232,10 @@ _delBT	SET	 $0,32
 	SET	 $0,56
 	SUB	 SP,SP,$0
 	JMP	 L186
-L186	SET	 $0,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L186	SET	 $1,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4268,10 +4269,10 @@ L81	SET	 $1,$253
 	ZSZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L91
-L83	SET	 $0,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L83	SET	 $1,$253
+	SET	 $0,16
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
@@ -4280,28 +4281,28 @@ L83	SET	 $0,$253
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,0
 	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSZ	 $0,$0,1
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
 	SET	 $1,0
 	SET	 $1,$1
-	CMP	 $1,$2,$1
+	CMP	 $0,$0,$1
+	ZSZ	 $0,$0,1
+	SET	 $0,$0
+	SET	 $1,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,0
+	SET	 $2,$2
+	CMP	 $1,$1,$2
 	ZSZ	 $1,$1,1
 	SET	 $1,$1
 	AND	 $0,$0,$1
@@ -4321,13 +4322,13 @@ L85	SET	 $0,0
 	PUSHJ	 $8,_del
 	LDO	 $0,$254,0
 	SET	 $0,0
-	SET	 $2,$0
-	SET	 $0,$253
+	SET	 $0,$0
+	SET	 $2,$253
 	SET	 $1,16
 	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	STO	 $2,$0,0
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
 	JMP	 L86
 L87	SET	 $0,$253
 	SET	 $1,16
@@ -4335,10 +4336,10 @@ L87	SET	 $0,$253
 	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,8
 	SET	 $0,$0
-	ADD	 $0,$1,$0
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4367,14 +4368,14 @@ L88	SET	 $0,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_maxBT
 	LDO	 $0,$254,0
-	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
@@ -4385,10 +4386,10 @@ L88	SET	 $0,0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $1,$1,$2
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $2,$1
@@ -4398,21 +4399,21 @@ L88	SET	 $0,0
 	SET	 $1,$1
 	STO	 $0,$1,0
 	SET	 $0,0
-	SET	 $1,$0
+	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $3,$253
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $2,$3,$2
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,$253
+	SET	 $3,16
+	SET	 $3,$3
+	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $3,$2
@@ -4422,8 +4423,8 @@ L88	SET	 $0,0
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $0,$254,8
+	STO	 $0,$254,0
+	STO	 $1,$254,8
 	STO	 $2,$254,16
 	PUSHJ	 $8,_delBT
 	LDO	 $0,$254,0
@@ -4444,16 +4445,16 @@ L88	SET	 $0,0
 	JMP	 L89
 L90	SET	 $0,0
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $1,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
 	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
@@ -4461,14 +4462,14 @@ L90	SET	 $0,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_minBT
 	LDO	 $0,$254,0
-	SET	 $2,$0
-	SET	 $0,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
 	SET	 $0,$0
-	STO	 $2,$0,0
+	SET	 $1,$253
+	SET	 $2,16
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
 	SET	 $1,$253
 	SET	 $0,16
 	NEG	 $0,0,$0
@@ -4479,10 +4480,10 @@ L90	SET	 $0,0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,16
-	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $1,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $2,$1
@@ -4492,17 +4493,17 @@ L90	SET	 $0,0
 	SET	 $1,$1
 	STO	 $0,$1,0
 	SET	 $0,0
-	SET	 $0,$0
+	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
+	SET	 $0,16
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
 	SET	 $3,$253
 	SET	 $2,16
 	SET	 $2,$2
@@ -4516,8 +4517,8 @@ L90	SET	 $0,0
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
-	STO	 $0,$254,0
-	STO	 $1,$254,8
+	STO	 $1,$254,0
+	STO	 $0,$254,8
 	STO	 $2,$254,16
 	PUSHJ	 $8,_delBT
 	LDO	 $0,$254,0
@@ -4528,10 +4529,10 @@ L90	SET	 $0,0
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,16
 	SET	 $1,$1
-	ADD	 $1,$2,$1
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	STO	 $0,$1,0
 	SET	 $0,0
@@ -4544,16 +4545,16 @@ L91	SET	 $1,$253
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,0
+	SET	 $2,$253
+	SET	 $1,16
 	SET	 $1,$1
 	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,0
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
@@ -4562,14 +4563,14 @@ L91	SET	 $1,$253
 	SET	 $0,$0
 	BZ	 $0,L94
 L92	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,$253
+	SET	 $0,$0
+	SET	 $1,$253
 	SET	 $2,8
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
 	SET	 $3,$253
 	SET	 $2,16
 	SET	 $2,$2
@@ -4583,6 +4584,47 @@ L92	SET	 $0,0
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	STO	 $2,$254,16
+	PUSHJ	 $8,_delBT
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
+	JMP	 L93
+L94	SET	 $0,0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $3,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	SET	 $3,16
+	SET	 $3,$3
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
 	STO	 $1,$254,0
 	STO	 $0,$254,8
 	STO	 $2,$254,16
@@ -4596,59 +4638,18 @@ L92	SET	 $0,0
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $2,$1
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
-	JMP	 L93
-L94	SET	 $0,0
-	SET	 $1,$0
-	SET	 $0,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $0,$254,8
-	STO	 $2,$254,16
-	PUSHJ	 $8,_delBT
-	LDO	 $0,$254,0
-	SET	 $0,$0
-	SET	 $2,$253
 	SET	 $1,16
 	SET	 $1,$1
 	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $1,$1,$2
 	SET	 $1,$1
 	STO	 $0,$1,0
 L93	SWYM	0,4,2 %Two labels one after another
 L84	JMP	 L82
 L95	SWYM	0,4,2 %Two labels one after another
-L82	SET	 $1,$253
-	SET	 $0,16
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L82	SET	 $0,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4703,16 +4704,16 @@ L96	SET	 $0,0
 	SET	 $0,$0
 	STO	 $2,$0,0
 	JMP	 L97
-L98	SET	 $0,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
+L98	SET	 $1,$253
 	SET	 $0,8
 	SET	 $0,$0
 	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
@@ -4722,37 +4723,37 @@ L98	SET	 $0,$253
 	ZSZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L101
-L99	SET	 $0,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L99	SET	 $1,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,0
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
 	JMP	 L100
 L101	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,16
+	SET	 $2,$253
+	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
@@ -4761,11 +4762,11 @@ L101	SET	 $0,0
 	PUSHJ	 $8,_minBT
 	LDO	 $0,$254,0
 	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,8
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	STO	 $2,$0,0
 L100	SWYM	0,4,2 %Two labels one after another
@@ -4811,10 +4812,10 @@ L190	SET	 $1,$253
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,0
 	SET	 $0,$0
-	CMP	 $0,$1,$0
+	SET	 $1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
 	ZSZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L104
@@ -4857,27 +4858,27 @@ L105	SET	 $1,$253
 	SET	 $0,0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
-	SET	 $2,$0
-	SET	 $0,$253
+	SET	 $0,$0
+	SET	 $2,$253
 	SET	 $1,8
 	NEG	 $1,0,$1
 	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	STO	 $2,$0,0
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
 	JMP	 L106
 L107	SET	 $0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $1,$1,$2
+	SET	 $2,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,16
 	SET	 $1,$1
-	SET	 $2,16
-	SET	 $2,$2
-	ADD	 $1,$1,$2
+	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
@@ -4885,20 +4886,20 @@ L107	SET	 $0,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_maxBT
 	LDO	 $0,$254,0
-	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 L106	SWYM	0,4,2 %Two labels one after another
-L103	SET	 $0,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L103	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -4931,41 +4932,41 @@ _sudoku	SET	 $0,24
 	SUB	 SP,SP,$0
 	JMP	 L192
 L192	SET	 $0,0
-	SET	 $2,$0
+	SET	 $1,$0
 	LDA	 $0,L31
-	LDO	 $1,$0,0
+	LDO	 $2,$0,0
 	SET	 $0,$0
-	STO	 $2,$254,0
+	STO	 $1,$254,0
 	STO	 $0,$254,8
 	PUSHJ	 $8,_putString
 	LDO	 $0,$254,0
 	SET	 $0,0
 	SET	 $0,$0
 	SET	 $1,10
+	SET	 $2,$1
+	SET	 $1,256
 	SET	 $1,$1
-	SET	 $2,256
-	SET	 $2,$2
-	DIV	 $1,$1,$2
+	DIV	 $1,$2,$1
 	GET	 $1,rR
 	SET	 $1,$1
 	STO	 $0,$254,0
 	STO	 $1,$254,8
 	PUSHJ	 $8,_putChar
 	LDO	 $0,$254,0
-	SET	 $1,$253
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	SET	 $0,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,8
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 	SET	 $2,$253
 	SET	 $0,0
 	SET	 $1,$0
@@ -5006,14 +5007,14 @@ L26	SET	 $0,112
 	SUB	 SP,SP,$0
 	JMP	 L194
 L194	SET	 $0,1
-	SET	 $0,$0
+	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $1,96
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
+	SET	 $0,96
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
 	SET	 $0,1
 	SET	 $2,$0
 	SET	 $1,$253
@@ -5023,11 +5024,11 @@ L194	SET	 $0,1
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	STO	 $2,$0,0
-L109	SET	 $0,$253
-	SET	 $1,88
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L109	SET	 $1,$253
+	SET	 $0,88
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
@@ -5038,13 +5039,13 @@ L109	SET	 $0,$253
 	SET	 $0,$0
 	BZ	 $0,L110
 L108	SET	 $0,0
-	SET	 $1,$0
+	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $0,80
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
+	SET	 $1,80
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
 	SET	 $3,$253
 	SET	 $2,88
 	NEG	 $2,0,$2
@@ -5057,9 +5058,9 @@ L108	SET	 $0,0
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	STO	 $1,$0,0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
 	SET	 $1,$253
 	SET	 $0,88
 	NEG	 $0,0,$0
@@ -5082,11 +5083,11 @@ L108	SET	 $0,0
 	JMP	 L109
 L110	SET	 $0,0
 	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,88
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	SET	 $0,$253
+	SET	 $1,88
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	STO	 $2,$0,0
 L112	SET	 $1,$253
@@ -5112,38 +5113,38 @@ L111	SET	 $0,$253
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,72
-	SET	 $1,$1
-	MUL	 $1,$2,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $1,88
-	NEG	 $1,0,$1
+	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,8
+	SET	 $2,72
 	SET	 $2,$2
 	MUL	 $1,$1,$2
 	SET	 $1,$1
 	ADD	 $0,$0,$1
 	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,0
+	SET	 $1,$253
+	SET	 $2,88
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,8
+	SET	 $1,$1
+	MUL	 $1,$2,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
-	CMP	 $0,$1,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
 	ZSNZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L118
@@ -5152,29 +5153,29 @@ L113	SET	 $0,$253
 	NEG	 $1,0,$1
 	SET	 $1,$1
 	ADD	 $0,$0,$1
-	SET	 $1,$0
-	SET	 $0,$253
-	LDO	 $0,$0,0
-	SET	 $2,$0
-	SET	 $0,8
 	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $2,$2,$3
+	SET	 $1,$253
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,72
 	SET	 $2,$2
-	MUL	 $2,$3,$2
+	SET	 $3,72
+	SET	 $3,$3
+	MUL	 $2,$2,$3
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
 	SET	 $3,$253
 	SET	 $2,88
 	NEG	 $2,0,$2
@@ -5187,46 +5188,46 @@ L113	SET	 $0,$253
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $1,$1
 	SET	 $2,8
 	SET	 $2,$2
-	MUL	 $0,$0,$2
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	MUL	 $1,$1,$2
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
 	BZ	 $0,L117
 L115	SET	 $0,0
-	SET	 $2,$0
-	SET	 $1,$253
+	SET	 $1,$0
+	SET	 $2,$253
 	SET	 $0,96
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$1,$0
+	ADD	 $0,$2,$0
 	SET	 $0,$0
-	STO	 $2,$0,0
+	STO	 $1,$0,0
 	JMP	 L116
 L117	SET	 $0,1
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,80
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
 	SET	 $0,$0
 	SET	 $2,$253
-	SET	 $1,80
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $2,$1
-	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $3,$1
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$3,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	SET	 $3,8
+	SET	 $3,$3
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
 	SET	 $4,$253
 	SET	 $3,8
 	SET	 $3,$3
@@ -5238,13 +5239,13 @@ L117	SET	 $0,1
 	SET	 $3,$3
 	MUL	 $3,$4,$3
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $4,88
-	NEG	 $4,0,$4
-	SET	 $4,$4
-	ADD	 $3,$3,$4
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	SET	 $4,$253
+	SET	 $3,88
+	NEG	 $3,0,$3
+	SET	 $3,$3
+	ADD	 $3,$4,$3
 	SET	 $3,$3
 	LDO	 $3,$3,0
 	SET	 $4,$3
@@ -5252,44 +5253,44 @@ L117	SET	 $0,1
 	SET	 $3,$3
 	MUL	 $3,$4,$3
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
 	SET	 $3,8
 	SET	 $3,$3
-	MUL	 $1,$1,$3
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
+	MUL	 $2,$2,$3
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
 L116	JMP	 L114
 L118	SWYM	0,4,2 %Two labels one after another
-L114	SET	 $1,$253
+L114	SET	 $0,$253
+	SET	 $1,88
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $2,$0
+	SET	 $1,$253
 	SET	 $0,88
 	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $1,88
+	STO	 $2,$0,0
+	JMP	 L112
+L119	SET	 $0,$253
+	SET	 $1,96
 	NEG	 $1,0,$1
 	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	STO	 $0,$1,0
-	JMP	 L112
-L119	SET	 $1,$253
-	SET	 $0,96
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -5322,23 +5323,23 @@ L27	SET	 $0,112
 	SUB	 SP,SP,$0
 	JMP	 L196
 L196	SET	 $0,1
+	SET	 $2,$0
+	SET	 $0,$253
+	SET	 $1,96
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	STO	 $2,$0,0
+	SET	 $0,1
 	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $0,96
+	SET	 $0,88
 	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$2,$0
 	SET	 $0,$0
 	STO	 $1,$0,0
-	SET	 $0,1
-	SET	 $2,$0
-	SET	 $1,$253
-	SET	 $0,88
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	STO	 $2,$0,0
 L121	SET	 $1,$253
 	SET	 $0,88
 	NEG	 $0,0,$0
@@ -5354,13 +5355,13 @@ L121	SET	 $1,$253
 	SET	 $0,$0
 	BZ	 $0,L122
 L120	SET	 $0,0
-	SET	 $0,$0
+	SET	 $1,$0
 	SET	 $2,$253
-	SET	 $1,80
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
+	SET	 $0,80
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
 	SET	 $2,$253
 	SET	 $3,88
 	NEG	 $3,0,$3
@@ -5373,28 +5374,28 @@ L120	SET	 $0,0
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	STO	 $0,$1,0
-	SET	 $0,$253
-	SET	 $1,88
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+	ADD	 $0,$0,$2
 	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $1,$0
-	SET	 $2,$253
+	STO	 $1,$0,0
+	SET	 $1,$253
 	SET	 $0,88
 	NEG	 $0,0,$0
 	SET	 $0,$0
-	ADD	 $0,$2,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $1,$0,0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $2,$0
+	SET	 $1,$253
+	SET	 $0,88
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
 	JMP	 L121
 L122	SET	 $0,0
 	SET	 $1,$0
@@ -5405,17 +5406,17 @@ L122	SET	 $0,0
 	ADD	 $0,$0,$2
 	SET	 $0,$0
 	STO	 $1,$0,0
-L124	SET	 $0,$253
-	SET	 $1,88
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+L124	SET	 $1,$253
+	SET	 $0,88
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,9
 	SET	 $0,$0
-	CMP	 $0,$1,$0
+	SET	 $1,9
+	SET	 $1,$1
+	CMP	 $0,$0,$1
 	ZSN	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L131
@@ -5435,17 +5436,17 @@ L123	SET	 $0,$253
 	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,72
 	SET	 $1,$1
-	MUL	 $1,$2,$1
+	SET	 $2,72
+	SET	 $2,$2
+	MUL	 $1,$1,$2
 	SET	 $1,$1
 	ADD	 $0,$0,$1
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $1,$1,$2
+	SET	 $2,$253
+	SET	 $1,8
+	SET	 $1,$1
+	ADD	 $1,$2,$1
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $2,$1
@@ -5456,33 +5457,33 @@ L123	SET	 $0,$253
 	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,0
 	SET	 $0,$0
-	CMP	 $0,$1,$0
+	SET	 $1,0
+	SET	 $1,$1
+	CMP	 $0,$0,$1
 	ZSNZ	 $0,$0,1
 	SET	 $0,$0
 	BZ	 $0,L130
-L125	SET	 $1,$253
-	SET	 $0,80
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L125	SET	 $0,$253
+	SET	 $1,80
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $1,$0
 	SET	 $0,$253
 	LDO	 $0,$0,0
+	SET	 $2,$0
+	SET	 $0,8
 	SET	 $0,$0
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $0,$0,$2
+	ADD	 $0,$2,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $3,$253
-	SET	 $2,88
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
+	SET	 $2,$253
+	SET	 $3,88
+	NEG	 $3,0,$3
+	SET	 $3,$3
+	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $3,$2
@@ -5498,18 +5499,18 @@ L125	SET	 $1,$253
 	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,8
 	SET	 $2,$2
-	SET	 $3,8
-	SET	 $3,$3
-	MUL	 $2,$2,$3
+	MUL	 $2,$3,$2
 	SET	 $2,$2
 	ADD	 $0,$0,$2
 	SET	 $0,$0
 	LDO	 $0,$0,0
-	SET	 $2,$0
-	SET	 $0,8
 	SET	 $0,$0
-	MUL	 $0,$2,$0
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $0,$0,$2
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
@@ -5517,14 +5518,14 @@ L125	SET	 $1,$253
 	SET	 $0,$0
 	BZ	 $0,L129
 L127	SET	 $0,0
-	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,96
-	NEG	 $0,0,$0
+	SET	 $2,$0
+	SET	 $0,$253
+	SET	 $1,96
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
-	ADD	 $0,$2,$0
-	SET	 $0,$0
-	STO	 $1,$0,0
+	STO	 $2,$0,0
 	JMP	 L128
 L129	SET	 $0,1
 	SET	 $1,$0
@@ -5536,18 +5537,18 @@ L129	SET	 $0,1
 	SET	 $2,$0
 	SET	 $0,$253
 	LDO	 $0,$0,0
+	SET	 $3,$0
+	SET	 $0,8
 	SET	 $0,$0
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $0,$0,$3
+	ADD	 $0,$3,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
-	SET	 $3,$253
-	SET	 $4,88
-	NEG	 $4,0,$4
-	SET	 $4,$4
-	ADD	 $3,$3,$4
+	SET	 $4,$253
+	SET	 $3,88
+	NEG	 $3,0,$3
+	SET	 $3,$3
+	ADD	 $3,$4,$3
 	SET	 $3,$3
 	LDO	 $3,$3,0
 	SET	 $4,$3
@@ -5557,35 +5558,35 @@ L129	SET	 $0,1
 	SET	 $3,$3
 	ADD	 $0,$0,$3
 	SET	 $0,$0
-	SET	 $3,$253
-	SET	 $4,8
-	SET	 $4,$4
-	ADD	 $3,$3,$4
+	SET	 $4,$253
+	SET	 $3,8
+	SET	 $3,$3
+	ADD	 $3,$4,$3
 	SET	 $3,$3
 	LDO	 $3,$3,0
+	SET	 $4,$3
+	SET	 $3,8
 	SET	 $3,$3
-	SET	 $4,8
-	SET	 $4,$4
-	MUL	 $3,$3,$4
+	MUL	 $3,$4,$3
 	SET	 $3,$3
 	ADD	 $0,$0,$3
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $3,$0
+	SET	 $0,8
 	SET	 $0,$0
-	SET	 $3,8
-	SET	 $3,$3
-	MUL	 $0,$0,$3
+	MUL	 $0,$3,$0
 	SET	 $0,$0
 	ADD	 $0,$2,$0
 	SET	 $0,$0
 	STO	 $1,$0,0
 L128	JMP	 L126
 L130	SWYM	0,4,2 %Two labels one after another
-L126	SET	 $1,$253
-	SET	 $0,88
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L126	SET	 $0,$253
+	SET	 $1,88
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $1,$0
@@ -5593,19 +5594,19 @@ L126	SET	 $1,$253
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $1,$0
-	SET	 $2,$253
-	SET	 $0,88
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$2,$0
+	SET	 $0,$253
+	SET	 $2,88
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
 	SET	 $0,$0
 	STO	 $1,$0,0
 	JMP	 L124
-L131	SET	 $1,$253
-	SET	 $0,96
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
+L131	SET	 $0,$253
+	SET	 $1,96
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
@@ -5647,41 +5648,41 @@ L198	SET	 $0,1
 	SET	 $0,$0
 	STO	 $1,$0,0
 	SET	 $0,1
-	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,104
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	STO	 $0,$1,0
-L133	SET	 $1,$253
-	SET	 $0,104
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,9
-	SET	 $0,$0
-	CMP	 $0,$1,$0
-	ZSNP	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L134
-L132	SET	 $0,0
 	SET	 $1,$0
 	SET	 $0,$253
-	SET	 $2,80
+	SET	 $2,104
 	NEG	 $2,0,$2
 	SET	 $2,$2
 	ADD	 $0,$0,$2
 	SET	 $0,$0
-	SET	 $2,$253
-	SET	 $3,104
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $2,$2,$3
+	STO	 $1,$0,0
+L133	SET	 $0,$253
+	SET	 $1,104
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,9
+	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSNP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L134
+L132	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	SET	 $2,80
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $2,104
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $3,$2
@@ -5689,9 +5690,9 @@ L132	SET	 $0,0
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	STO	 $1,$0,0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
 	SET	 $1,$253
 	SET	 $0,104
 	NEG	 $0,0,$0
@@ -5699,28 +5700,28 @@ L132	SET	 $0,0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
 	SET	 $0,$0
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $2,$0
-	SET	 $0,$253
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	SET	 $2,$253
 	SET	 $1,104
 	NEG	 $1,0,$1
 	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	STO	 $2,$0,0
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
 	JMP	 L133
 L134	SET	 $0,0
-	SET	 $2,$0
-	SET	 $0,$253
-	SET	 $1,96
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
 	SET	 $0,$0
-	STO	 $2,$0,0
+	SET	 $1,$253
+	SET	 $2,96
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
 L136	SET	 $1,$253
 	SET	 $0,96
 	NEG	 $0,0,$0
@@ -5767,8 +5768,35 @@ L137	SET	 $0,$253
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,16
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,3
+	SET	 $1,$1
+	MUL	 $1,$2,$1
+	SET	 $1,$1
+	SET	 $3,$253
+	SET	 $2,96
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $2,$1
+	SET	 $1,72
+	SET	 $1,$1
+	MUL	 $1,$2,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
 	SET	 $1,$253
-	SET	 $2,16
+	SET	 $2,8
 	SET	 $2,$2
 	ADD	 $1,$1,$2
 	SET	 $1,$1
@@ -5779,7 +5807,7 @@ L137	SET	 $0,$253
 	MUL	 $1,$1,$2
 	SET	 $1,$1
 	SET	 $2,$253
-	SET	 $3,96
+	SET	 $3,88
 	NEG	 $3,0,$3
 	SET	 $3,$3
 	ADD	 $2,$2,$3
@@ -5788,72 +5816,45 @@ L137	SET	 $0,$253
 	SET	 $2,$2
 	ADD	 $1,$1,$2
 	SET	 $1,$1
-	SET	 $2,72
+	SET	 $2,8
 	SET	 $2,$2
 	MUL	 $1,$1,$2
 	SET	 $1,$1
 	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
 	SET	 $1,$0
-	SET	 $2,$253
+	SET	 $0,0
+	SET	 $0,$0
+	CMP	 $0,$1,$0
+	ZSNZ	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L144
+L139	SET	 $0,$253
+	SET	 $1,80
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $1,$0
+	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $2,$0
 	SET	 $0,8
 	SET	 $0,$0
 	ADD	 $0,$2,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $2,$0
-	SET	 $0,3
-	SET	 $0,$0
-	MUL	 $0,$2,$0
-	SET	 $0,$0
-	SET	 $3,$253
-	SET	 $2,88
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	SET	 $2,8
-	SET	 $2,$2
-	MUL	 $0,$0,$2
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1,0
-	SET	 $1,$1
-	CMP	 $0,$0,$1
-	ZSNZ	 $0,$0,1
-	SET	 $0,$0
-	BZ	 $0,L144
-L139	SET	 $1,$253
-	SET	 $0,80
-	NEG	 $0,0,$0
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $2,$0
-	SET	 $0,$253
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,8
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
 	SET	 $0,$253
 	SET	 $3,16
 	SET	 $3,$3
 	ADD	 $0,$0,$3
 	SET	 $0,$0
 	LDO	 $0,$0,0
+	SET	 $3,$0
+	SET	 $0,3
 	SET	 $0,$0
-	SET	 $3,3
-	SET	 $3,$3
-	MUL	 $0,$0,$3
+	MUL	 $0,$3,$0
 	SET	 $0,$0
 	SET	 $4,$253
 	SET	 $3,96
@@ -5869,19 +5870,19 @@ L139	SET	 $1,$253
 	SET	 $0,$0
 	MUL	 $0,$3,$0
 	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $0,$0
-	SET	 $1,$253
+	ADD	 $0,$2,$0
+	SET	 $2,$0
+	SET	 $0,$253
 	SET	 $3,8
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $3,$1
-	SET	 $1,3
-	SET	 $1,$1
-	MUL	 $1,$3,$1
-	SET	 $1,$1
+	ADD	 $0,$0,$3
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $3,3
+	SET	 $3,$3
+	MUL	 $0,$0,$3
+	SET	 $0,$0
 	SET	 $4,$253
 	SET	 $3,88
 	NEG	 $3,0,$3
@@ -5890,49 +5891,49 @@ L139	SET	 $1,$253
 	SET	 $3,$3
 	LDO	 $3,$3,0
 	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $3,$1
-	SET	 $1,8
-	SET	 $1,$1
-	MUL	 $1,$3,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
+	ADD	 $0,$0,$3
+	SET	 $3,$0
+	SET	 $0,8
 	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $0,$0
-	SET	 $1,8
-	SET	 $1,$1
-	MUL	 $0,$0,$1
+	MUL	 $0,$3,$0
 	SET	 $0,$0
 	ADD	 $0,$2,$0
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $0,$0,$2
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
 	BZ	 $0,L143
 L141	SET	 $0,0
-	SET	 $2,$0
-	SET	 $0,$253
+	SET	 $0,$0
+	SET	 $2,$253
 	SET	 $1,112
 	NEG	 $1,0,$1
 	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	STO	 $2,$0,0
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
 	JMP	 L142
 L143	SET	 $0,1
-	SET	 $1,$0
-	SET	 $0,$253
-	SET	 $2,80
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $0,$0,$2
 	SET	 $0,$0
 	SET	 $2,$253
+	SET	 $1,80
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	SET	 $2,$253
 	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,8
 	SET	 $2,$2
-	ADD	 $2,$3,$2
+	SET	 $3,8
+	SET	 $3,$3
+	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $4,$2
@@ -5946,80 +5947,80 @@ L143	SET	 $0,1
 	SET	 $2,3
 	SET	 $2,$2
 	MUL	 $2,$3,$2
-	SET	 $3,$2
-	SET	 $2,$253
+	SET	 $2,$2
+	SET	 $3,$253
 	SET	 $5,96
 	NEG	 $5,0,$5
 	SET	 $5,$5
-	ADD	 $2,$2,$5
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $3,$2
-	SET	 $2,72
-	SET	 $2,$2
-	MUL	 $2,$3,$2
-	SET	 $2,$2
-	ADD	 $2,$4,$2
-	SET	 $4,$2
-	SET	 $2,$253
-	SET	 $3,8
+	ADD	 $3,$3,$5
+	SET	 $3,$3
+	LDO	 $3,$3,0
 	SET	 $3,$3
 	ADD	 $2,$2,$3
 	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,3
+	SET	 $3,72
 	SET	 $3,$3
 	MUL	 $2,$2,$3
-	SET	 $3,$2
-	SET	 $2,$253
-	SET	 $5,88
-	NEG	 $5,0,$5
-	SET	 $5,$5
-	ADD	 $2,$2,$5
 	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	ADD	 $2,$3,$2
+	ADD	 $2,$4,$2
 	SET	 $3,$2
+	SET	 $4,$253
 	SET	 $2,8
-	SET	 $2,$2
-	MUL	 $2,$3,$2
 	SET	 $2,$2
 	ADD	 $2,$4,$2
 	SET	 $2,$2
 	LDO	 $2,$2,0
+	SET	 $4,$2
+	SET	 $2,3
+	SET	 $2,$2
+	MUL	 $2,$4,$2
+	SET	 $2,$2
+	SET	 $4,$253
+	SET	 $5,88
+	NEG	 $5,0,$5
+	SET	 $5,$5
+	ADD	 $4,$4,$5
+	SET	 $4,$4
+	LDO	 $4,$4,0
+	SET	 $4,$4
+	ADD	 $2,$2,$4
+	SET	 $4,$2
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $2,$4,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
 	SET	 $3,$2
 	SET	 $2,8
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $0,$0,$2
-	SET	 $0,$0
-	STO	 $1,$0,0
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
 L142	JMP	 L140
 L144	SWYM	0,4,2 %Two labels one after another
-L140	SET	 $0,$253
-	SET	 $1,88
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $0,$0,$1
-	SET	 $0,$0
-	LDO	 $0,$0,0
-	SET	 $1,$0
-	SET	 $0,1
-	SET	 $0,$0
-	ADD	 $0,$1,$0
-	SET	 $2,$0
-	SET	 $1,$253
+L140	SET	 $1,$253
 	SET	 $0,88
 	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
 	SET	 $0,$0
-	STO	 $2,$0,0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,88
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
 	JMP	 L138
 L145	SET	 $1,$253
 	SET	 $0,96
@@ -6032,14 +6033,14 @@ L145	SET	 $1,$253
 	SET	 $0,1
 	SET	 $0,$0
 	ADD	 $0,$1,$0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,96
+	NEG	 $0,0,$0
 	SET	 $0,$0
-	SET	 $1,$253
-	SET	 $2,96
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	STO	 $0,$1,0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
 	JMP	 L136
 L146	SET	 $0,$253
 	SET	 $1,112
@@ -6077,35 +6078,271 @@ L30	SET	 $0,48
 	SET	 $0,72
 	SUB	 SP,SP,$0
 	JMP	 L200
-L200	SET	 $1,0
-	SET	 $2,$1
-	LDA	 $3,L29
-	LDO	 $1,$3,0
-	SET	 $1,$3
-	STO	 $2,$254,0
-	STO	 $1,$254,8
+L200	SET	 $0,0
+	SET	 $1,$0
+	LDA	 $0,L29
+	LDO	 $2,$0,0
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
 	PUSHJ	 $8,_putString
-	LDO	 $1,$254,0
-	SET	 $1,0
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,10
 	SET	 $1,$1
-	SET	 $2,10
-	SET	 $3,$2
 	SET	 $2,256
 	SET	 $2,$2
-	DIV	 $2,$3,$2
-	GET	 $2,rR
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $1,$254,0
-	SET	 $2,$253
-	SET	 $1,8
+	DIV	 $1,$1,$2
+	GET	 $1,rR
 	SET	 $1,$1
-	ADD	 $1,$2,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $1,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	SET	 $2,16
+	SET	 $2,$2
+	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
+	CMP	 $0,$0,$1
+	ZSZ	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L158
+L147	SET	 $0,1
+	SET	 $0,$0
+	BZ	 $0,L157
+L149	SET	 $0,0
+	SET	 $2,$0
+	SET	 $1,$253
+	SET	 $0,16
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
+L152	SET	 $0,$253
+	SET	 $1,16
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,9
+	SET	 $0,$0
+	CMP	 $0,$1,$0
+	ZSN	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L156
+L151	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,24
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+L154	SET	 $1,$253
+	SET	 $0,24
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,9
+	SET	 $0,$0
+	CMP	 $0,$1,$0
+	ZSN	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L155
+L153	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $2,$0
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $3,16
+	NEG	 $3,0,$3
+	SET	 $3,$3
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,72
+	SET	 $2,$2
+	MUL	 $2,$3,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	SET	 $3,$253
+	SET	 $2,24
+	NEG	 $2,0,$2
+	SET	 $2,$2
+	ADD	 $2,$3,$2
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $2,$3,$2
+	SET	 $2,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putInt
+	LDO	 $0,$254,0
+	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,32
+	SET	 $0,$0
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $1,$253
+	SET	 $0,24
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $2,$0
+	SET	 $1,$253
+	SET	 $0,24
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
+	JMP	 L154
+L155	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,10
+	SET	 $1,$1
+	SET	 $2,256
+	SET	 $2,$2
+	DIV	 $1,$1,$2
+	GET	 $1,rR
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	SET	 $0,$253
+	SET	 $1,16
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,16
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L152
+L156	SET	 $0,0
+	SET	 $0,$0
+	SET	 $1,10
+	SET	 $2,$1
+	SET	 $1,256
+	SET	 $1,$1
+	DIV	 $1,$2,$1
+	GET	 $1,rR
+	SET	 $1,$1
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,_putChar
+	LDO	 $0,$254,0
+	JMP	 L150
+L157	SWYM	0,4,2 %Two labels one after another
+L150	SET	 $0,0
+	SET	 $0,1
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L148
+L158	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	SET	 $2,8
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	LDO	 $1,$1,0
+	SET	 $2,$1
+	SET	 $1,8
+	SET	 $1,$1
+	MUL	 $1,$2,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,0
+	SET	 $0,$0
+	CMP	 $0,$1,$0
+	ZSNZ	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L161
+L159	SET	 $0,0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $2,$0
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
 	SET	 $3,$253
 	SET	 $2,16
 	SET	 $2,$2
@@ -6113,48 +6350,88 @@ L200	SET	 $1,0
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
-	CMP	 $1,$1,$2
-	ZSZ	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L158
-L147	SET	 $1,1
-	SET	 $1,$1
-	BZ	 $1,L157
-L149	SET	 $1,0
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,16
+	STO	 $1,$254,0
+	STO	 $0,$254,8
+	STO	 $2,$254,16
+	PUSHJ	 $8,L30
+	LDO	 $0,$254,0
+	SET	 $1,$0
+	SET	 $0,$253
+	SET	 $2,8
 	NEG	 $2,0,$2
 	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-L152	SET	 $1,$253
-	SET	 $2,16
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+	JMP	 L160
+L161	SET	 $0,0
+	SET	 $1,$0
+	SET	 $2,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	STO	 $1,$0,0
+	SET	 $0,1
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,32
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $1,$2,$1
+	SET	 $1,$1
+	STO	 $0,$1,0
+L163	SET	 $1,$253
+	SET	 $0,32
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,9
+	SET	 $0,$0
+	CMP	 $0,$1,$0
+	ZSNP	 $0,$0,1
+	SET	 $0,$0
+	BZ	 $0,L167
+L162	SET	 $1,$253
+	SET	 $0,32
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
+	SET	 $1,$253
+	LDO	 $1,$1,0
+	SET	 $1,$1
+	SET	 $2,8
 	NEG	 $2,0,$2
 	SET	 $2,$2
 	ADD	 $1,$1,$2
 	SET	 $1,$1
 	LDO	 $1,$1,0
 	SET	 $1,$1
-	SET	 $2,9
-	SET	 $2,$2
-	CMP	 $1,$1,$2
-	ZSN	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L156
-L151	SET	 $1,0
-	SET	 $1,$1
 	SET	 $2,$253
-	SET	 $3,24
-	NEG	 $3,0,$3
+	SET	 $3,8
 	SET	 $3,$3
 	ADD	 $2,$2,$3
 	SET	 $2,$2
-	STO	 $1,$2,0
-L154	SET	 $2,$253
-	SET	 $1,24
-	NEG	 $1,0,$1
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,8
+	SET	 $2,$2
+	MUL	 $2,$3,$2
+	SET	 $2,$2
+	ADD	 $1,$1,$2
+	SET	 $1,$1
+	STO	 $0,$1,0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $1,8
 	SET	 $1,$1
 	ADD	 $1,$2,$1
 	SET	 $1,$1
@@ -6162,152 +6439,133 @@ L154	SET	 $2,$253
 	SET	 $2,$1
 	SET	 $1,9
 	SET	 $1,$1
-	CMP	 $1,$2,$1
-	ZSN	 $1,$1,1
+	DIV	 $1,$2,$1
 	SET	 $1,$1
-	BZ	 $1,L155
-L153	SET	 $1,0
+	STO	 $0,$254,0
+	STO	 $1,$254,8
+	PUSHJ	 $8,L26
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	SET	 $1,0
 	SET	 $1,$1
 	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $4,$253
-	SET	 $3,16
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,72
-	SET	 $3,$3
-	MUL	 $3,$4,$3
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	SET	 $4,$253
-	SET	 $3,24
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
 	SET	 $3,8
 	SET	 $3,$3
-	MUL	 $3,$4,$3
-	SET	 $3,$3
 	ADD	 $2,$2,$3
 	SET	 $2,$2
 	LDO	 $2,$2,0
 	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_putInt
-	LDO	 $1,$254,0
-	SET	 $1,0
-	SET	 $2,$1
-	SET	 $1,32
-	SET	 $1,$1
-	STO	 $2,$254,0
-	STO	 $1,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $1,$254,0
-	SET	 $2,$253
-	SET	 $1,24
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,24
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L154
-L155	SET	 $1,0
-	SET	 $1,$1
-	SET	 $2,10
-	SET	 $3,$2
-	SET	 $2,256
-	SET	 $2,$2
-	DIV	 $2,$3,$2
-	GET	 $2,rR
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,_putChar
-	LDO	 $1,$254,0
-	SET	 $2,$253
-	SET	 $1,16
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,1
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,16
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L152
-L156	SET	 $1,0
-	SET	 $1,$1
-	SET	 $2,10
-	SET	 $2,$2
-	SET	 $3,256
+	SET	 $3,9
 	SET	 $3,$3
 	DIV	 $2,$2,$3
 	GET	 $2,rR
 	SET	 $2,$2
 	STO	 $1,$254,0
 	STO	 $2,$254,8
-	PUSHJ	 $8,_putChar
+	PUSHJ	 $8,L27
 	LDO	 $1,$254,0
-	JMP	 L150
-L157	SWYM	0,4,2 %Two labels one after another
-L150	SET	 $1,0
-	SET	 $1,1
 	SET	 $1,$1
+	AND	 $0,$0,$1
+	SET	 $1,$0
+	SET	 $0,0
+	SET	 $2,$0
 	SET	 $3,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
+	SET	 $0,8
+	SET	 $0,$0
+	ADD	 $0,$3,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $3,$0
+	SET	 $0,9
+	SET	 $0,$0
+	DIV	 $0,$3,$0
+	SET	 $3,$0
+	SET	 $0,3
+	SET	 $0,$0
+	DIV	 $0,$3,$0
+	SET	 $0,$0
+	SET	 $3,$253
+	SET	 $4,8
+	SET	 $4,$4
+	ADD	 $3,$3,$4
+	SET	 $3,$3
+	LDO	 $3,$3,0
+	SET	 $4,$3
+	SET	 $3,9
+	SET	 $3,$3
+	DIV	 $3,$4,$3
+	GET	 $3,rR
+	SET	 $4,$3
+	SET	 $3,3
+	SET	 $3,$3
+	DIV	 $3,$4,$3
+	SET	 $3,$3
+	STO	 $2,$254,0
+	STO	 $0,$254,8
+	STO	 $3,$254,16
+	PUSHJ	 $8,L28
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	AND	 $0,$1,$0
+	SET	 $0,$0
+	BZ	 $0,L166
+L164	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $1,$0
+	SET	 $0,0
+	SET	 $0,$0
+	SET	 $2,$253
+	SET	 $3,8
+	SET	 $3,$3
+	ADD	 $2,$2,$3
+	SET	 $2,$2
+	LDO	 $2,$2,0
+	SET	 $3,$2
+	SET	 $2,1
 	SET	 $2,$2
 	ADD	 $2,$3,$2
 	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L148
-L158	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
+	SET	 $4,$253
+	SET	 $3,16
+	SET	 $3,$3
+	ADD	 $3,$4,$3
+	SET	 $3,$3
+	LDO	 $3,$3,0
+	SET	 $3,$3
+	STO	 $0,$254,0
+	STO	 $2,$254,8
+	STO	 $3,$254,16
+	PUSHJ	 $8,L30
+	LDO	 $0,$254,0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $2,$0
+	SET	 $1,$253
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
+	JMP	 L165
+L166	SWYM	0,4,2 %Two labels one after another
+L165	SET	 $0,0
+	SET	 $1,$0
+	SET	 $0,$253
+	LDO	 $0,$0,0
+	SET	 $2,$0
+	SET	 $0,8
+	NEG	 $0,0,$0
+	SET	 $0,$0
+	ADD	 $0,$2,$0
+	SET	 $0,$0
+	LDO	 $0,$0,0
+	SET	 $0,$0
 	SET	 $3,$253
 	SET	 $2,8
 	SET	 $2,$2
@@ -6319,288 +6577,36 @@ L158	SET	 $1,$253
 	SET	 $2,$2
 	MUL	 $2,$3,$2
 	SET	 $2,$2
-	ADD	 $1,$1,$2
+	ADD	 $0,$0,$2
+	SET	 $0,$0
+	STO	 $1,$0,0
+	SET	 $0,$253
+	SET	 $1,32
+	NEG	 $1,0,$1
 	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,0
-	SET	 $1,$1
-	CMP	 $1,$2,$1
-	ZSNZ	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L161
-L159	SET	 $1,$0
-	SET	 $3,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,1
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	SET	 $4,$253
-	SET	 $3,16
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $3,$3
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	STO	 $3,$254,16
-	PUSHJ	 $8,L30
-	LDO	 $1,$254,0
-	SET	 $1,$1
-	SET	 $2,$253
-	SET	 $3,8
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L160
-L161	SET	 $1,0
-	SET	 $1,$1
-	SET	 $2,$253
-	SET	 $3,8
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	STO	 $1,$2,0
-	SET	 $1,1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,32
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-L163	SET	 $1,$253
-	SET	 $2,32
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,9
-	SET	 $1,$1
-	CMP	 $1,$2,$1
-	ZSNP	 $1,$1,1
-	SET	 $1,$1
-	BZ	 $1,L167
-L162	SET	 $1,$253
-	SET	 $2,32
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $2,$253
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $3,8
-	NEG	 $3,0,$3
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $2,$2
-	SET	 $4,$253
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $3,$3
-	SET	 $4,8
-	SET	 $4,$4
-	MUL	 $3,$3,$4
-	SET	 $3,$3
-	ADD	 $2,$2,$3
-	SET	 $2,$2
-	STO	 $1,$2,0
+	ADD	 $0,$0,$1
+	SET	 $0,$0
+	LDO	 $0,$0,0
 	SET	 $1,$0
-	SET	 $3,$253
-	SET	 $2,8
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	LDO	 $2,$2,0
-	SET	 $3,$2
-	SET	 $2,9
-	SET	 $2,$2
-	DIV	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$254,0
-	STO	 $2,$254,8
-	PUSHJ	 $8,L26
-	LDO	 $1,$254,0
-	SET	 $1,$1
+	SET	 $0,1
+	SET	 $0,$0
+	ADD	 $0,$1,$0
 	SET	 $2,$0
-	SET	 $3,$253
-	SET	 $4,8
-	SET	 $4,$4
-	ADD	 $3,$3,$4
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $3,$3
-	SET	 $4,9
-	SET	 $4,$4
-	DIV	 $3,$3,$4
-	GET	 $3,rR
-	SET	 $3,$3
-	STO	 $2,$254,0
-	STO	 $3,$254,8
-	PUSHJ	 $8,L27
-	LDO	 $2,$254,0
-	SET	 $2,$2
-	AND	 $1,$1,$2
-	SET	 $1,$1
-	SET	 $2,$0
-	SET	 $4,$253
-	SET	 $3,8
-	SET	 $3,$3
-	ADD	 $3,$4,$3
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,9
-	SET	 $3,$3
-	DIV	 $3,$4,$3
-	SET	 $3,$3
-	SET	 $4,3
-	SET	 $4,$4
-	DIV	 $3,$3,$4
-	SET	 $3,$3
-	SET	 $4,$253
-	SET	 $5,8
-	SET	 $5,$5
-	ADD	 $4,$4,$5
-	SET	 $4,$4
-	LDO	 $4,$4,0
-	SET	 $4,$4
-	SET	 $5,9
-	SET	 $5,$5
-	DIV	 $4,$4,$5
-	GET	 $4,rR
-	SET	 $4,$4
-	SET	 $5,3
-	SET	 $5,$5
-	DIV	 $4,$4,$5
-	SET	 $4,$4
-	STO	 $2,$254,0
-	STO	 $3,$254,8
-	STO	 $4,$254,16
-	PUSHJ	 $8,L28
-	LDO	 $2,$254,0
-	SET	 $2,$2
-	AND	 $1,$1,$2
-	SET	 $1,$1
-	BZ	 $1,L166
-L164	SET	 $2,$253
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $3,$1
-	SET	 $2,$0
-	SET	 $4,$253
-	SET	 $1,8
-	SET	 $1,$1
-	ADD	 $1,$4,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $4,$1
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $1,$4,$1
-	SET	 $1,$1
-	SET	 $4,$253
-	SET	 $5,16
-	SET	 $5,$5
-	ADD	 $4,$4,$5
-	SET	 $4,$4
-	LDO	 $4,$4,0
-	SET	 $4,$4
-	STO	 $2,$254,0
-	STO	 $1,$254,8
-	STO	 $4,$254,16
-	PUSHJ	 $8,L30
-	LDO	 $1,$254,0
-	SET	 $1,$1
-	ADD	 $1,$3,$1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,8
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L165
-L166	SWYM	0,4,2 %Two labels one after another
-L165	SET	 $1,0
-	SET	 $2,$1
 	SET	 $1,$253
-	LDO	 $1,$1,0
-	SET	 $3,$1
-	SET	 $1,8
-	NEG	 $1,0,$1
-	SET	 $1,$1
-	ADD	 $1,$3,$1
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $4,8
-	SET	 $4,$4
-	ADD	 $3,$3,$4
-	SET	 $3,$3
-	LDO	 $3,$3,0
-	SET	 $4,$3
-	SET	 $3,8
-	SET	 $3,$3
-	MUL	 $3,$4,$3
-	SET	 $3,$3
-	ADD	 $1,$1,$3
-	SET	 $1,$1
-	STO	 $2,$1,0
-	SET	 $1,$253
-	SET	 $2,32
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $1,$1,$2
-	SET	 $1,$1
-	LDO	 $1,$1,0
-	SET	 $2,$1
-	SET	 $1,1
-	SET	 $1,$1
-	ADD	 $1,$2,$1
-	SET	 $1,$1
-	SET	 $3,$253
-	SET	 $2,32
-	NEG	 $2,0,$2
-	SET	 $2,$2
-	ADD	 $2,$3,$2
-	SET	 $2,$2
-	STO	 $1,$2,0
-	JMP	 L163
-L167	SET	 $0,0
-L160	SWYM	0,4,2 %Two labels one after another
-L148	SET	 $1,$253
-	SET	 $0,8
+	SET	 $0,32
 	NEG	 $0,0,$0
 	SET	 $0,$0
 	ADD	 $0,$1,$0
+	SET	 $0,$0
+	STO	 $2,$0,0
+	JMP	 L163
+L167	SET	 $0,0
+L160	SWYM	0,4,2 %Two labels one after another
+L148	SET	 $0,$253
+	SET	 $1,8
+	NEG	 $1,0,$1
+	SET	 $1,$1
+	ADD	 $0,$0,$1
 	SET	 $0,$0
 	LDO	 $0,$0,0
 	SET	 $0,$0
