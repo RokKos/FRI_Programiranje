@@ -1,4 +1,0 @@
-var i:int;
-
-fun p (p1:int) : int = { none; :printf("foo") where var l :int; };
-fun printf(s:ptr char):int;

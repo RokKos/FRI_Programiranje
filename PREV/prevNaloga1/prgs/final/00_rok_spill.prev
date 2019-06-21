@@ -1,5 +1,0 @@
-fun main():int = {
-	test(1,2,3);
-	:42
-	where fun test(a:int, b:int, c:int):int=a;
-};

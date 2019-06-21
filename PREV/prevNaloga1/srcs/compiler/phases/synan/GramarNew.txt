@@ -61,7 +61,7 @@ RelExprRest -> .
 
 # Plus / Minus
 AddExpr -> MulExpr MulExprRest .
-AddExprRest -> + AddExpr AddExprRest .
+AddExprRest -> + AddExpr .
 AddExprRest -> - AddExpr AddExprRest .
 AddExprRest -> .
 

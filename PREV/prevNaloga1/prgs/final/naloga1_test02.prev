@@ -1,0 +1,15 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun main():int={
+    i = 1;
+    j = 2;
+    k = i + j + 5;
+    putInt(k);
+    :0
+    where
+      var i : int;
+      var j : int;
+      var k : int;
+
+};

@@ -1,6 +1,0 @@
-fun putString(s:ptr char):void;
-fun main():int={
-    putString("Rok Kos\n");
-    putString("Neki neki neki dakjdajskjska");
-    : 42
-};

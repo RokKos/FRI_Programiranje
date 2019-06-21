@@ -1,0 +1,12 @@
+fun main():int={
+    i = 1;
+    j = 2;
+    k = i + j + 5;
+    
+    :0
+    where
+      var i : int;
+      var j : int;
+      var k : int;
+
+};

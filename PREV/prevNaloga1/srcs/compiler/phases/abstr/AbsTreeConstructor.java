@@ -222,6 +222,10 @@ public class AbsTreeConstructor implements DerVisitor<AbsTree, AbsTree> {
 			Location loc = new Location(visArg, leftOperand);
 			AbsBinExpr binExpr = new AbsBinExpr(loc, oper, (AbsExpr) visArg, leftOperand);
 
+			if (oper == Oper.ADD) {
+				return binExpr;
+			}
+
 			AbsExpr rightOperand = (AbsExpr) node.subtree(2).accept(this, binExpr);
 			// rightOperand.location());
 			return rightOperand;

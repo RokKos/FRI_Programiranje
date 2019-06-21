@@ -602,6 +602,10 @@ public class SynAn extends Phase {
 				node.add(parseRelExpr());
 				break;
 
+			case ADD:
+			case SUB:
+				throw new Report.Error(currSymb.location(), "We do not allow 2 Adds in one expresion");
+
 			default:
 				throw new Report.Error(currSymb.location(),
 						EXPR_REL_REST_ERR_STR + GOT_STR + currSymb.token.toString());
@@ -648,7 +652,6 @@ public class SynAn extends Phase {
 			case ADD:
 				add(node, Symbol.Term.ADD, EXPECTED_SYMBOLS_STR + "+" + GOT_STR + currSymb.token.toString());
 				node.add(parseAddExpr());
-				node.add(parseAddExprRest());
 				break;
 
 			case SUB:
@@ -856,6 +859,9 @@ public class SynAn extends Phase {
 			add(node, Symbol.Term.IDENTIFIER, IDENTIFIER_ERR_STRING + currSymb.token.toString());
 			node.add(parsePstfExprRest());
 			break;
+
+		case IDENTIFIER:
+			throw new Report.Error(currSymb.location(), "We do not allow 2 Adds in one expresion");
 		default:
 			throw new Report.Error(currSymb.location(), EXPR_PSTF_REST_ERR_STR + GOT_STR + currSymb.token.toString());
 		}

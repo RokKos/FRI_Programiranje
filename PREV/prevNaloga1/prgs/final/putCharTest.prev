@@ -1,7 +1,0 @@
-fun putChar(c:char):void;
-fun main():int={
-    putChar('R');
-    putChar('o');
-    putChar('k');
-    : 42
-};

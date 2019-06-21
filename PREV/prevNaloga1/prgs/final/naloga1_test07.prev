@@ -1,0 +1,14 @@
+fun putInt(n:int):void;
+fun putChar(c:char):void;
+fun putString(s:ptr char):void;
+fun main():int={
+    j = 0;
+
+    i = i + {7 + 4; : j};
+    :0
+    where
+      var i : int;
+      var j : int;
+      var k : int;
+
+};
