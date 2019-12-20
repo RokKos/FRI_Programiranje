@@ -17,6 +17,7 @@ class MyBot(Bot):
     # Called only once before the match starts. It holds the
     # data that you may need before the game starts.
     def setup(self, initial_data):
+        
         print(initial_data)
         self.initial_data = initial_data
         self.mapHeight = int(initial_data["mapHeight"])
@@ -24,30 +25,32 @@ class MyBot(Bot):
         self.half_map_Width = int(self.mapWidth / 2)
         self.map = initial_data["map"]
         self.left_bot = False
+        self.possible_moves = [Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN]
         
-        
-        self.my_x = int(initial_data["yourUnit"]["x"])
+        self.my_distance_x = int(initial_data["yourUnit"]["x"])
+        self.my_map_x = self.my_distance_x
         self.my_y = int(initial_data["yourUnit"]["y"])
         self.my_part_of_map = [[False for i in range(0, self.half_map_Width)] for j in range(0, self.mapHeight)]
-        if (self.my_x == 0):
+        if (self.my_distance_x == 0):
             self.left_bot = True
             for y in range(0,self.mapHeight):
                 for x in range(0, self.half_map_Width):
                     self.my_part_of_map[y][x] = self.map[y][x]
         
-        elif(self.my_x == 19):
+        elif(self.my_distance_x == 19):
+            self.my_map_x -= self.half_map_Width
             self.left_bot = False
             for y in range(0,self.mapHeight):
                 for x in range(self.half_map_Width, self.mapWidth):
                     self.my_part_of_map[y][x - self.half_map_Width] = self.map[y][x - self.half_map_Width]
-
+        
+        self.print_debug("::setup")
         # Print out the map
         self.print_part_of_map(self.map, self.mapHeight, self.mapWidth)
         self.print_part_of_map(self.my_part_of_map, self.mapHeight, self.half_map_Width)
-        self.closest_coin = self.ChooseClosestCoin(initial_data["coins"])
-        self.print_debug(self.closest_coin)
-
+        
         self.Reset()
+        
 
     def print_debug(self, text):
         if (self.left_bot):
@@ -63,15 +66,28 @@ class MyBot(Bot):
             self.print_debug(map_line)
 
     def Reset(self):
+        self.print_debug("::Reset")
+        self.closest_coin = self.ChooseClosestCoin(self.initial_data["coins"])
+        self.print_debug("Closest coin: " + str(self.closest_coin))
+
         self.candidates = []
         self.costs_for_field = [[inf for _ in range(self.half_map_Width)] for __ in range(self.mapHeight)]
-        self.costs_for_field[self.my_y][self.my_x] = self.ManhatanDistance(self.my_x,self.my_y, self.closest_coin[0], self.closest_coin[1])
-        self.candidates.append(self.my_x, self.my_y)
+        self.print_debug("My coordinate: " + str(self.my_distance_x) + ", " + str(self.my_y))
+        self.costs_for_field[self.my_y][self.my_map_x] = self.ManhatanDistance(self.my_distance_x, self.my_y, self.closest_coin[0], self.closest_coin[1])    
+        
+
+        #self.PushCandidate((self.costs_for_field[self.my_y][self.my_distance_x], (self.my_distance_x, self.my_y)))
+        self.FindAllCandidates()
 
     def PushCandidate(self, elem):
+        self.print_debug("::PushCandidate")
         heapq.heappush(self.candidates, elem)  
+    def GetCandidate(self):
+        self.print_debug("::GetCandidate")
+        return heapq.heappop(self.candidates)  
 
     def ChooseClosestCoin(self, list_of_coins):
+        self.print_debug("::ChooseClosestCoin")
         possible_coins = []
         for coin in list_of_coins:
             x = coin["x"]
@@ -82,25 +98,71 @@ class MyBot(Bot):
                 if(x > self.half_map_Width):
                     possible_coins.append(coin)
         if (len(possible_coins) == 0):
-            return (-1, -1)
+            # TODO: Improve this
+            if(self.left_bot):
+                while True:
+                    coordinate = (random.randint(0, self.half_map_Width), random.randint(0, self.mapHeight))
+                    if (self.my_part_of_map[coordinate[1], coordinate[0]]):
+                        return coordinate
+            else:
+                while True:
+                    coordinate = (random.randint(self.half_map_Width, self.mapWidth) - self.half_map_Width, random.randint(0, self.mapHeight))
+                    if (self.my_part_of_map[coordinate[1], coordinate[0]]):
+                        return coordinate
+                #return (-1, -1)
         elif (len(possible_coins) == 1):
             return (possible_coins[0]["x"],possible_coins[0]["y"]) 
         else:
             coin1_x = possible_coins[0]["x"]
             coin1_y = possible_coins[0]["y"]
-            coin1_len = self.ManhatanDistance(self.my_x,self.my_y, coin1_x, coin1_y)
+            coin1_len = self.ManhatanDistance(self.my_distance_x,self.my_y, coin1_x, coin1_y)
 
             coin2_x = possible_coins[1]["x"]
             coin2_y = possible_coins[1]["y"]
-            coin2_len = self.ManhatanDistance(self.my_x,self.my_y, coin2_x, coin2_y)
+            coin2_len = self.ManhatanDistance(self.my_distance_x,self.my_y, coin2_x, coin2_y)
 
             if (coin1_len < coin2_len):
                 return (coin1_x, coin1_y)
             else:
                 return (coin2_x, coin2_y)
         
-    def ManhatanDistance(x1, y1, x2, y2):
+    def ManhatanDistance(self, x1, y1, x2, y2):
         return abs(x1 - x2) + abs(y1 - y2)
+
+    def FindAllCandidates(self):
+        self.print_debug("::FindAllCandidates")
+        for direction in self.possible_moves:
+            d_dir = (0,0)
+            if direction == Direction.LEFT:
+                d_dir = (-1,0)
+            elif direction == Direction.RIGHT:
+                d_dir = (1,0)
+            if direction == Direction.UP:
+                d_dir = (0,1)
+            elif direction == Direction.DOWN:
+                d_dir = (0,-1)
+            
+            new_y = self.my_y + d_dir[1]
+            new_x = self.my_distance_x + d_dir[0]
+            new_map_x = new_x
+
+            if not (new_x >= 0 and new_y >= 0 and new_x < self.mapWidth and new_y < self.mapHeight):
+                continue
+
+            if (not self.left_bot):
+                new_map_x -= self.half_map_Width
+                self.print_debug("New map x:" + str(new_map_x))
+            
+            # TODO: Check also for saws
+            if (not self.my_part_of_map[new_y][new_map_x]):
+                continue
+
+            self.print_debug("New x:" + str(new_x) + " New y:" + str(new_y))
+            self.print_debug("New map x:" + str(new_map_x))
+            curr_distance = self.ManhatanDistance(new_x, new_y, self.closest_coin[0], self.closest_coin[1])
+            if (curr_distance < self.costs_for_field[new_y][new_map_x]):
+                self.costs_for_field[new_y][new_map_x] = curr_distance
+                self.PushCandidate((self.costs_for_field[new_y][new_map_x] + 1, direction))
 
     # Called repeatedly while the match is generating. Each
     # time you receive the current match state and can use
@@ -109,39 +171,29 @@ class MyBot(Bot):
         # Find and send your unit to a random direction that
         # moves it to a valid field on the map
         # TODO: Remove this code and implement a proper path finding!
-        while True:
-            r = random.randint(0, 3)
 
-            # Pick a random direction to move
-            if r == 0:
-                direction = Direction.LEFT
-            elif r == 1:
-                direction = Direction.RIGHT
-            elif r == 2:
-                direction = Direction.UP
-            else:
-                direction = Direction.DOWN
 
-            # Find on which position this move will send your unit
-            new_x = state["yourUnit"]["x"]
-            new_y = state["yourUnit"]["y"]
-            if direction == Direction.LEFT:
-                new_x -= 1
-            elif direction == Direction.RIGHT:
-                new_x += 1
-            if direction == Direction.UP:
-                new_y += 1
-            elif direction == Direction.DOWN:
-                new_y -= 1
+        self.my_distance_x = int(state["yourUnit"]["x"])
+        self.my_map_x = self.my_distance_x
+        self.my_y = int(state["yourUnit"]["y"])
 
-            # If the new position is on the map then send the unit towards
-            # that direction and break the loop, else try again
-            map_width = self.initial_data["mapWidth"]
-            map_height = self.initial_data["mapHeight"]
-            if new_x >= 0 and new_y >= 0 and new_x < map_width and new_y < map_height \
-                    and self.initial_data["map"][new_y][new_x]:
-                response.move_unit(direction)
-                break
+        if (not self.left_bot):
+            self.my_map_x -= self.half_map_Width
+
+
+        if (self.my_distance_x == self.closest_coin[0] and  self.my_y == self.closest_coin[1]):
+            self.Reset()
+            self.print_debug("Dobil kovanec!!!")
+            # TODO: Dodaj se kaj kar bos rabu
+
+        closest_candidate = self.GetCandidate()
+        candidate_cost = closest_candidate[0]
+        candidate_move = closest_candidate[1]
+        response.move_unit(candidate_move)
+
+        
+        
+        self.FindAllCandidates()
 
 # Connects your bot to match generator, don't change it.
 if __name__ == "__main__":
