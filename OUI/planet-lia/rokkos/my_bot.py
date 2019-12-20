@@ -29,6 +29,7 @@ class MyBot(Bot):
         self.reset_player = False
         self.possible_moves = [Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN]
         self.coins_pos = [(coin["x"], coin["y"]) for coin in initial_data["coins"]]
+        self.past_moves = []
         
         self.my_x = int(initial_data["yourUnit"]["x"])
         self.my_y = int(initial_data["yourUnit"]["y"])
@@ -223,6 +224,16 @@ class MyBot(Bot):
                 self.PushCandidate((self.costs_for_field[new_y][new_x], direction))
 
 
+    def DivergePosition(self):
+        while True:
+            coordinate = (random.randint(0, self.mapWidth), random.randint(0, self.mapHeight))
+
+            if not (coordinate[0] >= 0 and coordinate[1] >= 0 and coordinate[0] < self.mapWidth and coordinate[1] < self.mapHeight):
+                continue
+
+            if (self.map[coordinate[1]][coordinate[0]]):
+                return coordinate
+
     # Called repeatedly while the match is generating. Each
     # time you receive the current match state and can use
     # response object to issue your commands.
@@ -236,7 +247,7 @@ class MyBot(Bot):
 
         new_coins_pos = [(coin["x"], coin["y"]) for coin in state["coins"]]
         if (not (new_coins_pos[0][0] == self.coins_pos[0][0] and new_coins_pos[0][1] == self.coins_pos[0][1]) or not(new_coins_pos[1][0] == self.coins_pos[1][0] and new_coins_pos[1][1] == self.coins_pos[1][1])):
-            self.ChooseClosestCoin(state["coins"])
+            self.closest_coin = self.ChooseClosestCoin(state["coins"])
 
         self.coins_pos = new_coins_pos
 
@@ -255,6 +266,22 @@ class MyBot(Bot):
         closest_candidate = self.GetCandidate()
         candidate_cost = closest_candidate[0]
         candidate_move = closest_candidate[1]
+
+        if (len(self.past_moves) < 4):
+            self.past_moves.append(candidate_move)
+        else:
+            self.past_moves = self.past_moves[1:]
+            self.past_moves.append(candidate_move)
+            if (self.past_moves[0] == self.past_moves[2] and self.past_moves[1] == self.past_moves[3]) and \
+               ((self.past_moves[0] == Direction.LEFT and self.past_moves[1] == Direction.RIGHT) or \
+                (self.past_moves[0] == Direction.RIGHT and self.past_moves[1] == Direction.LEFT) or \
+                (self.past_moves[0] == Direction.UP and self.past_moves[1] == Direction.DOWN) or \
+                (self.past_moves[0] == Direction.DOWN and self.past_moves[1] == Direction.UP)):
+                self.Reset(state["coins"])
+                self.closest_coin = self.DivergePosition()
+
+
+
         response.move_unit(candidate_move)
 
 # Connects your bot to match generator, don't change it.
