@@ -3,7 +3,7 @@ import random
 
 from core.bot import Bot
 from core.networking_client import connect
-from core.enums import Direction
+from core.enums import Direction, SawDirection
 
 
 ## My imports
@@ -24,9 +24,11 @@ class MyBot(Bot):
         self.mapWidth = int(initial_data["mapWidth"])
         self.half_map_Width = int(self.mapWidth / 2)
         self.map = initial_data["map"]
+        self.saws = initial_data["saws"]
         self.left_bot = False
         self.reset_player = False
         self.possible_moves = [Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN]
+        self.real_coin = False
         
         self.my_x = int(initial_data["yourUnit"]["x"])
         self.my_y = int(initial_data["yourUnit"]["y"])
@@ -73,17 +75,53 @@ class MyBot(Bot):
         self.costs_for_field = [[inf for _ in range(self.mapWidth)] for __ in range(self.mapHeight)]
         self.print_debug("My coordinate: " + str(self.my_x) + ", " + str(self.my_y))
         self.costs_for_field[self.my_y][self.my_x] = self.ManhatanDistance(self.my_x, self.my_y, self.closest_coin[0], self.closest_coin[1])    
-        
+        self.first_move = None
 
         #self.PushCandidate((self.costs_for_field[self.my_y][self.my_x], (self.my_x, self.my_y)))
         #self.FindAllCandidates()
+
+    def ChooseSubOptimalSolution(self):
+        best_distance = inf
+        best_sub_optimal = (None, None)
+        for direction in self.possible_moves:
+            d_dir = (0,0)
+            if direction == Direction.LEFT:
+                d_dir = (-1,0)
+            elif direction == Direction.RIGHT:
+                d_dir = (1,0)
+            elif direction == Direction.UP:
+                d_dir = (0,1)
+            elif direction == Direction.DOWN:
+                d_dir = (0,-1)
+            
+            new_y = self.my_y + d_dir[1]
+            new_x = self.my_x + d_dir[0]
+
+            if not (new_x >= 0 and new_y >= 0 and new_x < self.mapWidth and new_y < self.mapHeight):
+                self.print_debug("Skyped by out of bounds")
+                continue
+            
+            
+            if (not self.map[new_y][new_x]):
+                self.print_debug("Skyped by hole")
+                continue
+            
+            curr_distance = self.ManhatanDistance(new_x, new_y, self.closest_coin[0], self.closest_coin[1])
+            if (curr_distance < best_distance):
+                best_distance = curr_distance
+                best_sub_optimal = (42, direction)
+        
+        return best_sub_optimal
 
     def PushCandidate(self, elem):
         self.print_debug("::PushCandidate")
         heapq.heappush(self.candidates, elem)  
     def GetCandidate(self):
         self.print_debug("::GetCandidate")
-        candidate = heapq.heappop(self.candidates)
+        if (len(self.candidates) > 0):
+            candidate = heapq.heappop(self.candidates)
+        else:
+            candidate = self.ChooseSubOptimalSolution()
         self.print_debug(candidate)
         return candidate
 
@@ -99,7 +137,10 @@ class MyBot(Bot):
                 if(x > self.half_map_Width):
                     possible_coins.append(coin)
         if (len(possible_coins) == 0):
-            # TODO: Improve this
+            # TODO: Implement real coin
+
+            self.real_coin = False
+
             if(self.left_bot):
                 while True:
                     coordinate = (random.randint(0, self.half_map_Width), random.randint(0, self.mapHeight))
@@ -121,8 +162,11 @@ class MyBot(Bot):
                         return coordinate
                 #return (-1, -1)
         elif (len(possible_coins) == 1):
+            self.real_coin = True
             return (possible_coins[0]["x"],possible_coins[0]["y"]) 
         else:
+            self.real_coin = True
+
             coin1_x = possible_coins[0]["x"]
             coin1_y = possible_coins[0]["y"]
             coin1_len = self.ManhatanDistance(self.my_x,self.my_y, coin1_x, coin1_y)
@@ -149,7 +193,7 @@ class MyBot(Bot):
                 d_dir = (-1,0)
             elif direction == Direction.RIGHT:
                 d_dir = (1,0)
-            if direction == Direction.UP:
+            elif direction == Direction.UP:
                 d_dir = (0,1)
             elif direction == Direction.DOWN:
                 d_dir = (0,-1)
@@ -158,11 +202,41 @@ class MyBot(Bot):
             new_x = self.my_x + d_dir[0]
 
             if not (new_x >= 0 and new_y >= 0 and new_x < self.mapWidth and new_y < self.mapHeight):
+                self.print_debug("Skyped by out of bounds")
                 continue
             
-            # TODO: Check also for saws
+            
             if (not self.map[new_y][new_x]):
+                self.print_debug("Skyped by hole")
                 continue
+            
+            skip_direction = False
+            for saw in self.saws:
+                s_x = saw["x"]
+                s_y = saw["y"]
+                s_dir = saw["direction"]
+
+                if s_dir == SawDirection.UP_LEFT:
+                    s_x -= 1
+                    s_y += 1
+                elif s_dir == SawDirection.UP_RIGHT:
+                    s_x += 1
+                    s_y += 1
+                elif s_dir == SawDirection.DOWN_LEFT:
+                    s_x -= 1
+                    s_y -= 1
+                elif s_dir == SawDirection.DOWN_RIGHT:
+                    s_x += 1
+                    s_y -= 1
+
+                if (s_x == new_x and s_y == new_y):
+                    skip_direction = True
+                    break
+                
+            if (skip_direction):
+                self.print_debug("Skyped by saw")
+                continue
+
 
             self.print_debug("New x:" + str(new_x) + " New y:" + str(new_y))
             curr_distance = self.ManhatanDistance(new_x, new_y, self.closest_coin[0], self.closest_coin[1])
@@ -170,17 +244,16 @@ class MyBot(Bot):
                 self.costs_for_field[new_y][new_x] = curr_distance
                 self.PushCandidate((self.costs_for_field[new_y][new_x], direction))
 
+
     # Called repeatedly while the match is generating. Each
     # time you receive the current match state and can use
     # response object to issue your commands.
     def update(self, state, response):
-        # Find and send your unit to a random direction that
-        # moves it to a valid field on the map
-        # TODO: Remove this code and implement a proper path finding!
-
-
+        self.candidates = []
         self.my_x = int(state["yourUnit"]["x"])
         self.my_y = int(state["yourUnit"]["y"])
+        self.saws = state["saws"]
+
 
         if (self.reset_player):
             self.reset_player = False
