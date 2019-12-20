@@ -28,10 +28,14 @@ class MyBot(Bot):
         self.left_bot = False
         self.reset_player = False
         self.possible_moves = [Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN]
-        self.real_coin = False
+        self.coins_pos = [(coin["x"], coin["y"]) for coin in initial_data["coins"]]
         
         self.my_x = int(initial_data["yourUnit"]["x"])
         self.my_y = int(initial_data["yourUnit"]["y"])
+
+        self.opponent_x = int(initial_data["opponentUnit"]["x"])
+        self.opponent_y = int(initial_data["opponentUnit"]["y"])
+
         #self.my_part_of_map = [[False for i in range(0, self.half_map_Width)] for j in range(0, self.mapHeight)]
         if (self.my_x == 0):
             self.left_bot = True
@@ -127,58 +131,32 @@ class MyBot(Bot):
 
     def ChooseClosestCoin(self, list_of_coins):
         self.print_debug("::ChooseClosestCoin")
-        possible_coins = []
+        
+        my_coins_distances = []
+        opponent_coins_distances = []
         for coin in list_of_coins:
-            x = coin["x"]
-            if (self.left_bot):
-                if(x <= self.half_map_Width):
-                    possible_coins.append(coin)
+            c_x = coin["x"]
+            c_y = coin["y"]
+            
+            my_coins_distances.append(self.ManhatanDistance(self.my_x,self.my_y, c_x, c_y))
+            opponent_coins_distances.append(self.ManhatanDistance(self.opponent_x,self.opponent_y, c_x, c_y))
+            
+        
+        if (my_coins_distances[0] <= opponent_coins_distances[0] and my_coins_distances[1] <= opponent_coins_distances[1]):
+            if (my_coins_distances[0] < my_coins_distances[1]):
+                return (list_of_coins[0]["x"], list_of_coins[0]["y"])
             else:
-                if(x > self.half_map_Width):
-                    possible_coins.append(coin)
-        if (len(possible_coins) == 0):
-            # TODO: Implement real coin
+                return (list_of_coins[1]["x"], list_of_coins[1]["y"])
 
-            self.real_coin = False
-
-            if(self.left_bot):
-                while True:
-                    coordinate = (random.randint(0, self.half_map_Width), random.randint(0, self.mapHeight))
-
-                    if not (coordinate[0] >= 0 and coordinate[1] >= 0 and coordinate[0] < self.mapWidth and coordinate[1] < self.mapHeight):
-                        continue
-
-                    if (self.map[coordinate[1]][coordinate[0]]):
-                        return coordinate
+        elif (my_coins_distances[0] > opponent_coins_distances[0] and my_coins_distances[1] > opponent_coins_distances[1]):
+            if (opponent_coins_distances[0] < opponent_coins_distances[1]):
+                return (list_of_coins[1]["x"], list_of_coins[1]["y"])
             else:
-                while True:
-                    coordinate = (random.randint(self.half_map_Width, self.mapWidth), random.randint(0, self.mapHeight))
-                    
-                    if not (coordinate[0] >= 0 and coordinate[1] >= 0 and coordinate[0] < self.mapWidth and coordinate[1] < self.mapHeight):
-                        continue
-
-
-                    if (self.map[coordinate[1]][coordinate[0]]):
-                        return coordinate
-                #return (-1, -1)
-        elif (len(possible_coins) == 1):
-            self.real_coin = True
-            return (possible_coins[0]["x"],possible_coins[0]["y"]) 
-        else:
-            self.real_coin = True
-
-            coin1_x = possible_coins[0]["x"]
-            coin1_y = possible_coins[0]["y"]
-            coin1_len = self.ManhatanDistance(self.my_x,self.my_y, coin1_x, coin1_y)
-
-            coin2_x = possible_coins[1]["x"]
-            coin2_y = possible_coins[1]["y"]
-            coin2_len = self.ManhatanDistance(self.my_x,self.my_y, coin2_x, coin2_y)
-
-            if (coin1_len < coin2_len):
-                return (coin1_x, coin1_y)
-            else:
-                return (coin2_x, coin2_y)
+                return (list_of_coins[0]["y"], list_of_coins[0]["x"])
+        elif(my_coins_distances[0] <= opponent_coins_distances[0] and my_coins_distances[1] >= opponent_coins_distances[1]):
+            return (list_of_coins[0]["x"], list_of_coins[0]["y"])
+        elif(my_coins_distances[0] >= opponent_coins_distances[0] and my_coins_distances[1] <= opponent_coins_distances[1]):
+            return (list_of_coins[1]["x"], list_of_coins[1]["y"])
         
     def ManhatanDistance(self, x1, y1, x2, y2):
         return abs(x1 - x2) + abs(y1 - y2)
@@ -253,6 +231,14 @@ class MyBot(Bot):
         self.my_x = int(state["yourUnit"]["x"])
         self.my_y = int(state["yourUnit"]["y"])
         self.saws = state["saws"]
+        self.opponent_x = int(state["opponentUnit"]["x"])
+        self.opponent_y = int(state["opponentUnit"]["y"])
+
+        new_coins_pos = [(coin["x"], coin["y"]) for coin in state["coins"]]
+        if (not (new_coins_pos[0][0] == self.coins_pos[0][0] and new_coins_pos[0][1] == self.coins_pos[0][1]) or not(new_coins_pos[1][0] == self.coins_pos[1][0] and new_coins_pos[1][1] == self.coins_pos[1][1])):
+            self.ChooseClosestCoin(state["coins"])
+
+        self.coins_pos = new_coins_pos
 
 
         if (self.reset_player):
